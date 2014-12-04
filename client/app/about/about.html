@@ -9,4 +9,43 @@
       </div>
     </tab>
   </tabset>
+  <div class="page-header">
+    <h1>Resume<h1>
+  </div>
+  <h2 class="resume sub-header row">Education</h2>
+  <ul class="resume row">
+    <li data-ng-repeat="entry in resume.education" class="entry col-md-6">
+      <div class="title">{{entry.school}}</div>
+      <div class="info">{{entry.dates}}</div>
+      <div class="info">{{entry.degree}}</div>
+      <div class="info">{{entry.scholarhip}}</div>
+      <div class="info">{{entry.teacher}}</div>
+    </li>
+  </ul>
+  <h2 class="resume sub-header row">Featured Performances</h2>
+  <ul class="resume row">
+    <li data-ng-repeat="entry in resume.performances" class="entry col-md-4">
+      <div class="title">{{entry.title}}</div>
+      <div class="info">for {{entry.instrumentation}}</div>
+      <div class="info">{{entry.additional}}</div>
+      <div class="info">{{entry.venue}}</div>
+      <div class="info">{{entry.date}}</div>
+    </li>
+  </ul>
+  <h2 class="resume sub-header row">Awards</h2>
+  <ul class="resume row">
+    <li data-ng-repeat="entry in resume.awards" class="entry col-md-6">
+      <div class="title">{{entry.title}}</div>
+      <div class="info">{{entry.info1}}</div>
+      <div class="info">{{entry.info2}}</div>
+    </li>
+  </ul>
+  <h2 class="resume sub-header row">Experience</h2>
+  <ul class="resume row">
+    <li data-ng-repeat="entry in resume.awards" class="entry col-md-6">
+      <div class="title">{{entry.title}}</div>
+      <div class="info">{{entry.info1}}</div>
+      <div class="info">{{entry.info2}}</div>
+    </li>
+  </ul>
 </div>

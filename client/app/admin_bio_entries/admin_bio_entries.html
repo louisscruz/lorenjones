@@ -1,0 +1,17 @@
+<div class="container">
+  <form class="thing-form">
+    <label>Syncs in realtime across clients</label>
+    <p class="input-group">
+      <input type="text" class="form-control" placeholder="Title for Bio Tab" ng-model="newTitle">
+      <input type="text" class="form-control" placeholder="Content for Bio" ng-model="newContent">
+      <button type="submit" class="btn btn-primary" ng-click="addEntry(entry)">Add New</button>
+    </p>
+  </form>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="entry in bioEntries">
+      <strong>{{entry.title}}</strong><br>
+      <span class="text-muted">{{entry.content}}</span>
+      <a ng-click="deleteEntry(entry)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+    </li>
+  </ul>
+</div>
