@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Bio<h1>
+  </div>
+  <tabset>
+    <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
+      <div class="row col-md-12 bio">
+        <p>{{entry.content}}</p>
+      </div>
+    </tab>
+  </tabset>
+</div>
