@@ -1,3 +1,19 @@
-<div class="col-md-12">
-This is the events view.
+<div class="container">
+  <h1>Events</h1>
+  <ul class="events col-md-8 col-md-offset-2">
+    <li data-ng-repeat="event in events.scheduled" class="event">
+      <h1 class="title">{{event.name}}</h1>
+      <h2 class="title">{{event.date | date:'EEEE'}}</h2>
+      <h3 class="title">{{event.date | date:'MMMM d, yyyy'}}</h3>
+      <h3 class="title">{{event.date | date: 'shortTime'}}</h3>
+      <span class="date">{{event.time}}</span>
+      <span class="date">{{event.name}}</span>
+      <span class="date">{{event.venue}}</span>
+      <span class="date">{{event.city}}</span>
+      <span class="date">{{event.url}}</span>
+      <ui-gmap-google-map center="event.center" zoom='event.zoom' options='options'>
+      </ui-gmap-google-map>
+    </li>
+
+  </ul>
 </div>
