@@ -18,6 +18,8 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/resume_category/resume_category.socket').register(socket);
+  require('../api/resume_entry/resume_entry.socket').register(socket);
   require('../api/bio_entry/bio_entry.socket').register(socket);
   require('../api/work/work.socket').register(socket);
   require('../api/event/event.socket').register(socket);

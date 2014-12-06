@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="col-md-12">
+    <h4 class="row">Resume Categories</h4>
+    <form class="thing-form" role="form">
+      <label>Add new categories to the resume section</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Resume Category" ng-model="newCategory">
+      </p>
+      <p class="input-group">
+        <button type="submit" class="btn btn-primary" ng-click="addCategory(category)">Add New</button>
+      </p>
+    </form>
+    <ul class="nav nav-tabs nav-stacked col-md-8 col-md-offset-2" ng-repeat="category in resumeCategories">
+      <li>
+        <button type="button" class="close" ng-click="deleteCategory(category)">&times;</button>
+        <label>{{category.name}}</label>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-md-12">
+    <h4 class="row">Resume Entries</h4>
+    <form class="thing-form" role="form">
+      <label>Add new content to the resume section</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Title" ng-model="newTitle">
+      </p>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Field 1 (opt.)" ng-model="newField1">
+      </p>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Field 2 (opt.)" ng-model="newField2">
+      </p>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Field 3 (opt.)" ng-model="newField3">
+      </p>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Field 4 (opt.)" ng-model="newField4">
+      </p>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Field 5 (opt.)" ng-model="newField5">
+      </p>
+      <select ng-model="newEntryCategory">
+        <option ng-repeat="category in resumeCategories" value="{{category.name}}">{{category.name}}</option>
+      </select>
+      <p class="input-group">
+        <button type="submit" class="btn btn-primary" ng-click="addEntry(entry)">Add New</button>
+      </p>
+    </form>
+    <ul class="nav nav-tabs nav-stacked col-md-8 col-md-offset-2" ng-repeat="entry in resumeEntries">
+      <li>
+        <button type="button" class="close" ng-click="deleteEntry(entry)">&times;</button>
+        <label>{{entry.title}}</label>
+        <p>{{entry.category}}</p>
+        <p>{{entry.field1}}</pl>
+        <p>{{entry.field2}}</p>
+        <p>{{entry.field3}}</p>
+        <p>{{entry.field4}}</p>
+        <p>{{entry.field5}}</p>
+      </li>
+    </ul>
+  </div>
+</div>

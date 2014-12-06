@@ -1,10 +1,10 @@
 <div class="container">
-  <div class="page-header">
+  <div>
     <h1>Bio<h1>
   </div>
   <tabset>
     <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
-      <div class="row col-md-12 bio">
+      <div class="row col-md-12 bio section">
         <p>{{entry.content}}</p>
       </div>
     </tab>
@@ -12,40 +12,17 @@
   <div class="page-header">
     <h1>Resume<h1>
   </div>
-  <h2 class="resume sub-header row">Education</h2>
-  <ul class="resume row">
-    <li data-ng-repeat="entry in resume.education" class="entry col-md-6">
-      <div class="title">{{entry.school}}</div>
-      <div class="info">{{entry.dates}}</div>
-      <div class="info">{{entry.degree}}</div>
-      <div class="info">{{entry.scholarhip}}</div>
-      <div class="info">{{entry.teacher}}</div>
-    </li>
-  </ul>
-  <h2 class="resume sub-header row">Featured Performances</h2>
-  <ul class="resume row">
-    <li data-ng-repeat="entry in resume.performances" class="entry col-md-4">
-      <div class="title">{{entry.title}}</div>
-      <div class="info">for {{entry.instrumentation}}</div>
-      <div class="info">{{entry.additional}}</div>
-      <div class="info">{{entry.venue}}</div>
-      <div class="info">{{entry.date}}</div>
-    </li>
-  </ul>
-  <h2 class="resume sub-header row">Awards</h2>
-  <ul class="resume row">
-    <li data-ng-repeat="entry in resume.awards" class="entry col-md-6">
-      <div class="title">{{entry.title}}</div>
-      <div class="info">{{entry.info1}}</div>
-      <div class="info">{{entry.info2}}</div>
-    </li>
-  </ul>
-  <h2 class="resume sub-header row">Experience</h2>
-  <ul class="resume row">
-    <li data-ng-repeat="entry in resume.awards" class="entry col-md-6">
-      <div class="title">{{entry.title}}</div>
-      <div class="info">{{entry.info1}}</div>
-      <div class="info">{{entry.info2}}</div>
-    </li>
-  </ul>
+  <div class="resume">
+    <div ng-repeat="category in resumeCategories" class="row">
+      <h2 ng-model="sectionCategory">{{category.name}}</h2>
+      <div ng-repeat="entry in resumeEntries" class="col-md-4">
+        <div>{{entry.title}}</div>
+        <div>{{entry.field1}}</div>
+        <div>{{entry.field2}}</div>
+        <div>{{entry.field3}}</div>
+        <div>{{entry.field4}}</div>
+        <div>{{entry.field5}}</div>
+      </div>
+    </div>
+  </div>
 </div>
