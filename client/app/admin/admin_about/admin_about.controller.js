@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('louiscruzApp')
-  .controller('AdminResumeEntriesCtrl', function ($scope, $http, socket) {
-    $scope.resumeCategories = [];
+  .controller('AdminAboutCtrl', function ($scope, $http, socket) {
+    $scope.bioEntries = [];
     $scope.resumeEntries = [];
 
-    $http.get('/api/resume_categories').success(function(resumeCategories) {
-      $scope.resumeCategories = resumeCategories;
-      socket.syncUpdates('resume_category', $scope.resumeCategories);
+    $http.get('/api/bio_entries').success(function(bioEntries) {
+      $scope.bioEntries = bioEntries;
+      socket.syncUpdates('bio_entry', $scope.bioEntries);
     });
 
     $http.get('/api/resume_entries').success(function(resumeEntries) {
@@ -15,25 +15,23 @@ angular.module('louiscruzApp')
       socket.syncUpdates('resume_entry', $scope.resumeEntries);
     });
 
-    $scope.addCategory = function() {
-      if($scope.newCategory === '' ) {
+    $scope.addBioEntry = function() {
+      if($scope.newTitle === '' || $scope.newContent === '' ) {
         return;
       }
-      $http.post('/api/resume_categories', {
-        name: $scope.newCategory
+      $http.post('/api/bio_entries', {
+        title: $scope.newTitle,
+        content: $scope.newContent
       });
-      $scope.newCategory = '';
+      $scope.newTitle = '';
+      $scope.newContent = '';
     };
 
-    $scope.deleteCategory = function(category) {
-      $http.delete('/api/resume_categories/' + category._id);
+    $scope.deleteBioEntry = function(entry) {
+      $http.delete('/api/bio_entries/' + entry._id);
     };
 
-    $scope.$on('$destroy', function() {
-      scope.unsynUpdates('category');
-    });
-
-    $scope.addEntry = function() {
+    $scope.addResumeEntry = function() {
       if($scope.newTitle === '' ) {
         return;
       }
@@ -55,7 +53,7 @@ angular.module('louiscruzApp')
       $scope.newCategory = '';
     };
 
-    $scope.deleteEntry = function(entry) {
+    $scope.deleteResumeEntry = function(entry) {
       $http.delete('/api/resume_entries/' + entry._id);
     };
 

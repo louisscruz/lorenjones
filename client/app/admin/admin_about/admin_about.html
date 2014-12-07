@@ -1,0 +1,68 @@
+<div class="container">
+  <h1 class="col-md-12">Manage About Page</h1>
+  <h2 class="col-md-12">Edit Bio Content</h2>
+
+  <div class="col-md-4">
+    <form class="thing-form">
+      <label>Title of the Bio Tab</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Bio Tab Title" ng-model="newTitle">
+      </p>
+      <p class="input-group">
+        <textarea type="text" class="form-control" placeholder="Bio Content" ng-model="newContent"></textarea>
+      </p>
+      <p class="input-group">
+        <button type="submit" class="btn btn-primary" ng-click="addBioEntry()">Add New</button>
+      </p>
+    </form>
+  </div>
+
+  <div class="col-md-8">
+    <tabset>
+      <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
+        <div class="row col-md-12 bio section">
+          <p>{{entry.content}}</p>
+          <button type="button" class="btn btn-danger" ng-click="deleteBioEntry(entry)">Delete</button>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+
+  <h2 class="col-md-12">Edit Resume Content</h2>
+
+  <div class="col-md-4">
+    <form class="thing-form">
+      <label>Syncs in realtime across clients</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Title" ng-model="newTitle">
+      </p>
+      <select class="form-control" ng-model="newCategory" ng-options="f for f in category"></select>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Field 1" ng-model="newField1">
+      </p>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Field 2" ng-model="newField2">
+      </p>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Field 3" ng-model="newField3">
+      </p>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Field 4" ng-model="newField4">
+      </p>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Field 5" ng-model="newField5">
+      </p>
+    </form>
+  </div>
+
+  <div class="col-md-8">
+  <ul ng-repeat="(category, entries) in resumeEntries | groupBy: 'category'">
+    <h1>{{ category }}</h1>
+    <li ng-repeat="entry in entries">
+      <h5>{{ entry.title }}</h5>
+      <h6>{{ entry.field1 }}</h6>
+    </li>
+  </ul>
+</div>
+
+</div>

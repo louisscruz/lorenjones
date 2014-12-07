@@ -13,16 +13,12 @@
     <h1>Resume<h1>
   </div>
   <div class="resume">
-    <div ng-repeat="category in resumeCategories" class="row">
-      <h2 ng-model="sectionCategory">{{category.name}}</h2>
-      <div ng-repeat="entry in resumeEntries" class="col-md-4">
-        <div>{{entry.title}}</div>
-        <div>{{entry.field1}}</div>
-        <div>{{entry.field2}}</div>
-        <div>{{entry.field3}}</div>
-        <div>{{entry.field4}}</div>
-        <div>{{entry.field5}}</div>
-      </div>
-    </div>
+    <ul ng-repeat="(category, entries) in resumeEntries | groupBy: 'category'">
+      <h2>{{ category }}</h2>
+      <li ng-repeat="entry in entries">
+        <h5>{{ entry.title }}</h5>
+        <h6>{{ entry.field1 }}</h6>
+      </li>
+    </ul>
   </div>
 </div>

@@ -1,16 +1,16 @@
 'use strict';
 
-describe('Controller: AdminResumeEntriesCtrl', function () {
+describe('Controller: AdminAboutCtrl', function () {
 
   // load the controller's module
   beforeEach(module('louiscruzApp'));
 
-  var AdminResumeEntriesCtrl, scope;
+  var AdminAboutCtrl, scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    AdminResumeEntriesCtrl = $controller('AdminResumeEntriesCtrl', {
+    AdminAboutCtrl = $controller('AdminAboutCtrl', {
       $scope: scope
     });
   }));
