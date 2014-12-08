@@ -12,7 +12,10 @@
       <span class="date">{{event.city}}</span>
       <span class="date">{{event.url}}</span>
       <ui-gmap-google-map center="event.center" zoom='event.zoom' options='options'>
+        <ui-gmap-marker coords="event.center">
+        </ui-gmap-marker>
       </ui-gmap-google-map>
+
     </li>
 
   </ul>

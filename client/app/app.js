@@ -7,7 +7,9 @@ angular.module('louiscruzApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'angular.filter'
+  'angular.filter',
+  'ui.sortable',
+  'uiGmapgoogle-maps'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

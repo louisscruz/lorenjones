@@ -1,3 +1,38 @@
-<div class="col-md-12">
-This is the admin_events view.
+<div class="container">
+  <h1 class="col-md-12">Manage Event Page</h1>
+  <h2 class="col-md-12">Add Event</h2>
+
+  <div class="col-md-4">
+    <form class="thing-form">
+      <label>Name of Event</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Event Title" ng-model="newName">
+      </p>
+      <label>Date of Event:</label>
+      <p class="input-group">
+        <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+      </p>
+      <label>Name of Venue:</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Event Title" ng-model="newVenue">
+      </p>
+      <label>City:</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Event Title" ng-model="newCity">
+      </p>
+      <label>Address:</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Event Title" ng-model="newCenter">
+      </p>
+      <p class="input-group">
+        <button type="submit" class="btn btn-primary" ng-click="addEvent()">Add New</button>
+      </p>
+    </form>
+  </div>
+
+  <div class="col-md-8">
+    <ul ng-repeat="event in events">
+      stuff
+    </ul>
+  </div>
 </div>

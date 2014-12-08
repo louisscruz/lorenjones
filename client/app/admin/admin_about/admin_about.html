@@ -6,7 +6,7 @@
     <form class="thing-form">
       <label>Title of the Bio Tab</label>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Bio Tab Title" ng-model="newTitle">
+        <input type="text" class="form-control" placeholder="Bio Tab Title" ng-model="newTab">
       </p>
       <p class="input-group">
         <textarea type="text" class="form-control" placeholder="Bio Content" ng-model="newContent"></textarea>
@@ -32,11 +32,14 @@
 
   <div class="col-md-4">
     <form class="thing-form">
-      <label>Syncs in realtime across clients</label>
+      <label>Title of Resume Content</label>
       <p class="input-group">
         <input type="text" class="form-control" placeholder="Entry Title" ng-model="newTitle">
       </p>
-      <select class="form-control" ng-model="newCategory" ng-options="f for f in category"></select>
+      <label>Resume Category</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Entry Category" ng-model="newCategory">
+      </p>
       <p class="input-group">
         <input type="text" class="form-control" placeholder="Entry Field 1" ng-model="newField1">
       </p>
@@ -52,13 +55,17 @@
       <p class="input-group">
         <input type="text" class="form-control" placeholder="Entry Field 5" ng-model="newField5">
       </p>
+      <p class="input-group">
+        <button type="submit" class="btn btn-primary" ng-click="addResumeEntry()">Add New</button>
+      </p>
     </form>
   </div>
 
   <div class="col-md-8">
-  <ul ng-repeat="(category, entries) in resumeEntries | groupBy: 'category'">
+  <ul ui-sortable ng-repeat="(category, entries) in resumeEntries | groupBy: 'category'">
     <h1>{{ category }}</h1>
-    <li ng-repeat="entry in entries">
+    <li ng-repeat="entry in entries" style="padding:5px 10px; cursor: move;">
+      <button type="button" class="close" ng-click="deleteResumeEntry(entry)">&times;</button>
       <h5>{{ entry.title }}</h5>
       <h6>{{ entry.field1 }}</h6>
     </li>

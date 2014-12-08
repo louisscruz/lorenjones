@@ -2,6 +2,7 @@
 
 angular.module('louiscruzApp')
   .controller('EventsCtrl', function ($scope) {
+    $scope.options = {scrollwheel: false};
     $scope.events = {
       scheduled: [
       {

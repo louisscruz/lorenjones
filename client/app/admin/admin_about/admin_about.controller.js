@@ -16,14 +16,14 @@ angular.module('louiscruzApp')
     });
 
     $scope.addBioEntry = function() {
-      if($scope.newTitle === '' || $scope.newContent === '' ) {
+      if($scope.newTab === '' || $scope.newContent === '' ) {
         return;
       }
       $http.post('/api/bio_entries', {
-        title: $scope.newTitle,
+        title: $scope.newTab,
         content: $scope.newContent
       });
-      $scope.newTitle = '';
+      $scope.newTab = '';
       $scope.newContent = '';
     };
 
@@ -32,7 +32,7 @@ angular.module('louiscruzApp')
     };
 
     $scope.addResumeEntry = function() {
-      if($scope.newTitle === '' ) {
+      if($scope.newTitle === '' || $scope.newCategory === '') {
         return;
       }
       $http.post('/api/resume_entries', {
@@ -42,7 +42,7 @@ angular.module('louiscruzApp')
         field3: $scope.newField3,
         field4: $scope.newField4,
         field5: $scope.newField5,
-        category: $scope.newEntryCategory
+        category: $scope.newCategory
       });
       $scope.newTitle = '';
       $scope.newField1 = '';
