@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 var WorkSchema = new Schema({
   title: String,
   category: String,
+  date: Number,
   active: Boolean
 });
 

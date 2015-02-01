@@ -5,7 +5,7 @@
         {{ category }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </accordion-heading>
       <div ng-repeat="work in works">
-        {{ work.title }}
+        {{ work.title }} ({{ work.date }})
       </div>
     </accordion-group>
   </accordion>

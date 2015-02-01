@@ -18,15 +18,17 @@ angular.module('louiscruzApp')
     });
 
     $scope.addWork = function() {
-      if($scope.newTitle === '' || $scope.newCategory === '' ) {
+      if($scope.newTitle === '' || $scope.newCategory === '' || $scope.newDate === '' ) {
         return;
       }
       $http.post('/api/works', {
         title: $scope.newTitle,
-        category: $scope.newCategory
+        category: $scope.newCategory,
+        date: $scope.newDate
       });
       $scope.newTitle = '';
       $scope.newCategory = '';
+      $scope.newDate = '';
     };
 
     $scope.deleteWork = function(work) {
