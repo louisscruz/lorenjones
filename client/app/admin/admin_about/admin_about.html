@@ -1,6 +1,5 @@
 <div class="container">
-  <h1 class="col-md-12">Manage About Page</h1>
-  <h2 class="col-md-12">Edit Bio Content</h2>
+  <h1 class="col-md-12">Manage Bio Content</h1>
 
   <div class="col-md-4">
     <form class="thing-form">
@@ -27,49 +26,4 @@
       </tab>
     </tabset>
   </div>
-
-  <h2 class="col-md-12">Edit Resume Content</h2>
-
-  <div class="col-md-4">
-    <form class="thing-form">
-      <label>Title of Resume Content</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Entry Title" ng-model="newTitle">
-      </p>
-      <label>Resume Category</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Entry Category" ng-model="newCategory">
-      </p>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Entry Field 1" ng-model="newField1">
-      </p>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Entry Field 2" ng-model="newField2">
-      </p>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Entry Field 3" ng-model="newField3">
-      </p>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Entry Field 4" ng-model="newField4">
-      </p>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Entry Field 5" ng-model="newField5">
-      </p>
-      <p class="input-group">
-        <button type="submit" class="btn btn-primary" ng-click="addResumeEntry()">Add New</button>
-      </p>
-    </form>
-  </div>
-
-  <div class="col-md-8">
-  <ul ui-sortable ng-repeat="(category, entries) in resumeEntries | groupBy: 'category'">
-    <h1>{{ category }}</h1>
-    <li ng-repeat="entry in entries" style="padding:5px 10px; cursor: move;">
-      <button type="button" class="close" ng-click="deleteResumeEntry(entry)">&times;</button>
-      <h5>{{ entry.title }}</h5>
-      <h6>{{ entry.field1 }}</h6>
-    </li>
-  </ul>
-</div>
-
 </div>

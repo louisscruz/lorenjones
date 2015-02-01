@@ -1,29 +1,11 @@
 'use strict';
 
 angular.module('louiscruzApp')
-  .controller('WorksCtrl', function ($scope) {
-    $scope.oneAtATime = true;
+  .controller('WorksCtrl', function ($scope, $http, socket) {
+    $scope.works = [];
 
-    $scope.groups = [
-    {
-      title: 'Dynamic Group Header - 1',
-      content: 'Dynamic Group Body - 1'
-    },
-    {
-      title: 'Dynamic Group Header - 2',
-      content: 'Dynamic Group Body - 2'
-    }
-    ];
-
-    $scope.items = ['Item 1', 'Item 2', 'Item 3'];
-
-    $scope.addItem = function() {
-      var newItemNo = $scope.items.length + 1;
-      $scope.items.push('Item ' + newItemNo);
-    };
-
-    $scope.status = {
-      isFirstOpen: true,
-      isFirstDisabled: false
-    };
+    $http.get('/api/works').success(function(works) {
+      $scope.works = works;
+      socket.syncUpdates('work', $scope.works);
+    });
   });
