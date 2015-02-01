@@ -8,7 +8,9 @@
       </p>
       <label>Category of the Work</label>
       <p class="input-group">
-        <textarea type="text" class="form-control" placeholder="Work Category" ng-model="newCategory"></textarea>
+        <select ng-model="newCategory">
+          <option ng-repeat="group in groups" value="{{group}}">{{group}}</option>
+        </select>
       </p>
       <p class="input-group">
         <button type="submit" class="btn btn-primary" ng-click="addWork()">Add New</button>
@@ -27,5 +29,4 @@
       </div>
     </accordion-group>
   </accordion>
-
 </div>

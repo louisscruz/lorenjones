@@ -3,6 +3,14 @@
 angular.module('louiscruzApp')
   .controller('AdminWorksCtrl', function ($scope, $http, socket) {
     $scope.works = [];
+    $scope.groups = [
+      "Solo",
+      "Chamber",
+      "Orchestral",
+      "Vocal",
+      "Choral",
+      "Opera"
+    ];
 
     $http.get('/api/works').success(function(works) {
       $scope.works = works;
