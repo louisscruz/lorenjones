@@ -9,7 +9,8 @@ angular.module('louiscruzApp', [
   'ui.bootstrap',
   'angular.filter',
   'ui.sortable',
-  'uiGmapgoogle-maps'
+  'uiGmapgoogle-maps',
+  'plangular'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

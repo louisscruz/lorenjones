@@ -14,7 +14,11 @@
       </p>
       <label>Date of the Work</label>
       <p class="input-group">
-        <input type="number" class="form-control" placeholder="Work Date" ng-model="newDate">
+        <input type="number" class="form-control" placeholder="Work Date" ng-model="newDate" ng-init="newDate = 2013">
+      </p>
+      <label>Link to Score of the Work</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Link to Score" ng-model="newScore">
       </p>
       <p class="input-group">
         <button type="submit" class="btn btn-primary" ng-click="addWork()">Add New</button>

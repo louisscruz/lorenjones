@@ -7,6 +7,8 @@ var WorkSchema = new Schema({
   title: String,
   category: String,
   date: Number,
+  score: String,
+  audio: String,
   active: Boolean
 });
 

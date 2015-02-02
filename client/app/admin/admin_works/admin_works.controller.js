@@ -24,11 +24,15 @@ angular.module('louiscruzApp')
       $http.post('/api/works', {
         title: $scope.newTitle,
         category: $scope.newCategory,
-        date: $scope.newDate
+        date: $scope.newDate,
+        score: $scope.newScore,
+        audio: $scope.newAudio
       });
       $scope.newTitle = '';
       $scope.newCategory = '';
       $scope.newDate = '';
+      $scope.newScore = '';
+      $scope.newAudio = '';
     };
 
     $scope.deleteWork = function(work) {
