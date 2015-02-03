@@ -3,6 +3,9 @@
 angular.module('louiscruzApp')
   .controller('MainCtrl', function ($scope, $http, socket) {
     $scope.awesomeThings = [];
+    var BV = new $.BigVideo();
+    BV.init();
+    BV.show('http://vjs.zencdn.net/v/oceans.mp4',{container:$('#video'), ambient:true, doloop:true});
 
     $http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
@@ -23,11 +26,5 @@ angular.module('louiscruzApp')
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
-    });
-
-    $(function() {
-        var BV = new $.BigVideo();
-        BV.init();
-        BV.show('http://vjs.zencdn.net/v/oceans.mp4',{ambient:true});
     });
   });
