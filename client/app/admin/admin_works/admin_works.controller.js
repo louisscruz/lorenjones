@@ -30,7 +30,7 @@ angular.module('louiscruzApp')
       });
       $scope.newTitle = '';
       $scope.newCategory = '';
-      $scope.newDate = '';
+      $scope.newDate = '2015';
       $scope.newScore = '';
       $scope.newAudio = '';
     };

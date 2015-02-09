@@ -9,16 +9,4 @@
       </div>
     </tab>
   </tabset>
-  <div class="page-header">
-    <h1>Resume<h1>
-  </div>
-  <div class="resume">
-    <ul ng-repeat="(category, entries) in works | groupBy: 'category'">
-      <h2>{{ category }}</h2>
-      <li ng-repeat="entry in entries">
-        <h5>{{ entry.title }}</h5>
-        <h6>{{ entry.field1 }}</h6>
-      </li>
-    </ul>
-  </div>
 </div>

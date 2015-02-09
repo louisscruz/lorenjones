@@ -11,9 +11,11 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  * App-wide Styles
  */
 
- body {
+ html, body {
    font-family: 'Source sans pro', sans-serif;
    font-weight: 300;
+   width: 100%;
+   overflow-x: hidden;
  }
 
 .browsehappy {
