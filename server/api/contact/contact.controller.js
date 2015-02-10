@@ -12,7 +12,7 @@ var transporter = nodemailer.createTransport({
 exports.send = function(req,res){
   var mailOptions = {
     to: 'lsc@juilliard.edu',
-    subject: 'New request on lumbajack from ',
+    subject: 'New contact from ',
     from: req.data.from,
     html: req.data.body
   };

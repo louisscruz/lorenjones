@@ -1,4 +1,5 @@
 <div class="container">
+  <h1>Works</h1>
   <accordion>
     <accordion-group ng-init="status.open = $first" is-open="status.open" ng-repeat="(category, works) in works | groupBy: 'category'">
       <accordion-heading>
