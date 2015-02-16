@@ -3,7 +3,6 @@
 angular.module('louiscruzApp')
   .controller('AdminAboutCtrl', function ($scope, $http, socket) {
     $scope.bioEntries = [];
-    $scope.resumeEntries = [];
 
     $http.get('/api/bio_entries').success(function(bioEntries) {
       $scope.bioEntries = bioEntries;

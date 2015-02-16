@@ -4,12 +4,12 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var EventSchema = new Schema({
+  name: String,
   date: String,
   time: String,
-  name: String,
   venue: String,
   city: String,
-  center: String,
+  center: String
 });
 
 module.exports = mongoose.model('Event', EventSchema);

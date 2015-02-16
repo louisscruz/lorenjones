@@ -1,3 +1,8 @@
+<script>
+  $('.datepicker').pickadate()
+  $('.timepicker').pickatime()
+</script>
+
 <div class="container">
   <h1 class="col-md-12">Manage Event Page</h1>
   <h2 class="col-md-12">Add Event</h2>
@@ -10,23 +15,23 @@
       </p>
       <label>Date of Event:</label>
       <p class="input-group">
-        <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+        <input type="text" class="form-control datepicker" placeholder="Event Date" ng-model="newDate">
       </p>
-      <label>Work Performed:</label>
+      <label>Time of Event:</label>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Works Performed" ng-model="newPiece">
+        <input type="text" class="form-control timepicker" placeholder="Event Time" ng-model="newTime">
       </p>
       <label>Name of Venue:</label>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Title" ng-model="newVenue">
+        <input type="text" class="form-control" placeholder="Event Venue" ng-model="newVenue">
       </p>
       <label>City:</label>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Title" ng-model="newCity">
+        <input type="text" class="form-control" placeholder="Event City" ng-model="newCity">
       </p>
       <label>Address:</label>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Title" ng-model="newCenter">
+        <input type="text" class="form-control" placeholder="Event Address" ng-model="newCenter">
       </p>
       <p class="input-group">
         <button type="submit" class="btn btn-primary" ng-click="addEvent()">Add New</button>
@@ -36,7 +41,7 @@
 
   <div class="col-md-8">
     <ul ng-repeat="event in events">
-      stuff
+      <p>{{event.name}}</p>
     </ul>
   </div>
 </div>
