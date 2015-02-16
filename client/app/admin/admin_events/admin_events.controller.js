@@ -30,6 +30,6 @@ angular.module('louiscruzApp')
     };
 
     $scope.deleteEvent = function(event) {
-      $http.delete('/api/events/' + entry._id);
+      $http.delete('/api/events/' + event._id);
     };
   });

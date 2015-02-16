@@ -42,6 +42,7 @@
   <div class="col-md-8">
     <ul ng-repeat="event in events">
       <p>{{event.name}}</p>
+      <button type="button" class="btn btn-danger" ng-click="deleteEvent(event)">Delete</button>
     </ul>
   </div>
 </div>
