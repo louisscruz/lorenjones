@@ -4,7 +4,7 @@
 </script>
 
 <div class="container">
-  <h1 class="col-md-12">Manage Event Page</h1>
+  <h1 class="col-md-12">Manage Events</h1>
   <h2 class="col-md-12">Add Event</h2>
 
   <div class="col-md-4">
@@ -31,7 +31,10 @@
       </p>
       <label>Address:</label>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Address" ng-model="newCenter">
+        <input type="text" class="form-control" placeholder="Event Latitude" ng-model="newLat">
+      </p>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Event Longitude" ng-model="newLng">
       </p>
       <p class="input-group">
         <button type="submit" class="btn btn-primary" ng-click="addEvent()">Add New</button>
@@ -41,8 +44,14 @@
 
   <div class="col-md-8">
     <ul ng-repeat="event in events">
-      <p>{{event.name}}</p>
+      <h2>{{event.name}}</h2>
+      <p>{{event.date}}</p>
+      <p>{{event.time}}</p>
       <button type="button" class="btn btn-danger" ng-click="deleteEvent(event)">Delete</button>
+      <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='15' options='options'>
+        <ui-gmap-marker coords="[event.lat, event.lng ]">
+        </ui-gmap-marker>
+      </ui-gmap-google-map>
     </ul>
   </div>
 </div>

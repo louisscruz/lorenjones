@@ -15,11 +15,13 @@ angular.module('louiscruzApp')
       }
       $http.post('/api/events', {
         name: $scope.newName,
-        //date: $scope.newDate,
-        //time: $scope.newTime,
+        date: $scope.newDate,
+        time: $scope.newTime,
         venue: $scope.newVenue,
         city: $scope.newCity,
-        center: $scope.newCenter
+        center: $scope.newCenter,
+        lat: $scope.newLat,
+        lng: $scope.newLng
       });
       //$scope.newDate = '';
       //$scope.newTime = '';

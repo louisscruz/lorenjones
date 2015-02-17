@@ -33,6 +33,10 @@ html, body {
   padding: 0.2em 0;
 }
 
+.angular-google-map-container {
+  height: 200px;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'about/about.scss';
