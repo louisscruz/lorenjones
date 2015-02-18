@@ -3,6 +3,10 @@
 angular.module('louiscruzApp')
   .controller('AdminEventsCtrl', function ($scope, $http, socket) {
     $scope.events = [];
+    $scope.options = {scrollwheel: false};
+    $scope.dateOptions = {
+      format: 'ddd, dd-mm-yyyy',
+    };
 
     $http.get('/api/events').success(function(events) {
       $scope.events = events;
@@ -29,6 +33,8 @@ angular.module('louiscruzApp')
       //$scope.newVenue = '';
       //$scope.newCity = '';
       //$scope.newCenter = '';
+      //$scope.newLat = '';
+      //$scope.newLng = '';
     };
 
     $scope.deleteEvent = function(event) {

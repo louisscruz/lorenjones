@@ -15,11 +15,11 @@
       </p>
       <label>Date of Event:</label>
       <p class="input-group">
-        <input type="text" class="form-control datepicker" placeholder="Event Date" ng-model="newDate">
+        <input type="number" class="form-control datepicker" placeholder="Event Date" ng-model="newDate">
       </p>
       <label>Time of Event:</label>
       <p class="input-group">
-        <input type="text" class="form-control timepicker" placeholder="Event Time" ng-model="newTime">
+        <input type="text" class="form-control timepicker" placeholder="Event Time" pick-a-date-options="dateOptions" ng-model="newTime">
       </p>
       <label>Name of Venue:</label>
       <p class="input-group">
@@ -43,15 +43,17 @@
   </div>
 
   <div class="col-md-8">
-    <ul ng-repeat="event in events">
-      <h2>{{event.name}}</h2>
-      <p>{{event.date}}</p>
-      <p>{{event.time}}</p>
-      <button type="button" class="btn btn-danger" ng-click="deleteEvent(event)">Delete</button>
-      <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='15' options='options'>
-        <ui-gmap-marker coords="[event.lat, event.lng ]">
-        </ui-gmap-marker>
-      </ui-gmap-google-map>
+    <ul class="events">
+      <li ng-repeat="event in events | orderBy: 'date':reverse">
+        <h2>{{event.name}}</h2>
+        <p>{{event.date}}</p>
+        <p>{{event.time}}</p>
+        <button type="button" class="btn btn-danger" ng-click="deleteEvent(event)">Delete</button>
+        <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='15' options='options'>
+          <ui-gmap-marker idkey="event.venue" coords="[event.lat, event.lng ]">
+          </ui-gmap-marker>
+        </ui-gmap-google-map>
+      </li>
     </ul>
   </div>
 </div>
