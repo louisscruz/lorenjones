@@ -37,6 +37,15 @@ html, body {
   height: 200px;
 }
 
+// Events
+.events li {
+  .name {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
 // Component styles are injected through grunt
 // injector
 @import 'about/about.scss';

@@ -1,13 +1,15 @@
 <div class="container">
   <h1>Events</h1>
-  <ul ng-repeat="event in events">
-    <li class="events">
-    <h2>{{event.name}}</h2>
-    <p>{{event.date}}</p>
-    <p>{{event.time}}</p>
-    <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='15' options='options'>
-      <ui-gmap-marker coords="[event.lat, event.lng ]">
-      </ui-gmap-marker>
-    </ui-gmap-google-map>
+  <ul class="events">
+    <li ng-repeat="event in events | orderBy: 'date':reverse">
+      <h2 class="name">{{event.name}}</h2>
+      <p class="date">{{event.date}}</p>
+      <p class="time">{{event.time}}</p>
+      <p class="info">more info</p>
+      <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='15' options='options'>
+        <ui-gmap-marker idkey="event.venue" coords="[event.lat, event.lng ]">
+        </ui-gmap-marker>
+      </ui-gmap-google-map>
+    </li>
   </ul>
 </div>
