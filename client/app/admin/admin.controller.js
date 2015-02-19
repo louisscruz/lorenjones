@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('louiscruzApp')
-  .controller('AdminCtrl', function ($scope) {
-    
+  .controller('AdminCtrl', function () {
+
   });
