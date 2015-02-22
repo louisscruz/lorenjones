@@ -2,9 +2,11 @@
   <h1>Events</h1>
   <ul class="events">
     <li ng-repeat="event in events | orderBy: 'date':reverse">
-      <h2 class="name">{{event.name}}</h2>
-      <p class="date">{{event.date}}</p>
-      <p class="time">{{event.time}}</p>
+      <h1 class="name">{{event.name}}</h1>
+      <div class="square">
+        <p class="date">{{event.date}}</p>
+        <p class="time">{{event.time}}</p>
+      </div>
       <p class="info">more info</p>
       <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='15' options='options'>
         <ui-gmap-marker idkey="event.venue" coords="[event.lat, event.lng ]">
