@@ -12,6 +12,4 @@ angular.module('louiscruzApp')
       $scope.events = events;
       socket.syncUpdates('events', $scope.events);
     });
-
-
   });

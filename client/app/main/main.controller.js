@@ -13,6 +13,11 @@ angular.module('louiscruzApp')
       socket.syncUpdates('thing', $scope.awesomeThings);
     });
 
+    $http.get('/api/events').success(function(events) {
+      $scope.events = events;
+      socket.syncUpdates('events', $scope.events);
+    });
+
     $scope.addThing = function() {
       if($scope.newThing === '') {
         return;

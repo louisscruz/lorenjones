@@ -1,6 +1,6 @@
 <div class="container">
-  <h1>Works</h1>
-  <accordion>
+  <h1 class="center">Works</h1>
+  <accordion class="col-md-8 col-md-offset-2 col-sm-12">
     <accordion-group ng-init="status.open = $first" is-open="status.open" ng-repeat="(category, works) in works | groupBy: 'category'">
       <accordion-heading>
         {{ category }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
