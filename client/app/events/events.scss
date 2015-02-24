@@ -1,10 +1,30 @@
-.angular-google-map-container {
+.angular-google-map {
   height: 200px;
+  position: relative;
 }
 
 .events li {
   list-style: none;
   h1 {
-    
+
+  }
+  .square {
+    border: 2px solid black;
+    border-radius: 6px;
+    padding-left: 0px;
+    padding-right: 0px;
+    .month, .day, .year {
+      width: 100%;
+      text-align: center;
+    }
+    .month {
+      background-color: blue;
+      color: white;
+      font-weight: 800;
+    }
+    .day {
+      font-size: 16px;
+      font-weight: 800;
+    }
   }
 }
