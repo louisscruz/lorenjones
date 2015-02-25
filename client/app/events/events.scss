@@ -5,8 +5,9 @@
 
 .events li {
   list-style: none;
-  h1 {
-
+  padding-top: 24px;
+  .name {
+    padding-top: 0px;
   }
   .square {
     border: 2px solid gray;
@@ -18,13 +19,21 @@
       text-align: center;
     }
     .month {
-      background-color: blue;
+      background-color: #ff6633;
       color: white;
       font-weight: 800;
+    }
+    .date {
+      font-size: 24px;
+      font-weight: 800;
+      text-align: center;
     }
     .day {
       font-size: 16px;
       font-weight: 800;
     }
+  }
+  .time {
+    font-size: 24px;
   }
 }

@@ -1,15 +1,15 @@
 <div class="container">
   <h1 class="center">Events</h1>
   <ul class="events">
-    <li class="" ng-repeat="event in events | orderBy: 'date':reverse">
-      <h1 class="name">{{event.name}}</h1>
+    <li class="event" ng-repeat="event in events | orderBy: 'date':reverse">
       <div class="row">
-        <div class="square col-md-1 col-md-offset-5">
+        <div class="square col-md-1 col-md-offset-4 col-sm-2 col-sm-offset-3 col-xs-2 col-xs-offset-3">
           <p class="month">{{event.date | date:'MMM'}} &#39;{{event.date | date:'yy'}}</p>
-          <p class="day">{{event.date | date:'d'}}</p>
+          <p class="date">{{event.date | date:'d'}}</p>
           <p class="day">{{event.date | date:'EEE'}}</p>
         </div>
-        <div class="col-md-1 col-md-offset-6">
+        <div class="col-md-7 col-sm-7 col-xs-7">
+          <h1 class="name">{{event.name}}</h1>
           <p class="time">{{event.time}}</p>
         </div>
       </div>
