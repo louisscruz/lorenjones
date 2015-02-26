@@ -11,6 +11,7 @@ var WorkSchema = new Schema({
   info: String,
   link: String,
   audio: String,
+  video: String,
   active: Boolean
 });
 

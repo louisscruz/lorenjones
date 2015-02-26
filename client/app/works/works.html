@@ -7,16 +7,17 @@
       </accordion-heading>
       <div ng-repeat="work in works | orderBy: 'date':true">
         <h3>{{ work.title }} ({{ work.date }})</h3>
-        <p>{{ work.instrumentation }}</p>
+        <small>{{ work.instrumentation }}</small>
         <button class="btn btn-default btn-xs info" ng-click="isCollapsed = !isCollapsed">{{ isCollapsed == true ? 'Less Info' : 'More Info' }}</button>
-  	    <hr>
-  	    <div collapse="!isCollapsed">
-  		      <div class="well well-lg">
-              <p>{{ work.info }}</p>
-              <p>{{ work.link }}</p>
-              <a ng-if="work.link" ng-href="{{work.link}}">Link to the Score <i class="fa fa-external-link"></i></a>
-            </div>
+  	    <div ng-if="(work.info || work.link)" collapse="!isCollapsed">
+  		    <div class="well well-lg">
+            <p>{{ work.info }}</p>
+            <p>{{ work.link }}</p>
+            <a ng-if="work.link" ng-href="{{work.link}}">Link to the Score <i class="fa fa-external-link"></i></a>
+            <youtube-video video-id="work.video" player-width="'100%'"></youtube-video>
+          </div>
   	    </div>
+        <hr>
       </div>
     </accordion-group>
   </accordion>

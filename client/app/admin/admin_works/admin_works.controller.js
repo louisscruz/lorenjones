@@ -28,7 +28,8 @@ angular.module('louiscruzApp')
         instrumentation: $scope.newInstrumentation,
         info: $scope.newInfo,
         link: $scope.newLink,
-        audio: $scope.newAudio
+        audio: $scope.newAudio,
+        video: $scope.newVideo
       });
       $scope.newTitle = '';
       $scope.newCategory = '';
