@@ -22,6 +22,7 @@
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
+      <link rel="stylesheet" href="components/footer/autobass.scss" />
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
@@ -34,6 +35,8 @@
     <div ng-include="'components/navbar/navbar.html'"></div>
     <div ui-view="" id="content"></div>
     <div ng-include="'components/footer/footer.html'"></div>
+
+    <script src="http://d2v52k3cl9vedd.cloudfront.net/plangular/2.0-beta-1/ng-plangular.min.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -107,13 +110,12 @@
           <script src="app/works/works.js"></script>
           <script src="components/auth/auth.service.js"></script>
           <script src="components/auth/user.service.js"></script>
+          <script src="components/footer/ng-plangular.min.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/mongoose-error/mongoose-error.directive.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <script src="components/socket/socket.service.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
-
-        <script src="http://d2v52k3cl9vedd.cloudfront.net/plangular/2.0-beta-1/ng-plangular.min.js"></script>
 </body>
 </html>

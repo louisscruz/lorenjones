@@ -52,6 +52,14 @@ html, body {
   padding: 0.2em 0;
 }
 
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
 .angular-google-map-container {
   height: 200px;
 }
@@ -59,7 +67,7 @@ html, body {
 // Events
 .events li {
   .name {
-    
+
   }
 }
 
@@ -75,6 +83,7 @@ html, body {
 @import 'contact/contact.scss';
 @import 'events/events.scss';
 @import 'main/main.scss';
+@import 'player.scss';
 @import 'works/works.scss';
 @import 'modal/modal.scss';
 // endinjector
