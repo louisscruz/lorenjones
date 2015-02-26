@@ -7,6 +7,11 @@
       </accordion-heading>
       <div ng-repeat="work in works | orderBy: 'date':true">
         <h3>{{ work.title }} ({{ work.date }})</h3>
+        <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
+  	    <hr>
+  	    <div collapse="isCollapsed">
+  		      <div class="well well-lg">Some content</div>
+  	    </div>
       </div>
     </accordion-group>
   </accordion>

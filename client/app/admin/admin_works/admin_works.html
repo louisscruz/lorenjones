@@ -1,5 +1,5 @@
 <div class="container">
-
+  <h1>Manage Works</h1>
   <div class="col-md-12">
     <form class="thing-form">
       <label>Title of the Work</label>
@@ -16,9 +16,21 @@
       <p class="input-group">
         <input type="number" class="form-control" placeholder="Work Date" ng-model="newDate" ng-init="newDate = 2015">
       </p>
-      <label>Link to Score of the Work</label>
+      <label>Instrumentation of the Work</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Instrumentation" ng-model="newInstrumentation">
+      </p>
+      <label>Information</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Work Info" ng-model="newInfo">
+      </p>
+      <label>Link to Score</label>
       <p class="input-group">
         <input type="text" class="form-control" placeholder="Link to Score" ng-model="newScore">
+      </p>
+      <label>Link to Audio</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Link to Audio" ng-model="newAudio">
       </p>
       <p class="input-group">
         <button type="submit" class="btn btn-primary" ng-click="addWork()">Add New</button>

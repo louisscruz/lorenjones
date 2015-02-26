@@ -25,7 +25,9 @@ angular.module('louiscruzApp')
         title: $scope.newTitle,
         category: $scope.newCategory,
         date: $scope.newDate,
-        score: $scope.newScore,
+        instrumentation: $scope.newInstrumentation,
+        info: $scope.newInfo,
+        link: $scope.newLink,
         audio: $scope.newAudio
       });
       $scope.newTitle = '';

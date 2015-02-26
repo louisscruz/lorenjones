@@ -23,6 +23,8 @@ angular.module('louiscruzApp')
         time: $scope.newTime,
         venue: $scope.newVenue,
         city: $scope.newCity,
+        link: $scope.newLink,
+        info: $scope.newInfo,
         center: $scope.newCenter,
         lat: $scope.newLat,
         lng: $scope.newLng
