@@ -9,7 +9,7 @@
         <h3>{{ work.title }} ({{ work.date }})
           <button class="btn btn-default btn-xs info" ng-click="isCollapsed = !isCollapsed">{{ isCollapsed == true ? 'Less Info' : 'More Info' }}</button>
         </h3>
-        <p>{{ work.instrumentation }}</p>
+        <p class="instrumentation">{{ work.instrumentation }}</p>
   	    <div ng-if="(work.info || work.link)" collapse="!isCollapsed">
   		    <div class="well well-lg">
             <p>{{ work.info }}</p>
