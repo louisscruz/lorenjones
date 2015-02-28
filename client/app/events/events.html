@@ -11,12 +11,15 @@
         <div class="col-md-7 col-sm-6 col-xs-9">
           <h1 class="name">{{event.name}}</h1>
           <p class="time">{{event.time}}</p>
-          <p class="info">{{event.info}}</p>
+          <p class="info">
+            {{event.info}}
+            <a ng-if="event.link" ng-href="{{event.link}}">{{event.link}}</a>
+
+          </p>
         </div>
         <div class="col-sm-3 col-xs-12">
         </div>
       </div>
-      <p class="info">more info</p>
       <ui-gmap-google-map style="height: 200px;"center="[event.lat, event.lng ]" zoom='15' options='options'>
         <ui-gmap-marker idkey="event.venue" coords="[event.lat, event.lng ]">
         </ui-gmap-marker>
