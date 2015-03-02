@@ -38,6 +38,10 @@ angular.module('louiscruzApp')
       $scope.newAudio = '';
     };
 
+    $scope.updateWork = function(work) {
+      return $http.put('/api/works/' + work._id, {title: work.title});
+    };
+
     $scope.deleteWork = function(work) {
       $http.delete('/api/works/' + work._id);
     };

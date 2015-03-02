@@ -11,7 +11,8 @@ angular.module('louiscruzApp', [
   'ui.sortable',
   'uiGmapgoogle-maps',
   'youtube-embed',
-  'plangular'
+  'plangular',
+  'xeditable'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

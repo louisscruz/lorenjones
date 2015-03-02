@@ -48,6 +48,7 @@
         {{ category }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </accordion-heading>
       <div ng-repeat="work in works | orderBy: 'date':true">
+        <a href="#" editable-text="work.title" onbeforesave="updateWork(work)">{{ work.title || "empty" }}</a>
         {{ work.title }} ({{ work.date }})
         <button type="button" class="btn btn-danger" ng-click="deleteWork(work)">Delete</button>
       </div>
