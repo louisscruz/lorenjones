@@ -39,7 +39,16 @@ angular.module('louiscruzApp')
     };
 
     $scope.updateWork = function(work) {
-      return $http.put('/api/works/' + work._id, {title: work.title});
+      return $http.put('/api/works/' + work._id, {
+        title: work.title,
+        category: work.category,
+        date: work.date,
+        instrumentation: work.instrumentation,
+        info: work.info,
+        link: work.link,
+        audio: work.audio,
+        video: work.video
+      });
     };
 
     $scope.deleteWork = function(work) {

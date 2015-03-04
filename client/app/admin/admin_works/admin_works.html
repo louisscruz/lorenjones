@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Manage Works</h1>
-  <div class="col-md-12">
+  <div class="col-md-3">
     <form class="thing-form">
       <label>Title of the Work</label>
       <p class="input-group">
@@ -42,15 +42,57 @@
     </form>
   </div>
 
-  <accordion class="col-md-12">
+  <accordion class="col-md-9">
     <accordion-group ng-init="status.open = $first" is-open="status.open" ng-repeat="(category, works) in works | groupBy: 'category'">
       <accordion-heading>
         {{ category }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </accordion-heading>
       <div ng-repeat="work in works | orderBy: 'date':true">
-        <a href="#" editable-text="work.title" onbeforesave="updateWork(work)">{{ work.title || "empty" }}</a>
-        {{ work.title }} ({{ work.date }})
-        <button type="button" class="btn btn-danger" ng-click="deleteWork(work)">Delete</button>
+        <div>
+          <h3>
+            <a href="#" editable-text="work.title" onaftersave="updateWork(work)">
+              {{ work.title || "empty" }}
+            </a>
+            <button type="button" class="btn btn-danger btn-xs" ng-click="deleteWork(work)"><i class="fa fa-times"></i></button>
+          </h3>
+        </div>
+        <label>Category</label>
+        <div>
+          <a href="#" editable-text="work.category" onaftersave="updateWork(work)">
+            {{ work.category || "empty" }}
+          </a>
+        </div>
+        <label>Date</label>
+        <div>
+          <a href="#" editable-text="work.date" onaftersave="updateWork(work)">
+            {{ work.date || "empty" }}
+          </a>
+        </div>
+        <label>Instrumentation</label>
+        <div>
+          <a href="#" editable-text="work.instrumentation" onaftersave="updateWork(work)">
+            {{ work.instrumentation || "empty" }}
+          </a>
+        </div>
+        <label>Link</label>
+        <div>
+          <a href="#" editable-text="work.link" onaftersave="updateWork(work)">
+            {{ work.link || "empty" }}
+          </a>
+        </div>
+        <label>Audio</label>
+        <div>
+          <a href="#" editable-text="work.audio" onaftersave="updateWork(work)">
+            {{ work.audio || "empty" }}
+          </a>
+        </div>
+        <label>Video</label>
+        <div>
+          <a href="#" editable-text="work.video" onaftersave="updateWork(work)">
+            {{ work.video || "empty" }}
+          </a>
+        </div>
+        <hr>
       </div>
     </accordion-group>
   </accordion>

@@ -39,10 +39,10 @@
       </p>
       <label>Address:</label>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Latitude" ng-model="newLat">
+        <input type="text" class="form-control" placeholder="Event Longitude" ng-model="newLng">
       </p>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Longitude" ng-model="newLng">
+        <input type="text" class="form-control" placeholder="Event Latitude" ng-model="newLat">
       </p>
       <p class="input-group">
         <button type="submit" class="btn btn-primary" ng-click="addEvent()">Add New</button>
@@ -52,12 +52,60 @@
 
   <div class="col-md-8">
     <ul class="events">
-      <li ng-repeat="event in events | orderBy: 'date':reverse">
-        <h2 class="name">{{event.name}}</h2>
-        <p class="date">{{event.date}}</p>
-        <p class="time">{{event.time}}</p>
-        <p class="info">more info</p>
-        <button type="button" class="btn btn-danger" ng-click="deleteEvent(event)">Delete</button>
+      <li ng-repeat="event in events | orderBy: 'date':reverse" class="well well-lg">
+        <button type="button" class="btn btn-danger btn-xs" ng-click="deleteEvent(event)"><i class="fa fa-times"></i></button>
+        <div>
+          <h2>
+            <a href="#" editable-text="event.name" onaftersave="updateEvent(event)">
+              {{ event.name || "empty" }}
+            </a>
+          </h2>
+        </div>
+        <label>Date</label>
+        <div>
+          <a href="#" editable-text="event.date" onaftersave="updateEvent(event)">
+            {{ event.date || "empty" }}
+          </a>
+        </div>
+        <label>Time</label>
+        <div>
+          <a href="#" editable-text="event.time" onaftersave="updateEvent(event)">
+            {{ event.time || "empty" }}
+          </a>
+        </div>
+        <label>Venue</label>
+        <div>
+          <a href="#" editable-text="event.venue" onaftersave="updateEvent(event)">
+            {{ event.venue || "empty" }}
+          </a>
+        </div>
+        <label>City</label>
+        <div>
+          <a href="#" editable-text="event.city" onaftersave="updateEvent(event)">
+            {{ event.city || "empty" }}
+          </a>
+        </div>
+        <label>Link</label>
+        <div>
+          <a href="#" editable-text="event.link" onaftersave="updateEvent(event)">
+            {{ event.link || "empty" }}
+          </a>
+        </div>
+        <label>Info</label>
+        <div>
+          <a href="#" editable-text="event.info" onaftersave="updateEvent(event)">
+            {{ event.info || "empty" }}
+          </a>
+        </div>
+        <label>Address</label>
+        <div>
+          <a href="#" editable-text="event.lng" onaftersave="updateEvent(event)">
+            {{ event.lng || "empty" }}
+          </a>
+          <a href="#" editable-text="event.lat" onaftersave="updateEvent(event)">
+            {{ event.lat || "empty" }}
+          </a>
+        </div>
         <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='15' options='options'>
           <ui-gmap-marker idkey="event.venue" coords="[event.lat, event.lng ]">
           </ui-gmap-marker>

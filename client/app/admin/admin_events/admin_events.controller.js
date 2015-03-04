@@ -25,7 +25,6 @@ angular.module('louiscruzApp')
         city: $scope.newCity,
         link: $scope.newLink,
         info: $scope.newInfo,
-        center: $scope.newCenter,
         lat: $scope.newLat,
         lng: $scope.newLng
       });
@@ -37,6 +36,20 @@ angular.module('louiscruzApp')
       //$scope.newCenter = '';
       //$scope.newLat = '';
       //$scope.newLng = '';
+    };
+
+    $scope.updateEvent = function(event) {
+      return $http.put('/api/events/' + event._id, {
+        name: event.name,
+        date: event.date,
+        time: event.time,
+        venue: event.venue,
+        city: event.city,
+        link: event.link,
+        info: event.info,
+        lat: event.lat,
+        lng: event.lng
+      });
     };
 
     $scope.deleteEvent = function(event) {

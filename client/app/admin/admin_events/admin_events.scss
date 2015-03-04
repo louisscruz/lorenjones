@@ -2,6 +2,12 @@
   height: 200px;
 }
 
-.events li {
-  list-style:none;
+.events {
+  li {
+    list-style:none;
+    padding: 10px;
+    button {
+      float: right;
+    }
+  }
 }
