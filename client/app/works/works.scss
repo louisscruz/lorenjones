@@ -5,6 +5,8 @@
 }
 
 .works {
+  position: relative;
+  z-index: -1;
   h3 {
     padding-bottom: 16px;
   }
