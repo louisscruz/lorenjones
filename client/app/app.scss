@@ -16,7 +16,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 body {
   font-family: 'Source sans pro', sans-serif;
-  font-weight: 500;
+  font-weight: 600 !important;
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
@@ -46,11 +46,11 @@ body {
 }
 
 .nav li a {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .navbar-brand {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .browsehappy {
@@ -62,11 +62,14 @@ body {
 
 #content {
   //margin-top: 50px;
-  margin-bottom: -42px;
+  //margin-bottom: 42px;
   //z-index: 1;
   .container {
     position: relative;
     z-index: 1;
+    //margin-bottom: 80px;
+    padding-top: 51px;
+    padding-bottom: 42px;
   }
 }
 
@@ -89,7 +92,7 @@ body {
 // Fonts
 p {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 
@@ -107,5 +110,6 @@ p {
 @import 'main/main.scss';
 @import 'player.scss';
 @import 'works/works.scss';
+@import 'footer/autobass.scss';
 @import 'modal/modal.scss';
 // endinjector
