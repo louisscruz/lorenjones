@@ -6,10 +6,26 @@
         {{ category }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </accordion-heading>
       <div ng-repeat="work in works | orderBy: 'date':true">
-        <h3>{{ work.title }} ({{ work.date }})
-          <button class="btn btn-default btn-xs info" ng-click="isCollapsed = !isCollapsed">{{ isCollapsed == true ? 'Less Info' : 'More Info' }}</button>
+        <h3>
+          {{ work.title }} ({{ work.date }})
+          <button class="btn btn-default btn-xs info" ng-click="isCollapsed = !isCollapsed">
+            {{ isCollapsed == true ? 'Less Info' : 'More Info' }}
+          </button>
         </h3>
         <p class="instrumentation">{{ work.instrumentation }}</p>
+        <div ng-if="work.audio" class="table" plangular="{{work.audio}}">
+          <div class="table-cell">
+            <button class="button-icon" ng-click="playPause()">
+              <svg ng-if="player.playing != track" plangular-icon="play"></svg>
+              <svg ng-if="player.playing == track" plangular-icon="pause"></svg>
+            </button>
+          </div>
+          <div class="table-cell px2 full-width">
+            <progress value="{{ currentTime / duration || 0 }}">{{ currentTime / duration }}</progress>
+            <small ng-if="player.playing != track"></small>
+            <small ng-if="player.playing == track">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>
+          </div>
+        </div>
   	    <div ng-if="(work.info || work.link)" collapse="!isCollapsed">
   		    <div class="well well-lg">
             <p>{{ work.info }}</p>
