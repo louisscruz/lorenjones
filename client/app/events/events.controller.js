@@ -12,4 +12,8 @@ angular.module('louiscruzApp')
       $scope.events = events;
       socket.syncUpdates('events', $scope.events);
     });
+
+    $scope.$on('$destroy', function () {
+      socket.unsyncUpdates('event');
+    });
   });

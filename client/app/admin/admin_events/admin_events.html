@@ -7,7 +7,7 @@
   <h1 class="col-md-12">Manage Events</h1>
   <h2 class="col-md-12">Add Event</h2>
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <form class="thing-form">
       <label>Name of Event</label>
       <p class="input-group">
@@ -44,13 +44,19 @@
       <p class="input-group">
         <input type="text" class="form-control" placeholder="Event Latitude" ng-model="newLat">
       </p>
+      <label>Map Zoom:</label>
+      <p class="input-group">
+        <select ng-model="newZoom">
+          <option ng-repeat="level in levels" value="{{level}}">{{level}}</option>
+        </select>
+      </p>
       <p class="input-group">
         <button type="submit" class="btn btn-primary" ng-click="addEvent()">Add New</button>
       </p>
     </form>
   </div>
 
-  <div class="col-md-8">
+  <div class="col-md-9">
     <ul class="events">
       <li ng-repeat="event in events | orderBy: 'date':reverse" class="well well-lg">
         <button type="button" class="btn btn-danger btn-xs" ng-click="deleteEvent(event)"><i class="fa fa-times"></i></button>
@@ -63,8 +69,8 @@
         </div>
         <label>Date</label>
         <div>
-          <a href="#" editable-text="event.date" onaftersave="updateEvent(event)">
-            {{ event.date || "empty" }}
+          <a href="#" editable-bsdate="event.date" e-datepicker-popup="dd-MMMM-yyyy" onaftersave="updateEvent(event)">
+            {{ (event.date | date:"dd/MM/yyyy") || 'empty' }}
           </a>
         </div>
         <label>Time</label>
@@ -106,7 +112,14 @@
             {{ event.lat || "empty" }}
           </a>
         </div>
-        <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='15' options='options'>
+        <label>Zoom</label>
+        <p>Choose a value between 1 and 19 (15 default)</p>
+        <div>
+          <a href="#" editable-text="event.zoom" onaftersave="updateEvent(event)">
+            {{ event.zoom || "empty" }}
+          </a>
+        </div>
+        <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='event.zoom' options='options'>
           <ui-gmap-marker idkey="event.venue" coords="[event.lat, event.lng ]">
           </ui-gmap-marker>
         </ui-gmap-google-map>

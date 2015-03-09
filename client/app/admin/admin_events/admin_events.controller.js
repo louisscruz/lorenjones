@@ -1,9 +1,30 @@
 'use strict';
 
 angular.module('louiscruzApp')
-  .controller('AdminEventsCtrl', function ($scope, $http, socket) {
+  .controller('AdminEventsCtrl', function ($scope, $http, socket, $filter) {
     $scope.events = [];
     $scope.options = {scrollwheel: false};
+    $scope.levels = [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ];
     $scope.dateOptions = {
       format: 'ddd, dd-mm-yyyy',
     };
@@ -26,7 +47,8 @@ angular.module('louiscruzApp')
         link: $scope.newLink,
         info: $scope.newInfo,
         lat: $scope.newLat,
-        lng: $scope.newLng
+        lng: $scope.newLng,
+        zoom: $scope.newZoom
       });
       //$scope.newDate = '';
       //$scope.newTime = '';
@@ -48,11 +70,16 @@ angular.module('louiscruzApp')
         link: event.link,
         info: event.info,
         lat: event.lat,
-        lng: event.lng
+        lng: event.lng,
+        zoom: event.zoom
       });
     };
 
     $scope.deleteEvent = function(event) {
       $http.delete('/api/events/' + event._id);
     };
+
+    $scope.$on('$destroy', function () {
+      socket.unsyncUpdates('event');
+    });
   });
