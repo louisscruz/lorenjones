@@ -50,17 +50,19 @@ angular.module('louiscruzApp')
         lng: $scope.newLng,
         zoom: $scope.newZoom
       });
+      //$scope.newName = '';
       //$scope.newDate = '';
       //$scope.newTime = '';
-      //$scope.newName = '':
       //$scope.newVenue = '';
       //$scope.newCity = '';
-      //$scope.newCenter = '';
+      //$scope.newLink = '';
+      //$scope.newInfo = '';
       //$scope.newLat = '';
       //$scope.newLng = '';
+      //$scope.newZoom = '';
     };
 
-    $scope.updateEvent = function(event) {
+    $scope.updateEvent = function(event, events) {
       return $http.put('/api/events/' + event._id, {
         name: event.name,
         date: event.date,
@@ -73,6 +75,7 @@ angular.module('louiscruzApp')
         lng: event.lng,
         zoom: event.zoom
       });
+      socket.syncUpdates('event', $scope.events);
     };
 
     $scope.deleteEvent = function(event) {
