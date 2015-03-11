@@ -50,8 +50,4 @@ User.find({}).remove(function() {
 });
 
 BioEntry.find({}).remove(function() {
-  BioEntry.create({
-    title: 'Short',
-    content: 'test'
-  });
 });

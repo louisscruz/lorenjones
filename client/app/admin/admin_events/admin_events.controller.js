@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('louiscruzApp')
-  .controller('AdminEventsCtrl', function ($scope, $http, socket, $filter) {
+  .controller('AdminEventsCtrl', function ($scope, $http, socket) {
     $scope.events = [];
     $scope.options = {scrollwheel: false};
     $scope.levels = [
@@ -50,19 +50,19 @@ angular.module('louiscruzApp')
         lng: $scope.newLng,
         zoom: $scope.newZoom
       });
-      //$scope.newName = '';
-      //$scope.newDate = '';
-      //$scope.newTime = '';
-      //$scope.newVenue = '';
-      //$scope.newCity = '';
-      //$scope.newLink = '';
-      //$scope.newInfo = '';
-      //$scope.newLat = '';
-      //$scope.newLng = '';
-      //$scope.newZoom = '';
+      $scope.newName = '';
+      $scope.newDate = '';
+      $scope.newTime = '';
+      $scope.newVenue = '';
+      $scope.newCity = '';
+      $scope.newLink = '';
+      $scope.newInfo = '';
+      $scope.newLat = '';
+      $scope.newLng = '';
+      $scope.newZoom = '';
     };
 
-    $scope.updateEvent = function(event, events) {
+    $scope.updateEvent = function(event) {
       return $http.put('/api/events/' + event._id, {
         name: event.name,
         date: event.date,
@@ -75,7 +75,6 @@ angular.module('louiscruzApp')
         lng: event.lng,
         zoom: event.zoom
       });
-      socket.syncUpdates('event', $scope.events);
     };
 
     $scope.deleteEvent = function(event) {

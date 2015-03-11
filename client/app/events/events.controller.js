@@ -10,7 +10,7 @@ angular.module('louiscruzApp')
 
     $http.get('/api/events').success(function(events) {
       $scope.events = events;
-      socket.syncUpdates('events', $scope.events);
+      socket.syncUpdates('event', $scope.events);
     });
 
     $scope.$on('$destroy', function () {
