@@ -6,6 +6,6 @@ angular.module('louiscruzApp')
 
     $http.get('/api/bio_entries').success(function(bioEntries) {
       $scope.bioEntries = bioEntries;
-      socket.syncUpdates('entry', $scope.bioEntries);
+      socket.syncUpdates('bio_entry', $scope.bioEntries);
     });
   });

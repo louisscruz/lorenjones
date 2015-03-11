@@ -19,6 +19,7 @@ function onConnect(socket) {
 
   // Insert sockets below
   require('../api/contact/contact.socket').register(socket);
+  require('../api/bio_entry/bio_entry.socket').register(socket);
   require('../api/work/work.socket').register(socket);
   require('../api/event/event.socket').register(socket);
   require('../api/contact/contact.socket').register(socket);
