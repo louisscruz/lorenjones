@@ -3,8 +3,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,900,200italic,400italic,600italic,900italic);
-
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic);
 /**
  * App-wide Styles
  */
@@ -16,10 +15,12 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 body {
   font-family: 'Source sans pro', sans-serif;
-  font-weight: 600 !important;
+  font-weight: 400 !important;
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
+  background-image: url("/assets/images/creampaper.png");
+  background-repeat: repeat;
 }
 
 .center {
@@ -36,21 +37,39 @@ body {
 // App Structure
 #navbar {
   height: 51px;
-  opacity: 0.9;
+  opacity: 1;
   z-index: 1000;
   position: relative;
 }
 
 .navbar {
   background-color: white;
+  border: 0px;
 }
 
 .nav li a {
-  font-weight: 600;
+  font-weight: 400;
+  &:active {
+    background-color: black;
+  }
+}
+.navbar-default .navbar-nav > a {
+  &:hover {
+    background-color: lighten(#ff6633, 50%)
+  }
+}
+
+.navbar-default .navbar-nav > .active > a {
+  background-color: #ff6633;
+  color: white;
+  &:hover {
+    background-color: #ff6633;
+    color: black;
+  }
 }
 
 .navbar-brand {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .browsehappy {
@@ -92,7 +111,7 @@ body {
 // Fonts
 p {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 
@@ -113,3 +132,15 @@ p {
 @import 'footer/autobass.scss';
 @import 'modal/modal.scss';
 // endinjector
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+  body {
+    background-image: url("/assets/images/creampaper_@2X.png");
+  }
+}

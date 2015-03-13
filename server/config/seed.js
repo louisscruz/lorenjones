@@ -48,6 +48,3 @@ User.find({}).remove(function() {
     }
   );
 });
-
-BioEntry.find({}).remove(function() {
-});

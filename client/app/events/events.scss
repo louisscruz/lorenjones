@@ -1,3 +1,6 @@
+$square-radius: 10px;
+$square-color: gray;
+
 .angular-google-map {
   height: 200px;
   position: relative;
@@ -15,8 +18,8 @@
       line-height: 30px;
     }
     .square {
-      border: 2px solid gray;
-      border-radius: 6px;
+      width: 100%;
+      border-radius: 10px;
       padding-left: 0px;
       padding-right: 0px;
       .month, .day, .year {
@@ -27,15 +30,34 @@
         background-color: #ff6633;
         color: white;
         font-weight: 800;
+        margin-bottom: 0px;
+        border-top-left-radius: $square-radius;
+        border-top-right-radius: $square-radius;
+        border-top: 2px solid $square-color;
+        border-left: 2px solid $square-color;
+        border-right: 2px solid $square-color;
       }
       .date {
         font-size: 24px;
         font-weight: 800;
         text-align: center;
+        background-color: white;
+        margin-bottom: 0px;
+        padding-top: 16px;
+        border-left: 2px solid $square-color;
+        border-right: 2px solid $square-color;
       }
       .day {
         font-size: 16px;
         font-weight: 800;
+        background-color: white;
+        margin: 0px;
+        padding: 4px;
+        border-bottom-left-radius: $square-radius;
+        border-bottom-right-radius: $square-radius;
+        border-left: 2px solid $square-color;
+        border-right: 2px solid $square-color;
+        border-bottom: 2px solid $square-color;
       }
     }
     .time {

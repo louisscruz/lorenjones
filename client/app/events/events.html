@@ -3,12 +3,14 @@
   <ul class="events">
     <li class="event" ng-repeat="event in events | orderBy: 'date':reverse">
       <div class="row">
-        <div class="square col-md-1 col-md-offset-4 col-sm-2 col-sm-offset-0 col-xs-2 col-xs-offset-1">
-          <p class="month">{{event.date | date:'MMM'}} &#39;{{event.date | date:'yy'}}</p>
-          <p class="date">{{event.date | date:'d'}}</p>
-          <p class="day">{{event.date | date:'EEE'}}</p>
+        <div class="col-md-2 col-md-offset-2 col-sm-2 col-sm-offset-0 col-xs-3">
+          <div class="square">
+            <p class="month">{{event.date | date:'MMM'}} &#39;{{event.date | date:'yy'}}</p>
+            <p class="date">{{event.date | date:'d'}}</p>
+            <p class="day">{{event.date | date:'EEE'}}</p>
+          </div>
         </div>
-        <div class="col-md-7 col-sm-6 col-xs-9">
+        <div class="col-md-8 col-sm-6 col-xs-9">
           <h1 class="name">{{event.name}}</h1>
           <p class="time">{{event.time}}</p>
           <p class="info">
