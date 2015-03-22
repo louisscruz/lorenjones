@@ -2,14 +2,14 @@
   <div class="table">
     <div class="table-cell">
       <button class="button-icon" ng-click="playPause()">
-        <svg ng-if="player.playing != track" plangular-icon="play"></svg>
-        <svg ng-if="player.playing == track" plangular-icon="pause"></svg>
+        <svg ng-if="!player.playing" plangular-icon="play"></svg>
+        <svg ng-if="player.playing" plangular-icon="pause"></svg>
       </button>
     </div>
     <div class="table-cell px2 full-width">
-      <h3 class="m0">{{ user.username }} - {{ title }}</h3>
-      <small ng-if="player.playing != track"></small>
-      <small ng-if="player.playing == track">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>
+      <h3 class="m0">{{ player.currentTrack.user.username }} - {{ player.currentTrack.title }}</h3>
+      <progressbar max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
+      <small>{{ player.currentTime | prettyTime }} - {{ player.duration | prettyTime }}</small>
     </div>
   </div>
 </footer>
