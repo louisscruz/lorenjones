@@ -9,7 +9,7 @@
     <div class="table-cell px2 full-width">
       <h3 class="m0">{{ player.currentTrack.user.username }} - {{ player.currentTrack.title }}</h3>
       <progressbar max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
-      <small>{{ player.currentTime | prettyTime }} - {{ player.duration | prettyTime }}</small>
+      <small>{{ player.currentTime | prettyTime }}-{{ player.duration | prettyTime }}</small>
     </div>
   </div>
 </footer>
