@@ -21,7 +21,7 @@
             </button>
           </div>
           <div class="table-cell px2 full-width">
-            <progressbar max="1" animate="true" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
+            <progressbar max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
 
             <small ng-if="player.playing != track"></small>
             <small ng-if="player.playing == track">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>
