@@ -74,6 +74,12 @@
             {{ work.instrumentation || "empty" }}
           </a>
         </div>
+        <label>Info</label>
+        <div>
+          <a href="#" editable-text="work.info" onaftersave="updateWork(work)">
+            {{ work.info || "empty" }}
+          </a>
+        </div>
         <label>Link</label>
         <div>
           <a href="#" editable-text="work.link" onaftersave="updateWork(work)">

@@ -1,11 +1,6 @@
 'use strict';
 
 angular.module('louiscruzApp')
-  .controller('WorksCtrl', function ($scope, $http, socket) {
-    $scope.works = [];
+  .controller('WorksCtrl', function ($scope) {
 
-    $http.get('/api/works').success(function(works) {
-      $scope.works = works;
-      socket.syncUpdates('work', $scope.works);
-    });
   });
