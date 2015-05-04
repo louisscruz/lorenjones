@@ -17,11 +17,11 @@
           <div class="table-cell">
             <button class="button-icon" ng-click="playPause()">
               <svg ng-if="player.playing != track" plangular-icon="play"></svg>
-              <svg ng-if="player.playing == track" plangular-icon="pause"></svg>
+              <svg ng-if="player.playing === track" plangular-icon="pause"></svg>
             </button>
           </div>
           <div class="table-cell px2 full-width">
-            <progressbar max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
+            <progressbar ng-if="player.playing === track" max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
 
             <small ng-if="player.playing != track"></small>
             <small ng-if="player.playing == track">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>

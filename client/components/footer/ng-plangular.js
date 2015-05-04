@@ -108,8 +108,13 @@ plangular.directive('plangular', ['$http', function ($http) {
 
     seek: function(e) {
       if (!audio.readyState) return false;
-      var xpos = e.offsetX / e.target.offsetWidth;
-      audio.currentTime = (xpos * audio.duration);
+      if ($(e.target).hasClass('progress')) {
+        var percent = e.offsetX / e.target.offsetWidth;
+      } else {
+        var percent = e.offsetX / $(e.target).parent().width();
+      }
+      var time = percent * audio.duration || 0;
+      audio.currentTime = time;
     }
 
   };
