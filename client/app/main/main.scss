@@ -12,15 +12,16 @@
 
 .hero-unit {
     padding: 30px 15px;
-    color: white;
+    color: $orange;
     margin-top: -51px;
-    //margin-bottom: 42px;
+    font-family: 'Damion', cursive;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
     height: 100%;
     overflow: hidden;
     background: #1d2b64;
-    background: radial-gradient(circle farthest-side at left bottom, #ff6633 5%, #ff6666 35%, #1d2b64 80%, #0e153a 98%);
+    background-image: url("/assets/images/Louis_Cruz_headshot.JPG");
+    background-size: cover;
 }
 
 #louiscruz {

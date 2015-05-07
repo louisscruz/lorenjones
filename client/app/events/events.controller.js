@@ -16,4 +16,21 @@ angular.module('louiscruzApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('event');
     });
+
+    $scope.pastEvents = function() {
+      $scope.dateFilter = function(obj) {
+        var date = new Date();
+        var eventDate = new Date(obj.date);
+        return eventDate < date;
+      }
+    };
+
+    $scope.upcomingEvents = function() {
+      $scope.dateFilter = function(obj) {
+        var date = new Date();
+        var eventDate = new Date(obj.date);
+        return eventDate >= date;
+      }
+    };
+
   });

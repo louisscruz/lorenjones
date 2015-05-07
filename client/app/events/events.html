@@ -1,7 +1,13 @@
 <div class="container">
   <h1 class="center">Events</h1>
+  <tabset>
+    <tab heading="Upcoming Events" select="upcomingEvents()">
+    </tab>
+    <tab heading="Previous Events" select="pastEvents()">
+    </tab>
+  </tabset>
   <ul class="events">
-    <li class="event" ng-repeat="event in events | orderBy: 'date':reverse">
+    <li class="event" ng-repeat="event in events | filter:dateFilter | orderBy: 'date':reverse">
       <div class="row">
         <div class="col-md-2 col-md-offset-2 col-sm-2 col-sm-offset-0 col-xs-3">
           <div class="square">
