@@ -22,7 +22,8 @@ angular.module('louiscruzApp')
         var date = new Date();
         var eventDate = new Date(obj.date);
         return eventDate < date;
-      }
+      };
+      $scope.sort = '-date';
     };
 
     $scope.upcomingEvents = function() {
@@ -30,7 +31,8 @@ angular.module('louiscruzApp')
         var date = new Date();
         var eventDate = new Date(obj.date);
         return eventDate >= date;
-      }
+      };
+      $scope.sort = 'date';
     };
 
   });
