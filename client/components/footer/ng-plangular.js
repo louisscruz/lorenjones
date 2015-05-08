@@ -1,22 +1,18 @@
 /*
-
         PLANGULAR
         A Highly Customizable SoundCloud Player
-
         Angular Version
-
         http://jxnblk.github.io/Plangular
-
  */
 
 (function() {
 
 'use strict';
 
-var plangular = angular.module('plangular', []),
-    clientID = 'a7654b6d1d451c513253de1b4dc8a65d';
+var plangular = angular.module('plangular', []);
 
-plangular.directive('plangular', ['$http', function ($http) {
+plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, plangularConfig) {
+  var clientId = plangularConfig.clientId;
 
   var audio = document.createElement('audio');
 
@@ -44,10 +40,10 @@ plangular.directive('plangular', ['$http', function ($http) {
       if (track.tracks) {
         this.playlistIndex = playlistIndex || 0;
         this.playing = track.tracks[this.playlistIndex];
-        var src = track.tracks[this.playlistIndex].stream_url + '?client_id=' + clientID;
+        var src = track.tracks[this.playlistIndex].stream_url + '?client_id=' + clientId;
       } else {
         this.playing = track;
-        var src = track.stream_url + '?client_id=' + clientID;
+        var src = track.stream_url + '?client_id=' + clientId;
       }
       this.currentTrack = this.playing;
       if (src != audio.src) audio.src = src;
@@ -139,7 +135,7 @@ plangular.directive('plangular', ['$http', function ($http) {
     link: function (scope, elem, attrs) {
 
       var src = attrs.plangular;
-      var params = { url: src, client_id: clientID, callback: 'JSON_CALLBACK' }
+      var params = { url: src, client_id: clientId, callback: 'JSON_CALLBACK' }
 
       scope.player = player;
       scope.audio = audio;
@@ -161,6 +157,7 @@ plangular.directive('plangular', ['$http', function ($http) {
       } else if (player.data[src]) {
         scope.track = player.data[src];
         addKeys(scope.track);
+        player.load(scope.track, scope.index);
       } else {
         $http.jsonp('//api.soundcloud.com/resolve.json', { params: params }).success(function(data){
           scope.track = data;
@@ -280,6 +277,16 @@ plangular.filter('prettyTime', function() {
       };
     } else {
       return '00:00';
+    };
+  };
+});
+
+plangular.provider('plangularConfig', function() {
+  this.clientId = 'a7654b6d1d451c513253de1b4dc8a65d';
+  var _this = this;
+  this.$get = function() {
+    return {
+      clientId: _this.clientId
     };
   };
 });
