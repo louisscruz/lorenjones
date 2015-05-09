@@ -7,16 +7,14 @@ $blue: #0e153a;
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic);
-@import url(http://fonts.googleapis.com/css?family=Damion);
-@import url(http://fonts.googleapis.com/css?family=Nothing+You+Could+Do);
+@import url(http://fonts.googleapis.com/css?family=Bitter:700);
 /**
  * App-wide Styles
  */
-
- html {
-   height: 100%;
-   width: 100%;
- }
+html {
+  height: 100%;
+  width: 100%;
+}
 
 body {
   font-family: 'Source sans pro', sans-serif;
