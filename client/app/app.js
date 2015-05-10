@@ -12,7 +12,8 @@ angular.module('louiscruzApp', [
   'uiGmapgoogle-maps',
   'youtube-embed',
   'plangular',
-  'xeditable'
+  'xeditable',
+  'ngAnimate'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

@@ -6,7 +6,7 @@ angular.module('louiscruzApp')
           return {
               fetchPopular: function(callback) {
 
-                  var endPoint = "https://api.instagram.com/v1/media/popular?client_id=642176ece1e7445e99244cec26f4de1f&callback=JSON_CALLBACK";
+                  var endPoint = "https://api.instagram.com/v1/users/1545705357/media/recent?callback=JSON_CALLBACK&client_id=65568cd5ceaf443a8816303a0fa6de61";
 
                   $http.jsonp(endPoint).success(function(response) {
                       callback(response.data);
