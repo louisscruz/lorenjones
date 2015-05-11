@@ -54,7 +54,7 @@ onFileUploadComplete: function (file) {
 }));
 
 app.post('/api/photo',function(req,res){
-  if(done==true){
+  if(done === true){
     console.log(req.files);
     res.end("File uploaded.");
   }
