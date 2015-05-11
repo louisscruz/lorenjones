@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('louiscruzApp')
-  .controller('AdminWorksCtrl', function ($scope, $http, socket) {
+  .controller('AdminWorksCtrl', function ($scope, $http, socket, Modal) {
     $scope.works = [];
     $scope.groups = [
       'Solo',
@@ -51,9 +51,9 @@ angular.module('louiscruzApp')
       });
     };
 
-    $scope.deleteWork = function(work) {
+    $scope.deleteWork = Modal.confirm.delete(function(work) {
       $http.delete('/api/works/' + work._id);
-    };
+    });
 
     $scope.$on('$destroy', function() {
       socket.unsyncUpdates('work');

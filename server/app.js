@@ -8,8 +8,10 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');
+var multer = require('multer');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
+var done = false;
 
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
@@ -35,3 +37,25 @@ server.listen(config.port, config.ip, function () {
 
 // Expose app
 exports = module.exports = app;
+
+// Multer Images
+
+app.use(multer({ dest: './uploads/',
+ rename: function (fieldname, filename) {
+    return filename+Date.now();
+  },
+onFileUploadStart: function (file) {
+  console.log(file.originalname + ' is starting ...')
+},
+onFileUploadComplete: function (file) {
+  console.log(file.fieldname + ' uploaded to  ' + file.path)
+  done=true;
+}
+}));
+
+app.post('/api/photo',function(req,res){
+  if(done==true){
+    console.log(req.files);
+    res.end("File uploaded.");
+  }
+});
