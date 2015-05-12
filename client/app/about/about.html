@@ -3,7 +3,7 @@
   <tabset class="col-md-8 col-md-offset-2 col-sm-12">
     <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
       <div class="bio section">
-        <p>{{entry.content}}</p>
+        <p class="new-lines">{{entry.content}}</p>
       </div>
     </tab>
   </tabset>
