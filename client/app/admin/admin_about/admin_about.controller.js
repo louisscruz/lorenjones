@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('louiscruzApp')
-  .controller('AdminAboutCtrl', function ($scope, $http, socket) {
+  .controller('AdminAboutCtrl', function ($scope, $http, socket, Modal) {
     $scope.bioEntries = [];
 
     $http.get('/api/bio_entries', {cache: true}).success(function(bioEntries) {
@@ -21,9 +21,16 @@ angular.module('louiscruzApp')
       $scope.newContent = '';
     };
 
-    $scope.deleteBioEntry = function(entry) {
-      $http.delete('/api/bio_entries/' + entry._id);
+    $scope.updateBioEntry = function(entry) {
+      return $http.put('/api/bio_entries/' + entry._id, {
+        title: entry.title,
+        content: entry.content
+      });
     };
+
+    $scope.deleteBioEntry = Modal.confirm.delete(function(entry) {
+      $http.delete('/api/bio_entries/' + entry._id);
+    });
 
     $scope.$on('$destroy', function() {
       socket.unsyncUpdates('bio_entry');
