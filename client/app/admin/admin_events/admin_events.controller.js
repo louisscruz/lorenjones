@@ -29,7 +29,7 @@ angular.module('louiscruzApp')
       format: 'ddd, dd-mm-yyyy',
     };
 
-    $http.get('/api/events').success(function(events) {
+    $http.get('/api/events', {cache: true}).success(function(events) {
       $scope.events = events;
       socket.syncUpdates('event', $scope.events);
     });

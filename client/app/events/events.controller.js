@@ -8,7 +8,7 @@ angular.module('louiscruzApp')
       format: 'dddd, mmmm dddd',
     };
 
-    $http.get('/api/events').success(function(events) {
+    $http.get('/api/events', {cache: true}).success(function(events) {
       $scope.events = events;
       socket.syncUpdates('event', $scope.events);
     });

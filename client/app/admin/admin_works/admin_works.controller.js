@@ -12,7 +12,7 @@ angular.module('louiscruzApp')
       'Opera'
     ];
 
-    $http.get('/api/works').success(function(works) {
+    $http.get('/api/works', {cache: true}).success(function(works) {
       $scope.works = works;
       socket.syncUpdates('work', $scope.works);
     });
