@@ -20,10 +20,44 @@
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
     height: 100%;
     overflow: hidden;
-    background: url("/assets/images/Louis_Cruz_main.jpg") no-repeat center center fixed;
+    background: url("/assets/images/main/Louis_Cruz_small.jpg") no-repeat center center fixed;
     background-size: cover;
 }
 
 #louiscruz {
     clip-path: url(#svgTextPath);
+}
+
+@media(max-width:767px) and (-webkit-min-device-pixel-ration:2),
+      (max-width:767px) and (min-resolution:192dpi){
+  .hero-unit {
+    background-image: url("/assets/images/main/Louis_Cruz_small_@2x.jpg");
+  }
+}
+@media(min-width:768px){
+  .hero-unit {
+    background-image: url("/assets/images/main/Louis_Cruz_medium.jpg");
+  }
+}
+@media(min-width:768px) and (-webkit-min-device-pixel-ration:2),
+      (min-width:768px) and (min-resolution:192dpi){
+  .hero-unit {
+    background-image: url("/assets/images/main/Louis_Cruz_medium_@2x.jpg");
+  }
+}
+@media(min-width:992px){
+  .hero-unit {
+    background-image: url("/assets/images/main/Louis_Cruz_large.jpg");
+  }
+}
+@media(min-width:992px) and (-webkit-min-device-pixel-ration:2),
+      (min-width:992px) and (min-resolution:192dpi){
+  .hero-unit {
+    background-image: url("/assets/images/main/Louis_Cruz_large_@2x.jpg");
+  }
+}
+@media(min-width:1200px){
+  .hero-unit {
+    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
+  }
 }
