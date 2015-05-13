@@ -4,12 +4,6 @@
     //margin-bottom: 42px;
 }
 
-#banner h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
-}
-
 .hero-unit {
     padding: 30px 15px;
     color: white;
@@ -22,10 +16,15 @@
     overflow: hidden;
     background: url("/assets/images/main/Louis_Cruz_medium.jpg") no-repeat center center fixed;
     background-size: cover;
-}
-
-#louiscruz {
-    clip-path: url(#svgTextPath);
+    h1 {
+      font-size: 60px;
+      line-height: 1;
+      letter-spacing: -1px;
+      text-shadow: 5px -3px 2px rgba(0, 0, 0, 0.5);
+    }
+    h2 {
+      text-shadow: 5px -3px 2px rgba(0, 0, 0, 0.5);
+    }
 }
 
 @media(max-width:767px) and (-webkit-min-device-pixel-ration:2),
