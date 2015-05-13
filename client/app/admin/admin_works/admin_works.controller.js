@@ -7,6 +7,7 @@ angular.module('louiscruzApp')
       'Solo',
       'Chamber',
       'Orchestral',
+      'Wind Ensemble',
       'Vocal',
       'Choral',
       'Opera'

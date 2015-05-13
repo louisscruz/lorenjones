@@ -8,7 +8,7 @@
       <div class="panel" ng-repeat="work in works | orderBy: 'date':true">
         <h3>
           {{ work.title }} ({{ work.date }})
-          <button class="btn btn-default btn-xs info" ng-click="isCollapsed = !isCollapsed">
+          <button class="btn btn-default btn-xs info" ng-if="(work.info || work.link)" ng-click="toggle()">
             {{ isCollapsed == true ? 'Less Info' : 'More Info' }}
           </button>
         </h3>
