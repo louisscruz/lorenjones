@@ -122,6 +122,8 @@ body {
     background-color: $blue;
   }
   .right {
+    margin-left: 126px;
+    margin-top: 0px;
     padding-top: 11px;
   }
 }
@@ -138,19 +140,16 @@ p {
 .repeated-item { }
 
 .repeated-item.ng-move,
-.repeated-item.ng-enter,
-.repeated-item.ng-leave {
+.repeated-item.ng-enter {
   -webkit-transition:all ease-in-out 0.5s;
   transition:all ease-in-out 0.5s;
 }
 
-.repeated-item.ng-leave.ng-leave-active,
 .repeated-item.ng-move,
 .repeated-item.ng-enter {
   opacity:0;
 }
 
-.repeated-item.ng-leave,
 .repeated-item.ng-move.ng-move-active,
 .repeated-item.ng-enter.ng-enter-active {
   opacity:1;
