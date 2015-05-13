@@ -10,8 +10,9 @@
 </div>
 <div class="container">
   <div class="col-md-8 col-md-offset-2 col-sm-12">
-  <div ng-repeat="p in pics" class="col-md-2 repeated-item">
-    <a href="{{p.link}}" target="_blank"><img ng-src="{{p.images.low_resolution.url}}" class="img-responsive thumbnail" title="{{p.caption.text}}"></a>
+    <h1>Louis' Latest Instagram Activity</h1>
+    <div ng-repeat="p in pics" class="col-md-2 repeated-item">
+      <a href="{{p.link}}" target="_blank"><img ng-src="{{p.images.low_resolution.url}}" class="img-responsive thumbnail" title="{{p.caption.text}}"></a>
+    </div>
   </div>
-</div>
 </div>
