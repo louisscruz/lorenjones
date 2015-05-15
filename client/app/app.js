@@ -13,7 +13,8 @@ angular.module('louiscruzApp', [
   'youtube-embed',
   'plangular',
   'xeditable',
-  'ngAnimate'
+  'ngAnimate',
+  'ngFitText'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
