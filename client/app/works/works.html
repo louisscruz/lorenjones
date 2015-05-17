@@ -20,11 +20,10 @@
               <i class="fa fa-pause fa-lg" ng-if="player.playing == track"></i>
             </button>
           </div>
-          <div class="table-cell px2 full-width">
-            <progressbar ng-if="player.playing === track" max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
-
+          <div class="">
+            <progressbar ng-if="player.currentTrack == track" max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
             <small ng-if="player.playing != track"></small>
-            <small ng-if="player.playing == track">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>
+            <small ng-if="player.currentTrack == track">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>
           </div>
         </div>
   	    <div ng-if="(work.info || work.link)" collapse="!isCollapsed">
