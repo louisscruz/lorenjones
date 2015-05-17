@@ -2,11 +2,18 @@
 
 angular.module('louiscruzApp')
   .controller('EventsCtrl', function ($scope, $http, socket) {
+    $scope.radioModel = 'Upcoming';
     $scope.events = [];
     $scope.options = {scrollwheel: false};
     $scope.dateOptions = {
       format: 'dddd, mmmm dddd',
     };
+    $scope.dateFilter = function(obj) {
+      var date = new Date();
+      var eventDate = new Date(obj.date);
+      return eventDate >= date;
+    };
+    $scope.sort = 'date';
 
     $http.get('/api/events', {cache: true}).success(function(events) {
       $scope.events = events;

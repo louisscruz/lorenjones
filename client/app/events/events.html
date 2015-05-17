@@ -1,12 +1,10 @@
-<div class="container">
+<div class="container text-center">
   <h1 class="center">Events</h1>
-  <tabset>
-    <tab heading="Upcoming Events" select="upcomingEvents()" class="cursor">
-    </tab>
-    <tab heading="Previous Events" select="pastEvents()" class="cursor">
-    </tab>
-  </tabset>
-  <ul class="events">
+  <div class="button-select btn-group">
+    <label class="btn btn-default" ng-click="upcomingEvents()" ng-model="radioModel" btn-radio="'Upcoming'" uncheckable>Upcoming Events</label>
+    <label class="btn btn-default" ng-click="pastEvents()" ng-model="radioModel" btn-radio="'Past'" uncheckable>Past Events</label>
+  </div>
+  <ul class="events text-nowrap">
     <li class="event repeated-item" ng-repeat="event in events | filter:dateFilter | orderBy:sort">
       <div class="row">
         <div class="col-md-2 col-md-offset-2 col-sm-2 col-sm-offset-0 col-xs-3">
@@ -16,7 +14,7 @@
             <p class="day">{{event.date | date:'EEE'}}</p>
           </div>
         </div>
-        <div class="col-md-8 col-sm-6 col-xs-9">
+        <div class="col-md-8 col-sm-6 col-xs-9 text-left">
           <h1 class="name">{{event.name}}</h1>
           <p class="time">{{event.time}}</p>
           <p class="info">
@@ -27,7 +25,7 @@
         <div class="col-sm-3 col-xs-12">
         </div>
       </div>
-      <ui-gmap-google-map style="height: 200px;"center="[event.lat, event.lng ]" zoom='event.zoom' options='options'>
+      <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='event.zoom' options='options'>
         <ui-gmap-marker idkey="event.venue" coords="[event.lat, event.lng ]">
         </ui-gmap-marker>
       </ui-gmap-google-map>

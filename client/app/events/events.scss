@@ -8,6 +8,9 @@ $square-color: gray;
 
 .events {
   padding-left: 0px;
+  .row {
+    padding-bottom: 10px;
+  }
   li {
     list-style: none;
     padding-top: 24px;

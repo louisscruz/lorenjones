@@ -4,7 +4,7 @@
 
 .hero-unit {
     padding: 30px 15px;
-    color: white;
+    color: $orange;
     margin-top: -51px;
     font-family: 'Bitter', serif;
     font-weight: 700;
@@ -12,11 +12,11 @@
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
     height: 100%;
     overflow: hidden;
-    background: url("/assets/images/main/Louis_Cruz_original.jpg");
+    background: url("/assets/images/main/Louis_Cruz_original.jpg") center center;
     background-size: cover;
     .text {
       width: 100%;
-      opacity: 0.5;
+      opacity: 0.6;
       h1 {
         font-size: 60px;
         line-height: 1;
@@ -31,29 +31,29 @@
 @media(max-width:767px) and (-webkit-min-device-pixel-ration:2),
       (max-width:767px) and (min-resolution:192dpi){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_medium_@2x.jpg");
+    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
   }
 }
 @media(min-width:768px){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_medium.jpg");
+    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
   }
 }
 @media(min-width:768px) and (-webkit-min-device-pixel-ration:2),
       (min-width:768px) and (min-resolution:192dpi){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_medium_@2x.jpg");
+    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
   }
 }
 @media(min-width:992px){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_large.jpg");
+    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
   }
 }
 @media(min-width:992px) and (-webkit-min-device-pixel-ration:2),
       (min-width:992px) and (min-resolution:192dpi){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_large_@2x.jpg");
+    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
   }
 }
 @media(min-width:1200px){
