@@ -121,14 +121,14 @@ body {
   .button-icon {
     float: left;
   }
-  .progress-bar {
-    background-color: $blue;
-  }
   .right {
     margin-left: 126px;
     margin-top: 0px;
     padding-top: 11px;
   }
+}
+.progress-bar {
+  background-color: $blue;
 }
 
 

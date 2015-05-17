@@ -16,8 +16,8 @@
         <div ng-if="work.audio" class="table" plangular="{{work.audio}}">
           <div class="table-cell">
             <button class="button-icon" ng-click="playPause()">
-              <i class="fa fa-play fa-lg" ng-if="!player.playing"></i>
-              <i class="fa fa-pause fa-lg" ng-if="player.playing"></i>
+              <i class="fa fa-play fa-lg" ng-if="player.playing != track"></i>
+              <i class="fa fa-pause fa-lg" ng-if="player.playing == track"></i>
             </button>
           </div>
           <div class="table-cell px2 full-width">
@@ -38,4 +38,14 @@
       </div>
     </accordion-group>
   </accordion>
+  <div class="col-md-12">
+    <ul>
+      <li ng-repeat="track in player.tracks">
+        {{track.title}}
+      </li>
+    </ul>
+    {{player.currentTrack.title}}
+    {{player.i}}
+    {{player.playlistIndex}}
+  </div>
 </div>

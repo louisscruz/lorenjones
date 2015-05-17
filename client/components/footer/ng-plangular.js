@@ -176,7 +176,8 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
       };
 
       scope.playPause = function(playlistIndex) {
-        player.playPause(scope.index, playlistIndex);
+        var i = scope.index || player.i;
+        player.playPause(i, playlistIndex);
       };
 
       scope.next = function() {
