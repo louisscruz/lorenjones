@@ -196,8 +196,8 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
           });
         } else {
           scope.$apply(function() {
-            scope.currentTime = 5;
-            scope.duration = 10;
+            scope.currentTime = player.currentTime;
+            scope.duration = player.duration;
           });
         };
       }, false);

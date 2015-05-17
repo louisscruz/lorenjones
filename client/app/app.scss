@@ -46,6 +46,10 @@ body {
   white-space: pre-line;
 }
 
+.vis-hidden {
+  visibility: hidden;
+}
+
 // App Structure
 #navbar {
   height: 51px;
@@ -117,7 +121,11 @@ body {
   z-index: 100;
   background-color: #f5f5f5;
   height: 42px;
-  line-height: 122px;
+  line-height: 14px;
+  p {
+    line-height: 14px;
+    margin-bottom: 0px;
+  }
   .button-icon {
     float: left;
   }
@@ -129,6 +137,7 @@ body {
 }
 .progress {
   height: 14px;
+  margin-bottom: 0px;
   .progress-bar {
     background-color: $blue;
   }
