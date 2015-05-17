@@ -1,13 +1,16 @@
 <footer class="footer">
     <button class="button-icon" ng-click="playPause()">
-      <svg ng-if="!player.playing" plangular-icon="play"></svg>
-      <svg ng-if="player.playing" plangular-icon="pause"></svg>
+      <i class="fa fa-play fa-lg" ng-if="!player.playing"></i>
+      <i class="fa fa-pause fa-lg" ng-if="player.playing"></i>
     </button>
     <button class="button-icon" ng-click="previous()">
-      <svg plangular-icon="previous"></svg>
+      <i class="fa fa-step-backward fa-lg"></i>
     </button>
     <button class="button-icon" ng-click="next()">
-      <svg plangular-icon="next"></svg>
+      <i class="fa fa-step-forward fa-lg"></i>
+    </button>
+    <button class="button-icon">
+      <i class="fa fa-chevron-up"></i>
     </button>
     <div class="right">
       <progressbar max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
