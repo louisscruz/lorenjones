@@ -16,8 +16,8 @@
         <div ng-if="work.audio" class="table" plangular="{{work.audio}}">
           <div class="table-cell">
             <button class="button-icon" ng-click="playPause()">
-              <svg ng-if="player.playing != track" plangular-icon="play"></svg>
-              <svg ng-if="player.playing === track" plangular-icon="pause"></svg>
+              <i class="fa fa-play fa-lg" ng-if="!player.playing"></i>
+              <i class="fa fa-pause fa-lg" ng-if="player.playing"></i>
             </button>
           </div>
           <div class="table-cell px2 full-width">
