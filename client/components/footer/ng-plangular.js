@@ -193,6 +193,11 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
             scope.currentTime = player.currentTime;
             scope.duration = player.duration;
           });
+        } else {
+          scope.$apply(function() {
+            scope.currentTime = 5;
+            scope.duration = 10;
+          });
         };
       }, false);
 
