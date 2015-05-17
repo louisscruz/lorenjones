@@ -127,10 +127,12 @@ body {
     padding-top: 11px;
   }
 }
-.progress-bar {
-  background-color: $blue;
+.progress {
+  height: 14px;
+  .progress-bar {
+    background-color: $blue;
+  }
 }
-
 
 // Fonts
 p {
