@@ -4,15 +4,15 @@
       <i class="fa fa-play fa-lg" ng-if="!player.playing"></i>
       <i class="fa fa-pause fa-lg" ng-if="player.playing"></i>
     </button>
-    <button class="button-icon" ng-click="previous()">
+    <!--button class="button-icon" ng-click="previous()">
       <i class="fa fa-step-backward fa-lg"></i>
     </button>
     <button class="button-icon" ng-click="next()">
       <i class="fa fa-step-forward fa-lg"></i>
     </button>
-    <button class="button-icon" popover="Top!">
+    <button class="button-icon">
       <i class="fa fa-chevron-up"></i>
-    </button>
+    </button-->
   </div>
   <div class="track-info">
     <p ng-class="{ 'vis-hidden': currentTime == 0 }">{{player.currentTrack.title}}</p>
