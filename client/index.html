@@ -27,6 +27,9 @@
     <!-- endbuild -->
   </head>
   <body ng-app="louiscruzApp" plangular="http://soundcloud.com/louis-cruz/three-styles-iii-over-easy">
+    <div ng-repeat="work in allWorks">
+      <div plangular="{{work.audio}}"></div>
+    </div>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
