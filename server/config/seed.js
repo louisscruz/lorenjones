@@ -9,7 +9,7 @@ var User = require('../api/user/user.model');
 var BioEntry = require('../api/bio_entry/bio_entry.model');
 var DefaultTrack = require('../api/default_track/default_track.model');
 
-User.find({}).remove(function() {
+/**User.find({}).remove(function() {
   User.create({
     provider: 'local',
     name: 'Test User',
@@ -26,3 +26,4 @@ User.find({}).remove(function() {
     }
   );
 });
+*/
