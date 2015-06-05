@@ -18,6 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/default_track/default_track.socket').register(socket);
   require('../api/photo/photo.socket').register(socket);
   require('../api/contact/contact.socket').register(socket);
   require('../api/bio_entry/bio_entry.socket').register(socket);

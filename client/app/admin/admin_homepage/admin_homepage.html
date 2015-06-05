@@ -1,10 +1,29 @@
 <div class="container">
-  <form id        =  "uploadForm"
-       enctype   =  "multipart/form-data"
-       action    =  "/api/photo"
-       method    =  "post"
-  >
-  <input type="file" name="userPhoto" />
-  <input type="submit" value="Upload Image" name="submit">
-  </form>
+  <h1>Manage Playlist</h1>
+  <h3>Splash Track</h4>
+  <p>This is the track that is initially loaded to the site. When a visitor clicks the play button for the first time, the splash track will play.</p>
+  <h4>The current splash track is:</h4>
+  <code>{{tracks[0].link}}</code>
+  <h4>To change the splash track, copy and paste a track URL from Soundcloud.</h4>
+  <div class="col-md-12">
+    <form class="thing-form">
+      <label>Link</label>
+      <p class="input-group">
+        <input type="text"
+        class="form-control" placeholder="Default Track Link" ng-model="newLink">
+      </p>
+      <p class="input-group">
+        <button type="submit" class="btn btn-primary" ng-click="addDefaultTrack()">Save Track</button>
+      </p>
+    </form>
+  </div>
+  <div class="col-md-12">
+    <h
+    <ul>
+      <li>{{defaultTrack[0].link}}</li>
+    </ul>
+    <ul ui-sortable ng-model="allWorks">
+      <li ng-repeat="track in allWorks">{{ track.audio }}</li>
+    </ul>
+  </div>
 </div>

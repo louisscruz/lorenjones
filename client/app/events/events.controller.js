@@ -8,9 +8,14 @@ angular.module('louiscruzApp')
     $scope.dateOptions = {
       format: 'dddd, mmmm dddd',
     };
+    function roundDate(timeStamp){
+        timeStamp -= timeStamp % (24 * 60 * 60 * 1000);//subtract amount of time since midnight
+        timeStamp += new Date().getTimezoneOffset() * 60 * 1000;//add on the timezone offset
+        return new Date(timeStamp);
+    }
     $scope.dateFilter = function(obj) {
-      var date = new Date();
-      var eventDate = new Date(obj.date);
+      var date = roundDate(new Date());
+      var eventDate = roundDate(new Date(obj.date));
       return eventDate >= date;
     };
     $scope.sort = 'date';
@@ -26,8 +31,8 @@ angular.module('louiscruzApp')
 
     $scope.pastEvents = function() {
       $scope.dateFilter = function(obj) {
-        var date = new Date();
-        var eventDate = new Date(obj.date);
+        var date = roundDate(new Date());
+        var eventDate = roundDate(new Date(obj.date));
         return eventDate < date;
       };
       $scope.sort = '-date';
@@ -35,8 +40,8 @@ angular.module('louiscruzApp')
 
     $scope.upcomingEvents = function() {
       $scope.dateFilter = function(obj) {
-        var date = new Date();
-        var eventDate = new Date(obj.date);
+        var date = roundDate(new Date());
+        var eventDate = roundDate(new Date(obj.date));
         return eventDate >= date;
       };
       $scope.sort = 'date';

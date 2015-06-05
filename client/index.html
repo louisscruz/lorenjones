@@ -26,7 +26,7 @@
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
-  <body ng-app="louiscruzApp" plangular="http://soundcloud.com/louis-cruz/three-styles-iii-over-easy">
+  <body ng-app="louiscruzApp" plangular="{{defaultTrack[0].link}}">
     <div ng-repeat="work in allWorks">
       <div plangular="{{work.audio}}"></div>
     </div>

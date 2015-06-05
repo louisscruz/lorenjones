@@ -8,6 +8,7 @@
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var BioEntry = require('../api/bio_entry/bio_entry.model');
+var DefaultTrack = require('../api/default_track/default_track.model');
 
 Thing.find({}).remove(function() {
   Thing.create({

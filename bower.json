@@ -17,7 +17,7 @@
     "angular-socket-io": "~0.6.0",
     "angular-ui-router": "~0.2.10",
     "angular-filter": "~0.5.1",
-    "angular-ui-sortable": "~0.13.1",
+    "angular-ui-sortable": "~0.13.3",
     "jquery-ui": "~1.11.2",
     "angular-google-maps": "~2.0.11",
     "angular-promise-tracker": "~2.1.0",

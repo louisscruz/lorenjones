@@ -1,4 +1,12 @@
 <div class="container" id="about">
+  {{defaultTrack[0].link}}
+  <div ng-repeat="track in allWorks">
+    {{track.audio}} - {{track._id}}
+  </div>
+  <div ng-repeat="track in player.tracks">
+    {{track.title}}
+  </div>
+  {{player}}
   <h1 class="center">Bio</h1>
   <tabset class="col-md-8 col-md-offset-2 col-sm-12">
     <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">

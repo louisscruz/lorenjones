@@ -52,8 +52,8 @@ angular.module('louiscruzApp', [
 
   .run(function ($rootScope, $location, Auth, editableOptions, works) {
     editableOptions.theme = 'bs3';
+    $rootScope.defaultTrack = works.defaultTrack;
     $rootScope.allWorks = works.works;
-    $rootScope.allTracks = [];
 
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
