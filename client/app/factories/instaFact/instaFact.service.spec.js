@@ -3,7 +3,7 @@
 describe('Service: instaFact', function () {
 
   // load the service's module
-  beforeEach(module('louiscruzApp'));
+  beforeEach(module('lorenjonesApp'));
 
   // instantiate service
   var instaFact;

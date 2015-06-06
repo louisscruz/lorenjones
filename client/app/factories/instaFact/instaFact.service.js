@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('louiscruzApp')
+angular.module('lorenjonesApp')
   .factory('instagram', ['$http',
     function($http) {
       return {

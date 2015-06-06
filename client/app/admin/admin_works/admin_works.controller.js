@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('louiscruzApp')
+angular.module('lorenjonesApp')
   .controller('AdminWorksCtrl', function ($scope, $http, socket, Modal) {
     $scope.works = [];
     $scope.groups = [

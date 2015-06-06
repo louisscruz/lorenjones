@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('louiscruzApp')
+angular.module('lorenjonesApp')
   .controller('AdminEventsCtrl', function ($scope, $http, socket) {
     $scope.events = [];
     $scope.options = {scrollwheel: false};

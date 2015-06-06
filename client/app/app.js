@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('louiscruzApp', [
+angular.module('lorenjonesApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('louiscruzApp')
+angular.module('lorenjonesApp')
   .controller('AdminAboutCtrl', function ($scope, $http, socket, Modal) {
     $scope.bioEntries = [];
 

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('louiscruzApp')
+angular.module('lorenjonesApp')
   .controller('AdminHomepageCtrl', function ($scope, $http, socket, Modal) {
     $scope.tracks = [];
     $http.get('/api/default_tracks').success(function(tracks) {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('louiscruzApp')
+angular.module('lorenjonesApp')
   .factory('works', function ($http, socket) {
     var fact = { works: [], defaultTrack: []};
 

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('louiscruzApp')
+angular.module('lorenjonesApp')
   .controller('AboutCtrl', function ($scope, $http, socket, $interval, instagram) {
     $scope.bioEntries = [];
 

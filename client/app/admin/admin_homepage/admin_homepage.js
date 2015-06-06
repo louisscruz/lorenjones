@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('louiscruzApp')
+angular.module('lorenjonesApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('admin_homepage', {

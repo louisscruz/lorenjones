@@ -3,7 +3,7 @@
 describe('Controller: AdminHomepageCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('louiscruzApp'));
+  beforeEach(module('lorenjonesApp'));
 
   var AdminHomepageCtrl, scope;
 
