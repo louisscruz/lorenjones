@@ -14,7 +14,8 @@ angular.module('lorenjonesApp', [
   'plangular',
   'xeditable',
   'ngAnimate',
-  'ngFitText'
+  'ngFitText',
+  'angular-parallax'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

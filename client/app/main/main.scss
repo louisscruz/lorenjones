@@ -6,17 +6,17 @@
     padding: 30px 15px;
     color: $orange;
     margin-top: -51px;
-    font-family: 'Bitter', serif;
-    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    font-weight: 900 !important;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
     height: 100vh;
     overflow: hidden;
-    background: url("/assets/images/main/Louis_Cruz_original.jpg") center center;
+    background: url("/assets/images/main/Loren_Jones_original.jpg") center center;
     background-size: cover;
     .text {
       width: 100%;
-      opacity: 0.6;
+      color: white;
       h1 {
         font-size: 60px;
         line-height: 1;
@@ -31,33 +31,33 @@
 @media(max-width:767px) and (-webkit-min-device-pixel-ration:2),
       (max-width:767px) and (min-resolution:192dpi){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
+    background-image: url("/assets/images/main/Loren_Jones_original.jpg");
   }
 }
 @media(min-width:768px){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
+    background-image: url("/assets/images/main/Loren_Jones_original.jpg");
   }
 }
 @media(min-width:768px) and (-webkit-min-device-pixel-ration:2),
       (min-width:768px) and (min-resolution:192dpi){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
+    background-image: url("/assets/images/main/Loren_Jones_original.jpg");
   }
 }
 @media(min-width:992px){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
+    background-image: url("/assets/images/main/Loren_Jones_original.jpg");
   }
 }
 @media(min-width:992px) and (-webkit-min-device-pixel-ration:2),
       (min-width:992px) and (min-resolution:192dpi){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
+    background-image: url("/assets/images/main/Loren_Jones_original.jpg");
   }
 }
 @media(min-width:1200px){
   .hero-unit {
-    background-image: url("/assets/images/main/Louis_Cruz_original.jpg");
+    background-image: url("/assets/images/main/Loren_Jones_original.jpg");
   }
 }

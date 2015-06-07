@@ -1,0 +1,19 @@
+.parallax {
+  padding-left: 0px;
+  padding-right: 0px;
+  section {
+    height: 400px;
+    background: white;
+  }
+  img {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .photo {
+  background-attachment: fixed;
+  background-position: 50% 0;
+  background-repeat: no-repeat;
+  height: 450px;
+  position: relative;
+}
+}
