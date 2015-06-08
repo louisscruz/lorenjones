@@ -1,7 +1,8 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 $fa-font-path: "/bower_components/font-awesome/fonts";
 
-$orange: #ff6633;
+$orange: #1A237E;
+$light: #9FA8DA;
 $blue: #66b8ac;
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
@@ -63,20 +64,50 @@ body {
 
 .nav li a {
   font-weight: 400;
-  &:active {
+  &:hover {
+    background-color: $light;
   }
 }
-.navbar-default .navbar-nav > a {
+.navbar-default .navbar-nav > li {
+  -webkit-transition-property: background-color, color;
+     -moz-transition-property: background-color, color;
+       -o-transition-property: background-color, color;
+          transition-property: background-color, color;
+  -webkit-transition-duration: 0.1s;
+     -moz-transition-duration: 0.1s;
+       -o-transition-duration: 0.1s;
+          transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease-in-out;
+     -moz-transition-timing-function: ease-in-out;
+       -o-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
   &:hover {
-    background-color: lighten(#ff6633, 50%)
+    background-color: lighten($orange, 50%)
   }
 }
 
-.navbar-default .navbar-nav > .active > a {
-  background-color: #ff6633;
-  color: white;
+.navbar-default .navbar-nav > a {
   &:hover {
-    background-color: #ff6633;
+      background-color: $light;
+  }
+}
+.navbar-default .navbar-nav > .active > a {
+  background-color: $orange;
+  color: white;
+  -webkit-transition-property: background-color, color;
+     -moz-transition-property: background-color, color;
+       -o-transition-property: background-color, color;
+          transition-property: background-color, color;
+  -webkit-transition-duration: 0.1s;
+     -moz-transition-duration: 0.1s;
+       -o-transition-duration: 0.1s;
+          transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease-in-out;
+     -moz-transition-timing-function: ease-in-out;
+       -o-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+  &:hover {
+    background-color: $light;
     color: black;
   }
 }
@@ -166,7 +197,6 @@ p {
 .repeated-item.ng-enter.ng-enter-active {
   opacity:1;
 }
-
 
 // Component styles are injected through grunt
 // injector
