@@ -1,8 +1,10 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 $fa-font-path: "/bower_components/font-awesome/fonts";
 
-$orange: #1A237E;
-$light: #9FA8DA;
+$primary: #1A237E;
+$primary-medium: #7986CB;
+$primary-light: #C5CAE9;
+$light-gray: #F5F5F5;
 $blue: #66b8ac;
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
@@ -65,7 +67,7 @@ body {
 .nav li a {
   font-weight: 400;
   &:hover {
-    background-color: $light;
+    background-color: $primary-light;
   }
 }
 .navbar-default .navbar-nav > li {
@@ -82,17 +84,12 @@ body {
        -o-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
   &:hover {
-    background-color: lighten($orange, 50%)
+    background-color: lighten($primary, 50%)
   }
 }
 
-.navbar-default .navbar-nav > a {
-  &:hover {
-      background-color: $light;
-  }
-}
 .navbar-default .navbar-nav > .active > a {
-  background-color: $orange;
+  background-color: $primary;
   color: white;
   -webkit-transition-property: background-color, color;
      -moz-transition-property: background-color, color;
@@ -107,7 +104,7 @@ body {
        -o-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
   &:hover {
-    background-color: $light;
+    background-color: $primary-light;
     color: black;
   }
 }
@@ -132,6 +129,30 @@ body {
     padding-top: 51px;
     padding-bottom: 42px;
   }
+}
+
+// Buttons
+
+.btn-default {
+  background: $light-gray;
+  //padding: 12px 22px;
+  border: 2px solid $primary-medium;
+  color: #333;
+  .active {
+    background-color: $primary-medium;
+    color: white;
+  }
+  &:hover {
+    background-color: $primary-light;
+    color: $primary;
+    border: 2px solid $primary-medium;
+  }
+}
+
+.btn-default.active {
+  background-color: $primary-medium;
+  color: white;
+  border: 2px solid $primary-medium;
 }
 
 #footer {

@@ -1,8 +1,8 @@
 <div class="container text-center">
   <h1 class="center">Events</h1>
   <div class="button-select btn-group">
-    <label class="btn btn-default" ng-click="upcomingEvents()" ng-model="radioModel" btn-radio="'Upcoming'" uncheckable>Upcoming Events</label>
-    <label class="btn btn-default" ng-click="pastEvents()" ng-model="radioModel" btn-radio="'Past'" uncheckable>Past Events</label>
+    <label class="btn btn-default" ng-click="upcomingEvents()" ng-model="radioModel" btn-radio="'Upcoming'">Upcoming Events</label>
+    <label class="btn btn-default" ng-click="pastEvents()" ng-model="radioModel" btn-radio="'Past'">Past Events</label>
   </div>
   <ul class="events text-nowrap">
     <li class="event repeated-item" ng-repeat="event in events | filter:dateFilter | orderBy:sort">
