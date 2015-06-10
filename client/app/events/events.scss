@@ -1,5 +1,5 @@
-$square-radius: 10px;
-$square-color: gray;
+$square-radius: 6px;
+$square-color: $dark-gray;
 
 .angular-google-map {
   height: 200px;
@@ -30,7 +30,7 @@ $square-color: gray;
         text-align: center;
       }
       .month {
-        background-color: #ff6633;
+        background-color: $primary-medium;
         color: white;
         font-weight: 800;
         margin-bottom: 0px;
@@ -65,6 +65,7 @@ $square-color: gray;
     }
     .time {
       font-size: 24px;
+      color: white;
     }
   }
 }

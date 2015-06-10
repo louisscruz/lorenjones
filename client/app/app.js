@@ -15,7 +15,8 @@ angular.module('lorenjonesApp', [
   'xeditable',
   'ngAnimate',
   'ngFitText',
-  'angular-parallax'
+  'angular-parallax',
+  'stellar.directives'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

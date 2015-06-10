@@ -15,5 +15,42 @@
   background-repeat: no-repeat;
   height: 450px;
   position: relative;
+  }
 }
+.stellar-window {
+  position: relative;
+  z-index: 6;
+  height: 600px;
+}
+
+.stellar-image {
+  position: relative;
+  height: 800px;
+  z-index: 5;
+}
+
+.planet {
+  background-color: #000000;
+  border-radius: 1000px;
+  left: -1000px;
+  height: 2000px;
+  position: fixed;
+  top: 500px;
+  width: 2000px;
+  z-index: 5;
+}
+.sun {
+  background-color: #5C550A;
+  border-radius: 100px;
+  box-shadow: 0 0 30px #5C550A;
+  height: 200px;
+  left: 650px;
+  position: fixed;
+  top: 800px;
+  width: 200px;
+  z-index: 6;
+}
+main {
+  position: relative;
+  z-index: 10;
 }
