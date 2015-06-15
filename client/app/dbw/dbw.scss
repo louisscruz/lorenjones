@@ -1,56 +1,30 @@
 .parallax {
   padding-left: 0px;
   padding-right: 0px;
+  margin-top: -51px;
   section {
-    height: 400px;
     background: white;
-  }
-  img {
-    width: 100%;
-    margin: 0 auto;
-  }
-  .photo {
-  background-attachment: fixed;
-  background-position: 50% 0;
-  background-repeat: no-repeat;
-  height: 450px;
-  position: relative;
+    height: 100vh;
+    z-index: 7;
+    h1 {
+      color: black;
+
+    }
   }
 }
 .stellar-window {
   position: relative;
-  z-index: 6;
-  height: 600px;
-}
-
-.stellar-image {
-  position: relative;
-  height: 800px;
-  z-index: 5;
-}
-
-.planet {
-  background-color: #000000;
-  border-radius: 1000px;
-  left: -1000px;
-  height: 2000px;
-  position: fixed;
-  top: 500px;
-  width: 2000px;
-  z-index: 5;
-}
-.sun {
-  background-color: #5C550A;
-  border-radius: 100px;
-  box-shadow: 0 0 30px #5C550A;
-  height: 200px;
-  left: 650px;
-  position: fixed;
-  top: 800px;
-  width: 200px;
-  z-index: 6;
-}
-main {
-  position: relative;
-  z-index: 10;
+  border: none;
+  padding: 0px;
+  z-index: 4;
+  height: 50vh;
+  width: 100%;
+  background-image: url("http://lorempixel.com/1440/800/cats");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: left 10px;
+  //background-attachment: fixed;
+  background-repeat: no-repeat;
 }
