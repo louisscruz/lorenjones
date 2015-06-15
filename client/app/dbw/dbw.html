@@ -1,12 +1,51 @@
 <div class="parallax col-md-12">
   <section id="title" class="vertical-center">
-    <h1 data-fittext data-fittext-max="170">Dancing on the Brink of the World</h1>
+    <div class="full-width">
+      <h1>Dancing on the Brink of the World</h1>
+      <h2>A History of San Francisco 1600 - Present for Orchestra and Period Instruments</h3>
+    </div>
   </section>
-  <div class="stellar-window" stellar-background="0.8">
+  <div class="stellar-window" stellar-background="0.9">
   </div>
+  <section class="vertical-center ohlone">
+    <p>"Dancing on the Brink of the World" is the name of an Ohlone song that has been lost in time.</p>
+    <br>
+    <p>Only the title remains</p>
+  </section>
   <section class="vertical-center">
-    <h1>History</h1>
-    <p>This is a section and a section should be so tall</p>
+    <div class="container">
+      <div class="col-md-3 col-xs-5">
+        <tabset vertical="true" type="pills">
+          <tab ng-repeat="movement in movements" heading="{{movement.title}}" ng-click="changeInfo(movement)"></tab>
+          <!--tab heading="2. Ave Maria Yerba Buena" ng-click="changeMovement(2)"></tab>
+          <tab heading="3. Gold Rush"></tab>
+          <tab heading="4. Dragon Gate"></tab>
+          <tab heading="5. Barbary Coast March"></tab>
+          <tab heading="6. Mid-Winter Exposition"></tab>
+          <tab heading="7. The Outside Lands"></tab>
+          <tab heading="8. Earthquake"></tab>
+          <tab heading="9. Playland"></tab>
+          <tab heading="10. Golden Gate Bridge"></tab>
+          <tab heading="11. North Beach"></tab>
+          <tab heading="12. Haight Ashbury"></tab>
+          <tab heading="13. The Castro"></tab>
+          <tab heading="14. The City by the Sea"></tab-->
+        </tabset>
+      </div>
+      <div class="col-md-9 col-xs-5">
+        <p>{{currentMovement.content}}</p>
+        <!--div class="tab-content" ng-show="movement == 1">
+          <h2>Ohlone Song</h2>
+          <h3>San Francisco Bay Area's First People - 1600<h3>
+          <p> One of the things least known about San Francisco history is the story of the local Indians who lived here for thousands of years before the rest of the world invaded.</p>
+        </div>
+        <div class="tab-content" ng-show="movement == 2">
+          <h2>Ave Maria Yerba Buena</h2>
+          <h3>Mission Dolores - 1776<h3>
+          <p> One of the things least known about San Francisco history is the story of the local Indians who lived here for thousands of years before the rest of the world invaded.</p>
+        </div-->
+      </div>
+    </div>
   </section>
   <div class="stellar-window" stellar-background="0.8">
   </div>

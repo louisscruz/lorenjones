@@ -15,19 +15,32 @@
   }
   #title {
     background-color: #C0362C;
+    background-image: url("/assets/images/dbw/san_francisco.jpg");
+    background-size: cover;
+    background-position: center center;
+    padding: 20px;
+    text-align: center;
+    .full-width {
+      width: 100%;
+    }
+    h1 {
+      color: #C0362C;
+      text-align: center;
+    }
   }
+  .ohlone {
+    background-color: red;
+  }
+
 }
 .stellar-window {
   position: relative;
   border: none;
   padding: 0px;
   z-index: 4;
-  height: 50vh;
+  height: 300px;
   width: 100%;
-  background-image: url("/assets/images/dbw/san_francisco.jpg");
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+  background-image: url("/assets/images/dbw/san_francisco_sunset.jpg");
   background-size: cover;
   background-position: left 10px;
   //background-attachment: fixed;
