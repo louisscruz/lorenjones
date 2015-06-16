@@ -56,8 +56,21 @@
   background-image: url("/assets/images/dbw/dancing_on_the_brink_of_the_world.jpg");
   background-size: cover;
   background-position: center 0px center;
-  //background-attachment: fixed;
   background-repeat: no-repeat;
+}
+
+/* Animations */
+.tab-content.ng-enter, .tab-content.ng-move {
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+.tab-content.ng-enter.ng-enter-active,
+.tab-content.ng-move.ng-move-active {
+  opacity: 1;
 }
 
 /* Responsive Sizes*/
