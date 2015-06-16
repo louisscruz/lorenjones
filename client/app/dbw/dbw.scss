@@ -17,7 +17,7 @@
     background-color: #C0362C;
     background-image: url("/assets/images/dbw/san_francisco.jpg");
     background-size: cover;
-    background-position: center center;
+    background-position: left 0px center;
     padding: 20px;
     text-align: center;
     .full-width {
@@ -29,20 +29,54 @@
     }
   }
   .ohlone {
-    background-color: red;
+    background-color: #C0362C;
+    color: white;
   }
-
+  .movements {
+    h1 {
+      color: black;
+      font-weight: 500;
+    }
+    h4 {
+      text-transform: uppercase;
+    }
+    li {
+      font-size: 11px;
+      a {
+        padding: 6px 8px;
+      }
+    }
+  }
 }
 .stellar-window {
   position: relative;
-  border: none;
-  padding: 0px;
   z-index: 4;
-  height: 300px;
+  height: 100vh;
   width: 100%;
-  background-image: url("/assets/images/dbw/san_francisco_sunset.jpg");
+  background-image: url("/assets/images/dbw/dancing_on_the_brink_of_the_world.jpg");
   background-size: cover;
-  background-position: left 10px;
+  background-position: center 0px center;
   //background-attachment: fixed;
   background-repeat: no-repeat;
+}
+
+/* Responsive Sizes*/
+@media only screen and (min-width : 768px) {
+  .parallax {
+    .movements {
+      li {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width : 992px) {
+  .parallax {
+    .movements {
+      li {
+        font-size: 15px;
+      }
+    }
+  }
 }
