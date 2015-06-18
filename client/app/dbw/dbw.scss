@@ -23,14 +23,24 @@
     .full-width {
       width: 100%;
     }
-    h1 {
+    h1, h2 {
       color: #C0362C;
       text-align: center;
+    }
+    h1 {
+      font-size: 100px
+    }
+    h2 {
+      font-size: 50px;
     }
   }
   .ohlone {
     background-color: #C0362C;
     color: white;
+    h2 {
+      color: black;
+      text-transform: uppercase;
+    }
   }
   .movements {
     h1 {
