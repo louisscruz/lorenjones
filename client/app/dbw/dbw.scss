@@ -12,6 +12,9 @@
       font-weight: 900;
       text-align: center;
     }
+    p {
+      font-size: 13px;
+    }
   }
   #title {
     background-color: $orange;
@@ -98,6 +101,13 @@
 }
 
 /* Responsive Sizes*/
+@media only screen and (max-width: 767px) {
+  .movements {
+    h1 {
+      font-size: 24px;
+    }
+  }
+}
 @media only screen and (min-width : 768px) {
   .parallax {
     .movements {
@@ -112,7 +122,7 @@
   .parallax {
     .movements {
       li {
-        font-size: 15px;
+        font-size: 14px;
       }
     }
   }
