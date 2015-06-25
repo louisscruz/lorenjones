@@ -71,6 +71,12 @@
   background-repeat: no-repeat;
 }
 
+.nav-pills a,
+.nav-pills a:hover,
+.nav-pills a:focus {
+  color: $primary;
+}
+
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
