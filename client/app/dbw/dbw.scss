@@ -14,8 +14,8 @@
     }
   }
   #title {
-    background-color: #C0362C;
-    background-image: url("/assets/images/dbw/san_francisco.jpg");
+    background-color: $orange;
+    background-image: url("/assets/images/dbw/san_francisco1.jpg");
     background-size: cover;
     background-position: left 0px center;
     padding: 20px;
@@ -63,10 +63,24 @@
   z-index: 4;
   height: 100vh;
   width: 100%;
-  background-image: url("/assets/images/dbw/dancing_on_the_brink_of_the_world.jpg");
   background-size: cover;
   background-position: center 0px center;
   background-repeat: no-repeat;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  background-color: $primary;
+}
+
+#panel-1 {
+  background-image: url("/assets/images/dbw/dbw_applause1.jpg");
+}
+
+#panel-2 {
+  background-image: url("/assets/images/dbw/loren_jones1.jpg");
+
 }
 
 /* Animations */
