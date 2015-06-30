@@ -9,17 +9,20 @@
   </tabset>
 </div>
 <div class="flickr container">
-  <h1 class="center">Photos</h1>
-  <div ng-repeat="p in pics" class="col-xs-3" ng-click="selectedImg(p)">
-    <img ng-src="{{p.image}}">
-    {{p.index}}
-  </div>
-</div>
-<!--div class="container">
-  <div class="col-md-8 col-md-offset-2 col-sm-12">
-    <h1 class="center">Instagram Activity</h1>
-    <div ng-repeat="p in pics" class="col-sm-4 repeated-item">
-      <a href="{{p.link}}" target="_blank"><img ng-src="{{p.images.standard_resolution.url}}" class="img-responsive thumbnail" title="{{p.caption.text}}"></a>
+  <h1 class="center">Loren's Photos</h1>
+  <!--div class="btn btn-default">
+    <a href="http://www.flickr.com/photos/134139109@N08/" title="See my photos on Flickr!" target="_blank">
+      <span>
+        <img src="/assets/images/about/Flickr_wordmark.svg" width="51" height="13">
+        <i class="fa fa-external-link"></i>
+      </span>
+    </a>
+  </div-->
+  <div>
+    <div ng-repeat="p in pics" class="col-xs-3 col-md-2">
+      <a ng-click="openLightboxModal($index)">
+        <img ng-src="{{p.thumbnail}}" class="img-thumbnail">
+      </a>
     </div>
   </div>
-</div-->
+</div>

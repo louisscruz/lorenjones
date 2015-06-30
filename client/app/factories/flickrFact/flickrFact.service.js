@@ -18,7 +18,9 @@ angular.module('lorenjonesApp')
             o.photos = result.items;
 
             angular.forEach(o.photos, function(p) {
-              p.image = p.media.m.replace('_m', '_z');
+              p.url = p.media.m.replace('_m', '_b');
+              p.caption = p.title;
+              p.thumbnail = p.media.m;
             });
 
             deferred.resolve(o.photos);
@@ -29,6 +31,14 @@ angular.module('lorenjonesApp')
         }
 
         return deferred.promise;
+      }
+
+      o.largeQuery = function(src) {
+        var deferred = $q.defer();
+
+        if (o.photos) {
+          deferred.resolve(o.photos);
+        }
       }
 
       o.hasPhotos = function() {

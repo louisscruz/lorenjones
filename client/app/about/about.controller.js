@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AboutCtrl', function ($scope, $http, socket, $interval, instagram, flickr) {
+  .controller('AboutCtrl', function ($scope, $http, socket, $interval, instagram, flickr, Lightbox) {
     $scope.bioEntries = [];
 
     $http.get('/api/bio_entries', {cache: true}).success(function(bioEntries) {
@@ -9,18 +9,8 @@ angular.module('lorenjonesApp')
       socket.syncUpdates('bio_entry', $scope.bioEntries);
     });
 
-    $scope.getMore = function() {
-      flickr.fetchPopular(function(data) {
-          for(var i=0; i<data.length; i++) {
-            if (typeof $scope.have[data[i].id]==="undefined") {
-              $scope.pics.push(data[i]) ;
-              $scope.have[data[i].id] = "1";
-            }
-          }
-      });
-    };
     $scope.pics = [];
-    $scope.src = "photos_public.gne?id=92505062@N04";
+    $scope.src = "photos_public.gne?id=134139109@N08";
     $scope.loadPhotos = function() {
       flickr.query($scope.src)
       .then(function(data) {
@@ -30,5 +20,8 @@ angular.module('lorenjonesApp')
       })
     };
     $scope.loadPhotos();
+    $scope.openLightboxModal = function (index) {
+      Lightbox.openModal($scope.pics, index);
+    };
 
   });
