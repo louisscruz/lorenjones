@@ -1,4 +1,4 @@
-<div class="container" id="about">
+<div id="about" class="container">
   <h1 class="center">Bio</h1>
   <tabset class="col-md-8 col-md-offset-2 col-sm-12">
     <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
@@ -9,10 +9,11 @@
   </tabset>
 </div>
 <div class="flickr container">
-  <div ng-repeat="p in pics" class="col-md-3">
+  <h1 class="center">Photos</h1>
+  <div ng-repeat="p in pics" class="col-xs-3" ng-click="selectedImg(p)">
     <img ng-src="{{p.image}}">
+    {{p.index}}
   </div>
-
 </div>
 <!--div class="container">
   <div class="col-md-8 col-md-offset-2 col-sm-12">
