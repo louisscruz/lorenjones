@@ -4,7 +4,7 @@
   margin-top: -51px;
   section {
     background: white;
-    height: 100vh;
+    min-height: 100vh;
     z-index: 7;
     text-align: center;
     h1 {
@@ -89,7 +89,15 @@
 
 #panel-2 {
   background-image: url("/assets/images/dbw/loren_jones1.jpg");
+}
 
+#panel-3 {
+  background-image: url("/assets/images/dbw/dbw_poster.jpg")
+}
+
+#poem {
+  background-color: $blue;
+  color: white;
 }
 
 /* Animations */

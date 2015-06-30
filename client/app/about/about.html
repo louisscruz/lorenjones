@@ -9,20 +9,15 @@
   </tabset>
 </div>
 <div class="flickr container">
+  <div class="row">
   <h1 class="center">Loren's Photos</h1>
-  <!--div class="btn btn-default">
-    <a href="http://www.flickr.com/photos/134139109@N08/" title="See my photos on Flickr!" target="_blank">
-      <span>
-        <img src="/assets/images/about/Flickr_wordmark.svg" width="51" height="13">
-        <i class="fa fa-external-link"></i>
-      </span>
+  <a href="http://www.flickr.com/photos/134139109@N08/" target="_blank" title="Follow me on Flickr!" class="link">Follow Loren on <img src="assets/images/about/Flickr_wordmark.svg" width="56" height="26" alt=""> <i class="fa fa-lg fa-external-link-square"></i></a>
+</div>
+
+<div class="thumbnails">
+  <div ng-repeat="p in pics" class="col-xs-3 col-md-2">
+    <a ng-click="openLightboxModal($index)">
+      <img ng-src="{{p.thumbnail}}" class="img-thumbnail">
     </a>
-  </div-->
-  <div>
-    <div ng-repeat="p in pics" class="col-xs-3 col-md-2">
-      <a ng-click="openLightboxModal($index)">
-        <img ng-src="{{p.thumbnail}}" class="img-thumbnail">
-      </a>
-    </div>
   </div>
 </div>

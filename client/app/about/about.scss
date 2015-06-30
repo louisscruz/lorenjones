@@ -11,8 +11,20 @@
 
 .flickr {
   img {
-    width: 100%;
+    //width: 100%;
     margin: auto;
+    cursor: pointer;
+  }
+  .link {
+    float: right;
+  }
+  .thumbnails a{
+    &:hover {
+      opacity: 0.5;
+    }
+    &:active {
+      opacity: 0.25;
+    }
   }
 }
 
