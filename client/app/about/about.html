@@ -3,11 +3,12 @@
   <tabset class="col-md-8 col-md-offset-2 col-sm-12">
     <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
       <div class="bio section">
-        <p class="new-lines">{{entry.content}}</p>
+        <p class="new-lines" ng-bind-html="entry.content">{{entry.content}}</p>
       </div>
     </tab>
   </tabset>
 </div>
+
 <div class="flickr container">
   <div class="row">
   <h1 class="center">Loren's Photos</h1>

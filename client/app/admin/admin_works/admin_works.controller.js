@@ -52,8 +52,12 @@ angular.module('lorenjonesApp')
       });
     };
 
-    $scope.deleteWork = Modal.confirm.delete(function(work) {
-      $http.delete('/api/works/' + work._id);
+    $scope.deleteWork = function(id) {
+      $http.delete('/api/works/' + id);
+    };
+
+    $scope.confirmDelete = Modal.confirm.delete(function(work) {
+      $scope.deleteWork(work._id);
     });
 
     $scope.$on('$destroy', function() {

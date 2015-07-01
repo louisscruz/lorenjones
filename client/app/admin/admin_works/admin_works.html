@@ -55,7 +55,7 @@
             <a href="#" editable-text="work.title" onaftersave="updateWork(work)">
               {{ work.title || "empty" }}
             </a>
-            <button type="button" class="btn btn-danger btn-xs" ng-click="deleteWork(work)"><i class="fa fa-times"></i></button>
+            <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(work.title, work)"><i class="fa fa-times"></i></button>
           </h3>
         </div>
         <label>Category</label>
@@ -78,7 +78,7 @@
         </div>
         <label>Info</label>
         <div>
-          <a href="#" editable-textarea="work.info" e-rows="7" e-cols="40" onaftersave="updateWork(work)">
+          <a href="#" editable-textarea="work.info" e-rows="7" e-cols="40" ng-bind-html="work.info" onaftersave="updateWork(work)">
             {{ work.info || "empty" }}
           </a>
         </div>

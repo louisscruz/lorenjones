@@ -17,9 +17,9 @@
   </div>
 
   <div class="col-md-8">
-    <tabset>
+    <tabset class="row col-md-12">
       <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
-        <div class="row col-md-12 bio section">
+        <div class="bio section">
           <button type="button" class="btn btn-danger btn-xs" ng-click="deleteBioEntry(entry)"><i class="fa fa-times"></i></button>
           <h2>
             <a href="#" editable-text="entry.title" onaftersave="updateBioEntry(entry)">
@@ -27,7 +27,7 @@
             </a>
           </h2>
           <p class="new-lines">
-            <a href="#" editable-textarea="entry.content" onaftersave="updateBioEntry(entry)">
+            <a href="#" editable-textarea="entry.content" ng-bind-html="entry.content" e-rows="12" e-cols="40" e-style="max-height: 500px; max-width: 540px" onaftersave="updateBioEntry(entry)">
               {{ entry.content || "empty" }}
             </a>
           </p>
