@@ -3,12 +3,14 @@
 angular.module('lorenjonesApp')
   .controller('DbwCtrl', function ($scope, stellar) {
     stellar.against('body, .stellar-window, .stellar-image');
+    $scope.videoUrl = "https://www.youtube.com/watch?v=CCwB4TRJUgc";
     $scope.movements = [
       {
         title: "Ohlone Song",
         subtitle: "San Francisco Bay Area's first people",
         year: "1600",
-        content: "One of the things least known about San Francisco history is the story of the local Indians who lived here for thousands of years before the rest of the world invaded. There were approximately 10,000 Native Americans in the area, consisting of over forty tribelets of 150 to 200 people, speaking dozens of separate languages, living in relative harmony in the San Francisco Bay Area, from Sonoma to Monterey. The Ohlone were renowned for their crafts, especially basket-weaving. Ohlone songs were often accompanied by clapper sticks, shell shakers, bone whistles, and flutes. This movement was inspired by their traditional vocal songs, though I've taken the liberty of using a Native American flute and frame drum. The Yelamu were the original people of San Francisco. The villages of Sitlintac and Chutchui were located in the valley of Mission Creek, near what is now Mission Dolores. The Amuctac and Tubsinte were established in the Visitation Valley area to the south, and the village of Petlanuc was located in what is now the Presidio."
+        content: "One of the things least known about San Francisco history is the story of the local Indians who lived here for thousands of years before the rest of the world invaded. There were approximately 10,000 Native Americans in the area, consisting of over forty tribelets of 150 to 200 people, speaking dozens of separate languages, living in relative harmony in the San Francisco Bay Area, from Sonoma to Monterey. The Ohlone were renowned for their crafts, especially basket-weaving. Ohlone songs were often accompanied by clapper sticks, shell shakers, bone whistles, and flutes. This movement was inspired by their traditional vocal songs, though I've taken the liberty of using a Native American flute and frame drum. The Yelamu were the original people of San Francisco. The villages of Sitlintac and Chutchui were located in the valley of Mission Creek, near what is now Mission Dolores. The Amuctac and Tubsinte were established in the Visitation Valley area to the south, and the village of Petlanuc was located in what is now the Presidio.",
+        audio: "https://soundcloud.com/lorenjones-2/1-ohlone-song"
       },{
         title: "Ave Maria Yerba Buena",
         subtitle: "Mission Dolores",
@@ -43,7 +45,8 @@ angular.module('lorenjonesApp')
         title: "Earthquake & Fire",
         subtitle: "The city dies and is reborn",
         year: "1906",
-        content: "In 1776, the Spanish established the Presidio and the settlement named Yerba Buena, followed by Mission San Francisco de Assis, later known as the Mission Dolores."
+        content: "In 1776, the Spanish established the Presidio and the settlement named Yerba Buena, followed by Mission San Francisco de Assis, later known as the Mission Dolores.",
+        audio: "https://soundcloud.com/lorenjones-2/5-earthquake-fire"
       },{
         title: "Playland",
         subtitle: "San Francisco's seaside amusement park",

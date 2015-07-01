@@ -45,6 +45,13 @@
       text-transform: uppercase;
     }
   }
+  .video {
+    background-color: $primary;
+    color: white;
+    h2 {
+      color: white;
+    }
+  }
   .movements {
     h1 {
       color: black;
@@ -87,11 +94,11 @@
   background-image: url("/assets/images/dbw/dbw_applause1.jpg");
 }
 
-#panel-2 {
+#panel-3 {
   background-image: url("/assets/images/dbw/loren_jones1.jpg");
 }
 
-#panel-3 {
+#panel-2 {
   background-image: url("/assets/images/dbw/dbw_poster.jpg")
 }
 

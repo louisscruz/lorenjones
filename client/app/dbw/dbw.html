@@ -1,4 +1,4 @@
-<div class="parallax col-md-12">
+<div class="dbw parallax col-md-12">
   <section id="title" class="vertical-center" stellar-background="0.8">
     <div class="full-width">
       <h1>Dancing on the Brink of the World</h1>
@@ -10,6 +10,19 @@
       <h1>"Dancing on the Brink of the World" is the name of an Ohlone song that has been lost in time. Only the title remains.</h1>
     </div>
   </section>
+  <section class="vertical-center video">
+    <div class="container">
+      <div class="row">
+        <h1>Kickstarter Campaign</h1>
+      </div>
+      <div class="col-md-6">
+        <youtube-video video-url="videoUrl" player-width="'100%'"></youtube-video>
+      </div>
+      <div class="col-md-6">
+        <h2>$8,100.00</h2>
+      </div>
+    </div>
+  </section>
   <div class="stellar-window" id="panel-1" stellar-background="0.8">
   </div>
   <section class="movements">
@@ -18,13 +31,22 @@
         <div>
           <h1>Movements</h1>
           <tabset vertical="true" type="pills">
-            <tab ng-repeat="movement in movements" heading="{{$index + 1}}. {{movement.title}}" ng-click="changeInfo(movement)" class="cursor"></tab>
+            <tab ng-repeat="movement in movements" heading="{{$index + 1}}. {{movement.title}}" ng-click="changeInfo(movement)" class="cursor">
+              <div ng-if="movement.audio" plangular="{{movement.audio}}"></div>
+            </tab>
           </tabset>
         </div>
       </div>
       <div class="col-xs-9 vertical-center">
         <div class="tab-content">
-          <div plangular="https://soundcloud.com/lorenjones-2/1-ohlone-song"></div>
+          <div ng-if="currentMovement.audio" class="table" plangular="{{currentMovement.audio}}">
+            <div class="table-cell">
+              <button class="button-icon" ng-click="playPause()">
+                <i class="fa fa-play fa-lg" ng-if="player.playing != track"></i>
+                <i class="fa fa-pause fa-lg" ng-if="player.playing == track"></i>
+              </button>
+            </div>
+          </div>
           <h3>{{currentMovement.title}}</h3>
           <h4>{{currentMovement.year}} – {{currentMovement.subtitle}}</h4>
           <p>{{currentMovement.content}}</p>
@@ -68,18 +90,5 @@
   </section>
   <div class="stellar-window" id="panel-3" stellar-background="0.6">
   </div>
-  <section class="vertical-center">
-    <h1>History</h1>
-    <p>This is a section and a section should be so tall</p>
-  </section>
-  <div class="stellar-window" stellar-background="0.8">
-  </div>
-  <section class="vertical-center">
-    <h1>History</h1>
-    <p>This is a section and a section should be so tall</p>
-  </section>
-  <section class="vertical-center">
-    <h1>History</h1>
-    <p>This is a section and a section should be so tall</p>
-  </section>
+
 </div>
