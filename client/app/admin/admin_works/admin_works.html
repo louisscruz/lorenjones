@@ -60,13 +60,13 @@
         </div>
         <label>Category</label>
         <div>
-          <a href="#" editable-text="work.category" onaftersave="updateWork(work)">
+          <a href="#" editable-select="work.category" e-ng-options="g as g for g in groups" onaftersave="updateWork(work)">
             {{ work.category || "empty" }}
           </a>
         </div>
         <label>Date</label>
         <div>
-          <a href="#" editable-text="work.date" onaftersave="updateWork(work)">
+          <a href="#" editable-number="work.date" onaftersave="updateWork(work)">
             {{ work.date || "empty" }}
           </a>
         </div>
@@ -78,7 +78,7 @@
         </div>
         <label>Info</label>
         <div>
-          <a href="#" editable-text="work.info" onaftersave="updateWork(work)">
+          <a href="#" editable-textarea="work.info" e-rows="7" e-cols="40" onaftersave="updateWork(work)">
             {{ work.info || "empty" }}
           </a>
         </div>
