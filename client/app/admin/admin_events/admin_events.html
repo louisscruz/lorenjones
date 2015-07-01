@@ -3,19 +3,19 @@
   $('.timepicker').pickatime()
 </script>
 
-<div class="container">
-  <h1 class="col-md-12">Manage Events</h1>
-  <h2 class="col-md-12">Add Event</h2>
+<div class="admin container">
+  <h1 class="col-md-12 text-center">Manage Events</h1>
 
   <div class="col-md-3">
+    <h2>Add Event</h2>
     <form class="thing-form">
       <label>Name of Event</label>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Title" ng-model="newName">
+        <input type="text" class="form-control" placeholder="Event Title" ng-model="newName" required>
       </p>
       <label>Date of Event:</label>
       <p class="input-group">
-        <input type="number" class="form-control datepicker" placeholder="Event Date" ng-model="newDate">
+        <input type="number" class="form-control datepicker" placeholder="Event Date" ng-model="newDate" required>
       </p>
       <label>Time of Event:</label>
       <p class="input-group">
@@ -27,7 +27,7 @@
       </p>
       <label>City:</label>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event City" ng-model="newCity">
+        <input type="text" class="form-control" placeholder="Event City" ng-model="newCity" required>
       </p>
       <label>Info:</label>
       <p class="input-group">
@@ -46,8 +46,7 @@
       </p>
       <label>Map Zoom:</label>
       <p class="input-group">
-        <select ng-model="newZoom">
-          <option ng-repeat="level in levels" value="{{level}}">{{level}}</option>
+        <select ng-model="newZoom" ng-options="l as l for l in levels" ng-init="newZoom = levels[14]">
         </select>
       </p>
       <p class="input-group">
@@ -59,7 +58,7 @@
   <div class="col-md-9">
     <ul class="admin events">
       <li ng-repeat="event in events | orderBy: 'date':reverse" class="well well-lg">
-        <button type="button" class="btn btn-danger btn-xs" ng-click="deleteEvent(event)"><i class="fa fa-times"></i></button>
+        <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(event.name, event)"><i class="fa fa-times"></i></button>
         <div>
           <h2>
             <a href="#" editable-text="event.name" onaftersave="updateEvent(event)">
@@ -99,7 +98,7 @@
         </div>
         <label>Info</label>
         <div>
-          <a href="#" editable-text="event.info" onaftersave="updateEvent(event)">
+          <a href="#" editable-text="event.info" ng-bind-html="event.info || 'empty'" onaftersave="updateEvent(event)">
             {{ event.info || "empty" }}
           </a>
         </div>
@@ -115,7 +114,7 @@
         <label>Zoom</label>
         <p>Choose a value between 1 and 19 (15 default)</p>
         <div>
-          <a href="#" editable-text="event.zoom" onaftersave="updateEvent(event)">
+          <a ng-model="edits" href="#" editable-range="event.zoom" e-min="1" e-max="19" onaftersave="updateEvent(event)">
             {{ event.zoom || "empty" }}
           </a>
         </div>

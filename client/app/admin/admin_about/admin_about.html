@@ -1,14 +1,16 @@
-<div class="container">
-  <h1 class="col-md-12">Manage Bio Content</h1>
+<div class="admin container">
+  <h1 class="col-md-12 text-center">Manage Bio Content</h1>
 
   <div class="col-md-4">
+    <h2>Add Bio Entry</h2>
     <form class="thing-form">
       <label>Title of the Bio Tab</label>
       <p class="input-group">
-        <input type="text" class="form-control" placeholder="Bio Tab Title" ng-model="newTab">
+        <input type="text" class="form-control" placeholder="Bio Tab Title" ng-model="newTab" ngRequired>
       </p>
+      <label>Bio Content</label>
       <p class="input-group">
-        <textarea type="text" class="form-control" placeholder="Bio Content" ng-model="newContent"></textarea>
+        <textarea type="text" class="form-control" placeholder="Bio Content" ng-model="newContent" required></textarea>
       </p>
       <p class="input-group">
         <button type="submit" class="btn btn-primary" ng-click="addBioEntry()">Add New</button>
@@ -20,14 +22,14 @@
     <tabset class="row col-md-12">
       <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
         <div class="bio section">
-          <button type="button" class="btn btn-danger btn-xs" ng-click="deleteBioEntry(entry)"><i class="fa fa-times"></i></button>
+          <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(entry.title, entry)"><i class="fa fa-times"></i></button>
           <h2>
             <a href="#" editable-text="entry.title" onaftersave="updateBioEntry(entry)">
               {{ entry.title || "empty" }}
             </a>
           </h2>
           <p class="new-lines">
-            <a href="#" editable-textarea="entry.content" ng-bind-html="entry.content" e-rows="12" e-cols="40" e-style="max-height: 500px; max-width: 540px" onaftersave="updateBioEntry(entry)">
+            <a href="#" editable-textarea="entry.content" ng-bind-html="entry.content || 'empty'" e-rows="12" e-cols="40" e-style="max-height: 500px; max-width: 540px" onaftersave="updateBioEntry(entry)">
               {{ entry.content || "empty" }}
             </a>
           </p>

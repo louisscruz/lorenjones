@@ -1,6 +1,7 @@
-<div class="container">
-  <h1>Manage Works</h1>
+<div class="admin container">
+  <h1 class="col-md-12 text-center">Manage Works</h1>
   <div class="col-md-3">
+    <h2>Add Work</h2>
     <form class="thing-form">
       <label>Title of the Work</label>
       <p class="input-group">
@@ -8,8 +9,7 @@
       </p>
       <label>Category of the Work</label>
       <p class="input-group">
-        <select ng-model="newCategory">
-          <option ng-repeat="group in groups" value="{{group}}">{{group}}</option>
+        <select ng-model="newCategory" ng-options="g as g for g in groups" ng-init="newCategory = groups[0]">
         </select>
       </p>
       <label>Date of the Work</label>
@@ -78,7 +78,7 @@
         </div>
         <label>Info</label>
         <div>
-          <a href="#" editable-textarea="work.info" e-rows="7" e-cols="40" ng-bind-html="work.info" onaftersave="updateWork(work)">
+          <a href="#" editable-textarea="work.info" e-rows="7" e-cols="40" ng-bind-html="work.info || 'empty'" onaftersave="updateWork(work)">
             {{ work.info || "empty" }}
           </a>
         </div>

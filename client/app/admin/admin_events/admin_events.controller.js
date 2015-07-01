@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AdminEventsCtrl', function ($scope, $http, socket) {
+  .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal) {
     $scope.events = [];
     $scope.options = {scrollwheel: false};
     $scope.levels = [
@@ -77,9 +77,13 @@ angular.module('lorenjonesApp')
       });
     };
 
-    $scope.deleteEvent = function(event) {
-      $http.delete('/api/events/' + event._id);
+    $scope.deleteEvent = function(id) {
+      $http.delete('/api/events/' + id);
     };
+
+    $scope.confirmDelete = Modal.confirm.delete(function(event) {
+      $scope.deleteEvent(event._id);
+    });
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('event');

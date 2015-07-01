@@ -28,8 +28,12 @@ angular.module('lorenjonesApp')
       });
     };
 
-    $scope.deleteBioEntry = Modal.confirm.delete(function(entry) {
-      $http.delete('/api/bio_entries/' + entry._id);
+    $scope.deleteEntry = function(id) {
+      $http.delete('/api/bio_entries/' + id);
+    };
+
+    $scope.confirmDelete = Modal.confirm.delete(function(entry) {
+      $scope.deleteEntry(entry._id);
     });
 
     $scope.$on('$destroy', function() {
