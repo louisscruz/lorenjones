@@ -18,7 +18,7 @@ angular.module('lorenjonesApp')
       socket.syncUpdates('work', $scope.works);
     });
 
-    $scope.addWork = function() {
+    $scope.addWork = function(isValid) {
       if( isValid ) {
         $http.post('/api/works', {
           title: $scope.newTitle,

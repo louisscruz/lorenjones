@@ -10,15 +10,14 @@ angular.module('lorenjonesApp')
     });
 
     $scope.addBioEntry = function(isValid) {
-      if($scope.newTab === '' || $scope.newContent === '' ) {
-        return;
+      if( isValid ) {
+        $http.post('/api/bio_entries', {
+          title: $scope.newTab,
+          content: $scope.newContent
+        });
+        $scope.newTab = '';
+        $scope.newContent = '';
       }
-      $http.post('/api/bio_entries', {
-        title: $scope.newTab,
-        content: $scope.newContent
-      });
-      $scope.newTab = '';
-      $scope.newContent = '';
     };
 
     $scope.updateBioEntry = function(entry) {

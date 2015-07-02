@@ -34,32 +34,31 @@ angular.module('lorenjonesApp')
       socket.syncUpdates('event', $scope.events);
     });
 
-    $scope.addEvent = function() {
-      if($scope.newName === '' ) {
-        return;
+    $scope.addEvent = function(isValid) {
+      if( isValid ) {
+        $http.post('/api/events', {
+          name: $scope.newName,
+          date: $scope.newDate,
+          time: $scope.newTime,
+          venue: $scope.newVenue,
+          city: $scope.newCity,
+          link: $scope.newLink,
+          info: $scope.newInfo,
+          lat: $scope.newLat,
+          lng: $scope.newLng,
+          zoom: $scope.newZoom
+        });
+        $scope.newName = '';
+        $scope.newDate = '';
+        $scope.newTime = '';
+        $scope.newVenue = '';
+        $scope.newCity = '';
+        $scope.newLink = '';
+        $scope.newInfo = '';
+        $scope.newLat = '';
+        $scope.newLng = '';
+        $scope.newZoom = '';
       }
-      $http.post('/api/events', {
-        name: $scope.newName,
-        date: $scope.newDate,
-        time: $scope.newTime,
-        venue: $scope.newVenue,
-        city: $scope.newCity,
-        link: $scope.newLink,
-        info: $scope.newInfo,
-        lat: $scope.newLat,
-        lng: $scope.newLng,
-        zoom: $scope.newZoom
-      });
-      $scope.newName = '';
-      $scope.newDate = '';
-      $scope.newTime = '';
-      $scope.newVenue = '';
-      $scope.newCity = '';
-      $scope.newLink = '';
-      $scope.newInfo = '';
-      $scope.newLat = '';
-      $scope.newLng = '';
-      $scope.newZoom = '';
     };
 
     $scope.updateEvent = function(event) {
