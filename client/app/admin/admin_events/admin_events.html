@@ -8,14 +8,16 @@
 
   <div class="col-md-3">
     <h2>Add Event</h2>
-    <form class="thing-form">
-      <label>Name of Event</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Title" ng-model="newName" required>
+    <form class="thing-form" name="eventsForm" ng-submit="addEvent(eventsForm.$valid)" novalidate>
+      <label><i class="fa fa-asterisk"></i>Name of Event</label>
+      <p class="input-group" ng-class="{ 'has-error' : eventsForm.name.$invalid && !eventsForm.name.$pristine }">
+        <input type="text" name="name" class="form-control" placeholder="Event Title" ng-model="newName" required>
+        <p ng-show="eventsForm.name.$invalid && !eventsForm.name.$pristine" class="help-block">You must enter a name</p>
       </p>
-      <label>Date of Event:</label>
-      <p class="input-group">
-        <input type="number" class="form-control datepicker" placeholder="Event Date" ng-model="newDate" required>
+      <label><i class="fa fa-asterisk"></i>Date of Event:</label>
+      <p class="input-group" ng-class="{ 'has-error' : eventsForm.date.$invalid && !eventsForm.date.$pristine }">
+        <input type="number" name="date" class="form-control datepicker" placeholder="Event Date" ng-model="newDate" required>
+        <p ng-show="eventsForm.date.$invalid && !eventsForm.date.$pristine" class="help-block">You must enter a date</p>
       </p>
       <label>Time of Event:</label>
       <p class="input-group">
@@ -25,9 +27,10 @@
       <p class="input-group">
         <input type="text" class="form-control" placeholder="Event Venue" ng-model="newVenue">
       </p>
-      <label>City:</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event City" ng-model="newCity" required>
+      <label><i class="fa fa-asterisk"></i>City:</label>
+      <p class="input-group" ng-class="{ 'has-error' : eventsForm.city.$invalid && !eventsForm.city.$pristine }">
+        <input type="text" name="city" class="form-control" placeholder="Event City" ng-model="newCity" required>
+        <p ng-show="eventsForm.city.$invalid && !eventsForm.city.$pristine" class="help-block">You must enter a city</p>
       </p>
       <label>Info:</label>
       <p class="input-group">
@@ -50,7 +53,7 @@
         </select>
       </p>
       <p class="input-group">
-        <button type="submit" class="btn btn-primary" ng-click="addEvent()">Add New</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="eventsForm.$invalid">Add New</button>
       </p>
     </form>
   </div>
@@ -105,20 +108,20 @@
         <label>Address</label>
         <div>
           <a href="#" editable-text="event.lng" onaftersave="updateEvent(event)">
-            {{ event.lng || "empty" }}
-          </a>
+            {{ event.lng || "Longitude" }}
+          </a>,
           <a href="#" editable-text="event.lat" onaftersave="updateEvent(event)">
-            {{ event.lat || "empty" }}
+            {{ event.lat || "Latitude" }}
           </a>
         </div>
-        <label>Zoom</label>
-        <p>Choose a value between 1 and 19 (15 default)</p>
-        <div>
+        <label ng-if="event.lat != null && event.lng != null">Zoom</label>
+        <p ng-if="event.lat != null && event.lng != null">Choose a value between 1 and 19 (15 default)</p>
+        <div ng-if="event.lat != null && event.lng != null">
           <a ng-model="edits" href="#" editable-range="event.zoom" e-min="1" e-max="19" onaftersave="updateEvent(event)">
             {{ event.zoom || "empty" }}
           </a>
         </div>
-        <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='event.zoom' options='options'>
+        <ui-gmap-google-map ng-if="event.lat != null && event.lng != null" center="[event.lat, event.lng ]" zoom='event.zoom' options='options'>
           <ui-gmap-marker idkey="event.venue" coords="[event.lat, event.lng ]">
           </ui-gmap-marker>
         </ui-gmap-google-map>

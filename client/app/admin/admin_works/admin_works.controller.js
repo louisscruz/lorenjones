@@ -19,24 +19,23 @@ angular.module('lorenjonesApp')
     });
 
     $scope.addWork = function() {
-      if($scope.newTitle === '' || $scope.newCategory === '' || $scope.newDate === '' ) {
-        return;
+      if( isValid ) {
+        $http.post('/api/works', {
+          title: $scope.newTitle,
+          category: $scope.newCategory,
+          date: $scope.newDate,
+          instrumentation: $scope.newInstrumentation,
+          info: $scope.newInfo,
+          link: $scope.newLink,
+          audio: $scope.newAudio,
+          video: $scope.newVideo
+        });
+        $scope.newTitle = '';
+        $scope.newCategory = '';
+        $scope.newDate = '2015';
+        $scope.newScore = '';
+        $scope.newAudio = '';
       }
-      $http.post('/api/works', {
-        title: $scope.newTitle,
-        category: $scope.newCategory,
-        date: $scope.newDate,
-        instrumentation: $scope.newInstrumentation,
-        info: $scope.newInfo,
-        link: $scope.newLink,
-        audio: $scope.newAudio,
-        video: $scope.newVideo
-      });
-      $scope.newTitle = '';
-      $scope.newCategory = '';
-      $scope.newDate = '2015';
-      $scope.newScore = '';
-      $scope.newAudio = '';
     };
 
     $scope.updateWork = function(work) {

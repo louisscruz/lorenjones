@@ -2,19 +2,21 @@
   <h1 class="col-md-12 text-center">Manage Works</h1>
   <div class="col-md-3">
     <h2>Add Work</h2>
-    <form class="thing-form">
-      <label>Title of the Work</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Work Title" ng-model="newTitle">
+    <form class="thing-form" name="worksForm" ng-submit="addWork(worksForm.$valid)">
+      <label><i class="fa fa-asterisk"></i>Title of the Work</label>
+      <p class="input-group" ng-class="{ 'has-error' : worksForm.title.$invalid && !worksForm.title.$pristine }">
+        <input type="text" name="title" class="form-control" placeholder="Work Title" ng-model="newTitle" required>
+        <p ng-show="worksForm.title.$invalid && !worksForm.title.$pristine" class="help-block">You must enter a title</p>
       </p>
-      <label>Category of the Work</label>
-      <p class="input-group">
-        <select ng-model="newCategory" ng-options="g as g for g in groups" ng-init="newCategory = groups[0]">
-        </select>
+      <label><i class="fa fa-asterisk"></i>Category of the Work</label>
+      <p class="input-group" ng-class="{ 'has-error' : worksForm.category.$invalid && !worksForm.category.$pristine }">
+        <select ng-model="newCategory" name="category" ng-options="g as g for g in groups" ng-init="newCategory = groups[0]"></select>
+        <p ng-show="worksForm.category.$invalid && !worksForm.category.$pristine" class="help-block">You must enter a category</p>
       </p>
-      <label>Date of the Work</label>
-      <p class="input-group">
-        <input type="number" class="form-control" placeholder="Work Date" ng-model="newDate" ng-init="newDate = 2015">
+      <label><i class="fa fa-asterisk"></i>Year of the Work</label>
+      <p class="input-group" ng-class="{ 'has-error' worksForm.number.$invalid && !worksForm.number.$pristine }">
+        <input type="number" name="date" class="form-control" placeholder="Work Date" ng-model="newDate" ng-init="newDate = 2015" required>
+        <p ng-show="worksForm.date.$invalid && !worksForm.date.$pristine" class="help-block">You must enter a year</p>
       </p>
       <label>Instrumentation of the Work</label>
       <p class="input-group">
@@ -37,7 +39,7 @@
         <input type="url" class="form-control" placeholder="Link to Video" ng-model="newVideo">
       </p>
       <p class="input-group">
-        <button type="submit" class="btn btn-primary" ng-click="addWork()">Add New</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="worksForm.$invalid">Add New</button>
       </p>
     </form>
   </div>

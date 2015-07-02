@@ -9,7 +9,7 @@ angular.module('lorenjonesApp')
       socket.syncUpdates('bio_entry', $scope.bioEntries);
     });
 
-    $scope.addBioEntry = function() {
+    $scope.addBioEntry = function(isValid) {
       if($scope.newTab === '' || $scope.newContent === '' ) {
         return;
       }

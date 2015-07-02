@@ -3,17 +3,19 @@
 
   <div class="col-md-4">
     <h2>Add Bio Entry</h2>
-    <form class="thing-form">
+    <form class="thing-form" name="bioEntryForm" ng-submit="addBioEntry(bioEntryForm.$valid)" novalidate>
       <label>Title of the Bio Tab</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Bio Tab Title" ng-model="newTab" ngRequired>
+      <p class="input-group" ng-class="{ 'has-error' : bioEntryForm.title.$invalid && !bioEntryForm.title.$pristine }">
+        <input type="text" name="title" class="form-control" placeholder="Bio Tab Title" ng-model="newTab" required>
+        <p ng-show="bioEntryForm.title.$invalid && !bioEntryForm.title.$pristine" class="help-block">A title is required</p>
       </p>
       <label>Bio Content</label>
-      <p class="input-group">
-        <textarea type="text" class="form-control" placeholder="Bio Content" ng-model="newContent" required></textarea>
+      <p class="input-group" ng-class="{ 'has-error' : bioEntryForm.content.$invalid && !bioEntryForm.content.$pristine }">
+        <textarea type="text" name="content" class="form-control" placeholder="Bio Content" ng-model="newContent" required></textarea>
+        <p ng-show="bioEntryForm.content.$invalid && !bioEntryForm.content.$pristine" class="help-block">You must enter content</p>
       </p>
       <p class="input-group">
-        <button type="submit" class="btn btn-primary" ng-click="addBioEntry()">Add New</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="bioEntryForm.$invalid">Add New</button>
       </p>
     </form>
   </div>
