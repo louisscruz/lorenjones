@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('DbwCtrl', function ($scope, stellar) {
-    stellar.against('body, .stellar-window, .stellar-image');
+  .controller('DbwCtrl', function ($scope, parallaxHelper) {
+    $scope.background = parallaxHelper.createAnimator(-0.3);
     $scope.videoUrl = "https://www.youtube.com/watch?v=CCwB4TRJUgc";
     $scope.movements = [
       {

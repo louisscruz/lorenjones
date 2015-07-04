@@ -15,9 +15,9 @@ angular.module('lorenjonesApp', [
   'xeditable',
   'ngAnimate',
   'ngFitText',
-  'angular-parallax',
   'stellar.directives',
-  'bootstrapLightbox'
+  'bootstrapLightbox',
+  'duParallax'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider) {
     $urlRouterProvider
