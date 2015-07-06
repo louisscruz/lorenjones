@@ -1,57 +1,50 @@
 <div class="dbw parallax col-md-12">
-  <!--section id="title" class="vertical-center" stellar-background="0.8">
-    <div class="full-width">
-      <h1>Dancing on the Brink of the World</h1>
-    </div>
-  </section-->
-  <section id="title" class="vertical-center min-height">
-    <div class="parallax-txt vertical-center">
+  <section id="title" class="vertical-center photo">
+    <div class="parallax-txt vertical-center text-center" du-parallax y="titleBackground">
       <h1 class="text-center">Dancing on the Brink of the World</h1>
     </div>
-    <img class="parallax-img" src="/assets/images/dbw/san_francisco1.jpg" du-parallax y="background" x="moveInFromLeft"/>
+    <div class="wrapper">
+      <img class="parallax-img" src="/assets/images/dbw/san_francisco1.jpg" du-parallax y="background"/>
+    </div>
   </section>
-  <section class="vertical-center content-height ohlone">
+  <section class="vertical-center ohlone content">
     <div class="container">
-      <h2>A History of San Francisco 1600 - Present for Orchestra and Period Instruments</h2>
-      <h1>"Dancing on the Brink of the World" is the name of an Ohlone song that has been lost in time. Only the title remains.</h1>
+      <h1 data-fittext data-fittext-max="170">A History of San Francisco</h1>
+      <h2>1600 - Present</h1>
+      <h3 data-fittext data-fittext-max="170">for orchestra and period instruments</h2>
     </div>
     <div class="background"></div>
   </section>
-  <section class="vertical-center video">
-    <div class="container">
-      <div class="row">
-        <h1>Kickstarter Campaign</h1>
-      </div>
-      <div class="col-md-6">
-        <youtube-video video-url="videoUrl" player-width="'100%'"></youtube-video>
-      </div>
-      <div class="col-md-6">
-        <h2>$8,100.00</h2>
-      </div>
-    </div>
+  <section class="hor-photo">
+    <img class="hor-parallax-img" src="/assets/images/dbw/panorama1.jpg" du-parallax x="panoramaOne"/>
   </section>
-  <div class="stellar-window" id="panel-1" stellar-background="0.8">
-  </div>
-  <section class="movements">
+  <section class="hor-photo">
+    <img class="hor-parallax-img" src="/assets/images/dbw/panorama2.jpg" du-parallax x="panoramaTwo"/>
+  </section>
+  <section class="hor-photo">
+    <img class="hor-parallax-img" src="/assets/images/dbw/panorama3.jpg" du-parallax x="panoramaThree"/>
+  </section>
+  <section class="movements content">
     <div class="container">
       <div class="col-xs-3 vertical-center">
         <div>
-          <h1>Movements</h1>
+          <h1 data-fittext data-fittext-max="170">Movements</h1>
           <tabset vertical="true" type="pills">
             <tab ng-repeat="movement in movements" heading="{{$index + 1}}. {{movement.title}}" ng-click="changeInfo(movement)" class="cursor">
-              <div ng-if="movement.audio" plangular="{{movement.audio}}"></div>
             </tab>
           </tabset>
         </div>
       </div>
       <div class="col-xs-9 vertical-center">
         <div class="tab-content">
-          <div ng-if="currentMovement.audio" class="table" plangular="{{currentMovement.audio}}">
-            <div class="table-cell">
-              <button class="button-icon" ng-click="playPause()">
-                <i class="fa fa-play fa-lg" ng-if="player.playing != track"></i>
-                <i class="fa fa-pause fa-lg" ng-if="player.playing == track"></i>
-              </button>
+          <div ng-repeat="m in dbwMovements">
+            <div ng-if="currentMovement.movement === m.movement" class="table">
+              <div class="table-cell">
+                <button class="button-icon" ng-click="player.playPause(player.trackIndex(m.audio))">
+                  <i class="fa fa-play fa-lg" ng-if="player.playing.permalink_url !== cleanUrl(m.audio)"></i>
+                  <i class="fa fa-pause fa-lg" ng-if="player.playing.permalink_url === cleanUrl(m.audio)"></i>
+                </button>
+              </div>
             </div>
           </div>
           <h3>{{currentMovement.title}}</h3>
@@ -61,9 +54,22 @@
       </div>
     </div>
   </section>
+  <section class="vertical-center video content">
+    <div class="container">
+      <div class="row">
+        <h1>Kickstarter Campaign</h1>
+      </div>
+      <div class="col-md-6">
+        <youtube-video video-url="videoUrl" player-width="'100%'"></youtube-video>
+      </div>
+      <div class="col-md-6">
+        <h2 du-scrollspy>$8,100.00</h2>
+      </div>
+    </div>
+  </section>
   <div class="stellar-window" id="panel-2" stellar-background="0.8">
   </div>
-  <section id="poem" class="vertical-center poem">
+  <section id="poem" class="vertical-center poem content">
     <div class="container">
       <div class="title text-center">
         <h2>The City by the Sea</h2>

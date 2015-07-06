@@ -15,17 +15,16 @@
           </button>
         </h3>
         <p class="instrumentation">{{ work.instrumentation }}</p>
-        <div ng-if="work.audio" class="table" plangular="{{work.audio}}">
+        <div ng-if="work.audio" class="table">
           <div class="table-cell">
-            <button class="button-icon" ng-click="playPause()">
-              <i class="fa fa-play fa-lg" ng-if="player.playing != track"></i>
-              <i class="fa fa-pause fa-lg" ng-if="player.playing == track"></i>
+            <button class="button-icon" ng-click="player.playPause(player.trackIndex(work.audio))">
+              <i class="fa fa-play fa-lg" ng-if="player.playing.permalink_url !== cleanUrl(work.audio)"></i>
+              <i class="fa fa-pause fa-lg" ng-if="player.playing.permalink_url === cleanUrl(work.audio)"></i>
             </button>
           </div>
           <div class="">
-            <progressbar ng-if="player.currentTrack == track" max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
-            <small ng-if="player.playing != track"></small>
-            <small ng-if="player.currentTrack == track">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>
+            <progressbar ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio)" max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
+            <small ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio)">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>
           </div>
         </div>
   	    <div ng-if="(work.info || work.link || work.video)" collapse="!isCollapsed">

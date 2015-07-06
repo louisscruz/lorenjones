@@ -1,13 +1,15 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 $fa-font-path: "/bower_components/font-awesome/fonts";
 
-$primary: #1A237E;
+$primary: #3C3B5C;
 $primary-medium: #7986CB;
-$primary-light: #C5CAE9;
+$primary-light: lighten($primary, 35%);
 $dark-gray: #424242;
 $light-gray: #F5F5F5;
 $blue: #66b8ac;
 $orange: #C0362C;
+
+$animation-time: 0.15s;
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
@@ -81,23 +83,28 @@ body {
      -moz-transition-property: background-color, color;
        -o-transition-property: background-color, color;
           transition-property: background-color, color;
-  -webkit-transition-duration: 0.1s;
-     -moz-transition-duration: 0.1s;
-       -o-transition-duration: 0.1s;
-          transition-duration: 0.1s;
+  -webkit-transition-duration: 0.2s;
+     -moz-transition-duration: 0.2s;
+       -o-transition-duration: 0.2s;
+          transition-duration: 0.2s;
   -webkit-transition-timing-function: ease-in-out;
      -moz-transition-timing-function: ease-in-out;
        -o-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
-  &:hover {
-    //background-color: $primary-light;
-    color: $dark-gray;
-  }
-  &:focus {
-    //background-color: $primary-light;
-    color: $dark-gray;
-  }
-  a:hover {
+  &:hover, &:focus {
+    -webkit-transition-property: background-color, color;
+       -moz-transition-property: background-color, color;
+         -o-transition-property: background-color, color;
+            transition-property: background-color, color;
+    -webkit-transition-duration: $animation-time;
+       -moz-transition-duration: $animation-time;
+         -o-transition-duration: $animation-time;
+            transition-duration: $animation-time;
+    -webkit-transition-timing-function: ease-in-out;
+       -moz-transition-timing-function: ease-in-out;
+         -o-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+    color: $primary;
     background-color: $primary-light;
   }
 }
@@ -109,21 +116,17 @@ body {
      -moz-transition-property: background-color, color;
        -o-transition-property: background-color, color;
           transition-property: background-color, color;
-  -webkit-transition-duration: 0.1s;
-     -moz-transition-duration: 0.1s;
-       -o-transition-duration: 0.1s;
-          transition-duration: 0.1s;
+  -webkit-transition-duration: $animation-time;
+     -moz-transition-duration: $animation-time;
+       -o-transition-duration: $animation-time;
+          transition-duration: $animation-time;
   -webkit-transition-timing-function: ease-in-out;
      -moz-transition-timing-function: ease-in-out;
        -o-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
-  &:hover {
+  &:hover, &:focus {
     background-color: $primary-light;
-    color: $dark-gray;
-  }
-  &:focus {
-    background-color: $primary-light;
-    color: $dark-gray;
+    color: $primary;
   }
 }
 
@@ -157,25 +160,22 @@ body {
 
 .btn-default {
   background: white;
-  //padding: 12px 22px;
-  //border: 2px solid $primary-medium;
-  color: $dark-gray;
+  color: $primary;
+  border: none;
   .active {
-    background-color: $primary-medium;
+    background-color: $primary;
     color: white;
     box-shadow: none;
   }
   &:hover {
     background-color: $primary-light;
     color: $primary;
-    //border: 2px solid $primary-medium;
   }
 }
 
 .btn-default.active {
-  background-color: $primary-medium;
+  background-color: $primary;
   color: white;
-  //border: 2px solid $primary-medium;
 }
 
 #footer {
@@ -201,6 +201,10 @@ body {
   }
   .button-icon {
     float: left;
+  }
+  li.current {
+    background-color: $primary;
+    color: white;
   }
   .right {
     margin-left: 126px;

@@ -17,6 +17,7 @@ angular.module('lorenjonesApp', [
   'ngFitText',
   'stellar.directives',
   'bootstrapLightbox',
+  'duScroll',
   'duParallax'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider) {
@@ -87,6 +88,22 @@ angular.module('lorenjonesApp', [
     editableOptions.theme = 'bs3';
     $rootScope.defaultTrack = works.defaultTrack;
     $rootScope.allWorks = works.works;
+    $rootScope.dbwMovements = [
+      {
+        movement: 1,
+        audio: "https://soundcloud.com/lorenjones-2/1-ohlone-song"
+      }, {
+        movement: 8,
+        audio: "https://soundcloud.com/lorenjones-2/5-earthquake-fire"
+      }
+    ];
+    $rootScope.cleanUrl = function(url) {
+      var u = url;
+      if (u.indexOf('https') !== -1) {
+        u = u.replace('https', 'http');
+      };
+      return u;
+    };
 
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {

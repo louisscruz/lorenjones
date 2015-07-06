@@ -111,6 +111,38 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
       }
       var time = percent * audio.duration || 0;
       audio.currentTime = time;
+    },
+
+    trackIndex: function(query) {
+      var mem = null;
+      //clean https
+      if (query.indexOf('https') !== -1) {
+        query = query.replace('https', 'http');
+      }
+      //get index
+      var tracks = this.tracks;
+      for (var y = 0; y < tracks.length; y++) {
+        if (query === tracks[y].permalink_url) {
+          mem = y;
+          return mem;
+        }
+      }
+    },
+
+    sameTrack: function(url) {
+      var u = url;
+      var current = this.currentTrack.permalink_url;
+      //clean https
+      if (u.indexOf('https') !== -1) {
+        u = u.replace('https', 'http');
+      }
+
+      //track same
+      if (u === currentTrack.permalink_url) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
   };
@@ -179,6 +211,10 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
         var i = scope.index || player.i;
         player.playPause(i, playlistIndex);
       };
+
+      scope.playTrack = function(t) {
+
+      }
 
       scope.next = function() {
         player.next();
