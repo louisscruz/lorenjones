@@ -10,14 +10,14 @@ angular.module('lorenjonesApp')
     });
 
     $scope.pics = [];
-    $scope.src = "photos_public.gne?id=134139109@N08";
+    $scope.src = 'photos_public.gne?id=134139109@N08';
     $scope.loadPhotos = function() {
       flickr.query($scope.src)
       .then(function(data) {
         for(var i=0; i<data.length; i++) {
           $scope.pics.push(data[i]);
         }
-      })
+      });
     };
     $scope.loadPhotos();
     $scope.openLightboxModal = function (index) {

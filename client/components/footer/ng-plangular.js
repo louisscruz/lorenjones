@@ -12,6 +12,7 @@
 var plangular = angular.module('plangular', []);
 
 plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, plangularConfig) {
+  /*jshint camelcase: false */
   var clientId = plangularConfig.clientId;
 
   var audio = document.createElement('audio');
@@ -29,7 +30,7 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
 
     load: function(track, index) {
       this.tracks[index] = track;
-      if (!this.playing && !this.i && index == 0) {
+      if (!this.playing && !this.i && index === 0) {
         this.currentTrack = this.tracks[0];
       }
     },
@@ -37,16 +38,19 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
     play: function(index, playlistIndex) {
       this.i = index || 0;
       var track = this.tracks[this.i];
+      var src = null;
       if (track.tracks) {
         this.playlistIndex = playlistIndex || 0;
         this.playing = track.tracks[this.playlistIndex];
-        var src = track.tracks[this.playlistIndex].stream_url + '?client_id=' + clientId;
+        src = track.tracks[this.playlistIndex].stream_url + '?client_id=' + clientId;
       } else {
         this.playing = track;
-        var src = track.stream_url + '?client_id=' + clientId;
+        src = track.stream_url + '?client_id=' + clientId;
       }
       this.currentTrack = this.playing;
-      if (src != audio.src) audio.src = src;
+      if (src !== audio.src) {
+        audio.src = src;
+      }
       audio.play();
     },
 
@@ -57,9 +61,9 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
 
     playPause: function(i, playlistIndex) {
       var track = this.tracks[i];
-      if (track.tracks && this.playing != track.tracks[playlistIndex]) {
+      if (track.tracks && this.playing !== track.tracks[playlistIndex]) {
         this.play(i, playlistIndex);
-      } else if (!track.tracks && this.playing != track) {
+      } else if (!track.tracks && this.playing !== track) {
         this.play(i);
       } else {
         this.pause();
@@ -75,7 +79,7 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
         this.i++;
         // Handle advancing to new playlist
         if (this.tracks[this.i].tracks) {
-          var playlist = this.tracks[this.i].tracks || null;
+          playlist = this.tracks[this.i].tracks || null;
           this.playlistIndex = 0;
           this.play(this.i, this.playlistIndex);
         } else {
@@ -103,11 +107,14 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
     },
 
     seek: function(e) {
-      if (!audio.readyState) return false;
+      if (!audio.readyState) {
+        return false;
+      }
+      var percent = 0;
       if ($(e.target).hasClass('progress')) {
-        var percent = e.offsetX / e.target.offsetWidth;
+        percent = e.offsetX / e.target.offsetWidth;
       } else {
-        var percent = e.offsetX / $(e.target).parent().width();
+        percent = e.offsetX / $(e.target).parent().width();
       }
       var time = percent * audio.duration || 0;
       audio.currentTime = time;
@@ -127,24 +134,7 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
           return mem;
         }
       }
-    },
-
-    sameTrack: function(url) {
-      var u = url;
-      var current = this.currentTrack.permalink_url;
-      //clean https
-      if (u.indexOf('https') !== -1) {
-        u = u.replace('https', 'http');
-      }
-
-      //track same
-      if (u === currentTrack.permalink_url) {
-        return true;
-      } else {
-        return false;
-      }
     }
-
   };
 
   audio.addEventListener('timeupdate', function() {
@@ -153,8 +143,12 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
   }, false);
 
   audio.addEventListener('ended', function() {
-    if (player.tracks.length > 0) player.next();
-    else player.pause();
+    if (player.tracks.length > 0) {
+      player.next();
+    }
+    else {
+      player.pause();
+    }
   }, false);
 
   var index = 0;
@@ -167,7 +161,7 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
     link: function (scope, elem, attrs) {
 
       var src = attrs.plangular;
-      var params = { url: src, client_id: clientId, callback: 'JSON_CALLBACK' }
+      var params = { url: src, client_id: clientId, callback: 'JSON_CALLBACK' };
 
       scope.player = player;
       scope.audio = audio;
@@ -212,10 +206,6 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
         player.playPause(i, playlistIndex);
       };
 
-      scope.playTrack = function(t) {
-
-      }
-
       scope.next = function() {
         player.next();
       };
@@ -225,7 +215,7 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
       };
 
       audio.addEventListener('timeupdate', function() {
-        if (scope.track == player.tracks[player.i]){
+        if (scope.track === player.tracks[player.i]){
           scope.$apply(function() {
             scope.currentTime = player.currentTime;
             scope.duration = player.duration;
@@ -235,19 +225,16 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
             scope.currentTime = player.currentTime;
             scope.duration = player.duration;
           });
-        };
+        }
       }, false);
 
       scope.seek = function(e){
-        if (player.tracks[player.i] == scope.track) {
+        if (player.tracks[player.i] === scope.track) {
           player.seek(e);
         }
       };
-
     }
-
-  }
-
+  };
 }]);
 
 // Filter to convert milliseconds to hours, minutes, seconds
@@ -263,10 +250,10 @@ plangular.filter('prettyTime', function() {
         return hours+':'+mins+':'+secs;
       } else {
         return mins+':'+secs;
-      };
+      }
     } else {
       return '00:00';
-    };
+    }
   };
 });
 

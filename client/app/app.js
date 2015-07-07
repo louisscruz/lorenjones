@@ -15,7 +15,6 @@ angular.module('lorenjonesApp', [
   'xeditable',
   'ngAnimate',
   'ngFitText',
-  'stellar.directives',
   'bootstrapLightbox',
   'duScroll',
   'duParallax'
@@ -55,7 +54,7 @@ angular.module('lorenjonesApp', [
         'width': width,
         'height': height
       };
-    }
+    };
   })
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
@@ -91,17 +90,17 @@ angular.module('lorenjonesApp', [
     $rootScope.dbwMovements = [
       {
         movement: 1,
-        audio: "https://soundcloud.com/lorenjones-2/1-ohlone-song"
+        audio: 'https://soundcloud.com/lorenjones-2/1-ohlone-song'
       }, {
         movement: 8,
-        audio: "https://soundcloud.com/lorenjones-2/5-earthquake-fire"
+        audio: 'https://soundcloud.com/lorenjones-2/5-earthquake-fire'
       }
     ];
     $rootScope.cleanUrl = function(url) {
       var u = url;
       if (u.indexOf('https') !== -1) {
         u = u.replace('https', 'http');
-      };
+      }
       return u;
     };
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AdminHomepageCtrl', function ($scope, $http, socket, Modal) {
+  .controller('AdminHomepageCtrl', function ($scope, $http, socket) {
     $scope.tracks = [];
     $http.get('/api/default_tracks').success(function(tracks) {
       $scope.tracks = tracks;
@@ -14,8 +14,10 @@ angular.module('lorenjonesApp')
     };
 
     $scope.addDefaultTrack = function() {
-      if($scope.newLink === '') {return;};
-      if($scope.tracks.length == 0) {
+      if($scope.newLink === '') {
+        return;
+      }
+      if($scope.tracks.length === 0) {
         $http.post('/api/default_tracks', {
           link: $scope.newLink
         });

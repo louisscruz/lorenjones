@@ -31,15 +31,15 @@ angular.module('lorenjonesApp')
         }
 
         return deferred.promise;
-      }
+      };
 
-      o.largeQuery = function(src) {
-        var deferred = $q.defer();
+      //o.largeQuery = function(src) {
+        //var deferred = $q.defer();
 
-        if (o.photos) {
-          deferred.resolve(o.photos);
-        }
-      }
+        //if (o.photos) {
+          //deferred.resolve(o.photos);
+        //}
+      //};
 
       o.hasPhotos = function() {
         return !!o.photos;
