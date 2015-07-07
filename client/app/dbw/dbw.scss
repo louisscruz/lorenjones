@@ -41,7 +41,12 @@
     .parallax-txt {
       z-index: 2;
       position: absolute;
+      width: 100%;
       color: $orange;
+      text-align: center;
+      h1 {
+        text-align: center;
+      }
     }
     .background {
       background-color: $orange;
@@ -104,6 +109,9 @@
     }
     h4 {
       text-transform: uppercase;
+    }
+    p {
+      font-size: 15px;
     }
     li {
       font-size: 11px;

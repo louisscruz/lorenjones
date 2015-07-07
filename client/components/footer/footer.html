@@ -1,6 +1,6 @@
 <footer class="footer">
   <div class="controls">
-    <button class="button-icon" ng-click="playPause()">
+    <button class="button-icon play" ng-click="playPause()">
       <i class="fa fa-play fa-lg" ng-if="!player.playing"></i>
       <i class="fa fa-pause fa-lg" ng-if="player.playing"></i>
     </button>
@@ -15,7 +15,8 @@
         <span><i class="fa fa-chevron-up"></i></span>
         <span class="sr-only">Toggle Dropdown</span>
       </button>
-      <ul class="dropdown-menu" role="menu">
+      <ul class="dropdown-menu playlist-menu" role="menu">
+        <button class="btn-default">Connect</button>
         <li ng-repeat="track in player.tracks" ng-class="{'current': player.currentTrack == track}" ng-click="player.play($index)">{{track.title}}</li>
       </ul>
     </div>

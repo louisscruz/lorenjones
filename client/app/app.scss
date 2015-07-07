@@ -203,18 +203,42 @@ body {
     float: left;
   }
   li.current {
-    background-color: $primary;
+    background-color: $orange;
     color: white;
+  }
+  li {
+    cursor: pointer;
   }
   .right {
     margin-left: 126px;
     margin-top: 0px;
     padding-top: 11px;
   }
+  .playlist-menu {
+    max-height: 120px;
+    overflow: scroll;
+    margin-left: 127px;
+    margin-bottom: -1px;
+    box-shadow: none;
+    padding: 8px;
+  }
+  .dropup {
+    .dropdown-toggle {
+      &:active {
+        background-color: $primary;
+      }
+      &:focus {
+        background-color: $orange;
+        color: white;
+        box-shadow: none;
+      }
+    }
+  }
 }
 .progress {
   height: 14px;
   margin-bottom: 0px;
+  cursor: pointer;
   .progress-bar {
     background-color: $blue;
   }
