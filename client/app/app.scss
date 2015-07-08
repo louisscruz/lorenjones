@@ -68,6 +68,46 @@ body {
 .navbar {
   background-color: white;
   border: 0px;
+  .navbar-toggle.collapsed {
+    .top-bar {
+      transform: rotate(0);
+      -ms-transform: rotate(0);
+      -webkit-transform: rotate(0);
+    }
+    .middle-bar {
+      opacity: 1;
+    }
+    .bottom-bar {
+      transform: rotate(0);
+      -ms-transform: rotate(0);
+      -webkit-transform: rotate(0);
+    }
+  }
+  .navbar-toggle {
+    .icon-bar {
+      width: 22px;
+      transition: all 0.5s;
+    }
+    .top-bar {
+      transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      transform-origin: 10% 10%;
+      -ms-transform-origin: 10% 10%;
+      -webkit-transform-origin: 10% 10%;
+    }
+    .middle-bar {
+      opacity: 0;
+    }
+    .bottom-bar {
+      transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+      transform-origin: 10% 10%;
+      -ms-transform-origin: 10% 10%;
+      -webkit-transform-origin: 10% 10%;
+    }
+  }
 }
 
 .nav li a {

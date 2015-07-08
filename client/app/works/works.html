@@ -4,13 +4,13 @@
     <accordion-group ng-init="status.open = $first" is-open="status.open" ng-repeat="(category, works) in allWorks | groupBy: 'category'">
       <accordion-heading>
         <div>
-        {{ category }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        {{ ::category }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </div>
       </accordion-heading>
       <div class="panel" ng-repeat="work in works | orderBy: 'date':true">
         <h3>
           {{ work.title }} ({{ work.date }})
-          <button ng-class="'active': {isCollapsed}" class="btn btn-default btn-xs info" ng-if="(work.info || work.link)" ng-click="toggle()">
+          <button ng-class="{'active': isCollapsed}" class="btn btn-default btn-xs info" ng-if="(work.info || work.link)" ng-click="toggle()">
             {{ isCollapsed == true ? 'Less Info' : 'More Info' }}
           </button>
         </h3>

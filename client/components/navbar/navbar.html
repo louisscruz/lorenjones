@@ -1,11 +1,11 @@
 <div class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarCtrl">
   <div class="container">
     <div class="navbar-header">
-      <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
+      <button class="navbar-toggle" ng-class="{'collapsed': isCollapsed}" type="button" ng-click="isCollapsed = !isCollapsed">
         <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
       </button>
       <a href="/" class="navbar-brand">Loren Jones</a>
     </div>
@@ -20,9 +20,9 @@
         <li ng-class="{active: isActive('/events')}">
           <a ng-href="/events" ng-click="isCollapsed = !isCollapsed">Events</a>
         </li>
-        <li class="dropdown" ng-class="{active: isActive('/works') || isActive('/dbw')}">
-          <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Works<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
+        <li class="dropdown" ng-class="{active: isActive('/works') || isActive('/dbw')}" dropdown>
+          <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle>Works<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu" dropdown-menu>
             <li><a ng-href="/works" ng-click="isCollapsed = !isCollapsed">All Works</a></li>
             <li><a ng-href="/dbw" ng-click="isCollapsed = !isCollapsed">Dancing on the Brink of the World</a></li>
           </ul>
@@ -33,9 +33,9 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-show="isAdmin()" class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ getCurrentUser().name }}<span class="caret"></span></a>
-          <ul ng-show="isAdmin()" class="dropdown-menu" role="menu">
+        <li ng-show="isAdmin()" class="dropdown" dropdown>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle>{{ getCurrentUser().name }}<span class="caret"></span></a>
+          <ul ng-show="isAdmin()" class="dropdown-menu" role="menu" dropdown-menu>
             <li ng-show="isAdmin()"><a href="/admin/homepage">Homepage</a></li>
             <li ng-show="isAdmin()" class="divider"></li>
             <li ng-show="isAdmin()"><a href="/admin/about">About</a></li>

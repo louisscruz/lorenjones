@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AboutCtrl', function ($scope, $http, socket, $interval, instagram, flickr, Lightbox) {
+  .controller('AboutCtrl', function ($scope, $http, socket, $interval, flickr, Lightbox) {
     $scope.bioEntries = [];
 
     $http.get('/api/bio_entries', {cache: true}).success(function(bioEntries) {

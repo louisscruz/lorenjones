@@ -11,19 +11,19 @@
       <i class="fa fa-step-forward fa-lg"></i>
     </button>
     <div class="dropup" dropdown>
-      <button class="button-icon dropdown-toggle" data-toggle="dropdown">
+      <button class="button-icon dropdown-toggle" data-toggle="dropdown" dropdown-toggle>
         <span><i class="fa fa-chevron-up"></i></span>
         <span class="sr-only">Toggle Dropdown</span>
       </button>
-      <ul class="dropdown-menu playlist-menu" role="menu">
+      <ul class="dropdown-menu playlist-menu" role="menu" dropdown-menu>
         <button class="btn-default">Connect</button>
-        <li ng-repeat="track in player.tracks" ng-class="{'current': player.currentTrack == track}" ng-click="player.play($index)">{{track.title}}</li>
+        <li ng-repeat="t in player.tracks" ng-class="{'current': player.currentTrack == t}" ng-click="player.play($index)">{{t.title}}</li>
       </ul>
     </div>
   </div>
-  <div class="track-info">
-    <p ng-class="{ 'vis-hidden': currentTime == 0 }">{{player.currentTrack.title}}</p>
-    <progressbar ng-class="{ 'vis-hidden': currentTime == 0 }" max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
-    <p ng-class="{ 'vis-hidden': currentTime == 0 }">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</p>
+  <div class="track-info" ng-if="player.playing || currentTime !== 0">
+    <p>{{player.currentTrack.title}}</p>
+    <progressbar max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
+    <p>{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</p>
   </div>
 </footer>

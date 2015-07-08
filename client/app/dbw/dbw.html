@@ -35,7 +35,7 @@
         <div>
           <h1 data-fittext data-fittext-max="170">Movements</h1>
           <tabset vertical="true" type="pills">
-            <tab ng-repeat="movement in movements" heading="{{movement.title}}" ng-click="changeInfo(movement)" class="cursor">
+            <tab ng-repeat="movement in movements" heading="{{::movement.title}}" ng-click="changeInfo(movement)" class="cursor">
             </tab>
           </tabset>
         </div>
@@ -52,10 +52,10 @@
               </div>
             </div>
           </div>
-          <h3 data-fittext data-fittext-max="80">{{currentMovement.title}}</h3>
-          <h4>{{currentMovement.year}}</h4>
-          <h4 ng-if="currentMovement.subtitle">{{currentMovement.subtitle}}</h4>
-          <p>{{currentMovement.content}}</p>
+          <h3 data-fittext data-fittext-max="80">{{::currentMovement.title}}</h3>
+          <h4>{{::currentMovement.year}}</h4>
+          <h4 ng-if="currentMovement.subtitle">{{::currentMovement.subtitle}}</h4>
+          <p>{{::currentMovement.content}}</p>
         </div>
       </div>
     </div>

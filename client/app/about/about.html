@@ -1,7 +1,7 @@
 <div id="about" class="container">
   <h1 class="center">Bio</h1>
   <tabset class="col-md-8 col-md-offset-2 col-sm-12">
-    <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
+    <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" class="cursor">
       <div class="bio section">
         <p class="new-lines" ng-bind-html="entry.content">{{entry.content}}</p>
       </div>
@@ -18,7 +18,7 @@
 <div class="thumbnails">
   <div ng-repeat="p in pics" class="col-xs-3 col-md-2">
     <a ng-click="openLightboxModal($index)">
-      <img ng-src="{{p.thumbnail}}" class="img-thumbnail">
+      <img ng-src="{{::p.thumbnail}}" class="img-thumbnail">
     </a>
   </div>
 </div>
