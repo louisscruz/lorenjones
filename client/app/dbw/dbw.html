@@ -1,10 +1,10 @@
 <div class="dbw parallax col-md-12">
   <section id="title" class="vertical-center photo">
     <div class="parallax-txt vertical-center text-center" du-parallax y="titleBackground">
-      <h1>Dancing on the Brink of the World</h1>
+      <h1 class="container">Dancing on the Brink of the World</h1>
     </div>
     <div class="wrapper">
-      <img class="parallax-img" src="/assets/images/dbw/san_francisco1.jpg" du-parallax y="background"/>
+      <img class="parallax-img" src="/assets/images/dbw/dbw_poster_cut.jpg" du-parallax y="background"/>
     </div>
   </section>
   <section class="vertical-center ohlone content">
@@ -23,11 +23,6 @@
   </section>
   <section class="hor-photo">
     <img class="hor-parallax-img" src="/assets/images/dbw/panorama3.jpg" du-parallax x="panoramaThree"/>
-  </section>
-  <section class="vertical-center photo">
-    <div class="wrapper">
-      <img class="parallax-img" src="/assets/images/dbw/dbw_poster_cut.jpg" du-parallax y="fastBackground"/>
-    </div>
   </section>
   <section class="movements content">
     <div class="container">
@@ -52,10 +47,10 @@
               </div>
             </div>
           </div>
-          <h3 data-fittext data-fittext-max="80">{{::currentMovement.title}}</h3>
-          <h4>{{::currentMovement.year}}</h4>
-          <h4 ng-if="currentMovement.subtitle">{{::currentMovement.subtitle}}</h4>
-          <p>{{::currentMovement.content}}</p>
+          <h3 data-fittext data-fittext-max="80">{{currentMovement.title}}</h3>
+          <h4>{{currentMovement.year}}</h4>
+          <h4 ng-if="currentMovement.subtitle">{{currentMovement.subtitle}}</h4>
+          <p>{{currentMovement.content}}</p>
         </div>
       </div>
     </div>
@@ -73,8 +68,6 @@
       </div>
     </div>
   </section>
-  <div class="stellar-window" id="panel-2" stellar-background="0.8">
-  </div>
   <section id="poem" class="vertical-center poem content">
     <div class="container">
       <div class="title text-center">

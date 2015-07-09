@@ -23,7 +23,7 @@
             </button>
           </div>
           <div class="">
-            <progressbar ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio)" max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
+            <progressbar ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio)" max="1" value="(player.currentTime / player.duration) || 0" ng-click="player.seek($event)"></progressbar>
             <small ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio)">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>
           </div>
         </div>

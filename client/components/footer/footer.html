@@ -16,14 +16,14 @@
         <span class="sr-only">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu playlist-menu" role="menu" dropdown-menu>
-        <button class="btn-default">Connect</button>
+        <a href="https://soundcloud.com/lorenjones-2" target="_blank"><button class="btn-default"><img src="/assets/images/soundcloud_logo.svg" /> Connect</button></a>
         <li ng-repeat="t in player.tracks" ng-class="{'current': player.currentTrack == t}" ng-click="player.play($index)">{{t.title}}</li>
       </ul>
     </div>
   </div>
   <div class="track-info" ng-if="player.playing || currentTime !== 0">
     <p>{{player.currentTrack.title}}</p>
-    <progressbar max="1" value="(player.currentTime / player.duration)" ng-click="player.seek($event)"></progressbar>
+    <progressbar max="1" value="(player.currentTime / player.duration) || 0" ng-click="player.seek($event)"></progressbar>
     <p>{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</p>
   </div>
 </footer>

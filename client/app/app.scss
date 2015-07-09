@@ -30,8 +30,15 @@ body {
   font-weight: 400 !important;
   overflow-x: hidden;
   background-color: #424242;
+  background-image: url("/assets/images/background.png");
+  background-size: 511px 511px;
+  background-repeat: repeat;
 
   background-repeat: repeat;
+}
+
+*:focus {
+  outline: none;
 }
 
 .cursor {
@@ -206,6 +213,7 @@ body {
     background-color: $primary;
     color: white;
     box-shadow: none;
+    border: none;
   }
   &:hover {
     background-color: $primary-light;
@@ -248,6 +256,10 @@ body {
   }
   li {
     cursor: pointer;
+    font-size: 14px;
+    &:hover {
+      background-color: grey;
+    }
   }
   .right {
     margin-left: 126px;
@@ -261,6 +273,27 @@ body {
     margin-bottom: -1px;
     box-shadow: none;
     padding: 8px;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: none;
+    transition: all 0.5s;
+    button {
+      height: 20px;
+      width: 100%;
+      line-height: 100%;
+      img {
+        height: 100%;
+        width: auto;
+      }
+    }
+
+  }
+  .open .playlist-menu {
+    opacity: 1;
+    visibility: visible;
   }
   .dropup {
     .dropdown-toggle {

@@ -26,7 +26,7 @@
         </div>
       </div>
       <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='event.zoom' options='options'>
-        <ui-gmap-marker idkey="event.venue" coords="[event.lat, event.lng ]">
+        <ui-gmap-marker idkey="event.venue || event.name" coords="[event.lat, event.lng ]">
         </ui-gmap-marker>
       </ui-gmap-google-map>
       <hr ng-show="! $last">
