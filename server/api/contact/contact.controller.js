@@ -17,19 +17,19 @@ exports.sendMail = function(req, res) {
   var mailOptions = {
     from: data.email,
     to: 'louisstephancruz@me.com',
-    subject: 'Message from' + data.name,
+    subject: 'Message from ' + data.name,
     text: data.message
   };
 
   transporter.sendMail(mailOptions, function(error, info) {
     if(error) {
       console.log(error);
+      res.status(500).send(error);
     } else {
       console.log('Message sent: ' + info.response);
+      res.json(data);
     }
   });
-
-  res.json(data);
 };
 function handleError(res, error) {
   return res.status(500).send(error);

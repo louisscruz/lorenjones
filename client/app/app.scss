@@ -184,6 +184,18 @@ body {
   padding: 0.2em 0;
 }
 
+#alerts {
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+.alert {
+  transition: cubic-bezier(.77,.14,.38,.71) 0.5s;
+  display: block !important;
+  opacity: 0.8;
+}
+
 #content {
   .container {
     position: relative;
@@ -322,6 +334,22 @@ form label {
 }
 
 // Animations
+
+.alert.ng-enter {
+  opacity: 0;
+}
+
+.alert.ng-enter-active {
+  opacity: 0.8;
+}
+
+.alert.ng-leave {
+  opacity: 0.8;
+}
+
+.alert.ng-leave-active {
+  opacity: 0;
+}
 
 .repeated-item { }
 
