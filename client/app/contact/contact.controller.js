@@ -2,15 +2,21 @@
 
 angular.module('lorenjonesApp')
   .controller('ContactCtrl', function ($scope, $http) {
-    var ctrl = this;
-
-    ctrl.emailData = {
-        from: '',
-        name: '',
-        body: ''
-    };
-
-    ctrl.postMail = function (data) {
-        $http.post('/api/contact', data);
-    };
+    $scope.contact = {};
+    $scope.submitForm = function(isValid) {
+      if (isValid) {
+        var data = ({
+          name: $scope.contact.name,
+          email: $scope.contact.email,
+          message: $scope.contact.message
+        });
+        $http.post('/api/contact', data)
+          .success(function(d) {
+            //alertService.add('success', d.name + ', thank you for the message. We will get back to you soon!');
+          })
+          .error(function(d) {
+            //alertService.add('danger', 'We could not deliver your message.');
+          })
+      }
+    }
   });

@@ -1,6 +1,36 @@
-<div class="container">
+<div class="contact container">
   <h1 class="center">Contact</h1>
-  <address class="center">
-   <h3><a href="mailto:you@youraddress.com">lsc@juilliard.edu</a></h3>
- </address>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+      <form name="contactForm" ng-submit="submitForm(contactForm.$valid)" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : contactForm.name.$touched && contactForm.name.$invalid }">
+          <label>Name</label>
+          <input type="text" name="name" class="form-control" ng-model="contact.name" required ng-minlength="3" ng-maxlength="56" autocomplete="off">
+          <div class="help-block" ng-messages="contactForm.name.$error" ng-if="contactForm.name.$touched">
+            <p ng-message="required">Your name is required.</p>
+            <p ng-message="minlength">Your name must be at least 3 characters long.</p>
+            <p ng-message="maxlength">Your name must be 56 characters or less.</p>
+          </div>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : contactForm.email.$touched && contactForm.email.$invalid }">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" ng-model="contact.email" required ng-maxlength="40">
+          <div class="help-block" ng-messages="contactForm.email.$error" ng-if="contactForm.email.$touched">
+            <p ng-message="required">Your email address is required.</p>
+            <p ng-message="maxlength">Your email address must be 40 characters or less.</p>
+            <p ng-message="email">Your email address must be valid.</p>
+          </div>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : contactForm.message.$touched && contactForm.message.$invalid }">
+          <label>Message</label>
+          <textarea name="message" class="form-control" ng-model="contact.message" required ng-minlength="5" ng-maxlength="2000"></textarea>
+          <div class="help-block" ng-messages="contactForm.message.$error" ng-if="contactForm.message.$touched">
+            <p ng-message="required">You must write a message.</p>
+            <p ng-message="minlength">Your message must be at least 5 characters.</p>
+            <p ng-message="maxlength">Your message must be less than 2000 characters.</p>
+          </div>
+        </div>
+        <button type="submit" ng-disabled="contactForm.$invalid" class="btn btn-primary btn-block">Send</button>
+      </form>
+    </div>
 </div>

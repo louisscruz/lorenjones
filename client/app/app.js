@@ -17,7 +17,8 @@ angular.module('lorenjonesApp', [
   'ngFitText',
   'bootstrapLightbox',
   'duScroll',
-  'duParallax'
+  'duParallax',
+  'ngMessages'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider) {
     $urlRouterProvider
