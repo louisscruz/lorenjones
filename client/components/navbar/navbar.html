@@ -12,23 +12,23 @@
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li ng-class="{active: isActive('/')}">
-          <a ng-href="/" ng-click="isCollapsed = !isCollapsed">Home</a>
+          <a ng-href="/">Home</a>
         </li>
         <li ng-class="{active: isActive('/about')}">
-          <a ng-href="/about" ng-click="isCollapsed = !isCollapsed">About</a>
+          <a ng-href="/about">About</a>
         </li>
         <li ng-class="{active: isActive('/events')}">
-          <a ng-href="/events" ng-click="isCollapsed = !isCollapsed">Events</a>
+          <a ng-href="/events">Events</a>
         </li>
         <li class="dropdown" ng-class="{active: isActive('/works') || isActive('/dbw')}" dropdown>
           <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle>Works<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu" dropdown-menu>
-            <li><a ng-href="/works" ng-click="isCollapsed = !isCollapsed">All Works</a></li>
-            <li><a ng-href="/dbw" ng-click="isCollapsed = !isCollapsed">Dancing on the Brink of the World</a></li>
+            <li><a ng-href="/works">All Works</a></li>
+            <li><a ng-href="/dbw">Dancing on the Brink of the World</a></li>
           </ul>
         </li>
         <li ng-class="{active: isActive('/contact')}">
-          <a ng-href="/contact" ng-click="isCollapsed = !isCollapsed">Contact</a>
+          <a ng-href="/contact">Contact</a>
         </li>
       </ul>
 
