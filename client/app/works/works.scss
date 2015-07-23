@@ -1,3 +1,9 @@
+.panel-title {
+  a:focus {
+    outline: none;
+  }
+}
+
 .panel {
   a {
     cursor: pointer;
