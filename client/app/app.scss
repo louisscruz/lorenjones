@@ -23,6 +23,8 @@ html, body {
   width: 100%;
   position: absolute;
   z-index: 10;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
