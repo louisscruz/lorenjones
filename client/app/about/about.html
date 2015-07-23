@@ -17,7 +17,7 @@
 
 <div class="thumbnails">
   <div ng-repeat="p in pics" class="col-xs-3 col-md-2">
-    <a ng-click="openLightboxModal($index)">
+    <a ng-click="openLightboxModal($index)" angular-ripple>
       <img ng-src="{{::p.thumbnail}}" class="img-thumbnail">
     </a>
   </div>

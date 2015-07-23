@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarCtrl">
   <div class="container">
     <div class="navbar-header">
-      <button class="navbar-toggle" ng-class="{'collapsed': isCollapsed}" type="button" ng-click="isCollapsed = !isCollapsed">
+      <button class="navbar-toggle" ng-class="{'collapsed': isCollapsed}" type="button" ng-click="isCollapsed = !isCollapsed" angular-ripple>
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar top-bar"></span>
         <span class="icon-bar middle-bar"></span>
@@ -12,29 +12,29 @@
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li ng-class="{active: isActive('/')}">
-          <a ng-href="/">Home</a>
+          <a ng-href="/" angular-ripple>Home</a>
         </li>
         <li ng-class="{active: isActive('/about')}">
-          <a ng-href="/about">About</a>
+          <a ng-href="/about" angular-ripple>About</a>
         </li>
         <li ng-class="{active: isActive('/events')}">
-          <a ng-href="/events">Events</a>
+          <a ng-href="/events" angular-ripple>Events</a>
         </li>
         <li class="dropdown" ng-class="{active: isActive('/works') || isActive('/dbw')}" dropdown>
-          <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle>Works<span class="caret"></span></a>
+          <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle angular-ripple>Works<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu" dropdown-menu>
-            <li><a ng-href="/works">All Works</a></li>
-            <li><a ng-href="/dbw">Dancing on the Brink of the World</a></li>
+            <li><a ng-href="/works" angular-ripple>All Works</a></li>
+            <li><a ng-href="/dbw" angular-ripple>Dancing on the Brink of the World</a></li>
           </ul>
         </li>
         <li ng-class="{active: isActive('/contact')}">
-          <a ng-href="/contact">Contact</a>
+          <a ng-href="/contact" angular-ripple>Contact</a>
         </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li ng-show="isAdmin()" class="dropdown" dropdown>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle>{{ getCurrentUser().name }}<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle angular-ripple>{{ getCurrentUser().name }}<span class="caret"></span></a>
           <ul ng-show="isAdmin()" class="dropdown-menu" role="menu" dropdown-menu>
             <li ng-show="isAdmin()"><a href="/admin/homepage">Homepage</a></li>
             <li ng-show="isAdmin()" class="divider"></li>
@@ -47,7 +47,7 @@
             <li ng-show="isAdmin()"><a href="/settings">Change Password</a></li>
           </ul>
         </li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()" angular-ripple>Logout</a></li>
       </ul>
     </div>
   </div>

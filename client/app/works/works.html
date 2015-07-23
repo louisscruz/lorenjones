@@ -10,24 +10,24 @@
       <div class="panel" ng-repeat="work in works | orderBy: 'date':true">
         <h3>
           {{ work.title }} ({{ work.date }})
-          <button ng-class="{'active': isCollapsed}" class="btn btn-default btn-xs info" ng-if="(work.info || work.link)" ng-click="toggle(work._id)">
+          <button ng-class="{'active': isCollapsed}" class="btn btn-default btn-xs info" ng-if="(work.info || work.link)" ng-click="toggle(work._id)" angular-ripple>
             {{ info == work._id ? 'Less Info' : 'More Info' }}
           </button>
         </h3>
         <p class="instrumentation">{{ work.instrumentation }}</p>
         <div ng-if="work.audio" class="table">
           <div class="table-cell">
-            <button class="button-icon" ng-click="player.playPause(player.trackIndex(work.audio))">
+            <button class="button-icon" ng-click="player.playPause(player.trackIndex(work.audio))" angular-ripple>
               <i class="fa fa-play fa-lg" ng-if="player.playing.permalink_url !== cleanUrl(work.audio)"></i>
               <i class="fa fa-pause fa-lg" ng-if="player.playing.permalink_url === cleanUrl(work.audio)"></i>
             </button>
           </div>
           <div class="">
-            <progressbar ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio)" max="1" value="(player.currentTime / player.duration) || 0" ng-click="player.seek($event)"></progressbar>
+            <progressbar ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio)" max="1" value="(player.currentTime / player.duration) || 0" ng-click="player.seek($event)" angular-ripple></progressbar>
             <small ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio)">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>
           </div>
         </div>
-  	    <div ng-if="(work.info || work.link || work.video)" collapse="!isCollapsed">
+  	    <div ng-if="(work.info || work.link || work.video)" collapse="info === work._id">
   		    <div class="well well-lg">
             <p ng-bind-html="work.info">{{ work.info }}</p>
             <p>{{ work.link }}</p>

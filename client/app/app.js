@@ -18,7 +18,8 @@ angular.module('lorenjonesApp', [
   'bootstrapLightbox',
   'duScroll',
   'duParallax',
-  'ngMessages'
+  'ngMessages',
+  'angularRipple'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider) {
     $urlRouterProvider
