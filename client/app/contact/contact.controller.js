@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('ContactCtrl', function ($scope, $http) {
+  .controller('ContactCtrl', function ($scope, $http, alertFact) {
     $scope.contact = {};
     $scope.submitForm = function(isValid) {
       if (isValid) {
@@ -12,10 +12,10 @@ angular.module('lorenjonesApp')
         });
         $http.post('/api/contact', data)
           .success(function(d) {
-            //alertService.add('success', d.name + ', thank you for the message. We will get back to you soon!');
+            alertFact.add('success', d.name + ', thank you for the message. We will get back to you soon!');
           })
           .error(function(d) {
-            //alertService.add('danger', 'We could not deliver your message.');
+            alertFact.add('danger', 'We could not deliver your message.');
           })
       }
     }
