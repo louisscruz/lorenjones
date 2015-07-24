@@ -205,29 +205,6 @@ body {
   }
 }
 
-// Buttons
-
-.btn-default {
-  background: white;
-  color: $primary;
-  border: none;
-  .active {
-    background-color: $primary;
-    color: white;
-    box-shadow: none;
-    border: none;
-  }
-  &:hover {
-    background-color: $primary-light;
-    color: $primary;
-  }
-}
-
-.btn-default.active {
-  background-color: $primary;
-  color: white;
-}
-
 #footer {
   position: fixed;
   height: 42px;
@@ -333,7 +310,71 @@ form label {
   color: white;
 }
 
+// Buttons
+
+.btn-default {
+  background: white;
+  color: $primary;
+  border: none;
+  .active {
+    background-color: $primary;
+    color: white;
+    box-shadow: none;
+    border: none;
+  }
+  &:hover {
+    background-color: $primary-light;
+    color: $primary;
+  }
+}
+
+.btn-default.active {
+  background-color: $primary;
+  color: white;
+}
+
+.flip {
+  -webkit-perspective: 800;
+  perspective: 800;
+  position: relative;
+}
+.flip .card.flipped {
+  animation: Flip 2s infinite;
+  animation-iteration-count: infinite;
+  //-webkit-transform: rotatex(-540deg);
+  //transform: rotatex(-540deg);
+}
+.flip .card {
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  //transition: 2.5s;
+}
+.flip .card .face {
+  -webkit-backface-visibility: hidden ;
+  backface-visibility: hidden ;
+  z-index: 2;
+}
+.flip .card .front {
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+.flip .card .back {
+  //animation: Flip 2s infinite;
+  //animation-iteration-count: infinite;
+  -webkit-transform: rotatex(-180deg);
+  transform: rotatex(-180deg);
+}
+.inner {
+  margin:0px !important;
+}
+
 // Animations
+@-webkit-keyframes Flip {
+  0% { transform: rotatex(0deg); }
+  100% { transform: rotatex(360deg); }
+}
 
 .alert.ng-enter {
   opacity: 0;
