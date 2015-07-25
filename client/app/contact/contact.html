@@ -3,10 +3,14 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2">
       <form name="contactForm" ng-submit="submitForm(contactForm.$valid)" novalidate>
-        <div class="form-group has-feedback" ng-class="{ 'has-error' : contactForm.name.$touched && contactForm.name.$invalid }">
+        <div class="form-group" ng-class="{ 'has-success' : contactForm.name.$valid && contactForm.name.$touched, 'has-error' : contactForm.name.$touched && contactForm.name.$invalid }">
           <label class="control-label">Name</label>
-          <input type="text" name="name" class="form-control" ng-model="contact.name" placeholder="Igor Stravinsky" required ng-minlength="3" ng-maxlength="56" autocomplete="off" ng-disabled="sending">
-          <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+          <div class="input-group">
+            <input type="text" name="name" class="form-control" ng-model="contact.name" placeholder="John Doe" required ng-minlength="3" ng-maxlength="56" autocomplete="off" ng-disabled="sending">
+            <span class="input-group-addon">
+              <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : contactForm.name.$valid && contactForm.name.$touched, 'fa-times' : contactForm.name.$invalid && contactForm.name.$touched }" aria-hidden="true"></span>
+            </span>
+          </div>
           <span class="sr-only">(success)</span>
           <div class="help-block" ng-messages="contactForm.name.$error" ng-if="contactForm.name.$touched">
             <p ng-message="required">Your name is required.</p>
@@ -14,10 +18,14 @@
             <p ng-message="maxlength">Your name must be 56 characters or less.</p>
           </div>
         </div>
-        <div class="form-group has-feedback" ng-class="{ 'has-success' : contactForm.email.$valid, 'has-error' : contactForm.email.$touched && contactForm.email.$invalid }">
+        <div class="form-group" ng-class="{ 'has-success' : contactForm.email.$valid && contactForm.email.$touched, 'has-error' : contactForm.email.$touched && contactForm.email.$invalid }">
           <label class="control-label">Email</label>
-          <input type="email" name="email" class="form-control" ng-model="contact.email" placeholder="istravinsky@gmail.com" required ng-maxlength="40" ng-disabled="sending">
-          <span class="fa fa-check form-control-feedback" ng-class="{ 'fa-check' : contactForm.email.$valid, 'fa-times' : contactForm.email.$invalid && contactForm.email.$touched }" aria-hidden="true"></span>
+          <div class="input-group">
+            <input type="email" name="email" class="form-control" ng-model="contact.email" placeholder="john@doe.com" required ng-maxlength="40" ng-disabled="sending">
+            <span class="input-group-addon">
+              <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : contactForm.email.$valid && contactForm.email.$touched, 'fa-times' : contactForm.email.$invalid && contactForm.email.$touched }" aria-hidden="true"></span>
+            </span>
+          </div>
           <span class="sr-only">(success)</span>
           <div class="help-block" ng-messages="contactForm.email.$error" ng-if="contactForm.email.$touched">
             <p ng-message="required">Your email address is required.</p>
@@ -25,9 +33,14 @@
             <p ng-message="email">Your email address must be valid.</p>
           </div>
         </div>
-        <div class="form-group" ng-class="{ 'has-error' : contactForm.message.$touched && contactForm.message.$invalid }">
+        <div class="form-group" ng-class="{ 'has-success' : contactForm.message.$valid && contactForm.message.$touched, 'has-error' : contactForm.message.$touched && contactForm.message.$invalid }">
           <label class="control-label">Message</label>
-          <textarea name="message" class="form-control" ng-model="contact.message" placeholder="Love the music, Loren!" required ng-minlength="5" ng-maxlength="2000" ng-disabled="sending"></textarea>
+          <div class="input-group">
+            <textarea name="message" class="form-control" ng-model="contact.message" placeholder="Love the music, Loren!" required ng-minlength="5" ng-maxlength="2000" ng-disabled="sending"></textarea>
+            <span class="input-group-addon">
+              <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : contactForm.message.$valid && contactForm.message.$touched, 'fa-times' : contactForm.message.$invalid && contactForm.message.$touched }" aria-hidden="true"></span>
+            </span>
+          </div>
           <div class="help-block" ng-messages="contactForm.message.$error" ng-if="contactForm.message.$touched">
             <p ng-message="required">You must write a message.</p>
             <p ng-message="minlength">Your message must be at least 5 characters.</p>
