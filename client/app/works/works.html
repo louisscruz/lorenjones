@@ -10,8 +10,8 @@
       <div class="panel" ng-repeat="work in works | orderBy: 'date':true">
         <h3>
           {{ work.title }} ({{ work.date }})
-          <button ng-class="{'active': isCollapsed}" class="btn btn-default btn-xs info" ng-if="(work.info || work.link)" ng-click="toggle(work._id)" angular-ripple>
-            {{ info == work._id ? 'Less Info' : 'More Info' }}
+          <button ng-class="{'active': info === work._id }" class="btn btn-default btn-xs info" ng-if="(work.info || work.link)" ng-click="toggle(work._id)" angular-ripple>
+            {{ info === work._id ? 'Less Info' : 'More Info' }}
           </button>
         </h3>
         <p class="instrumentation">{{ work.instrumentation }}</p>
@@ -27,7 +27,7 @@
             <small ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio)">{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</small>
           </div>
         </div>
-  	    <div ng-if="(work.info || work.link || work.video)" collapse="info === work._id">
+  	    <div ng-if="(work.info || work.link || work.video)" collapse="info !== work._id">
   		    <div class="well well-lg">
             <p ng-bind-html="work.info">{{ work.info }}</p>
             <p>{{ work.link }}</p>
