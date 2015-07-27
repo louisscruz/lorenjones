@@ -1,6 +1,13 @@
 .contact {
   textarea {
     max-width: 100%;
+    width: 100%;
     max-height: 400px;
+    resize: vertical;
+  }
+  .input-group {
+    max-width: 100%;
+    min-width: 100%;
+    width: 100%;
   }
 }

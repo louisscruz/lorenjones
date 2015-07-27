@@ -33,7 +33,7 @@
             <p ng-message="email">Your email address must be valid.</p>
           </div>
         </div>
-        <div class="form-group" ng-class="{ 'has-success' : contactForm.message.$valid && contactForm.message.$touched, 'has-error' : contactForm.message.$touched && contactForm.message.$invalid }">
+        <div class="form-group message" ng-class="{ 'has-success' : contactForm.message.$valid && contactForm.message.$touched, 'has-error' : contactForm.message.$touched && contactForm.message.$invalid }">
           <label class="control-label">Message</label>
           <div class="input-group">
             <textarea name="message" class="form-control" ng-model="contact.message" placeholder="Love the music, Loren!" required ng-minlength="5" ng-maxlength="2000" ng-disabled="sending"></textarea>
