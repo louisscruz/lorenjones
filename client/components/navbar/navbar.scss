@@ -1,0 +1,115 @@
+$serif-font: 'Cardo', serif;
+$serif-font-bold: 700 !important;
+$sans-serif-font: 'Merriweather Sans', sans-serif;
+$sans-serif-light: 300 !important;
+$sand-serif-normal: 400 !important;
+
+#navbar {
+  height: 51px;
+  opacity: 1;
+  z-index: 1000;
+  position: relative;
+}
+
+.navbar {
+  background-color: transparent;
+  border: 0px;
+  .navbar-toggle.collapsed {
+    .top-bar {
+      transform: rotate(0);
+    }
+    .middle-bar {
+      opacity: 1;
+    }
+    .bottom-bar {
+      transform: rotate(0);
+    }
+  }
+  .navbar-toggle {
+    .icon-bar {
+      width: 22px;
+      transition: all 0.5s;
+    }
+    .top-bar {
+      transform: translateX(3px) rotate(45deg);
+      transform-origin: 10% 10%;
+    }
+    .middle-bar {
+      opacity: 0;
+    }
+    .bottom-bar {
+      transform: translateX(3px) rotate(-45deg);
+      transform-origin: 10% 90%;
+    }
+  }
+}
+
+.nav li a {
+  //font-weight: 400;
+  &:focus {
+    background-color: $primary-light;
+    color: $dark-gray;
+  }
+
+}
+.navbar-default .navbar-nav > li {
+  -webkit-transition-property: background-color, color;
+     -moz-transition-property: background-color, color;
+       -o-transition-property: background-color, color;
+          transition-property: background-color, color;
+  -webkit-transition-duration: 0.2s;
+     -moz-transition-duration: 0.2s;
+       -o-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+     -moz-transition-timing-function: ease-in-out;
+       -o-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+  &:hover, &:focus {
+    -webkit-transition-property: background-color, color;
+       -moz-transition-property: background-color, color;
+         -o-transition-property: background-color, color;
+            transition-property: background-color, color;
+    -webkit-transition-duration: $animation-time;
+       -moz-transition-duration: $animation-time;
+         -o-transition-duration: $animation-time;
+            transition-duration: $animation-time;
+    -webkit-transition-timing-function: ease-in-out;
+       -moz-transition-timing-function: ease-in-out;
+         -o-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+    color: $primary;
+    background-color: $primary-light;
+  }
+}
+
+.navbar-default .navbar-nav > .active > a {
+  background-color: $primary;
+  color: $white;
+  -webkit-transition-property: background-color, color;
+     -moz-transition-property: background-color, color;
+       -o-transition-property: background-color, color;
+          transition-property: background-color, color;
+  -webkit-transition-duration: $animation-time;
+     -moz-transition-duration: $animation-time;
+       -o-transition-duration: $animation-time;
+          transition-duration: $animation-time;
+  -webkit-transition-timing-function: ease-in-out;
+     -moz-transition-timing-function: ease-in-out;
+       -o-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+  &:hover, &:focus {
+    background-color: $primary-light;
+    color: $primary;
+  }
+}
+
+.navbar-brand {
+  font-family: $serif-font;
+  font-weight: $serif-font-bold;
+  color: white !important;
+}
+
+.nav-tabs {
+  border-bottom: 0px;
+}
