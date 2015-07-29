@@ -1,16 +1,16 @@
 'use strict';
 
-describe('Controller: AdminHomepageCtrl', function () {
+describe('Controller: AdminPlaylistCtrl', function () {
 
   // load the controller's module
   beforeEach(module('lorenjonesApp'));
 
-  var AdminHomepageCtrl, scope;
+  var AdminPlaylistCtrl, scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    AdminHomepageCtrl = $controller('AdminHomepageCtrl', {
+    AdminPlaylistCtrl = $controller('AdminPlaylistCtrl', {
       $scope: scope
     });
   }));

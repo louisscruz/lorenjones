@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AdminHomepageCtrl', function ($scope, $http, socket) {
+  .controller('AdminPlaylistCtrl', function ($scope, $http, socket) {
     //$scope.tracks = [];
     //$http.get('/api/default_tracks').success(function(tracks) {
       //$scope.tracks = tracks;
