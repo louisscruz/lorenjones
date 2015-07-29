@@ -27,13 +27,10 @@
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
-  <body ng-app="lorenjonesApp" plangular="https://soundcloud.com/louis-cruz/three-styles-iii-over-easy">
-    <div ng-repeat="work in allWorks">
-      <div ng-if="work.audio != null" plangular="{{work.audio}}"></div>
-    </div>
-    <div ng-repeat="movement in dbwMovements">
-      <div ng-if="movement.audio != null" plangular="{{movement.audio}}"></div>
-    </div>
+  <body ng-app="lorenjonesApp" plangular>
+    <div ng-repeat="work in allWorks track by $index" ng-if="work.audio != null" plangular="{{work.audio}}"></div>
+    <div ng-repeat="movement in dbwMovements track by $index" ng-if="movement.audio != null" plangular="{{movement.audio}}"></div>
+    <div ng-if="defaultTrack[0].link" plangular="{{defaultTrack[0].link}}"></div>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -103,8 +100,6 @@
           <script src="app/account/login/login.controller.js"></script>
           <script src="app/account/settings/settings.controller.js"></script>
           <script src="app/account/signup/signup.controller.js"></script>
-          <script src="app/admin/admin.controller.js"></script>
-          <script src="app/admin/admin.js"></script>
           <script src="app/admin/admin_about/admin_about.controller.js"></script>
           <script src="app/admin/admin_about/admin_about.js"></script>
           <script src="app/admin/admin_events/admin_events.controller.js"></script>

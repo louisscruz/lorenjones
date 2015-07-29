@@ -3,7 +3,7 @@
   <h3>Splash Track</h4>
   <p>This is the track that is initially loaded to the site. When a visitor clicks the play button for the first time, the splash track will play.</p>
   <h4>The current splash track is:</h4>
-  <code>{{tracks[0].link}}</code>
+  <code>{{defaultTrack[0].link}}</code>
   <h4>To change the splash track, copy and paste a track URL from Soundcloud.</h4>
   <div class="col-md-12">
     <form class="thing-form">
@@ -18,11 +18,8 @@
     </form>
   </div>
   <div class="col-md-12">
-    <ul>
-      <li>{{defaultTrack[0].link}}</li>
-    </ul>
-    <ul ui-sortable ng-model="allWorks">
-      <li ng-repeat="track in allWorks">{{ track.audio }}</li>
+    <ul ui-sortable="sortableOptions" ng-model="player.tracks">
+      <li ng-repeat="track in player.tracks">{{ track.title }}</li>
     </ul>
   </div>
 </div>

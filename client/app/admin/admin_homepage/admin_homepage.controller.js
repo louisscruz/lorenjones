@@ -2,11 +2,18 @@
 
 angular.module('lorenjonesApp')
   .controller('AdminHomepageCtrl', function ($scope, $http, socket) {
-    $scope.tracks = [];
-    $http.get('/api/default_tracks').success(function(tracks) {
-      $scope.tracks = tracks;
-      socket.syncUpdates('default_track', $scope.tracks);
-    });
+    //$scope.tracks = [];
+    //$http.get('/api/default_tracks').success(function(tracks) {
+      //$scope.tracks = tracks;
+      //socket.syncUpdates('default_track', $scope.tracks);
+    //});
+    $scope.sortableOptions = {
+      stop: function(e, ui) {
+        for (var index in $scope.allWorks) {
+          //$scope.allWorks[index].
+        }
+      }
+    }
     $scope.updateDefaultTrack = function(track) {
       return $http.put('/api/default_tracks/' + track._id, {
         link: $scope.newLink
