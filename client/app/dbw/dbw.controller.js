@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('DbwCtrl', function ($scope, parallaxHelper) {
+  .controller('DbwCtrl', function ($scope, parallaxHelper, works) {
     $scope.background = parallaxHelper.createAnimator(-0.3);
     $scope.fastBackground = parallaxHelper.createAnimator(-0.8);
     $scope.titleBackground = parallaxHelper.createAnimator(-0.5);
@@ -9,6 +9,7 @@ angular.module('lorenjonesApp')
     $scope.panoramaTwo = parallaxHelper.createAnimator(0.2, 0, -800, -1200);
     $scope.panoramaThree = parallaxHelper.createAnimator(0.25, 0, -800, -1200);
     $scope.videoUrl = 'https://www.youtube.com/watch?v=CCwB4TRJUgc';
+    $scope.dbwMovements = works.dbwMovements;
     $scope.movements = [
       {
         movement: 1,

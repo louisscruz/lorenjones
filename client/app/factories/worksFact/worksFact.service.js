@@ -2,7 +2,7 @@
 
 angular.module('lorenjonesApp')
   .factory('works', function ($http, socket) {
-    var fact = { works: [], tracks: []};
+    var fact = { works: [], tracks: [], dbwMovements: []};
 
     $http.get('/api/default_tracks').success(function(track) {
       angular.copy(track, fact.defaultTrack);
@@ -22,6 +22,7 @@ angular.module('lorenjonesApp')
     });
 
     $http.get('/api/dbw_movements').success(function(movements) {
+      angular.copy(movements, fact.dbwMovements)
       for (var i = 0; i < movements.length; i++) {
         fact.tracks.push(movements[i].audio);
       }
