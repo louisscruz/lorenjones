@@ -2,11 +2,12 @@
 
 angular.module('lorenjonesApp')
   .factory('works', function ($http, socket) {
-    var fact = { works: [], tracks: [], dbwMovements: []};
+    var fact = { works: [], tracks: [], dbwMovements: [], defaultTrack: false};
 
     $http.get('/api/default_tracks').success(function(track) {
-      angular.copy(track, fact.defaultTrack);
+      angular.copy(track.link, fact.tracks);
       if (track !== null) {
+        fact.defaultTrack = true;
         fact.tracks.push(track[0].link);
       }
     });
@@ -26,6 +27,11 @@ angular.module('lorenjonesApp')
       for (var i = 0; i < movements.length; i++) {
         fact.tracks.push(movements[i].audio);
       }
-    })
+    });
+
+    // Sort the track order if /api/playlist returns a valuable
+    $http.get('/api/playlists').success(function(playlist) {
+      //
+    });
     return fact;
   });
