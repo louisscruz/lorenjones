@@ -87,17 +87,9 @@ angular.module('lorenjonesApp', [
 
   .run(function ($rootScope, $location, Auth, editableOptions, works) {
     editableOptions.theme = 'bs3';
-    $rootScope.defaultTrack = works.defaultTrack;
-    $rootScope.allWorks = works.works;
-    $rootScope.dbwMovements = [
-      {
-        movement: 1,
-        audio: 'https://soundcloud.com/lorenjones-2/1-ohlone-song'
-      }, {
-        movement: 8,
-        audio: 'https://soundcloud.com/lorenjones-2/5-earthquake-fire'
-      }
-    ];
+    var defaultTrack = works.defaultTrack;
+    var playerTracks = works.works;
+    $rootScope.allTracks = works.tracks;
     $rootScope.cleanUrl = function(url) {
       var u = url;
       if (u.indexOf('https') !== -1) {

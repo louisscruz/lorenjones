@@ -187,6 +187,7 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
       } else {
         $http.jsonp('//api.soundcloud.com/resolve.json', { params: params }).success(function(data){
           scope.track = data;
+          //alert(scope.track.url);
           addKeys(scope.track);
           player.data[src] = data;
           player.load(data, scope.index);

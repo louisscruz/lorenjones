@@ -17,6 +17,7 @@
       </p>
     </form>
   </div>
+  {{allWorks}}
   <div class="col-md-12">
     <ul ui-sortable="sortableOptions" ng-model="player.tracks">
       <li ng-repeat="track in player.tracks">{{ track.title }}</li>

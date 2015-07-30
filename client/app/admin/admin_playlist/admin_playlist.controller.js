@@ -9,9 +9,10 @@ angular.module('lorenjonesApp')
     //});
     $scope.sortableOptions = {
       stop: function(e, ui) {
-        for (var index in $scope.allWorks) {
-          //$scope.allWorks[index].
-        }
+        var logEntry = tmpList.map(function(i) {
+          return i.value;
+        }).join(', ');
+        alert(ui);
       }
     }
     $scope.updateDefaultTrack = function(track) {
@@ -19,7 +20,6 @@ angular.module('lorenjonesApp')
         link: $scope.newLink
       });
     };
-
     $scope.addDefaultTrack = function() {
       if($scope.newLink === '') {
         return;

@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 var DefaultTrackSchema = new Schema({
   link: String,
   info: String,
+  playlist_index: Number,
   active: Boolean
 });
 
