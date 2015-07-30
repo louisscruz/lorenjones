@@ -87,8 +87,7 @@ angular.module('lorenjonesApp', [
 
   .run(function ($rootScope, $location, Auth, editableOptions, works) {
     editableOptions.theme = 'bs3';
-    var defaultTrack = works.defaultTrack;
-    var playerTracks = works.works;
+    $rootScope.allWorks = works.works;
     $rootScope.allTracks = works.tracks;
     $rootScope.cleanUrl = function(url) {
       var u = url;

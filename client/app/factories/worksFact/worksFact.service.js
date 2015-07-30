@@ -12,6 +12,7 @@ angular.module('lorenjonesApp')
     });
 
     $http.get('/api/works').success(function(works) {
+      angular.copy(works, fact.works)
       for (var i = 0; i < works.length; i++) {
         if (works[i].audio) {
           fact.tracks.push(works[i].audio);
