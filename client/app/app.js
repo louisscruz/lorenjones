@@ -90,6 +90,8 @@ angular.module('lorenjonesApp', [
     $rootScope.defaultTrack = works.defaultTrack;
     $rootScope.allWorks = works.works;
     $rootScope.allTracks = works.tracks;
+    $rootScope.dbwMovements = works.dbwMovements;
+    $rootScope.playlistOrder = [0, 3, 1, 2, 4];
     $rootScope.cleanUrl = function(url) {
       var u = url;
       if (u.indexOf('https') !== -1) {

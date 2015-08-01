@@ -18,6 +18,25 @@
     </form>
   </div>
   <div class="col-md-12">
+    <ul ng-if="defaultTrack[0].link">
+      Default Track
+      <li>{{defaultTrack[0].link}}</li>
+    </ul>
+  </div>
+  <div class="col-md-12">
+    <ul ui-sortable="sortableOptions" ng-model="allWorks">
+      Works
+      <li ng-show="track.audio" ng-repeat="track in allWorks track by $index">{{$index}}. {{ track.audio }}</li>
+    </ul>
+  </div>
+  <div class="col-md-12">
+    <ul>
+      Dancing on the Brink of the World
+      <li ng-repeat="track in dbwMovements track by $index"> {{ track.audio }}</li>
+    </ul>
+  </div>
+  {{playlistOrder}}
+  <div class="col-md-12">
     <ul ui-sortable="sortableOptions" ng-model="player.tracks">
       <li ng-repeat="track in player.tracks track by $index">{{$index}}. {{ track.title }}</li>
     </ul>

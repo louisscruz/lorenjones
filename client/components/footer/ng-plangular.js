@@ -156,12 +156,16 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
   return {
 
     restrict: 'A',
-    scope: true,
+    scope: false,
 
     link: function (scope, elem, attrs) {
+      //console.log(scope.$index);
+      //console.log(elem);
+      //console.log(scope);
 
       var src = attrs.plangular;
       var params = { url: src, client_id: clientId, callback: 'JSON_CALLBACK' };
+
 
       scope.player = player;
       scope.audio = audio;

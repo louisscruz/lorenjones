@@ -1,12 +1,20 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AdminPlaylistCtrl', function ($scope, $http, socket, works, Modal) {
+  .controller('AdminPlaylistCtrl', function ($scope, $rootScope, $http, socket, works, Modal) {
+
     $scope.sortableOptions = {
-      //alert('Working');
+      'ui-floating': true,
+      stop: function() {
+        console.log()
+      }
     };
+    $scope.defaultTrack = works.defaultTrack;
     $scope.updateDefaultTrack = function(track) {
-      works.updateDefaultTrack(track);
+      works.updateDefaultTrack(track).success(function() {
+        $scope.defaultTrack = works.defaultTrack;
+        $scope.newLink = '';
+      });
     };
     $scope.addDefaultTrack = function() {
       if($scope.newLink === '') {
@@ -25,7 +33,9 @@ angular.module('lorenjonesApp')
       }
     };
     $scope.deleteDefaultTrack = function() {
-      works.deleteDefaultTrack;
+      works.deleteDefaultTrack().success(function() {
+        $scope.$emit('tracksChanged');
+      });
     };
     $scope.confirmDelete = Modal.confirm.delete(function() {
       $scope.deleteDefaultTrack();

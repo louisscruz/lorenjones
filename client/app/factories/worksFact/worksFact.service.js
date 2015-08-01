@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .factory('works', function ($http, socket) {
+  .factory('works', function ($http, $rootScope, socket) {
     var fact = { works: [], tracks: [], dbwMovements: [], defaultTrack: [] };
 
     $http.get('/api/default_tracks').success(function(tracks) {
@@ -30,19 +30,21 @@ angular.module('lorenjonesApp')
     });
 
     // Delete the default track
-    fact.deleteDefaultTrack = function() {
-      return $http.get('/api/default_tracks').success(function(tracks) {
-        var d = tracks[0];
-        $http.delete('/api/default_tracks/' + d._id);
-        fact.defaultTrack = false;
+    function deleteDefaultTrack() {
+      return $http.delete('/api/default_tracks/' + fact.defaultTrack[0]._id).success(function(data) {
+        fact.tracks.splice(0, 1);
+        fact.defaultTrack.splice(0, 1);
       });
     };
 
     // Update the default track
-    fact.updateDefaultTrack = function(track) {
+    function updateDefaultTrack(track) {
       return $http.patch('/api/default_tracks/' + fact.defaultTrack[0]._id, track).success(function(data) {
-        //fact.defaultTrack.push(data);
-        //fact.tracks.push(data);
+        //angular.copy(data, fact.defaultTrack[0]);
+        fact.defaultTrack[0] = data;
+        //angular.copy(data.link, fact.tracks[0]);
+        fact.tracks[0] = data.link;
+        $rootScope.$broadcast('tracksChanged');
       });
     };
 
@@ -50,5 +52,13 @@ angular.module('lorenjonesApp')
     $http.get('/api/playlists').success(function(playlist) {
       //
     });
-    return fact;
+    //return fact;
+    return {
+      works: fact.works,
+      tracks: fact.tracks,
+      dbwMovements: fact.dbwMovements,
+      defaultTrack: fact.defaultTrack,
+      deleteDefaultTrack: deleteDefaultTrack,
+      updateDefaultTrack: updateDefaultTrack
+    };
   });

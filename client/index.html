@@ -28,7 +28,7 @@
     <!-- endbuild -->
   </head>
   <body ng-app="lorenjonesApp" plangular>
-    <div ng-repeat="t in allTracks" plangular="{{t}}"></div>
+    <div ng-repeat="t in allTracks track by $index" plangular="{{t}}"></div>
     <!--div ng-repeat="work in allWorks track by $index" ng-if="work.audio != null" plangular="{{work.audio}}"></div>
     <div ng-repeat="movement in dbwMovements track by $index" ng-if="movement.audio != null" plangular="{{movement.audio}}"></div>
     <div ng-if="defaultTrack[0].link" plangular="{{defaultTrack[0].link}}"></div-->
@@ -118,6 +118,7 @@
           <script src="app/factories/alertFact/alertFact.service.js"></script>
           <script src="app/factories/flickrFact/flickrFact.service.js"></script>
           <script src="app/factories/worksFact/worksFact.service.js"></script>
+          <script src="app/filters/playlistOrder/playlistOrder.filter.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
           <script src="app/works/works.controller.js"></script>
