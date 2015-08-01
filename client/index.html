@@ -27,8 +27,8 @@
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
-  <body ng-app="lorenjonesApp" plangular>
-    <div ng-repeat="t in allTracks track by $index" plangular="{{t}}"></div>
+  <body ng-app="lorenjonesApp" soundcloud>
+    <!--div ng-repeat="t in allTracks track by $index" plangular="{{t}}"></div-->
     <!--div ng-repeat="work in allWorks track by $index" ng-if="work.audio != null" plangular="{{work.audio}}"></div>
     <div ng-repeat="movement in dbwMovements track by $index" ng-if="movement.audio != null" plangular="{{movement.audio}}"></div>
     <div ng-if="defaultTrack[0].link" plangular="{{defaultTrack[0].link}}"></div-->
@@ -113,19 +113,22 @@
           <script src="app/contact/contact.js"></script>
           <script src="app/dbw/dbw.controller.js"></script>
           <script src="app/dbw/dbw.js"></script>
+          <script src="app/directives/soundcloud/soundcloud.directive.js"></script>
           <script src="app/events/events.controller.js"></script>
           <script src="app/events/events.js"></script>
           <script src="app/factories/alertFact/alertFact.service.js"></script>
           <script src="app/factories/flickrFact/flickrFact.service.js"></script>
           <script src="app/factories/worksFact/worksFact.service.js"></script>
           <script src="app/filters/playlistOrder/playlistOrder.filter.js"></script>
+          <script src="app/filters/prettyTime/prettyTime.filter.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="app/providers/soundcloudConfig/soundcloudConfig.service.js"></script>
+          <script src="app/test/test.directive.js"></script>
           <script src="app/works/works.controller.js"></script>
           <script src="app/works/works.js"></script>
           <script src="components/auth/auth.service.js"></script>
           <script src="components/auth/user.service.js"></script>
-          <script src="components/footer/ng-plangular.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/mongoose-error/mongoose-error.directive.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>

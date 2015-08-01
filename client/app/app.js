@@ -11,7 +11,6 @@ angular.module('lorenjonesApp', [
   'ui.sortable',
   'uiGmapgoogle-maps',
   'youtube-embed',
-  'plangular',
   'xeditable',
   'ngAnimate',
   'ngFitText',

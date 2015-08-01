@@ -1,19 +1,8 @@
-/*
-        PLANGULAR
-        A Highly Customizable SoundCloud Player
-        Angular Version
-        http://jxnblk.github.io/Plangular
- */
-
-(function() {
-
 'use strict';
 
-var plangular = angular.module('plangular', []);
-
-plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, plangularConfig) {
+angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudConfig', 'works', function ($scope, $http, soundcloudConfig, works) {
   /*jshint camelcase: false */
-  var clientId = plangularConfig.clientId;
+  var clientId = soundcloudConfig.clientId;
 
   var audio = document.createElement('audio');
 
@@ -154,18 +143,12 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
   var index = 0;
 
   return {
-
     restrict: 'A',
     scope: false,
-
     link: function (scope, elem, attrs) {
-      //console.log(scope.$index);
-      //console.log(elem);
-      //console.log(scope);
 
-      var src = attrs.plangular;
+      var src = attrs.soundcloud;
       var params = { url: src, client_id: clientId, callback: 'JSON_CALLBACK' };
-
 
       scope.player = player;
       scope.audio = audio;
@@ -191,7 +174,6 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
       } else {
         $http.jsonp('//api.soundcloud.com/resolve.json', { params: params }).success(function(data){
           scope.track = data;
-          //alert(scope.track.url);
           addKeys(scope.track);
           player.data[src] = data;
           player.load(data, scope.index);
@@ -241,36 +223,3 @@ plangular.directive('plangular', ['$http', 'plangularConfig', function ($http, p
     }
   };
 }]);
-
-// Filter to convert milliseconds to hours, minutes, seconds
-plangular.filter('prettyTime', function() {
-  return function(value) {
-    var hours = Math.floor(value / 3600),
-        mins = '0' + Math.floor((value % 3600) / 60),
-        secs = '0' + Math.floor((value % 60));
-        mins = mins.substr(mins.length - 2);
-        secs = secs.substr(secs.length - 2);
-    if(!isNaN(secs)){
-      if (hours){
-        return hours+':'+mins+':'+secs;
-      } else {
-        return mins+':'+secs;
-      }
-    } else {
-      return '00:00';
-    }
-  };
-});
-
-plangular.provider('plangularConfig', function() {
-  this.clientId = 'a7654b6d1d451c513253de1b4dc8a65d';
-  var _this = this;
-  this.$get = function() {
-    return {
-      clientId: _this.clientId
-    };
-  };
-});
-
-
-})();
