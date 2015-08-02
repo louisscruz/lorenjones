@@ -1,13 +1,10 @@
 'use strict';
-
-angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudConfig', 'works', function ($scope, $http, soundcloudConfig, works) {
+var app = angular.module('lorenjonesApp')
+app.directive('soundcloud', ['$http', 'soundcloudConfig', 'works', function ($http, soundcloudConfig, works) {
   /*jshint camelcase: false */
   var clientId = soundcloudConfig.clientId;
-
   var audio = document.createElement('audio');
-
   var player = {
-
     currentTrack: false,
     playing: false,
     tracks: [],
@@ -16,14 +13,12 @@ angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudCon
     data: {},
     currentTime: 0,
     duration: 0,
-
     load: function(track, index) {
       this.tracks[index] = track;
       if (!this.playing && !this.i && index === 0) {
         this.currentTrack = this.tracks[0];
       }
     },
-
     play: function(index, playlistIndex) {
       this.i = index || 0;
       var track = this.tracks[this.i];
@@ -42,12 +37,10 @@ angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudCon
       }
       audio.play();
     },
-
     pause: function() {
       audio.pause();
       this.playing = false;
     },
-
     playPause: function(i, playlistIndex) {
       var track = this.tracks[i];
       if (track.tracks && this.playing !== track.tracks[playlistIndex]) {
@@ -58,7 +51,6 @@ angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudCon
         this.pause();
       }
     },
-
     next: function() {
       var playlist = this.tracks[this.i].tracks || null;
       if (playlist && this.playlistIndex < playlist.length - 1) {
@@ -78,7 +70,6 @@ angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudCon
         this.pause();
       }
     },
-
     previous: function() {
       var playlist = this.tracks[this.i].tracks || null;
       if (playlist && this.playlistIndex > 0) {
@@ -94,7 +85,6 @@ angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudCon
         }
       }
     },
-
     seek: function(e) {
       if (!audio.readyState) {
         return false;
@@ -108,7 +98,6 @@ angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudCon
       var time = percent * audio.duration || 0;
       audio.currentTime = time;
     },
-
     trackIndex: function(query) {
       var mem = null;
       //clean https
@@ -125,12 +114,10 @@ angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudCon
       }
     }
   };
-
   audio.addEventListener('timeupdate', function() {
     player.currentTime = audio.currentTime;
     player.duration = audio.duration;
   }, false);
-
   audio.addEventListener('ended', function() {
     if (player.tracks.length > 0) {
       player.next();
@@ -139,68 +126,63 @@ angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudCon
       player.pause();
     }
   }, false);
-
   var index = 0;
 
   return {
     restrict: 'A',
-    scope: false,
+    scope: true,
     link: function (scope, elem, attrs) {
-
-      var src = attrs.soundcloud;
-      var params = { url: src, client_id: clientId, callback: 'JSON_CALLBACK' };
-
-      scope.player = player;
+      scope.worksTracks = [];
+      angular.copy(works.tracks, scope.worksTracks);
       scope.audio = audio;
+      scope.player = player;
       scope.currentTime = 0;
       scope.duration = 0;
-      if (src) {
-        scope.index = index;
-        index++;
-      }
-
       function addKeys(track) {
         for (var key in track) {
           scope[key] = track[key];
         }
       }
-
-      if (!src) {
-        //console.log('no src');
-      } else if (player.data[src]) {
-        scope.track = player.data[src];
-        addKeys(scope.track);
-        player.load(scope.track, scope.index);
-      } else {
-        $http.jsonp('//api.soundcloud.com/resolve.json', { params: params }).success(function(data){
-          scope.track = data;
-          addKeys(scope.track);
-          player.data[src] = data;
-          player.load(data, scope.index);
-        });
-      }
-
+      console.log(scope.w);
+      //scope.$watch(function() {return works.tracks}, function(value) {
+        /*for (var i = 0; i < works.tracks.length; i++) {
+          console.log('in the loop');
+          var src = works.tracks[i];
+          console.log(src);
+          var params = { url: src, client_id: clientId, callback: 'JSON_CALLBACK' };
+          scope.index = index;
+          index++;
+          if (!src) {
+          } else if (player.data[src]) {
+            scope.track = player.data[src];
+            addKeys(scope.track);
+            player.load(scope.track, scope.index);
+          } else {
+            $http.jsonp('//api.soundcloud.com/resolve.json', { params: params }).success(function(data){
+              scope.track = data;
+              addKeys(scope.track);
+              player.data[src] = data;
+              player.load(data, scope.index);
+            });
+          }
+        }*/
+      //});
       scope.play = function(playlistIndex) {
         player.play(scope.index, playlistIndex);
       };
-
       scope.pause = function() {
         player.pause();
       };
-
       scope.playPause = function(playlistIndex) {
         var i = scope.index || player.i;
         player.playPause(i, playlistIndex);
       };
-
       scope.next = function() {
         player.next();
       };
-
       scope.previous = function() {
         player.previous();
       };
-
       audio.addEventListener('timeupdate', function() {
         if (scope.track === player.tracks[player.i]){
           scope.$apply(function() {
@@ -214,7 +196,6 @@ angular.module('lorenjonesApp').directive('soundcloud', ['$http', 'soundcloudCon
           });
         }
       }, false);
-
       scope.seek = function(e){
         if (player.tracks[player.i] === scope.track) {
           player.seek(e);
