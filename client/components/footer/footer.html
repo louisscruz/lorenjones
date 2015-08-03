@@ -1,6 +1,6 @@
 <footer class="footer">
   <div class="controls">
-    <button class="button-icon play" ng-click="playPause()" angular-ripple>
+    <button class="button-icon play" ng-click="player.playPause()" angular-ripple>
       <i class="fa fa-play fa-lg" ng-if="!player.playing"></i>
       <i class="fa fa-pause fa-lg" ng-if="player.playing"></i>
     </button>
@@ -21,7 +21,8 @@
       </ul>
     </div>
   </div>
-  <div class="track-info" ng-if="player.playing || currentTime !== 0">
+  {{player}}
+  <div class="track-info" ng-if="player.playing === true || player.currentTime !== 0">
     <p>{{player.currentTrack.title}}</p>
     <progressbar max="1" value="(player.currentTime / player.duration) || 0" ng-click="player.seek($event)" angular-ripple></progressbar>
     <p>{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</p>

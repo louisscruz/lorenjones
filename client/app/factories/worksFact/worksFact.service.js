@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .factory('works', function ($http, $rootScope, socket) {
+  .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', function ($http, $rootScope, socket, soundcloud) {
     var fact = { works: [], tracks: [], dbwMovements: [], defaultTrack: [] };
 
     $http.get('/api/default_tracks').success(function(tracks) {
@@ -26,6 +26,9 @@ angular.module('lorenjonesApp')
       angular.copy(movements, fact.dbwMovements)
       for (var i = 0; i < movements.length; i++) {
         fact.tracks.push(movements[i].audio);
+      }
+      for (var track in fact.tracks) {
+        soundcloud.loadPlayerWith(fact.tracks[track], track);
       }
     });
 
@@ -61,4 +64,4 @@ angular.module('lorenjonesApp')
       deleteDefaultTrack: deleteDefaultTrack,
       updateDefaultTrack: updateDefaultTrack
     };
-  });
+  }]);

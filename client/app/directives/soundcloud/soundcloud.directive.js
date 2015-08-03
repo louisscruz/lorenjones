@@ -1,7 +1,7 @@
 'use strict';
-var app = angular.module('lorenjonesApp')
-app.directive('soundcloud', ['$http', 'soundcloudConfig', 'works', function ($http, soundcloudConfig, works) {
-  /*jshint camelcase: false */
+/*var app = angular.module('lorenjonesApp')
+app.directive('psoundcloud', ['$http', 'soundcloudConfig', 'works', '$timeout', function ($http, soundcloudConfig, works, $timeout) {
+
   var clientId = soundcloudConfig.clientId;
   var audio = document.createElement('audio');
   var player = {
@@ -130,10 +130,9 @@ app.directive('soundcloud', ['$http', 'soundcloudConfig', 'works', function ($ht
 
   return {
     restrict: 'A',
-    scope: true,
+    scope: false,
     link: function (scope, elem, attrs) {
-      scope.worksTracks = [];
-      angular.copy(works.tracks, scope.worksTracks);
+      scope.worksTracks = works.tracks;
       scope.audio = audio;
       scope.player = player;
       scope.currentTime = 0;
@@ -143,30 +142,24 @@ app.directive('soundcloud', ['$http', 'soundcloudConfig', 'works', function ($ht
           scope[key] = track[key];
         }
       }
-      console.log(scope.w);
-      //scope.$watch(function() {return works.tracks}, function(value) {
-        /*for (var i = 0; i < works.tracks.length; i++) {
-          console.log('in the loop');
-          var src = works.tracks[i];
-          console.log(src);
-          var params = { url: src, client_id: clientId, callback: 'JSON_CALLBACK' };
-          scope.index = index;
-          index++;
-          if (!src) {
-          } else if (player.data[src]) {
-            scope.track = player.data[src];
-            addKeys(scope.track);
-            player.load(scope.track, scope.index);
-          } else {
-            $http.jsonp('//api.soundcloud.com/resolve.json', { params: params }).success(function(data){
-              scope.track = data;
-              addKeys(scope.track);
-              player.data[src] = data;
-              player.load(data, scope.index);
-            });
-          }
-        }*/
-      //});
+      var src = works.tracks[i];
+      console.log(src);
+      var params = { url: src, client_id: clientId, callback: 'JSON_CALLBACK' };
+      scope.index = index;
+      index++;
+      if (!src) {
+      } else if (player.data[src]) {
+        scope.track = player.data[src];
+        addKeys(scope.track);
+        player.load(scope.track, scope.index);
+      } else {
+        $http.jsonp('//api.soundcloud.com/resolve.json', { params: params }).success(function(data){
+          scope.track = data;
+          addKeys(scope.track);
+          player.data[src] = data;
+          player.load(data, scope.index);
+        });
+      }
       scope.play = function(playlistIndex) {
         player.play(scope.index, playlistIndex);
       };
@@ -203,4 +196,4 @@ app.directive('soundcloud', ['$http', 'soundcloudConfig', 'works', function ($ht
       };
     }
   };
-}]);
+}]);*/

@@ -84,13 +84,14 @@ angular.module('lorenjonesApp', [
     };
   })
 
-  .run(function ($rootScope, $location, Auth, editableOptions, works) {
+  .run(function ($rootScope, $location, Auth, editableOptions, works, soundcloud) {
     editableOptions.theme = 'bs3';
     $rootScope.defaultTrack = works.defaultTrack;
     $rootScope.allWorks = works.works;
     $rootScope.allTracks = works.tracks;
     $rootScope.dbwMovements = works.dbwMovements;
     $rootScope.playlistOrder = [0, 3, 1, 2, 4];
+    $rootScope.player = soundcloud.player;
     $rootScope.cleanUrl = function(url) {
       var u = url;
       if (u.indexOf('https') !== -1) {
