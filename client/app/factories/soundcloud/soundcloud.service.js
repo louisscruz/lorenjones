@@ -14,17 +14,12 @@ angular.module('lorenjonesApp')
         data: {},
         currentTime: 0,
         duration: 0,
-        addKeys: function(track) {
-          for (var key in track) {
-            this[key] = track[key];
-          }
-        },
         load: function(track, index) {
-          console.log(track);
           fact.player.tracks[index] = track;
           if (!fact.player.playing && !fact.player.i && index === 0) {
             fact.player.currentTrack = fact.player.tracks[0];
           }
+          fact.player.i++;
         },
         play: function(index, playlistIndex) {
           fact.player.i = index || 0;
@@ -48,16 +43,15 @@ angular.module('lorenjonesApp')
           fact.audio.pause();
           fact.player.playing = false;
         },
-        playPause: function(i, playlistIndex) {
+        playPause: function(index) {
+          var i = index || fact.player.tracks.indexOf(fact.player.currentTrack);
           var track = fact.player.tracks[fact.player.i];
-          /*if (track.tracks !== null && fact.player.playing !== track.tracks[playlistIndex]) {
-            fact.player.play(i, playlistIndex);
-          } else */
-          if (!fact.player.tracks.tracks && fact.player.playing !== track) {
+          if (fact.player.currentTrack !== fact.player.tracks[i] || fact.player.playing !== track) {
             fact.player.play(i);
           } else {
             fact.player.pause();
           }
+          fact.player.currentTime = 0;
         },
         next: function() {
           var playlist = fact.player.tracks[fact.player.i].tracks || null;
@@ -66,16 +60,15 @@ angular.module('lorenjonesApp')
             fact.player.play(fact.player.i, fact.player.playlistIndex);
           } else if (fact.player.i < fact.player.tracks.length - 1) {
             fact.player.i++;
-            // Handle advancing to new playlist
             if (fact.player.tracks[fact.player.i].tracks) {
               playlist = fact.player.tracks[fact.player.i].tracks || null;
               fact.player.playlistIndex = 0;
               fact.player.play(fact.player.i, fact.player.playlistIndex);
             } else {
-              this.play(this.i);
+              fact.player.play(fact.player.i);
             }
-          } else if (this.i >= this.tracks.length -1) {
-            this.pause();
+          } else if (fact.player.i >= fact.player.tracks.length -1) {
+            fact.player.pause();
           }
         },
         previous: function() {
@@ -128,8 +121,6 @@ angular.module('lorenjonesApp')
     fact.audio.addEventListener('timeupdate', function() {
       fact.player.currentTime = fact.audio.currentTime;
       fact.player.duration = fact.audio.duration;
-    }, false);
-    fact.audio.addEventListener('timeupdate', function() {
       $rootScope.$apply(function() {
         $rootScope.player.currentTime = fact.player.currentTime;
         $rootScope.player.duration = fact.player.duration;
@@ -138,35 +129,23 @@ angular.module('lorenjonesApp')
     fact.audio.addEventListener('ended', function() {
       if (fact.player.tracks.length > 0) {
         fact.player.next();
-      }
-      else {
+      } else {
         fact.player.pause();
       }
     }, false);
     function loadPlayer(track, index) {
-      var src = track;
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
-      if (!src) {
-      } else if(fact.player.data[src]) {
-        console.log('data already exists');
-        var t = fact.player.data[src];
-        fact.player.load(t, index);
+      if(fact.player.data[track]) {
+        var t = fact.player.data[track];
+        fact.player.load(t, fact.player.i);
       } else {
         $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
-          var t = data;
-          console.log(t);
-          fact.player.data[src] = data;
-          //fact.player.load(t, index);
-          fact.player.tracks[fact.player.i] = data;
-          if (!fact.player.playing && !fact.player.i && index === 0) {
-            fact.player.currentTrack = fact.player.tracks[0];
-          }
-          fact.player.i++;
+          fact.player.data[track] = data;
+          fact.player.load(data, fact.player.i);
         });
       };
       return fact.player;
     };
-
     return {
       player: fact.player,
       loadPlayerWith: loadPlayer
