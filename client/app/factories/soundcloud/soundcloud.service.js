@@ -115,7 +115,7 @@ angular.module('lorenjonesApp')
             query = query.replace('https', 'http');
           }
           //get index
-          var tracks = this.tracks;
+          var tracks = fact.player.tracks;
           for (var y = 0; y < tracks.length; y++) {
             if (query === tracks[y].permalink_url) {
               mem = y;
@@ -128,6 +128,12 @@ angular.module('lorenjonesApp')
     fact.audio.addEventListener('timeupdate', function() {
       fact.player.currentTime = fact.audio.currentTime;
       fact.player.duration = fact.audio.duration;
+    }, false);
+    fact.audio.addEventListener('timeupdate', function() {
+      $rootScope.$apply(function() {
+        $rootScope.player.currentTime = fact.player.currentTime;
+        $rootScope.player.duration = fact.player.duration;
+      });
     }, false);
     fact.audio.addEventListener('ended', function() {
       if (fact.player.tracks.length > 0) {

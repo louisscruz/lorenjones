@@ -24,6 +24,6 @@
   <div class="track-info" ng-if="player.playing || player.currentTime !== 0">
     <p>{{player.currentTrack.title}}</p>
     <progressbar max="1" value="(player.currentTime / player.duration) || 0" ng-click="player.seek($event)" angular-ripple></progressbar>
-    <p>{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</p>
+    <p ng-show="player.playing">{{ player.currentTime | prettyTime }} - {{ player.duration | prettyTime }}</p>
   </div>
 </footer>
