@@ -20,9 +20,10 @@ angular.module('lorenjonesApp')
           }
         },
         load: function(track, index) {
-          this.tracks[index] = track;
-          if (!this.playing && !this.i && index === 0) {
-            this.currentTrack = this.tracks[0];
+          console.log(track);
+          fact.player.tracks[index] = track;
+          if (!fact.player.playing && !fact.player.i && index === 0) {
+            fact.player.currentTrack = fact.player.tracks[0];
           }
         },
         play: function(index, playlistIndex) {
@@ -49,7 +50,6 @@ angular.module('lorenjonesApp')
         },
         playPause: function(i, playlistIndex) {
           var track = fact.player.tracks[fact.player.i];
-          console.log(track);
           /*if (track.tracks !== null && fact.player.playing !== track.tracks[playlistIndex]) {
             fact.player.play(i, playlistIndex);
           } else */if (!track.tracks && fact.player.playing !== track) {
@@ -59,17 +59,17 @@ angular.module('lorenjonesApp')
           }
         },
         next: function() {
-          var playlist = this.tracks[this.i].tracks || null;
-          if (playlist && this.playlistIndex < playlist.length - 1) {
-            this.playlistIndex++;
-            this.play(this.i, this.playlistIndex);
-          } else if (this.i < this.tracks.length - 1) {
-            this.i++;
+          var playlist = fact.player.tracks[fact.player.i].tracks || null;
+          if (playlist && fact.player.playlistIndex < playlist.length - 1) {
+            fact.player.playlistIndex++;
+            fact.player.play(fact.player.i, fact.player.playlistIndex);
+          } else if (fact.player.i < fact.player.tracks.length - 1) {
+            fact.player.i++;
             // Handle advancing to new playlist
-            if (this.tracks[this.i].tracks) {
-              playlist = this.tracks[this.i].tracks || null;
-              this.playlistIndex = 0;
-              this.play(this.i, this.playlistIndex);
+            if (fact.player.tracks[fact.player.i].tracks) {
+              playlist = fact.player.tracks[fact.player.i].tracks || null;
+              fact.player.playlistIndex = 0;
+              fact.player.play(fact.player.i, fact.player.playlistIndex);
             } else {
               this.play(this.i);
             }
@@ -93,6 +93,8 @@ angular.module('lorenjonesApp')
           }
         },
         seek: function(e) {
+          console.log(e);
+          var audio = fact.audio;
           if (!audio.readyState) {
             return false;
           }
@@ -122,11 +124,10 @@ angular.module('lorenjonesApp')
         }
       }
     };
-    var params = {client_id: fact.clientId, callback: 'JSON_CALLBACK'};
 
     function loadPlayer(track, index) {
       var src = track;
-      params.url = src;
+      var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       if (!src) {
       } else if(fact.player.data[src]) {
         console.log('data already exists');
@@ -135,12 +136,14 @@ angular.module('lorenjonesApp')
       } else {
         $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
           var t = data;
+          console.log(t);
           fact.player.data[src] = data;
-          fact.player.load(t, index);
-          /*fact.player.tracks[index] = data;
+          //fact.player.load(t, index);
+          fact.player.tracks[fact.player.i] = data;
           if (!fact.player.playing && !fact.player.i && index === 0) {
             fact.player.currentTrack = fact.player.tracks[0];
-          }*/
+          }
+          fact.player.i++;
         });
       };
       return fact.player;

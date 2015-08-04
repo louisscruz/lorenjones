@@ -27,9 +27,13 @@ angular.module('lorenjonesApp')
       for (var i = 0; i < movements.length; i++) {
         fact.tracks.push(movements[i].audio);
       }
-      for (var track in fact.tracks) {
-        soundcloud.loadPlayerWith(fact.tracks[track], track);
-      }
+      angular.forEach(fact.tracks, function(value, key) {
+        console.log(value);
+        soundcloud.loadPlayerWith(value, key);
+      });
+      //for (var i = 0; i < fact.tracks.length; i++) {
+        //soundcloud.loadPlayerWith(fact.tracks[i], i);
+      //}
     });
 
     // Delete the default track

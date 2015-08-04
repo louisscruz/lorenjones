@@ -4,10 +4,10 @@
       <i class="fa fa-play fa-lg" ng-if="!player.playing"></i>
       <i class="fa fa-pause fa-lg" ng-if="player.playing"></i>
     </button>
-    <button class="button-icon" ng-click="previous()" angular-ripple>
+    <button class="button-icon" ng-click="player.previous()" angular-ripple>
       <i class="fa fa-step-backward fa-lg"></i>
     </button>
-    <button class="button-icon" ng-click="next()" angular-ripple>
+    <button class="button-icon" ng-click="player.next()" angular-ripple>
       <i class="fa fa-step-forward fa-lg"></i>
     </button>
     <div class="dropup" dropdown>
@@ -21,8 +21,7 @@
       </ul>
     </div>
   </div>
-  {{player}}
-  <div class="track-info" ng-if="player.playing === true || player.currentTime !== 0">
+  <div class="track-info" ng-if="player.playing || player.currentTime !== 0">
     <p>{{player.currentTrack.title}}</p>
     <progressbar max="1" value="(player.currentTime / player.duration) || 0" ng-click="player.seek($event)" angular-ripple></progressbar>
     <p>{{ currentTime | prettyTime }} - {{ duration | prettyTime }}</p>
