@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AdminPlaylistCtrl', function ($scope, $rootScope, $http, socket, works, Modal) {
-
+  .controller('AdminPlaylistCtrl', function ($scope, $rootScope, $http, socket, works, soundcloud, Modal) {
     $scope.sortableOptions = {
       'ui-floating': true,
       stop: function() {
@@ -10,32 +9,36 @@ angular.module('lorenjonesApp')
       }
     };
     $scope.defaultTrack = works.defaultTrack;
+    $scope.postDefaultTrack = function(track) {
+      works.addDefaultTrack(track).success(function() {
+        works.loadSoundcloudPlayer;
+        $scope.defaultTrack = works.defaultTrack;
+        $scope.newLink = '';
+      })
+    }
     $scope.updateDefaultTrack = function(track) {
+      soundcloud.dumpData();
       works.updateDefaultTrack(track).success(function() {
+        works.loadSoundcloudPlayer;
         $scope.defaultTrack = works.defaultTrack;
         $scope.newLink = '';
       });
     };
-    $scope.addDefaultTrack = function() {
-      if($scope.newLink === '') {
-        return;
-      }
-      if($scope.defaultTrack.length === 0) {
-        $http.post('/api/default_tracks', {
-          link: $scope.newLink
-        });
-        $scope.newLink = '';
-      } else {
-        var track = {
-          link: $scope.newLink
-        }
-        $scope.updateDefaultTrack(track);
-      }
-    };
     $scope.deleteDefaultTrack = function() {
       works.deleteDefaultTrack().success(function() {
-        $scope.$emit('tracksChanged');
+        works.loadSoundcloudPlayer;
       });
+    };
+    $scope.addDefaultTrack = function() {
+      if($scope.newLink === '') {return};
+      var track = {
+        link: $scope.newLink
+      };
+      if($scope.defaultTrack.length === 0) {
+        $scope.postDefaultTrack(track);
+      } else {
+        $scope.updateDefaultTrack(track);
+      }
     };
     $scope.confirmDelete = Modal.confirm.delete(function() {
       $scope.deleteDefaultTrack();

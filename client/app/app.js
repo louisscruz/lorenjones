@@ -92,6 +92,9 @@ angular.module('lorenjonesApp', [
     $rootScope.dbwMovements = works.dbwMovements;
     $rootScope.playlistOrder = [0, 3, 1, 2, 4];
     $rootScope.player = soundcloud.player;
+    $rootScope.$on('tracksChanged', function(event, data) {
+      $rootScope.allTracks = works.reload;
+    });
     $rootScope.cleanUrl = function(url) {
       var u = url;
       if (u.indexOf('https') !== -1) {
