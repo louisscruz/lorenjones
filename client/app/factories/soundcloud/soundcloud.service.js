@@ -52,7 +52,8 @@ angular.module('lorenjonesApp')
           var track = fact.player.tracks[fact.player.i];
           /*if (track.tracks !== null && fact.player.playing !== track.tracks[playlistIndex]) {
             fact.player.play(i, playlistIndex);
-          } else */if (!track.tracks && fact.player.playing !== track) {
+          } else */
+          if (!fact.player.tracks.tracks && fact.player.playing !== track) {
             fact.player.play(i);
           } else {
             fact.player.pause();
@@ -78,7 +79,7 @@ angular.module('lorenjonesApp')
           }
         },
         previous: function() {
-          var playlist = this.tracks[this.i].tracks || null;
+          var playlist = fact.player.tracks[this.i].tracks || null;
           if (playlist && this.playlistIndex > 0) {
             this.playlistIndex--;
             this.play(this.i, this.playlistIndex);
@@ -124,7 +125,18 @@ angular.module('lorenjonesApp')
         }
       }
     };
-
+    fact.audio.addEventListener('timeupdate', function() {
+      fact.player.currentTime = fact.audio.currentTime;
+      fact.player.duration = fact.audio.duration;
+    }, false);
+    fact.audio.addEventListener('ended', function() {
+      if (fact.player.tracks.length > 0) {
+        fact.player.next();
+      }
+      else {
+        fact.player.pause();
+      }
+    }, false);
     function loadPlayer(track, index) {
       var src = track;
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
