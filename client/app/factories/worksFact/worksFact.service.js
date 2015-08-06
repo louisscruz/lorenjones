@@ -1,43 +1,44 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', function ($http, $rootScope, socket, soundcloud) {
-    var fact = { defaultTrack: [], works: [], dbwMovements: [] };
-    $http.get('/api/default_tracks').success(function(tracks) {
-      if (tracks) {
-        angular.copy(tracks, fact.defaultTrack);
-      }
-    })
-    .then(function() {
+  .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', '$q', function ($http, $rootScope, socket, soundcloud, $q) {
+    var fact = { defaultTrack: [], works: [], dbwMovements: [], tracks: [] };
+    // Get all tracks and send them to fact.tracks
+    function loadAll() {
+      $http.get('/api/default_tracks').success(function(tracks) {
+        if (tracks) {
+          angular.copy(tracks, fact.defaultTrack);
+          fact.tracks.push(tracks[0].link);
+          soundcloud.loadPlayerWith(tracks[0].link);
+        }
+      });
       $http.get('/api/works').success(function(works) {
         angular.copy(works, fact.works);
+        for (var i = 0; i < fact.works.length; i++) {
+          if (fact.works[i].audio) {
+            fact.tracks.push(works[i].audio);
+            soundcloud.loadPlayerWith(works[i].audio);
+          }
+        }
         socket.syncUpdates('work', fact.works);
       });
-    })
-    .then(function() {
       $http.get('/api/dbw_movements').success(function(movements) {
         angular.copy(movements, fact.dbwMovements);
-        loadSoundcloudPlayer();
-      });
-    });
-    // Send tracks to soundcloudPlayer to be loaded
-    function loadSoundcloudPlayer() {
-      // Load default track
-      if (fact.defaultTrack[0].link) {
-        soundcloud.loadPlayerWith(fact.defaultTrack[0].link);
-      }
-      // Load works
-      for (var i = 0; i < fact.works.length; i++) {
-        // Todo: If playlist order, load in that order!!!
-        if (fact.works[i].audio) {
-          soundcloud.loadPlayerWith(fact.works[i].audio);
-        }
-      }
-      // Load dbw movements
-      if (fact.dbwMovements) {
         for (var i = 0; i < fact.dbwMovements.length; i++) {
-          soundcloud.loadPlayerWith(fact.dbwMovements[i].audio);
+          if (fact.dbwMovements[i].audio) {
+            fact.tracks.push(movements[i].audio);
+            soundcloud.loadPlayerWith(movements[i].audio);
+          }
         }
+      });
+      return fact.tracks;
+    };
+    // Send all tracks to the soundcloud factory to be loaded
+    function loadSoundcloudPlayer() {
+      console.log('inside function');
+      for (var i = 0; i < fact.tracks.length; i++) {
+        console.log('test');
+        soundcloud.loadPlayerWith(fact.tracks[i]);
       }
     };
     // Add default track
@@ -51,7 +52,6 @@ angular.module('lorenjonesApp')
     function deleteDefaultTrack() {
       return $http.delete('/api/default_tracks/' + fact.defaultTrack[0]._id).success(function(data) {
         fact.defaultTrack.splice(0, 1);
-
       });
     };
     // Update the default track
@@ -62,31 +62,20 @@ angular.module('lorenjonesApp')
         loadSoundcloudPlayer();
       });
     };
-    // Get all works tracks
-    function getWorksTracks() {
-      var tmp = [];
-      for (var i = 0; i < fact.works.length; i++) {
-        console.log('in the for loop');
-        if (fact.works[i].audio) {
-          console.log(fact.works[i]);
-          tmp.push(fact.works[i]);
-        }
-      }
-      return tmp;
-    }
     // Sort the track order if /api/playlist returns a valuable
     $http.get('/api/playlists').success(function(playlist) {
       //
     });
     //return fact;
     return {
+      loadAll: loadAll,
+      loadSoundcloudPlayer: loadSoundcloudPlayer,
       works: fact.works,
-      worksTracks: getWorksTracks,
+      tracks: fact.tracks,
       dbwMovements: fact.dbwMovements,
       defaultTrack: fact.defaultTrack,
       addDefaultTrack: addDefaultTrack,
       deleteDefaultTrack: deleteDefaultTrack,
-      updateDefaultTrack: updateDefaultTrack,
-      loadSoundcloudPlayer: loadSoundcloudPlayer
+      updateDefaultTrack: updateDefaultTrack
     };
   }]);

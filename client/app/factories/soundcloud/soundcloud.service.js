@@ -117,7 +117,6 @@ angular.module('lorenjonesApp')
         }
       }
     };
-    console.log(fact.player.tracks);
     fact.audio.addEventListener('timeupdate', function() {
       fact.player.currentTime = fact.audio.currentTime;
       fact.player.duration = fact.audio.duration;
@@ -139,9 +138,8 @@ angular.module('lorenjonesApp')
       fact.player.tracks = [];
       fact.player.i = 0;
     };
-
     // Load track on an individual basis
-    function loadPlayer(track, index) {
+    function loadPlayer(track) {
       console.log(track);
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       if(fact.player.data[track]) {
@@ -152,6 +150,7 @@ angular.module('lorenjonesApp')
         $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
           fact.player.data[track] = data;
           fact.player.load(data, fact.player.i);
+          console.log(data);
         }).error(function(data, status) {
           alert('There was an error loading the following track to the audio player: ' + track);
         });

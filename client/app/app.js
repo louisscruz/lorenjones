@@ -86,12 +86,10 @@ angular.module('lorenjonesApp', [
 
   .run(function ($rootScope, $location, Auth, editableOptions, works, soundcloud) {
     editableOptions.theme = 'bs3';
-    $rootScope.player = soundcloud.player;
+    works.loadAll()
     $rootScope.defaultTrack = works.defaultTrack;
     $rootScope.allWorks = works.works;
     $rootScope.dbwMovements = works.dbwMovements;
-    $rootScope.worksTracks = works.worksTracks();
-    $rootScope.playlistOrder = [0, 3, 1, 2, 4];
     $rootScope.cleanUrl = function(url) {
       var u = url;
       if (u.indexOf('https') !== -1) {
@@ -99,7 +97,7 @@ angular.module('lorenjonesApp', [
       }
       return u;
     };
-
+    $rootScope.player = soundcloud.player;
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
