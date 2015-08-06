@@ -117,6 +117,7 @@ angular.module('lorenjonesApp')
         }
       }
     };
+    console.log(fact.player.tracks);
     fact.audio.addEventListener('timeupdate', function() {
       fact.player.currentTime = fact.audio.currentTime;
       fact.player.duration = fact.audio.duration;
@@ -141,6 +142,7 @@ angular.module('lorenjonesApp')
 
     // Load track on an individual basis
     function loadPlayer(track, index) {
+      console.log(track);
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       if(fact.player.data[track]) {
         console.log('The following track is a duplicate: ' + track);

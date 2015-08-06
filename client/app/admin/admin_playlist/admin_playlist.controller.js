@@ -10,6 +10,8 @@ angular.module('lorenjonesApp')
     };
     $scope.defaultTrack = works.defaultTrack;
     $scope.postDefaultTrack = function(track) {
+      console.log(track);
+      soundcloud.dumpData();
       works.addDefaultTrack(track).success(function() {
         works.loadSoundcloudPlayer;
         $scope.defaultTrack = works.defaultTrack;
@@ -22,9 +24,12 @@ angular.module('lorenjonesApp')
         works.loadSoundcloudPlayer;
         $scope.defaultTrack = works.defaultTrack;
         $scope.newLink = '';
+      }).error(function() {
+        works.loadSoundcloudPlayer;
       });
     };
     $scope.deleteDefaultTrack = function() {
+      soundcloud.dumpData();
       works.deleteDefaultTrack().success(function() {
         works.loadSoundcloudPlayer;
       });

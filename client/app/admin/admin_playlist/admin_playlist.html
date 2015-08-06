@@ -1,9 +1,11 @@
 <div class="container">
   <h1>Manage Playlist</h1>
   <h3>Splash Track</h4>
-  <p ng-if="defaultTrack">This is the track that is initially loaded to the site. When a visitor clicks the play button for the first time, the splash track will play.</p>
+    <div ng-if="defaultTrack[0].link">
+      <p>This is the track that is initially loaded to the site. When a visitor clicks the play button for the first time, the splash track will play.</p>
+    </div>
   <h4>The current splash track is:</h4>
-  <code ng-if="defaultTrack" ng-click="confirmDelete('the default track')">{{defaultTrack[0].link}}</code>
+  <code ng-if="defaultTrack[0].link" ng-click="confirmDelete('the default track')">{{defaultTrack[0].link}}</code>
   <h4>To change the splash track, copy and paste a track URL from Soundcloud.</h4>
   <div class="col-md-12">
     <form class="thing-form">
@@ -17,28 +19,38 @@
       </p>
     </form>
   </div>
-  <div class="col-md-12">
-    <ul ng-if="defaultTrack[0].link">
-      Default Track
-      <li>{{defaultTrack[0].link}}</li>
-    </ul>
+  <div class="row">
+    <div class="col-md-12">
+      <ul ng-if="defaultTrack[0].link">
+        Default Track
+        <li>{{defaultTrack[0].link}}</li>
+      </ul>
+    </div>
   </div>
-  <div class="col-md-12">
-    <ul ui-sortable="sortableOptions" ng-model="allWorks">
-      Works
-      <li ng-show="track.audio" ng-repeat="track in allWorks track by $index">{{$index}}. {{ track.audio }}</li>
-    </ul>
+  <div class="row">
+    <div class="col-md-12">
+      <ul ui-sortable="sortableOptions" ng-model="allWorks">
+        Works
+        <li ng-show="track.audio" ng-repeat="track in allWorks track by $index">{{$index}}. {{ track.audio }}</li>
+      </ul>
+    </div>
+    {{worksTracks}}
   </div>
-  <div class="col-md-12">
-    <ul>
-      Dancing on the Brink of the World
-      <li ng-repeat="track in dbwMovements track by $index"> {{ track.audio }}</li>
-    </ul>
+  <div class="row">
+    <div class="col-md-12">
+      <ul>
+        Dancing on the Brink of the World
+        <li ng-repeat="track in dbwMovements track by $index"> {{ track.audio }}</li>
+      </ul>
+    </div>
   </div>
   {{playlistOrder}}
-  <div class="col-md-12">
-    <ul ui-sortable="sortableOptions" ng-model="player.tracks">
-      <li ng-repeat="track in player.tracks track by $index">{{$index}}. {{ track.title }}</li>
-    </ul>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Current Playlist Order</h3>
+      <ul ui-sortable="sortableOptions" ng-model="player.tracks">
+        <li ng-repeat="track in player.tracks">{{$index + 1}}. {{ track.title }}</li>
+      </ul>
+    </div>
   </div>
 </div>
