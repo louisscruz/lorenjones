@@ -1,43 +1,47 @@
 <div class="login container">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
       <h1>Login</h1>
-      <p>If this is your first time logging in, please do the following: login with the info provided to you, then immediately click "Admin" and select "Change Password". Change your password immediately to prevent security breaches.</p>
+      <p>If this is your first time logging in, please do the following:</p>
+      <ul>
+        <li>Login with the info provided to you.</li>
+        <li>Immediately click "Admin" and select "Change Password".</li>
+        <li>Change your password immediately to prevent security breaches.</li>
+      </ul>
     </div>
-    <div class="col-sm-12">
-      <form class="form" name="form" ng-submit="login(form)" novalidate>
-
-        <div class="form-group">
-          <label>Email</label>
-
-          <input type="email" name="email" class="form-control" ng-model="user.email" required>
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+      <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
+        <div class="form-group" ng-class="{ 'has-success' : loginForm.email.$valid && loginForm.email.$touched, 'has-error' : loginForm.email.$invalid && loginForm.email.$touched }">
+          <label class="control-label">Email</label>
+          <div class="input-group">
+            <input type="email" name="email" class="form-control" ng-model="user.email" placeholder="johndoe@me.com" required>
+            <span class="input-group-addon">
+              <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : loginForm.email.$valid && loginForm.email.$touched, 'fa-times' : loginForm.email.$invalid && loginForm.email.$touched }" aria-hidden="true"></span>
+            </span>
+          </div>
+          <span class="sr-only">(success)</span>
+          <div class="help-block" ng-messages="loginForm.email.$error" ng-if="loginForm.email.$touched">
+            <p ng-message="required">Your email is required.</p>
+            <p ng-message="email">Your email must be valid.</p>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label>Password</label>
-
-          <input type="password" name="password" class="form-control" ng-model="user.password" required>
+        <div class="form-group" ng-class="{ 'has-success' : loginForm.password.$valid && loginForm.password.$touched, 'has-error' : loginForm.password.$invalid && loginForm.password.$touched }">
+          <label class="control-label">Password</label>
+          <div class="input-group">
+            <input type="password" name="password" class="form-control" ng-model="user.password" placeholder="password" required>
+            <span class="input-group-addon">
+              <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : loginForm.password.$valid && loginForm.password.$touched, 'fa-times' : loginForm.password.$invalid && loginForm.password.$touched }" aria-hidden="true"></span>
+            </span>
+          </div>
+          <span class="sr-only">(success)</span>
+          <div class="help-block" ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
+            <p ng-message="required">You must enter your password</p>
+          </div>
         </div>
-
-        <div class="form-group has-error">
-          <p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && submitted">
-             Please enter your email and password.
-          </p>
-          <p class="help-block" ng-show="form.email.$error.email && submitted">
-             Please enter a valid email.
-          </p>
-
-          <p class="help-block">{{ errors.other }}</p>
-        </div>
-
         <div>
-          <button class="btn btn-inverse btn-lg btn-login" type="submit">
-            Login
-          </button>
+          <button class="btn btn-primary btn-block" type="submit" ng-disabled="loginForm.$invalid || sending || (user.email === cache.email && user.password === cache.password)">Login</button>
         </div>
-
       </form>
     </div>
   </div>
-  <hr>
 </div>

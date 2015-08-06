@@ -1,24 +1,29 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location) {
+  .controller('LoginCtrl', function ($scope, Auth, alertFact, $location) {
     $scope.user = {};
     $scope.errors = {};
 
-    $scope.login = function(form) {
+    $scope.login = function(isValid) {
       $scope.submitted = true;
-
-      if(form.$valid) {
-        Auth.login({
+      if(isValid) {
+        var data = {
           email: $scope.user.email,
           password: $scope.user.password
+        };
+        $scope.cache = data;
+        Auth.login({
+          email: data.email,
+          password: data.password
         })
         .then( function() {
           // Logged in, redirect to home
           $location.path('/');
         })
         .catch( function(err) {
-          $scope.errors.other = err.message;
+          //$scope.errors.other = err.message;
+          alertFact.add('danger', err.message);
         });
       }
     };
