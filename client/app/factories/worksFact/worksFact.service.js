@@ -5,39 +5,50 @@ angular.module('lorenjonesApp')
     var fact = { defaultTrack: [], works: [], dbwMovements: [], tracks: [] };
     // Get all tracks and send them to fact.tracks
     function loadAll() {
+      var index = 0;
       $http.get('/api/default_tracks').success(function(tracks) {
         if (tracks) {
           angular.copy(tracks, fact.defaultTrack);
           fact.tracks.push(tracks[0].link);
-          soundcloud.loadPlayerWith(tracks[0].link);
+          soundcloud.loadPlayerWith(tracks[0].link, index);
+          index++;
+          console.log(fact.tracks);
         }
-      });
-      $http.get('/api/works').success(function(works) {
-        angular.copy(works, fact.works);
-        for (var i = 0; i < fact.works.length; i++) {
-          if (fact.works[i].audio) {
-            fact.tracks.push(works[i].audio);
-            soundcloud.loadPlayerWith(works[i].audio);
+      })
+      .then(function() {
+        $http.get('/api/works').success(function(works) {
+          angular.copy(works, fact.works);
+          for (var i = 0; i < fact.works.length; i++) {
+            if (fact.works[i].audio) {
+              fact.tracks.push(works[i].audio);
+              soundcloud.loadPlayerWith(works[i].audio, index);
+              console.log(fact.tracks);
+              index++;
+            }
           }
-        }
-        socket.syncUpdates('work', fact.works);
-      });
-      $http.get('/api/dbw_movements').success(function(movements) {
-        angular.copy(movements, fact.dbwMovements);
-        for (var i = 0; i < fact.dbwMovements.length; i++) {
-          if (fact.dbwMovements[i].audio) {
-            fact.tracks.push(movements[i].audio);
-            soundcloud.loadPlayerWith(movements[i].audio);
+          socket.syncUpdates('work', fact.works);
+        });
+      })
+      .then(function() {
+        $http.get('/api/dbw_movements').success(function(movements) {
+          angular.copy(movements, fact.dbwMovements);
+          for (var i = 0; i < fact.dbwMovements.length; i++) {
+            if (fact.dbwMovements[i].audio) {
+              fact.tracks.push(movements[i].audio);
+              soundcloud.loadPlayerWith(movements[i].audio, index);
+              console.log(fact.tracks);
+              index++;
+            }
           }
-        }
+        });
+      })
+      .then(function() {
+        return fact.tracks;
       });
-      return fact.tracks;
     };
     // Send all tracks to the soundcloud factory to be loaded
     function loadSoundcloudPlayer() {
-      console.log('inside function');
       for (var i = 0; i < fact.tracks.length; i++) {
-        console.log('test');
         soundcloud.loadPlayerWith(fact.tracks[i]);
       }
     };
@@ -71,7 +82,6 @@ angular.module('lorenjonesApp')
       loadAll: loadAll,
       loadSoundcloudPlayer: loadSoundcloudPlayer,
       works: fact.works,
-      tracks: fact.tracks,
       dbwMovements: fact.dbwMovements,
       defaultTrack: fact.defaultTrack,
       addDefaultTrack: addDefaultTrack,
