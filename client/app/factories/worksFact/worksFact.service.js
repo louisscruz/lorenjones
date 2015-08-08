@@ -12,7 +12,6 @@ angular.module('lorenjonesApp')
           fact.tracks.push(tracks[0].link);
           soundcloud.loadPlayerWith(tracks[0].link, index);
           index++;
-          console.log(fact.tracks);
         }
       })
       .then(function() {
@@ -21,19 +20,16 @@ angular.module('lorenjonesApp')
           var playlistIndex = null;
           var count = 0;
           var order = $rootScope.worksOrder;
-          console.log(order);
           if (index === 1) {
             order = order.map(function(x) {
               return x + 1;
             });
-            console.log(order);
           }
           for (var i = 0; i < fact.works.length; i++) {
             if (fact.works[i].audio) {
               fact.tracks.push(works[i].audio);
               playlistIndex = (order[count]) || index;
               soundcloud.loadPlayerWith(works[i].audio, playlistIndex);
-              console.log(fact.tracks);
               index++;
               count++;
             }
@@ -48,15 +44,14 @@ angular.module('lorenjonesApp')
             if (fact.dbwMovements[i].audio) {
               fact.tracks.push(movements[i].audio);
               soundcloud.loadPlayerWith(movements[i].audio, index);
-              console.log(fact.tracks);
               index++;
             }
           }
         });
-      })
-      .then(function() {
-        return fact.tracks;
       });
+      //.then(function() {
+        //return fact.tracks;
+      //});
     };
     // Send all tracks to the soundcloud factory to be loaded
     function loadSoundcloudPlayer() {
@@ -79,7 +74,6 @@ angular.module('lorenjonesApp')
     };
     // Update the default track
     function updateDefaultTrack(track) {
-      console.log('in the works fact update');
       return $http.patch('/api/default_tracks/' + fact.defaultTrack[0]._id, {link: track.link}).success(function(data) {
         fact.defaultTrack[0].link = track.link;
         loadSoundcloudPlayer();
