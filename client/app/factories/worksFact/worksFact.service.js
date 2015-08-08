@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', '$q', function ($http, $rootScope, socket, soundcloud, $q) {
+  .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', function ($http, $rootScope, socket, soundcloud) {
     var fact = { defaultTrack: [], works: [], dbwMovements: [], tracks: [] };
     // Get all tracks and send them to fact.tracks
     function loadAll() {
@@ -18,12 +18,24 @@ angular.module('lorenjonesApp')
       .then(function() {
         $http.get('/api/works').success(function(works) {
           angular.copy(works, fact.works);
+          var playlistIndex = null;
+          var count = 0;
+          var order = $rootScope.worksOrder;
+          console.log(order);
+          if (index === 1) {
+            order = order.map(function(x) {
+              return x + 1;
+            });
+            console.log(order);
+          }
           for (var i = 0; i < fact.works.length; i++) {
             if (fact.works[i].audio) {
               fact.tracks.push(works[i].audio);
-              soundcloud.loadPlayerWith(works[i].audio, index);
+              playlistIndex = (order[count]) || index;
+              soundcloud.loadPlayerWith(works[i].audio, playlistIndex);
               console.log(fact.tracks);
               index++;
+              count++;
             }
           }
           socket.syncUpdates('work', fact.works);

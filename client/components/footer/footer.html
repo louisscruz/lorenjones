@@ -17,7 +17,7 @@
       </button>
       <ul class="dropdown-menu playlist-menu" role="menu" dropdown-menu>
         <a href="https://soundcloud.com/lorenjones-2" target="_blank"><button class="btn-default" angular-ripple><img src="/assets/images/soundcloud_logo.svg" /> Connect</button></a>
-        <li ng-repeat="t in player.tracks" ng-class="{'current': player.currentTrack == t}" ng-click="player.play($index)" angular-ripple>{{t.title}}</li>
+        <li ng-repeat="t in player.tracks track by $index" ng-class="{'current': player.currentTrack == t}" ng-click="player.play($index)" angular-ripple>{{t.title}}</li>
       </ul>
     </div>
   </div>
