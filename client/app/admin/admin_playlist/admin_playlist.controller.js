@@ -10,18 +10,12 @@ angular.module('lorenjonesApp')
     };
     $scope.defaultTrack = works.defaultTrack;
     $scope.postDefaultTrack = function(track) {
-      console.log(track);
-      soundcloud.dumpData();
-      works.addDefaultTrack(track).success(function() {
-        works.loadSoundcloudPlayer;
-        $scope.defaultTrack = works.defaultTrack;
-        $scope.newLink = '';
-      })
+      works.addDefaultTrack(track);
+      $scope.newLink = '';
+      //$scope.defaultTrack = works.defaultTrack;
     }
     $scope.updateDefaultTrack = function(track) {
-      soundcloud.dumpData();
       works.updateDefaultTrack(track).success(function() {
-        works.loadSoundcloudPlayer;
         $scope.defaultTrack = works.defaultTrack;
         $scope.newLink = '';
       }).error(function() {
@@ -29,10 +23,7 @@ angular.module('lorenjonesApp')
       });
     };
     $scope.deleteDefaultTrack = function() {
-      soundcloud.dumpData();
-      works.deleteDefaultTrack().success(function() {
-        works.loadSoundcloudPlayer;
-      });
+      works.deleteDefaultTrack();
     };
     $scope.addDefaultTrack = function() {
       if($scope.newLink === '') {return};
@@ -40,8 +31,10 @@ angular.module('lorenjonesApp')
         link: $scope.newLink
       };
       if($scope.defaultTrack.length === 0) {
+        console.log('adding a default track');
         $scope.postDefaultTrack(track);
       } else {
+        console.log('updating the current default track');
         $scope.updateDefaultTrack(track);
       }
     };

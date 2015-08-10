@@ -137,14 +137,18 @@ angular.module('lorenjonesApp')
       fact.player.data = {};
       fact.player.tracks = [];
       fact.player.i = 0;
+      return fact.player;
     };
     // Load track on an individual basis
     function loadPlayer(track, index) {
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       if(fact.player.data[track]) {
         console.log('The following track is a duplicate: ' + track);
-        //var t = fact.player.data[track];
-        //fact.player.load(t, fact.player.i);
+        console.log('in the load player function, the current index is' + index);
+        var t = fact.player.data[track];
+        console.log(t);
+        //fact.player.data[track] = t;
+        fact.player.load(t, index);
       } else {
         $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
           fact.player.data[track] = data;

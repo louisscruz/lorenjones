@@ -49,7 +49,7 @@
     <div class="col-md-12">
       <h3>Current Playlist Order</h3>
       <ul ui-sortable="sortableOptions" ng-model="player.tracks">
-        <li ng-repeat="track in player.tracks">{{$index + 1}}. {{ track.title }}</li>
+        <li ng-repeat="track in player.tracks track by $index">{{$index + 1}}. {{ track.title }}</li>
       </ul>
     </div>
   </div>

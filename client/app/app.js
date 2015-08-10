@@ -88,7 +88,6 @@ angular.module('lorenjonesApp', [
     editableOptions.theme = 'bs3';
     $rootScope.player = soundcloud.player;
     works.loadAll();
-    //console.log(soundcloud.player);
     $rootScope.defaultTrack = works.defaultTrack;
     $rootScope.allWorks = works.works;
     $rootScope.dbwMovements = works.dbwMovements;
