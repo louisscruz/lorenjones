@@ -91,6 +91,7 @@ angular.module('lorenjonesApp', [
     $rootScope.defaultTrack = works.defaultTrack;
     $rootScope.allWorks = works.works;
     $rootScope.dbwMovements = works.dbwMovements;
+    $rootScope.worksTracks = works.worksTracks;
     $rootScope.worksOrder = [1, 0];
     $rootScope.cleanUrl = function(url) {
       var u = url;

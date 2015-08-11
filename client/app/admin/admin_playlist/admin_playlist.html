@@ -27,15 +27,17 @@
       </ul>
     </div>
   </div>
-  {{defaultTrack}}
   <div class="row">
     <div class="col-md-12">
       <ul ui-sortable="sortableOptions" ng-model="allWorks">
         Works
         <li ng-show="track.audio" ng-repeat="track in allWorks track by $index">{{$index}}. {{ track.audio }}</li>
       </ul>
+      <ul ui-sortable="sortableOptions" ng-model="worksOrder">
+        Works
+        <li ng-repeat="track in worksOrder">{{worksTracks[track]}}</li>
+      </ul>
     </div>
-    {{worksTracks}}
   </div>
   <div class="row">
     <div class="col-md-12">
