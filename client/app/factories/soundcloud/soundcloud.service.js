@@ -143,11 +143,8 @@ angular.module('lorenjonesApp')
     function loadPlayer(track, index) {
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       if(fact.player.data[track]) {
-        console.log('The following track is a duplicate: ' + track);
-        console.log('in the load player function, the current index is' + index);
         var t = fact.player.data[track];
-        console.log(t);
-        //fact.player.data[track] = t;
+        fact.player.data[track] = t;
         fact.player.load(t, index);
       } else {
         $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {

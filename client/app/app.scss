@@ -36,7 +36,6 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 body {
   font-family: $sans-serif-font;
   font-weight: $sans-serif-light;
@@ -47,26 +46,21 @@ body {
   //background-size: 511px 511px;
   //background-repeat: repeat;
 }
-
 *:focus {
   outline: none;
 }
-
 .cursor {
   cursor: pointer;
 }
-
 .center {
   text-align: center;
 }
-
 .vertical-center {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
   display: flex;
   align-items: center;
 }
-
 .new-lines {
   white-space: pre-line;
 }
@@ -74,28 +68,23 @@ body {
 .vis-hidden {
   visibility: hidden;
 }
-
 // App Structure
-
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
 }
-
 #alerts {
   position: absolute;
   width: 100%;
   z-index: 10;
 }
-
 .alert {
   transition: cubic-bezier(.77,.14,.38,.71) 0.5s;
   display: block !important;
   opacity: 0.8;
 }
-
 #content {
   .container {
     position: relative;
@@ -104,7 +93,6 @@ body {
     padding-bottom: 84px;
   }
 }
-
 #footer {
   position: fixed;
   height: 42px;
@@ -112,7 +100,6 @@ body {
   z-index: 100;
   width: 100%;
 }
-
 .footer {
   //position: absolute;
   //bottom: 0px;
@@ -195,23 +182,18 @@ body {
     background-color: $blue;
   }
 }
-
 // Fonts
 p {
   font-size: 15px;
   font-weight: 400;
 }
-
 h1 {
   color: white;
 }
-
 form label {
   color: white;
 }
-
 // Buttons
-
 .btn-default {
   background: white;
   color: $primary;
@@ -227,12 +209,10 @@ form label {
     color: $primary;
   }
 }
-
 .btn-default.active {
   background-color: $primary;
   color: white;
 }
-
 .flip {
   -webkit-perspective: 800;
   perspective: 800;
@@ -269,47 +249,44 @@ form label {
 .inner {
   margin:0px !important;
 }
-
 // Animations
 @-webkit-keyframes Flip {
   0% { transform: rotatex(0deg); }
   100% { transform: rotatex(360deg); }
 }
-
 .alert.ng-enter {
   opacity: 0;
 }
-
 .alert.ng-enter-active {
   opacity: 0.8;
 }
-
 .alert.ng-leave {
   opacity: 0.8;
 }
-
 .alert.ng-leave-active {
   opacity: 0;
 }
-
 .repeated-item { }
-
 .repeated-item.ng-move,
 .repeated-item.ng-enter {
   -webkit-transition:all ease-in-out 0.5s;
   transition:all ease-in-out 0.5s;
 }
-
 .repeated-item.ng-move,
 .repeated-item.ng-enter {
   opacity:0;
 }
-
 .repeated-item.ng-move.ng-move-active,
 .repeated-item.ng-enter.ng-enter-active {
   opacity:1;
 }
-
+.vis-hidden.ng-enter {
+  transition: 0.5s ease-in-out;
+  opacity: 0;
+}
+.vis-hidden.ng-enter.ng-enter-active {
+  opacity: 1;
+}
 [angular-ripple] {
   position: relative;
   overflow: hidden;
@@ -330,7 +307,6 @@ form label {
     transform: scale(2.5);
   }
 }
-
 // Component styles are injected through grunt
 // injector
 @import 'about/about.scss';

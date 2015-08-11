@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarCtrl">
+<div class="navbar navbar-default navbar-fixed-top" ng-class="{'dark' : isActive('/dbw')}" ng-controller="NavbarCtrl">
   <div class="container">
     <div class="navbar-header">
       <button class="navbar-toggle" ng-class="{'collapsed': isCollapsed}" type="button" ng-click="isCollapsed = !isCollapsed" angular-ripple>
@@ -31,7 +31,6 @@
           <a ng-href="/contact" angular-ripple>Contact</a>
         </li>
       </ul>
-
       <ul class="nav navbar-nav navbar-right">
         <li ng-show="isAdmin()" class="dropdown" dropdown>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle angular-ripple>{{ getCurrentUser().name }}<span class="caret"></span></a>

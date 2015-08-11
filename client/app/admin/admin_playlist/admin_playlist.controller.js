@@ -2,6 +2,7 @@
 
 angular.module('lorenjonesApp')
   .controller('AdminPlaylistCtrl', function ($scope, $rootScope, $http, socket, works, soundcloud, Modal) {
+    $scope.show = works.defaultTrack;
     $scope.sortableOptions = {
       'ui-floating': true,
       stop: function() {

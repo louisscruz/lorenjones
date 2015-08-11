@@ -5,20 +5,17 @@ angular.module('lorenjonesApp')
     var fact = { defaultTrack: [], works: [], dbwMovements: [], tracks: [] };
     // Get all tracks and send them to fact.tracks
     function loadAll() {
-      soundcloud.dumpData;
+      soundcloud.dumpData();
       var index = 0;
       $http.get('/api/default_tracks').success(function(t) {
-        console.log(t[0]);
         if (t[0]) {
           angular.copy(t, fact.defaultTrack);
           soundcloud.loadPlayerWith(t[0].link, index);
           index++;
         }
-        console.log(index);
       })
       .then(function() {
         $http.get('/api/works').success(function(works) {
-          console.log(index);
           angular.copy(works, fact.works);
           var playlistIndex = null;
           var count = 0;
@@ -28,7 +25,6 @@ angular.module('lorenjonesApp')
               return x + 1;
             });
           }
-          console.log(order);
           for (var i = 0; i < fact.works.length; i++) {
             if (fact.works[i].audio) {
               playlistIndex = (order[count]);
@@ -55,7 +51,6 @@ angular.module('lorenjonesApp')
     // Add default track
     function addDefaultTrack(track) {
       return $http.post('/api/default_tracks/', {link: track.link}).success(function(data) {
-        //fact.defaultTrack[0] = track.link;
         angular.copy(track, fact.defaultTrack);
       })
       .then(function() {
@@ -64,7 +59,6 @@ angular.module('lorenjonesApp')
     }
     // Delete the default track
     function deleteDefaultTrack() {
-      console.log($rootScope.player.tracks);
       return $http.delete('/api/default_tracks/' + fact.defaultTrack[0]._id).success(function(data) {
         fact.defaultTrack.splice(0, 1);
       })
