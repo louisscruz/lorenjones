@@ -5,15 +5,15 @@ angular.module('lorenjonesApp')
     $scope.show = works.defaultTrack;
     $scope.sortableOptions = {
       'ui-floating': true,
-      stop: function() {
-        console.log()
+      stop: function(e, ui) {
+        console.log($scope.worksOrder);
+        works.updateWorksOrder($scope.worksOrder);
       }
     };
     $scope.defaultTrack = works.defaultTrack;
     $scope.postDefaultTrack = function(track) {
       works.addDefaultTrack(track);
       $scope.newLink = '';
-      //$scope.defaultTrack = works.defaultTrack;
     }
     $scope.updateDefaultTrack = function(track) {
       works.updateDefaultTrack(track).success(function() {

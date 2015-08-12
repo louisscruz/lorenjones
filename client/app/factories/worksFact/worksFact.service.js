@@ -1,8 +1,9 @@
 'use strict';
-
 angular.module('lorenjonesApp')
   .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', function ($http, $rootScope, socket, soundcloud) {
-    var fact = { defaultTrack: [], works: [], dbwMovements: [], tracks: [], worksTracks: [] };
+    var fact = { defaultTrack: [], works: [], dbwMovements: [], tracks: [], worksTracks: [], worksOrder: [] };
+    var playlist_index = null;
+    var order = null;
     // Get all tracks and send them to fact.tracks
     function loadAll() {
       soundcloud.dumpData();
@@ -15,11 +16,15 @@ angular.module('lorenjonesApp')
         }
       })
       .then(function() {
+        getWorksOrder();
+      })
+      .then(function() {
         $http.get('/api/works').success(function(works) {
           angular.copy(works, fact.works);
           var playlistIndex = null;
           var count = 0;
-          var order = $rootScope.worksOrder;
+          // why is fact.worksOrder not the updated value here?
+          var order = fact.worksOrder;
           if (index === 1) {
             order = order.map(function(x) {
               return x + 1;
@@ -74,10 +79,31 @@ angular.module('lorenjonesApp')
         loadAll();
       });
     };
-    // Sort the track order if /api/playlist returns a valuable
-    $http.get('/api/playlists').success(function(playlist) {
-      //
-    });
+    // Get the playlist order
+    function getWorksOrder() {
+      $http.get('/api/playlists').success(function(data) {
+        playlist_index = data[0]._id;
+        order = data[0].order;
+        angular.copy(data[0].order, fact.worksOrder)
+      });
+      return fact.worksOrder;
+    };
+    // Update the playlist order
+    function updateWorksOrder(o) {
+      $http.patch('/api/playlists/' + playlist_index, {order: o}).success(function(data) {
+        console.log(o);
+        fact.worksOrder = o;
+        console.log(fact.worksOrder);
+      })
+      .then(function() {
+
+      });
+      return fact.worksOrder;
+    };
+    // Update the player order by Playlist
+    function updatePlayerOrder() {
+
+    };
     //return fact;
     return {
       loadAll: loadAll,
@@ -85,8 +111,12 @@ angular.module('lorenjonesApp')
       dbwMovements: fact.dbwMovements,
       defaultTrack: fact.defaultTrack,
       worksTracks: fact.worksTracks,
+      worksOrder: fact.worksOrder,
       addDefaultTrack: addDefaultTrack,
       deleteDefaultTrack: deleteDefaultTrack,
-      updateDefaultTrack: updateDefaultTrack
+      updateDefaultTrack: updateDefaultTrack,
+      getWorksOrder: getWorksOrder,
+      updateWorksOrder: updateWorksOrder,
+      updatePlayerOrder: updatePlayerOrder
     };
   }]);

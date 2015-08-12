@@ -37,6 +37,8 @@ exports.update = function(req, res) {
     var updated = _.merge(playlist, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
+      console.log('updated the playlist ');
+      console.log(req.body);
       return res.status(200).json(playlist);
     });
   });
