@@ -2,7 +2,6 @@
 angular.module('lorenjonesApp')
   .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', function ($http, $rootScope, socket, soundcloud) {
     var fact = { defaultTrack: [], works: [], dbwMovements: [], tracks: [], worksTracks: [], worksOrder: [] };
-    var playlist_index = null;
     var order = null;
     // Get all tracks and send them to fact.tracks
     function loadAll() {
@@ -19,12 +18,10 @@ angular.module('lorenjonesApp')
         getWorksOrder();
       })
       .then(function() {
-        console.log(playlist_index);
         $http.get('/api/works').success(function(works) {
           angular.copy(works, fact.works);
           var playlistIndex = null;
           var count = 0;
-          // why is fact.worksOrder not the updated value here?
           var order = fact.worksOrder;
           if (index === 1) {
             order = order.map(function(x) {
@@ -84,9 +81,7 @@ angular.module('lorenjonesApp')
     function getWorksOrder() {
       $http.get('/api/playlists').success(function(data) {
         console.log(data);
-        playlist_index = data[0]._id;
-        order = data[0].order;
-        angular.copy(data[0].order, fact.worksOrder)
+        angular.copy(data.order, fact.worksOrder)
       });
       return fact.worksOrder;
     };

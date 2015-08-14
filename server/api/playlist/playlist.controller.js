@@ -13,10 +13,14 @@ exports.index = function(req, res) {
 
 // Get a single playlist
 exports.show = function(req, res) {
-  Playlist.findById(req.params.id, function (err, playlist) {
-    if(err) { return handleError(res, err); }
-    if(!playlist) { return res.status(404).send('Not Found'); }
-    return res.json(playlist);
+  Playlist.findOne({}, function(err, playlist) {
+    if(err) {
+      return handleError(res, error);
+    } else if(!playlist) {
+      return res.status(404).send('Not Found');
+    } else {
+      return res.json(playlist);
+    }
   });
 };
 
