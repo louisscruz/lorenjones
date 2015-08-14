@@ -3,7 +3,7 @@ angular.module('lorenjonesApp')
   .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', function ($http, $rootScope, socket, soundcloud) {
     var fact = { defaultTrack: [], works: [], dbwMovements: [], tracks: [], worksTracks: [], worksOrder: [] };
     var order = null;
-    // Get all tracks and send them to fact.tracks
+    // Get all works and tracks; send tracks to soundcloud player
     function loadAll() {
       soundcloud.dumpData();
       var index = 0;
@@ -77,10 +77,48 @@ angular.module('lorenjonesApp')
         loadAll();
       });
     };
+    // Add work
+    function addWork(work) {
+      return $http.post('/api/works', work).success(function(data) {
+        if (work.audio) {
+          if (!fact.worksOrder) {
+            var newOrder = [0];
+          } else {
+            var length = fact.worksOrder.length;
+            console.log(length);
+            var newOrder = fact.worksOrder;
+            newOrder.push(length);
+          }
+          updateWorksOrder(newOrder);
+          loadAll();
+        }
+      });
+    };
+    // Delete work
+    function deleteWork(work) {
+      return $http.delete('/api/works/' + work._id).success(function(data) {
+        if (work.audio) {
+          var currentPosition = fact.worksTracks.indexOf(work.audio);
+          var currentValue = fact.worksOrder[currentPosition];
+          var order = fact.worksOrder;
+          order.splice(currentPosition, 1);
+          if (currentPosition !== 0) {
+            for (var i = 0; i < order.length; i++) {
+              if (order[i] > currentValue) {
+                order[i]--;
+              }
+            }
+          }
+          updateWorksOrder(order);
+          loadAll();
+        }
+      });
+    };
     // Get the playlist order
     function getWorksOrder() {
       $http.get('/api/playlists').success(function(data) {
         console.log(data);
+        console.log(fact.worksOrder);
         angular.copy(data.order, fact.worksOrder)
       });
       return fact.worksOrder;
@@ -95,17 +133,22 @@ angular.module('lorenjonesApp')
     function updatePlayerOrder() {
 
     };
-    //return fact;
     return {
       loadAll: loadAll,
+      // Resources
       works: fact.works,
       dbwMovements: fact.dbwMovements,
       defaultTrack: fact.defaultTrack,
       worksTracks: fact.worksTracks,
       worksOrder: fact.worksOrder,
+      // Default track functions
       addDefaultTrack: addDefaultTrack,
       deleteDefaultTrack: deleteDefaultTrack,
       updateDefaultTrack: updateDefaultTrack,
+      // Works functions
+      addWork: addWork,
+      deleteWork: deleteWork,
+      // Playlist order functions
       getWorksOrder: getWorksOrder,
       updateWorksOrder: updateWorksOrder,
       updatePlayerOrder: updatePlayerOrder

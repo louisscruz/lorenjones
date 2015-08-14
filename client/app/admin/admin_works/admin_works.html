@@ -14,8 +14,8 @@
         <p ng-show="worksForm.category.$invalid && !worksForm.category.$pristine" class="help-block">You must enter a category</p>
       </p>
       <label><i class="fa fa-asterisk"></i>Year of the Work</label>
-      <p class="input-group" ng-class="{ 'has-error' worksForm.number.$invalid && !worksForm.number.$pristine }">
-        <input type="number" name="date" class="form-control" placeholder="Work Date" ng-model="newDate" ng-init="newDate = 2015" required>
+      <p class="input-group" ng-class="{ 'has-error' : worksForm.date.$invalid && !worksForm.date.$pristine }">
+        <input type="number" name="date" class="form-control" ng-model="newDate" ng-init="newDate = currentYear" required>
         <p ng-show="worksForm.date.$invalid && !worksForm.date.$pristine" class="help-block">You must enter a year</p>
       </p>
       <label>Instrumentation of the Work</label>
@@ -42,6 +42,8 @@
         <button type="submit" class="btn btn-primary" ng-disabled="worksForm.$invalid">Add New</button>
       </p>
     </form>
+    {{worksTracks}}
+    {{worksOrder}}
   </div>
 
   <accordion class="col-md-9">

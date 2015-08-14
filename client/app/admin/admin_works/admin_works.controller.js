@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AdminWorksCtrl', function ($scope, $http, socket, Modal) {
-    $scope.works = [];
+  .controller('AdminWorksCtrl', function ($scope, $http, socket, Modal, works) {
+    $scope.works = works.works;
+    $scope.currentYear = new Date().getFullYear();
     $scope.groups = [
       'Solo',
       'Chamber',
@@ -12,15 +13,9 @@ angular.module('lorenjonesApp')
       'Choral',
       'Opera'
     ];
-
-    $http.get('/api/works', {cache: true}).success(function(works) {
-      $scope.works = works;
-      socket.syncUpdates('work', $scope.works);
-    });
-
     $scope.addWork = function(isValid) {
-      if( isValid ) {
-        $http.post('/api/works', {
+      if(isValid) {
+        var work = {
           title: $scope.newTitle,
           category: $scope.newCategory,
           date: $scope.newDate,
@@ -29,7 +24,8 @@ angular.module('lorenjonesApp')
           link: $scope.newLink,
           audio: $scope.newAudio,
           video: $scope.newVideo
-        });
+        };
+        works.addWork(work);
         $scope.newTitle = '';
         $scope.newCategory = '';
         $scope.newDate = '2015';
@@ -51,12 +47,8 @@ angular.module('lorenjonesApp')
       });
     };
 
-    $scope.deleteWork = function(id) {
-      $http.delete('/api/works/' + id);
-    };
-
     $scope.confirmDelete = Modal.confirm.delete(function(work) {
-      $scope.deleteWork(work._id);
+      works.deleteWork(work);
     });
 
     $scope.$on('$destroy', function() {
