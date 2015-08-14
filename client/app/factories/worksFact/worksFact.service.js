@@ -2,7 +2,7 @@
 angular.module('lorenjonesApp')
   .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', function ($http, $rootScope, socket, soundcloud) {
     var fact = { defaultTrack: [], works: [], dbwMovements: [], tracks: [], worksTracks: [], worksOrder: [] };
-    var order = null;
+    // var order = null;
     // Get all works and tracks; send tracks to soundcloud player
     function loadAll() {
       soundcloud.dumpData();
@@ -23,6 +23,7 @@ angular.module('lorenjonesApp')
           var playlistIndex = null;
           var count = 0;
           var order = fact.worksOrder;
+          console.log('the order for loading is: ' + order)
           if (index === 1) {
             order = order.map(function(x) {
               return x + 1;
@@ -31,8 +32,12 @@ angular.module('lorenjonesApp')
           for (var i = 0; i < fact.works.length; i++) {
             if (fact.works[i].audio) {
               fact.worksTracks.push(fact.works[i].audio);
-              playlistIndex = (order[count]);
+              playlistIndex = order.indexOf(count);
+              console.log(playlistIndex);
               soundcloud.loadPlayerWith(works[i].audio, playlistIndex);
+              console.log('loading ' + fact.works[i].audio + ' at ' + playlistIndex);
+              //console.log('the track just loaded was: ' + fact.works[i].audio);
+              console.log(fact.worksTracks);
               index++;
               count++;
             }
