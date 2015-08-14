@@ -19,6 +19,7 @@ angular.module('lorenjonesApp')
         getWorksOrder();
       })
       .then(function() {
+        console.log(playlist_index);
         $http.get('/api/works').success(function(works) {
           angular.copy(works, fact.works);
           var playlistIndex = null;
@@ -91,14 +92,9 @@ angular.module('lorenjonesApp')
     };
     // Update the playlist order
     function updateWorksOrder(o) {
-      return $http.patch('/api/playlists/' + playlist_index, {order: o}).success(function(data) {
-        console.log(data.order);
-        fact.worksOrder = data.order;
-      })
-      .then(function() {
-        console.log(fact.worksOrder);
+      $http.patch('/api/playlists', {order: o}).success(function(data) {
+        fact.worksOrder = o;
       });
-      //return fact.worksOrder;
     };
     // Update the player order by Playlist
     function updatePlayerOrder() {

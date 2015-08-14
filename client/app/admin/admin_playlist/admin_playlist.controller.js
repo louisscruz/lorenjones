@@ -6,17 +6,8 @@ angular.module('lorenjonesApp')
     $scope.sortableOptions = {
       'ui-floating': true,
       stop: function(e, ui) {
-        console.log($scope.worksOrder);
-        var order = $scope.worksOrder;
-        works.updateWorksOrder(order)
-        .then(function() {
-          console.log('yippee');
-          works.getWorksOrder();
-          //works.loadAll();
-        })
-        .then(function() {
-          works.loadAll();
-        });
+        works.updateWorksOrder($scope.worksOrder);
+        works.loadAll();
       }
     };
     $scope.defaultTrack = works.defaultTrack;

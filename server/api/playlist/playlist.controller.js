@@ -31,17 +31,20 @@ exports.create = function(req, res) {
 // Updates an existing playlist in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  Playlist.findById(req.params.id, function (err, playlist) {
-    if (err) { return handleError(res, err); }
-    if(!playlist) { return res.status(404).send('Not Found'); }
-    var updated = _.merge(playlist, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      console.log('updated the playlist ');
-      console.log(req.body);
-      console.log(playlist);
-      return res.status(200).json(playlist);
-    });
+  Playlist.findOne({}, function(err, playlist) {
+    if(err) {
+      return handleError(res, err);
+    } else if (!playlist) {
+      return res.status(404).send('Not Found');
+    } else if(_.isEqual(req.body.order, playlist.order)) {
+      return res.status(304).json(playlist);
+    } else {
+      playlist.order = req.body.order;
+      playlist.save(function(err) {
+        if(err) { return handleError(res, err); }
+        return res.status(200).json(playlist);
+      });
+    }
   });
 };
 
