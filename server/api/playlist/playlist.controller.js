@@ -39,6 +39,7 @@ exports.update = function(req, res) {
       if (err) { return handleError(res, err); }
       console.log('updated the playlist ');
       console.log(req.body);
+      console.log(playlist);
       return res.status(200).json(playlist);
     });
   });

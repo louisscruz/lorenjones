@@ -1,13 +1,10 @@
 'use strict';
-
 angular.module('lorenjonesApp')
   .factory('flickr', ['$http', '$q',
     function($http, $q) {
       var o = {};
-
       o.query = function(src) {
         var deferred = $q.defer();
-
         if (o.photos) {
           deferred.resolve(o.photos);
         } else {
@@ -22,17 +19,14 @@ angular.module('lorenjonesApp')
               p.caption = p.title;
               p.thumbnail = p.media.m;
             });
-
             deferred.resolve(o.photos);
           })
           .error(function() {
             deferred.reject('Could not get json');
           });
         }
-
         return deferred.promise;
       };
-
       //o.largeQuery = function(src) {
         //var deferred = $q.defer();
 
@@ -40,11 +34,9 @@ angular.module('lorenjonesApp')
           //deferred.resolve(o.photos);
         //}
       //};
-
       o.hasPhotos = function() {
         return !!o.photos;
       };
-
       return o;
     }
   ]);

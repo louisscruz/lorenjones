@@ -11,21 +11,29 @@
 
 .flickr {
   padding-bottom: 100px;
-  img {
-    //width: 100%;
-    margin: auto;
-    cursor: pointer;
-  }
   .link {
     float: right;
   }
-  .thumbnails a{
-    &:hover {
-      opacity: 0.5;
+  .thumbnails {
+    a {
+      display: block;
+      padding-bottom:100%;
+      position: relative;
+      &:hover {
+        opacity: 0.5;
+      }
+      &:active {
+        opacity: 0.25;
+      }
     }
-    &:active {
-      opacity: 0.25;
+    img {
+      //width: 100%;
+      margin: auto;
+      cursor: pointer;
+      max-height: 100%;
+      max-width: 100%;
     }
+
   }
 }
 

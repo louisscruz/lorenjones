@@ -7,7 +7,16 @@ angular.module('lorenjonesApp')
       'ui-floating': true,
       stop: function(e, ui) {
         console.log($scope.worksOrder);
-        works.updateWorksOrder($scope.worksOrder);
+        var order = $scope.worksOrder;
+        works.updateWorksOrder(order)
+        .then(function() {
+          console.log('yippee');
+          works.getWorksOrder();
+          //works.loadAll();
+        })
+        .then(function() {
+          works.loadAll();
+        });
       }
     };
     $scope.defaultTrack = works.defaultTrack;
