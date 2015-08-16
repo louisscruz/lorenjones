@@ -17,8 +17,7 @@
   .thumbnails {
     a {
       display: block;
-      padding-bottom:100%;
-      position: relative;
+      height: 150px;
       &:hover {
         opacity: 0.5;
       }
@@ -30,7 +29,9 @@
       //width: 100%;
       margin: auto;
       cursor: pointer;
-      max-height: 100%;
+      height: 100%;
+      width: auto;
+      //max-height: 100%;
       max-width: 100%;
     }
 

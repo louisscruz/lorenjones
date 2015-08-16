@@ -94,7 +94,7 @@
         </div>
         <label>Audio</label>
         <div>
-          <a href="#" editable-text="work.audio" onaftersave="updateWork(work)">
+          <a href="#" editable-text="work.audio" onbeforesave="checkUrl($data)" onaftersave="updateWork(work)">
             {{ work.audio || "empty" }}
           </a>
         </div>

@@ -33,7 +33,6 @@ angular.module('lorenjonesApp')
         $scope.newAudio = '';
       }
     };
-
     $scope.updateWork = function(work) {
       return $http.put('/api/works/' + work._id, {
         title: work.title,
@@ -46,11 +45,14 @@ angular.module('lorenjonesApp')
         video: work.video
       });
     };
-
+    $scope.checkUrl = function(data) {
+      if ($scope.worksTracks.indexOf(data) !== -1 && data !== '') {
+        return 'This tracks is already loaded in the player.';
+      }
+    };
     $scope.confirmDelete = Modal.confirm.delete(function(work) {
       works.deleteWork(work);
     });
-
     $scope.$on('$destroy', function() {
       socket.unsyncUpdates('work');
     });

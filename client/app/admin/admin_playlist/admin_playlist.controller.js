@@ -7,7 +7,6 @@ angular.module('lorenjonesApp')
       'ui-floating': true,
       stop: function(e, ui) {
         works.updateWorksOrder($scope.worksOrder);
-        console.log(ui);
         works.loadAll();
       }
     };

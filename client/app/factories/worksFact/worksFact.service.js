@@ -18,6 +18,8 @@ angular.module('lorenjonesApp')
         getWorksOrder();
       })
       .then(function() {
+        //fact.worksTracks = [];
+        // if you visit the playlist page, change the order, and return to the works page, the worksTracks will be overpopulated
         $http.get('/api/works').success(function(works) {
           angular.copy(works, fact.works);
           var playlistIndex = null;
@@ -33,11 +35,7 @@ angular.module('lorenjonesApp')
             if (fact.works[i].audio) {
               fact.worksTracks.push(fact.works[i].audio);
               playlistIndex = order.indexOf(count);
-              console.log(playlistIndex);
               soundcloud.loadPlayerWith(works[i].audio, playlistIndex);
-              console.log('loading ' + fact.works[i].audio + ' at ' + playlistIndex);
-              //console.log('the track just loaded was: ' + fact.works[i].audio);
-              console.log(fact.worksTracks);
               index++;
               count++;
             }
@@ -122,15 +120,13 @@ angular.module('lorenjonesApp')
     // Get the playlist order
     function getWorksOrder() {
       $http.get('/api/playlists').success(function(data) {
-        console.log(data);
-        console.log(fact.worksOrder);
         angular.copy(data.order, fact.worksOrder)
       });
       return fact.worksOrder;
     };
     // Update the playlist order
     function updateWorksOrder(o) {
-      $http.patch('/api/playlists', {order: o}).success(function(data) {
+      return $http.patch('/api/playlists', {order: o}).success(function(data) {
         fact.worksOrder = o;
       });
     };
