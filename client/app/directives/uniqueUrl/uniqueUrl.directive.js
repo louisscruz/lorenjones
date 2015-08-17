@@ -14,8 +14,8 @@ angular.module('lorenjonesApp')
                 return false;
               }
             }
-            return true;
           }
+          return true;
         };
       }
     };

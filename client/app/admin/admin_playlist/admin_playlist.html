@@ -9,17 +9,18 @@
   <h4>To change the splash track, copy and paste a track URL from Soundcloud.</h4>
   <div class="col-md-12">
     <form name="defaultTrackForm" ng-submit="addDefaultTrack(defaultTrackForm.$valid)" novalidate>
-      <div class="form-group" ng-class="{ 'has-success' : defaultTrackForm.link.$valid && defaultTrackForm.link.$touched, 'has-error' : defaultTrackForm.link.$invalid && defaultTrack.link.$touched }">
+      <div class="form-group" ng-class="{ 'has-success' : defaultTrackForm.link.$valid && defaultTrackForm.link.$touched, 'has-error' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched && !defaultTrackForm.link.$error.required}">
         <label class="control-label">Link</label>
         <div class="input-group">
-          <input name="link" type="url" class="form-control" placeholder="Splash Track Link" ng-model="newLink" unique-url required>
+          <input name="link" type="url" class="form-control" placeholder="Splash Track Link" ng-model="newLink" autocomplete="off" unique-url required>
           <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : defaultTrackForm.link.$valid && defaultTrackForm.link.$touched, 'fa-times' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched }" aria-hidden="true"></span>
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : defaultTrackForm.link.$valid && defaultTrackForm.link.$touched, 'fa-times' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched && !defaultTrackForm.link.$error.required}" aria-hidden="true"></span>
           </span>
         </div>
         {{defaultTrackForm.link}}
         <span class="sr-only">(success)</span>
-        <div class="help-block" ng-messages="defaultTrackForm.link.$error">
+        <div class="help-block" ng-messages="defaultTrackForm.link.$error" ng-if="defaultTrackForm.link.$touched">
+          <p ng-message="url">You must enter a valid soundcloud url.</p>
           <p ng-message="uniqueUrl">This track is already loaded in the player.</p>
         </div>
       </div>
