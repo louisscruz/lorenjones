@@ -1,7 +1,7 @@
 'use strict';
 angular.module('lorenjonesApp')
   .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', function ($http, $rootScope, socket, soundcloud) {
-    var fact = { defaultTrack: [], works: [], dbwMovements: [], tracks: [], worksTracks: [], worksOrder: [] };
+    var fact = { defaultTrack: [], works: [], dbwMovements: [], worksTracks: [], worksOrder: [] };
     // var order = null;
     // Get all works and tracks; send tracks to soundcloud player
     function loadAll() {
@@ -27,7 +27,6 @@ angular.module('lorenjonesApp')
           var playlistIndex = null;
           var count = 0;
           var order = fact.worksOrder;
-          console.log('the order for loading is: ' + order)
           if (index === 1) {
             order = order.map(function(x) {
               return x + 1;
@@ -143,7 +142,6 @@ angular.module('lorenjonesApp')
       works: fact.works,
       dbwMovements: fact.dbwMovements,
       defaultTrack: fact.defaultTrack,
-      tracks: fact.tracks,
       worksTracks: fact.worksTracks,
       worksOrder: fact.worksOrder,
       // Default track functions
