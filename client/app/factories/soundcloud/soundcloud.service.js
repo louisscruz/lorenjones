@@ -157,15 +157,6 @@ angular.module('lorenjonesApp')
       return fact.player;
     };
     function testLoad(track) {
-      /*var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
-      console.log('running testLoad');
-      $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
-        console.log(data);
-        console.log('Success!')
-        return true;
-      }).error(function() {
-        return false;
-      });*/
       var deferred = $q.defer();
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       return $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {

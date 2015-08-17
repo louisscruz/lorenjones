@@ -14,23 +14,19 @@
         <div class="input-group">
           <input name="link" type="url" class="form-control" placeholder="Splash Track Link" ng-model="newLink" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url required>
           <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : defaultTrackForm.link.$valid && defaultTrackForm.link.$touched, 'fa-times' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched && !defaultTrackForm.link.$error.required, 'fa-circle-o-notch fa-spin': defaultTrackForm.$pending }" aria-hidden="true"></span>
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : defaultTrackForm.link.$valid, 'fa-times' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched && !defaultTrackForm.link.$error.required, 'fa-circle-o-notch fa-spin': defaultTrackForm.$pending }" aria-hidden="true"></span>
           </span>
         </div>
-        {{defaultTrackForm.link}}
         <span class="sr-only">(success)</span>
         <div class="help-block" ng-messages="defaultTrackForm.link.$error" ng-if="defaultTrackForm.link.$touched">
           <p ng-message="url">You must enter a valid soundcloud url.</p>
           <p ng-message="uniqueUrl">This track is already loaded in the player.</p>
-          <p ng-message="validUrl">This URL is not valid.</p>
+          <p ng-message="validUrl">This URL is not a valid Soundcloud link.</p>
         </div>
       </div>
       <div class="form-group">
         <div class="input-group">
-          {{worksTracks}}
-          {{defaultTrackForm.link.$valid}}
-          {{worksTracks.indexOf(newLink) !== -1}}
-          <button type="submit" class="btn btn-primary" ng-disabled="defaultTrackForm.$invalid">Save Track</button>
+          <button type="submit" class="btn btn-primary" ng-disabled="defaultTrackForm.$invalid || defaultTrackForm.$pending">Save Track</button>
         </div>
       </div>
     </form>
