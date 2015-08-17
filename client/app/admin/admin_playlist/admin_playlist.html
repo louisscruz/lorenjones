@@ -8,15 +8,29 @@
   <code ng-if="defaultTrack[0].link" ng-click="confirmDelete('the default track')">{{defaultTrack[0].link}}</code>
   <h4>To change the splash track, copy and paste a track URL from Soundcloud.</h4>
   <div class="col-md-12">
-    <form class="thing-form">
-      <label>Link</label>
-      <p class="input-group">
-        <input type="text"
-        class="form-control" placeholder="Default Track Link" ng-model="newLink">
-      </p>
-      <p class="input-group">
-        <button type="submit" class="btn btn-primary" ng-click="addDefaultTrack()">Save Track</button>
-      </p>
+    <form name="defaultTrackForm" ng-submit="addDefaultTrack(defaultTrackForm.$valid)" novalidate>
+      <div class="form-group" ng-class="{ 'has-success' : defaultTrackForm.link.$valid && defaultTrackForm.link.$touched, 'has-error' : defaultTrackForm.link.$invalid && defaultTrack.link.$touched }">
+        <label class="control-label">Link</label>
+        <div class="input-group">
+          <input name="link" type="url" class="form-control" placeholder="Splash Track Link" ng-model="newLink" unique-url required>
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : defaultTrackForm.link.$valid && defaultTrackForm.link.$touched, 'fa-times' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched }" aria-hidden="true"></span>
+          </span>
+        </div>
+        {{defaultTrackForm.link}}
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="defaultTrackForm.link.$error">
+          <p ng-message="uniqueUrl">This track is already loaded in the player.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          {{worksTracks}}
+          {{defaultTrackForm.link.$valid}}
+          {{worksTracks.indexOf(newLink) !== -1}}
+          <button type="submit" class="btn btn-primary" ng-disabled="defaultTrackForm.$invalid">Save Track</button>
+        </div>
+      </div>
     </form>
   </div>
   <div class="row">

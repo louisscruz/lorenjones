@@ -26,17 +26,19 @@ angular.module('lorenjonesApp')
     $scope.deleteDefaultTrack = function() {
       works.deleteDefaultTrack();
     };
-    $scope.addDefaultTrack = function() {
-      if($scope.newLink === '') {return};
-      var track = {
-        link: $scope.newLink
-      };
-      if($scope.defaultTrack.length === 0) {
-        console.log('adding a default track');
-        $scope.postDefaultTrack(track);
-      } else {
-        console.log('updating the current default track');
-        $scope.updateDefaultTrack(track);
+    $scope.addDefaultTrack = function(isValid) {
+      if (isValid) {
+        if($scope.newLink === '') {return};
+        var track = {
+          link: $scope.newLink
+        };
+        if($scope.defaultTrack.length === 0) {
+          console.log('adding a default track');
+          $scope.postDefaultTrack(track);
+        } else {
+          console.log('updating the current default track');
+          $scope.updateDefaultTrack(track);
+        }
       }
     };
     $scope.confirmDelete = Modal.confirm.delete(function() {

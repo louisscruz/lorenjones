@@ -7,9 +7,11 @@ angular.module('lorenjonesApp')
     function loadAll() {
       soundcloud.dumpData();
       var index = 0;
+      fact.tracks = [];
       $http.get('/api/default_tracks').success(function(t) {
         if (t[0]) {
           angular.copy(t, fact.defaultTrack);
+          fact.tracks.push(t[0].link);
           soundcloud.loadPlayerWith(t[0].link, index);
           index++;
         }
@@ -34,6 +36,7 @@ angular.module('lorenjonesApp')
           for (var i = 0; i < fact.works.length; i++) {
             if (fact.works[i].audio) {
               fact.worksTracks.push(fact.works[i].audio);
+              fact.tracks.push(fact.works[i].audio);
               playlistIndex = order.indexOf(count);
               soundcloud.loadPlayerWith(works[i].audio, playlistIndex);
               index++;
@@ -140,6 +143,7 @@ angular.module('lorenjonesApp')
       works: fact.works,
       dbwMovements: fact.dbwMovements,
       defaultTrack: fact.defaultTrack,
+      tracks: fact.tracks,
       worksTracks: fact.worksTracks,
       worksOrder: fact.worksOrder,
       // Default track functions

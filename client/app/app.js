@@ -74,7 +74,7 @@ angular.module('lorenjonesApp', [
       }
     };
   })
-  .run(function ($rootScope, $location, Auth, editableOptions, works, soundcloud) {
+  .run(function ($rootScope, $location, Auth, editableOptions, works, soundcloud, cleanUrl) {
     if (!Array.prototype.indexOf) {
       Array.prototype.indexOf = function(searchElement, fromIndex) {
         var k;
@@ -109,14 +109,11 @@ angular.module('lorenjonesApp', [
     $rootScope.defaultTrack = works.defaultTrack;
     $rootScope.allWorks = works.works;
     $rootScope.dbwMovements = works.dbwMovements;
+    $rootScope.tracks = works.tracks;
     $rootScope.worksTracks = works.worksTracks;
     $rootScope.worksOrder = works.worksOrder;
     $rootScope.cleanUrl = function(url) {
-      var u = url;
-      if (u.indexOf('https') !== -1) {
-        u = u.replace('https', 'http');
-      }
-      return u;
+      return cleanUrl(url);
     };
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
