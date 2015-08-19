@@ -18,6 +18,9 @@
     a {
       display: block;
       height: 150px;
+      background: center center relative;
+      background-size: cover;
+      cursor: pointer;
       &:hover {
         opacity: 0.5;
       }
