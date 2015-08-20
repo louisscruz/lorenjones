@@ -6,7 +6,8 @@
     </div>
   <h4>The current splash track is:</h4>
   <code ng-if="defaultTrack[0].link" ng-click="confirmDelete('the default track')">{{defaultTrack[0].link}}</code>
-  <h4>To change the splash track, copy and paste a track URL from Soundcloud.</h4>
+  <h4 ng-if="defaultTrack[0].link">To change the current splash track, copy and paste a track URL from Soundcloud.</h4>
+  <h4 ng-if="!defaultTrack[0].link">To add a splash track, copy and paste a track URL from Soundcloud.</h4>
   <div class="col-md-12">
     <form name="defaultTrackForm" ng-submit="addDefaultTrack(defaultTrackForm.$valid)" novalidate>
       <div class="form-group" ng-class="{ 'has-success' : defaultTrackForm.link.$valid && defaultTrackForm.link.$touched, 'has-error' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched && !defaultTrackForm.link.$error.required}">
@@ -31,36 +32,26 @@
       </div>
     </form>
   </div>
-  <div class="row">
+  <div class="row playlist-order">
+    <div class="col-md-12">
+      <h3>Current Playlist Order</h3>
+    </div>
     <div class="col-md-12">
       <ul ng-if="defaultTrack[0].link">
         Default Track
         <li>{{defaultTrack[0].link}}</li>
       </ul>
     </div>
-  </div>
-  <div class="row">
     <div class="col-md-12">
       <ul class="movable" ui-sortable="sortableOptions" ng-model="worksOrder">
         Works
         <li ng-repeat="track in worksOrder">{{worksTracks[track]}}</li>
       </ul>
-      {{worksOrder}}
     </div>
-  </div>
-  <div class="row">
     <div class="col-md-12">
       <ul>
         Dancing on the Brink of the World
         <li ng-repeat="track in dbwMovements track by $index"> {{ track.audio }}</li>
-      </ul>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h3>Current Playlist Order</h3>
-      <ul ui-sortable="sortableOptions" ng-model="player.tracks">
-        <li ng-repeat="track in player.tracks track by $index">{{$index + 1}}. {{ track.title }}</li>
       </ul>
     </div>
   </div>

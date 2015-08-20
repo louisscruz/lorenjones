@@ -6,6 +6,7 @@ angular.module('lorenjonesApp')
       .state('admin_works', {
         url: '/admin/works',
         templateUrl: 'app/admin/admin_works/admin_works.html',
-        controller: 'AdminWorksCtrl'
+        controller: 'AdminWorksCtrl',
+        authenticate: true
       });
   });

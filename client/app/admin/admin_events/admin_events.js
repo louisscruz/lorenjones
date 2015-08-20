@@ -6,6 +6,7 @@ angular.module('lorenjonesApp')
       .state('admin_events', {
         url: '/admin/events',
         templateUrl: 'app/admin/admin_events/admin_events.html',
-        controller: 'AdminEventsCtrl'
+        controller: 'AdminEventsCtrl',
+        authenticate: true
       });
   });
