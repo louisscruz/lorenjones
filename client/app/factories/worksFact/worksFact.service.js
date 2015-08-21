@@ -7,7 +7,6 @@ angular.module('lorenjonesApp')
     function loadAll() {
       soundcloud.dumpData();
       var index = 0;
-      fact.tracks = [];
       $http.get('/api/default_tracks').success(function(t) {
         if (t[0]) {
           angular.copy(t, fact.defaultTrack);
@@ -27,7 +26,9 @@ angular.module('lorenjonesApp')
           var defaultTrack = false;
           var count = 0;
           var order = fact.worksOrder;
+          console.log(order)
           if (index === 1) {
+            console.log('index is 1')
             order = order.map(function(x) {
               return x + 1;
             });
@@ -35,13 +36,17 @@ angular.module('lorenjonesApp')
             count = 1;
             console.log(order);
           }
+          console.log(fact.works)
+          console.log(fact.worksTracks)
           for (var i = 0; i < fact.works.length; i++) {
             if (fact.works[i].audio) {
               fact.worksTracks.push(fact.works[i].audio);
               if (defaultTrack) {
+                console.log('test');
                 playlistIndex = order.indexOf(count) + 1;
               } else {
                 playlistIndex = order.indexOf(count);
+                console.log(playlistIndex)
               }
               soundcloud.loadPlayerWith(works[i].audio, playlistIndex);
               index++;
@@ -92,32 +97,33 @@ angular.module('lorenjonesApp')
     function addWork(work) {
       return $http.post('/api/works', work).success(function(data) {
         if (work.audio) {
+          var newOrder;
           if (!fact.worksOrder) {
-            var newOrder = [0];
+            newOrder = [0];
           } else {
             var length = fact.worksOrder.length;
-            console.log(length);
-            var newOrder = fact.worksOrder;
+            newOrder = fact.worksOrder;
             newOrder.push(length);
           }
           updateWorksOrder(newOrder);
-          loadAll();
         }
+      })
+      .then(function() {
+        loadAll();
       });
     };
     // Delete work
     function deleteWork(work) {
       return $http.delete('/api/works/' + work._id).success(function(data) {
         if (work.audio) {
-          var currentPosition = fact.worksTracks.indexOf(work.audio);
-          var currentValue = fact.worksOrder[currentPosition];
+          var naturalPosition = fact.worksTracks.indexOf(work.audio);
+          var playlistIndex = fact.worksOrder.indexOf(naturalPosition);
+          var playlistValue = fact.worksOrder[playlistIndex];
           var order = fact.worksOrder;
-          order.splice(currentPosition, 1);
-          if (currentPosition !== 0) {
-            for (var i = 0; i < order.length; i++) {
-              if (order[i] > currentValue) {
-                order[i]--;
-              }
+          order.splice(playlistIndex, 1);
+          for (var i = 0, len = order.length; i < len; i++) {
+            if (order[i] > playlistValue) {
+              order[i]--;
             }
           }
           updateWorksOrder(order);
@@ -127,10 +133,10 @@ angular.module('lorenjonesApp')
     };
     // Get the playlist order
     function getWorksOrder() {
-      $http.get('/api/playlists').success(function(data) {
+      return $http.get('/api/playlists').success(function(data) {
+        console.log(data);
         angular.copy(data.order, fact.worksOrder)
       });
-      return fact.worksOrder;
     };
     // Update the playlist order
     function updateWorksOrder(o) {

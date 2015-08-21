@@ -32,6 +32,12 @@
       </div>
     </form>
   </div>
+  {{defaultTrack[0]}}
+  {{player.tracks.length}}
+  {{worksOrder}}
+  <ul>
+    <li ng-repeat="track in player.tracks">{{track.title}}</li>
+  </ul>
   <div class="row playlist-order">
     <div class="col-md-12">
       <h3>Current Playlist Order</h3>
