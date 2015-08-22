@@ -1,7 +1,8 @@
 'use strict';
 angular.module('lorenjonesApp')
-  .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', function ($http, $rootScope, socket, soundcloud) {
+  .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', 'cleanUrl', function ($http, $rootScope, socket, soundcloud, cleanUrl) {
     var fact = { defaultTrack: [], works: [], dbwMovements: [], worksTracks: [], worksOrder: [] };
+    var cachedWork;
     // var order = null;
     // Get all works and tracks; send tracks to soundcloud player
     function loadAll() {
@@ -112,6 +113,73 @@ angular.module('lorenjonesApp')
         loadAll();
       });
     };
+    // Update work
+    function updateWork(work) {
+      console.log(work);
+      console.log(cachedWork);
+      if (!cachedWork) {
+        console.log('you will be adding a track where one previously did not exist');
+        console.log(work.audio);
+        var naturalPlacement;
+        var count = 0;
+        for (var i = 0, len = fact.works.length; i < len; i++) {
+          if (fact.works[i].audio) {
+            console.log(fact.works[i].audio);
+            if (fact.works[i]._id === work._id) {
+              naturalPlacement = count;
+              console.log(naturalPlacement);
+              break;
+            }
+            console.log(i);
+            count++;
+          }
+        }
+        console.log(naturalPlacement);
+        console.log(fact.worksOrder);
+        //Update the work with the track then update the playlist
+        /*$http.patch('/api/works/' + work._id, {
+          title: work.title,
+          category: work.category,
+          date: work.date,
+          instrumentation: work.instrumentation,
+          info: work.info,
+          link: work.link,
+          audio: work.audio,
+          video: work.video
+        })
+        .success(function() {*/
+          var oldOrder = fact.worksOrder;
+          console.log(oldOrder);
+          for (var i = 0, len = oldOrder.length; i < len; i++) {
+            console.log(i);
+            if (oldOrder[i] > naturalPlacement) {
+              console.log(oldOrder[i]++);
+             oldOrder[i]++;
+             console.log(oldOrder[i]);
+            }
+          }
+          var news = oldOrder.length;
+          console.log(oldOrder);
+          oldOrder.push(news);
+          console.log(oldOrder);
+          /*updateWorksOrder(order);
+        });*/
+      } else {
+        console.log('already a track, so its fine');
+        console.log(cachedWork);
+        // Update the work track without updating the playlist
+        /*$http.patch('/api/works/' + work._id, {
+          title: work.title,
+          category: work.category,
+          date: work.date,
+          instrumentation: work.instrumentation,
+          info: work.info,
+          link: work.link,
+          audio: work.audio,
+          video: work.video
+        });*/
+      }
+    };
     // Delete work
     function deleteWork(work) {
       return $http.delete('/api/works/' + work._id).success(function(data) {
@@ -130,6 +198,25 @@ angular.module('lorenjonesApp')
           loadAll();
         }
       });
+    };
+    // Cache old work values
+    function cacheWork(data) {
+      console.log(data)
+      cachedWork = data.audio;
+      console.log('successfully cached a work');
+      //return cachedWork;
+    };
+    // Unique work audio
+    function uniqueUrl(value) {
+      if (value) {
+        var u = cleanUrl(value);
+        for (var i = 0; i < $scope.player.tracks.length; i++) {
+          if ($scope.player.tracks[i].permalink_url === u) {
+            return false;
+          }
+        }
+      }
+      return true;
     };
     // Get the playlist order
     function getWorksOrder() {
@@ -162,7 +249,10 @@ angular.module('lorenjonesApp')
       updateDefaultTrack: updateDefaultTrack,
       // Works functions
       addWork: addWork,
+      updateWork: updateWork,
       deleteWork: deleteWork,
+      cacheWork: cacheWork,
+      uniqueUrl: uniqueUrl,
       // Playlist order functions
       getWorksOrder: getWorksOrder,
       updateWorksOrder: updateWorksOrder,
