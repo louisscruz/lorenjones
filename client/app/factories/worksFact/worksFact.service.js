@@ -118,6 +118,7 @@ angular.module('lorenjonesApp')
       console.log(work);
       console.log(cachedWork);
       if (!cachedWork) {
+        // If no track previously associated with the work, add a track and update the playlist
         console.log('you will be adding a track where one previously did not exist');
         console.log(work.audio);
         var naturalPlacement;
@@ -152,6 +153,7 @@ angular.module('lorenjonesApp')
           console.log(oldOrder);
           for (var i = 0, len = oldOrder.length; i < len; i++) {
             console.log(i);
+            // Check that this loop catches the right playlist values/indexes when work is not naturally last.
             if (oldOrder[i] > naturalPlacement) {
               console.log(oldOrder[i]++);
              oldOrder[i]++;

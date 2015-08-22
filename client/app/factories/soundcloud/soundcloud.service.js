@@ -162,8 +162,9 @@ angular.module('lorenjonesApp')
       return $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
         deferred.resolve();
       }).error(function(err) {
-        deferred.reject();
+        deferred.reject('Invalid URL');
       });
+      return deferred.promise;
     };
     return {
       player: fact.player,

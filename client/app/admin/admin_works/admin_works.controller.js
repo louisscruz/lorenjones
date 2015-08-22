@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AdminWorksCtrl', function ($scope, $http, socket, Modal, works) {
+  .controller('AdminWorksCtrl', function ($scope, $http, socket, Modal, works, $q, soundcloud) {
     $scope.works = works.works;
     $scope.currentYear = new Date().getFullYear();
     $scope.groups = [
@@ -14,7 +14,7 @@ angular.module('lorenjonesApp')
       'Opera'
     ];
     $scope.addWork = function(isValid) {
-      if(isValid) {
+      if (isValid) {
         var work = {
           title: $scope.newTitle,
           category: $scope.newCategory,
@@ -52,6 +52,13 @@ angular.module('lorenjonesApp')
       if ($scope.worksTracks.indexOf(data) !== -1 && data !== '') {
         return 'This tracks is already loaded in the player.';
       }
+      var d = $q.defer();
+      soundcloud.testLoad(data).success(function(res) {
+        d.resolve();
+      }).error(function(err) {
+        d.reject('Invalid URL');
+      });
+      return d.promise;
     };
     $scope.confirmDelete = Modal.confirm.delete(function(work) {
       works.deleteWork(work);
