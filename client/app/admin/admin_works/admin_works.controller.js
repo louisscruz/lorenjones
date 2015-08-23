@@ -52,13 +52,19 @@ angular.module('lorenjonesApp')
       if ($scope.worksTracks.indexOf(data) !== -1) {
         return 'This tracks is already loaded in the player.';
       }
-      /*var d = $q.defer();
+      var d = $q.defer();
       soundcloud.testLoad(data).success(function(res) {
         d.resolve();
       }).error(function(err) {
         d.reject('Invalid URL');
       });
-      return d.promise;*/
+      return d.promise;
+    };
+    $scope.clearWorkTrack = function(work) {
+      works.cacheWork(work);
+      work.audio = '';
+      console.log(work);
+      works.updateWork(work);
     };
     $scope.confirmDelete = Modal.confirm.delete(function(work) {
       works.deleteWork(work);

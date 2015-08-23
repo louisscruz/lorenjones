@@ -122,6 +122,7 @@ angular.module('lorenjonesApp')
         video: work.video
       }
       if (!cachedWork) {
+        console.log('no cached work');
         // If no track previously associated with the work, add a track and update the playlist
         for (var i = 0, len = fact.works.length; i < len; i++) {
           if (fact.works[i].audio) {
@@ -148,7 +149,9 @@ angular.module('lorenjonesApp')
           loadAll();
         });
       } else {
+        console.log('cached work')
         if (!work.audio) {
+          console.log('there is a cached work and no work audio')
           for (var i = 0, len = fact.works.length; i < len; i++) {
             if (fact.works[i]._id === work._id) {
               naturalPlacement = count;
@@ -171,6 +174,7 @@ angular.module('lorenjonesApp')
             loadAll();
           });
         } else {
+          console.log('just updating the work');
           // Update the work track without updating the playlist
           $http.patch('/api/works/' + work._id, trackUpdate)
           .success(function() {
