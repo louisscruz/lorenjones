@@ -7,7 +7,7 @@ var Playlist = require('./playlist.model');
 exports.index = function(req, res) {
   Playlist.find(function (err, playlists) {
     if(err) { return handleError(res, err); }
-    return res.status(200).json(playlists);
+    return res.json(200, playlists);
   });
 };
 
@@ -19,7 +19,7 @@ exports.show = function(req, res) {
     } else if(!playlist) {
       return res.status(404).send('Not Found');
     } else {
-      return res.json(playlist);
+      return res.json(200, playlist);
     }
   });
 };
