@@ -4,18 +4,20 @@ angular.module('lorenjonesApp')
     function($http, $q) {
       var o = {};
       var apiKey = 'b288d1360b00e2f8584150f7da3ff3ef';
-      var userId = 'id=134139109@N08';
+      var userId = '134139109@N08';
       var photosetId = '72157657015377619';
       o.query = function(src, perPage, page) {
+        /*jshint camelcase: false*/
         var deferred = $q.defer();
         //if (o.photos) {
-        if (o.photos && o.photos.length === perPage * page) {
+        if (page === 1 && o.photos) {
           deferred.resolve(o.photos);
         } else {
-          $http.jsonp('https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&apiKey=' + apiKey + '&photosetId=' + photosetId + '&userId=' + userId + '&perPage=' + perPage + '&page=' + page + '&format=json&jsoncallback=JSON_CALLBACK', {
-            cache: false
+          $http.jsonp('https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&api_key=' + apiKey + '&photoset_id=' + photosetId + '&user_id=' + userId + '&per_page=' + perPage + '&page=' + page + '&format=json&jsoncallback=JSON_CALLBACK', {
+            cache: true
           })
           .then(function(result) {
+            console.log(result);
             //if has photos, concat photos to old photos, else:
             o.photos = result.data.photoset.photo;
             for (var i = 0, len = o.photos.length; i < len; i++) {

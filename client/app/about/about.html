@@ -11,12 +11,10 @@
 <div class="flickr container">
   <div class="row">
     <h1 class="center">Loren's Photos</h1>
-    {{page}}
     <a href="http://www.flickr.com/photos/134139109@N08/" target="_blank" title="Follow me on Flickr!" class="link">Follow Loren on <img src="assets/images/about/Flickr_wordmark.svg" width="56" height="26" alt=""> <i class="fa fa-lg fa-external-link-square"></i></a>
   </div>
   <div class="thumbnails row">
     <div ng-repeat="p in pics track by $index" class="col-xs-6 col-sm-4 col-md-3">
-      {{$index}}
       <a ng-click="openLightboxModal($index)" ng-style="{'background-image' : 'url(' + p.thumbnail + ')'}" angular-ripple>
         <!--img ng-src="{{::p.thumbnail}}" class="img-thumbnail"-->
       </a>
@@ -24,7 +22,7 @@
   </div>
   <div class="row">
     <div class="col-xs-8 col-xs-offset-2">
-      <div class="btn btn-primary btn-block" ng-click="loadMore()">Load More Photos</div>
+      <div class="btn btn-primary btn-block" ng-click="loadMore()" ng-if="!endOfAlbum"><i class="fa" ng-class="{'fa-circle-o-notch fa-spin' : loadingPhotos}"></i>Load More Photos</div>
     </div>
   </div>
 </div>

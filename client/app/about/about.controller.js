@@ -10,11 +10,18 @@ angular.module('lorenjonesApp')
     $scope.pics = [];
     var perPage = 12;
     $scope.page = 1;
+    $scope.endOfAlbum = false;
+    $scope.loadingPhotos = false;
     var src = 'flickr.photosets.getPhotos';
     $scope.loadPhotos = function(page) {
+      $scope.loadingPhotos = true;
       flickr.query(src, perPage, page)
       .then(function(data) {
+        $scope.loadingPhotos = false;
         console.log(data);
+        if (data.length < perPage) {
+          $scope.endOfAlbum = true;
+        }
         for (var i = 0, len = data.length; i < len; i++) {
           $scope.pics.push(data[i]);
         }
