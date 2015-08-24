@@ -8,7 +8,7 @@ angular.module('lorenjonesApp')
       link: function($scope, $attr, $elem, ctrl) {
         ctrl.$asyncValidators.validUrl = function(url) {
           return soundcloud.testLoad(url);
-        }
+        };
       }
     };
   }]);

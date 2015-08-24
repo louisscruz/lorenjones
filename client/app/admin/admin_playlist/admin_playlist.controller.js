@@ -5,7 +5,7 @@ angular.module('lorenjonesApp')
     $scope.show = works.defaultTrack;
     $scope.sortableOptions = {
       'ui-floating': true,
-      stop: function(e, ui) {
+      stop: function() {
         works.updateWorksOrder($scope.worksOrder);
         works.loadAll();
       }
@@ -14,13 +14,13 @@ angular.module('lorenjonesApp')
     $scope.postDefaultTrack = function(track) {
       works.addDefaultTrack(track);
       $scope.newLink = '';
-    }
+    };
     $scope.updateDefaultTrack = function(track) {
       works.updateDefaultTrack(track).success(function() {
         $scope.defaultTrack = works.defaultTrack;
         $scope.newLink = '';
       }).error(function() {
-        works.loadSoundcloudPlayer;
+        works.loadSoundcloudPlayer();
       });
     };
     $scope.deleteDefaultTrack = function() {
@@ -28,7 +28,7 @@ angular.module('lorenjonesApp')
     };
     $scope.addDefaultTrack = function(isValid) {
       if (isValid) {
-        if($scope.newLink === '') {return};
+        if($scope.newLink === '') { return; }
         var track = {
           link: $scope.newLink
         };

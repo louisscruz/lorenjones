@@ -42,8 +42,6 @@
         <button type="submit" class="btn btn-primary" ng-disabled="worksForm.$invalid || worksTracks.indexOf(newAudio) !== -1">Add New</button>
       </p>
     </form>
-    {{worksTracks}}
-    {{worksOrder}}
   </div>
 
   <accordion class="col-md-9">
@@ -97,8 +95,7 @@
           <a href="#" editable-text="work.audio" onshow="cacheWork(work)" onbeforesave="checkUrl($data)" onaftersave="updateWork(work)">
             {{ work.audio || "empty" }}
           </a>
-          <button type="button" class="btn btn-danger btn-xs" ng-if="work.audio !== ''" ng-click="clearWorkTrack(work)"><!--i class="fa fa-times"></i-->remove</button>
-          {{!work.audio}}
+          <button type="button" class="btn btn-danger btn-xs" ng-if="work.audio !== ''" ng-click="clearWorkTrack(work)">remove</button>
         </div>
         <label>Video</label>
         <div>

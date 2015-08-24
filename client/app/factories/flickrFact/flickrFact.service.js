@@ -3,17 +3,16 @@ angular.module('lorenjonesApp')
   .factory('flickr', ['$http', '$q',
     function($http, $q) {
       var o = {};
-      var api_key = 'b288d1360b00e2f8584150f7da3ff3ef';
-      var user_id = 'id=134139109@N08';
-      var photoset_id = '72157657015377619';
-      o.query = function(src, per_page, page) {
-        console.log(page)
+      var apiKey = 'b288d1360b00e2f8584150f7da3ff3ef';
+      var userId = 'id=134139109@N08';
+      var photosetId = '72157657015377619';
+      o.query = function(src, perPage, page) {
         var deferred = $q.defer();
         //if (o.photos) {
-        if (o.photos && o.photos.length === per_page * page) {
+        if (o.photos && o.photos.length === perPage * page) {
           deferred.resolve(o.photos);
         } else {
-          $http.jsonp('https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&api_key=b288d1360b00e2f8584150f7da3ff3ef&photoset_id=72157657015377619&user_id=134139109@N08&per_page=' + per_page + '&page=' + page + '&format=json&jsoncallback=JSON_CALLBACK', {
+          $http.jsonp('https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&apiKey=' + apiKey + '&photosetId=' + photosetId + '&userId=' + userId + '&perPage=' + perPage + '&page=' + page + '&format=json&jsoncallback=JSON_CALLBACK', {
             cache: false
           })
           .then(function(result) {
@@ -25,7 +24,7 @@ angular.module('lorenjonesApp')
               o.photos[i].url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
             }
             deferred.resolve(o.photos);
-          }, function(error) {
+          }, function() {
             deferred.reject('Could not get json');
           });
         }

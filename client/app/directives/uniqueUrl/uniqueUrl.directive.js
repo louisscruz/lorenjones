@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint camelcase: false */
 angular.module('lorenjonesApp')
   .directive('uniqueUrl', ['cleanUrl', function (cleanUrl) {
     return {

@@ -2,8 +2,6 @@
 
 angular.module('lorenjonesApp')
   .filter('playlistOrder', function () {
-    return function(item) {
-      
-
+    return function() {
     };
   });

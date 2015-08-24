@@ -15,7 +15,7 @@ exports.index = function(req, res) {
 exports.show = function(req, res) {
   Playlist.findOne({}, function(err, playlist) {
     if(err) {
-      return handleError(res, error);
+      return handleError(res, err);
     } else if(!playlist) {
       return res.status(404).send('Not Found');
     } else {

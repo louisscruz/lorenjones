@@ -8,5 +8,5 @@ angular.module('lorenjonesApp')
         u = u.replace('https', 'http');
       }
       return u;
-    }
+    };
   });

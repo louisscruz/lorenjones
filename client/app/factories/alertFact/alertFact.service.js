@@ -2,9 +2,8 @@
 
 angular.module('lorenjonesApp')
   .factory('alertFact', function ($rootScope, $timeout) {
-    var alertFact;
     $rootScope.alerts = [];
-    return alertFact = {
+    var alertFact = {
       add: function(type, msg) {
         var alert = {
           type: type,
@@ -18,11 +17,12 @@ angular.module('lorenjonesApp')
         }, 5000);
         return $rootScope.alerts.push(alert);
       },
-      closeAlert: function(alert) {
-        return closeAlertIdx(alerts.indexOf(alert));
-      },
       closeAlertIdx: function(index) {
         return $rootScope.alerts.splice(index, 1);
+      },
+      closeAlert: function(alert) {
+        return alertFact.closeAlertIdx($rootScope.alerts.indexOf(alert));
       }
     };
+    return alertFact;
   });

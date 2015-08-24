@@ -15,15 +15,15 @@ angular.module('lorenjonesApp')
         });
         $scope.cache = data;
         $http.post('/api/contact', data)
-          .success(function(d) {
-            alertFact.add('success', d.name + ', thank you for the message. I\'ll get back to you soon!');
-            $scope.sending = false;
-            $location.path('/');
-          })
-          .error(function(d) {
-            $scope.sending = false;
-            alertFact.add('danger', 'We could not deliver your message. Modify your message and try again, or send your message to louisstephancruz@me.com.');
-          })
+        .success(function(d) {
+          alertFact.add('success', d.name + ', thank you for the message. I\'ll get back to you soon!');
+          $scope.sending = false;
+          $location.path('/');
+        })
+        .error(function() {
+          $scope.sending = false;
+          alertFact.add('danger', 'We could not deliver your message. Modify your message and try again, or send your message to louisstephancruz@me.com.');
+        });
       }
-    }
+    };
   });

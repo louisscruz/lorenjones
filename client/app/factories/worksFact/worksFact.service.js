@@ -1,4 +1,5 @@
 'use strict';
+/*jshint shadow: true*/
 angular.module('lorenjonesApp')
   .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', 'cleanUrl', function ($http, $rootScope, socket, soundcloud, cleanUrl) {
     var fact = { defaultTrack: [], works: [], dbwMovements: [], worksTracks: [], worksOrder: [] };
@@ -61,35 +62,35 @@ angular.module('lorenjonesApp')
           }
         });
       });
-    };
+    }
     // Add default track
     function addDefaultTrack(track) {
-      return $http.post('/api/default_tracks/', {link: track.link}).success(function(data) {
+      return $http.post('/api/default_tracks/', {link: track.link}).success(function() {
         angular.copy(track, fact.defaultTrack);
       })
       .then(function() {
         loadAll();
       });
-    };
+    }
     // Delete the default track
     function deleteDefaultTrack() {
-      return $http.delete('/api/default_tracks/' + fact.defaultTrack[0]._id).success(function(data) {
+      return $http.delete('/api/default_tracks/' + fact.defaultTrack[0]._id).success(function() {
         fact.defaultTrack.splice(0, 1);
       })
       .then(function() {
         loadAll();
       });
-    };
+    }
     // Update the default track
     function updateDefaultTrack(track) {
-      return $http.patch('/api/default_tracks/' + fact.defaultTrack[0]._id, {link: track.link}).success(function(data) {
+      return $http.patch('/api/default_tracks/' + fact.defaultTrack[0]._id, {link: track.link}).success(function() {
         fact.defaultTrack[0].link = track.link;
         loadAll();
       });
-    };
+    }
     // Add work
     function addWork(work) {
-      return $http.post('/api/works', work).success(function(data) {
+      return $http.post('/api/works', work).success(function() {
         if (work.audio) {
           var newOrder;
           if (!fact.worksOrder) {
@@ -105,7 +106,7 @@ angular.module('lorenjonesApp')
       .then(function() {
         loadAll();
       });
-    };
+    }
     // Update work
     function updateWork(work) {
       var naturalPlacement;
@@ -120,9 +121,8 @@ angular.module('lorenjonesApp')
         link: work.link,
         audio: work.audio,
         video: work.video
-      }
+      };
       if (!cachedWork) {
-        console.log('no cached work');
         // If no track previously associated with the work, add a track and update the playlist
         for (var i = 0, len = fact.works.length; i < len; i++) {
           if (fact.works[i].audio) {
@@ -149,11 +149,9 @@ angular.module('lorenjonesApp')
           loadAll();
         });
       } else {
-        console.log('cached work')
         if (!work.audio) {
-          console.log('there is a cached work and no work audio')
-          for (var i = 0, len = fact.works.length; i < len; i++) {
-            if (fact.works[i]._id === work._id) {
+          for (var y = 0, len = fact.works.length; y < len; y++) {
+            if (fact.works[y]._id === work._id) {
               naturalPlacement = count;
             }
             count++;
@@ -174,7 +172,6 @@ angular.module('lorenjonesApp')
             loadAll();
           });
         } else {
-          console.log('just updating the work');
           // Update the work track without updating the playlist
           $http.patch('/api/works/' + work._id, trackUpdate)
           .success(function() {
@@ -182,10 +179,10 @@ angular.module('lorenjonesApp')
           });
         }
       }
-    };
+    }
     // Delete work
     function deleteWork(work) {
-      return $http.delete('/api/works/' + work._id).success(function(data) {
+      return $http.delete('/api/works/' + work._id).success(function() {
         if (work.audio) {
           var naturalPosition = fact.worksTracks.indexOf(work.audio);
           var playlistIndex = fact.worksOrder.indexOf(naturalPosition);
@@ -201,41 +198,38 @@ angular.module('lorenjonesApp')
           loadAll();
         }
       });
-    };
+    }
     // Cache old work values
     function cacheWork(data) {
       cachedWork = data.audio;
       //return cachedWork;
-    };
+    }
     // Unique work audio
     function uniqueUrl(value) {
+      /*jshint camelcase: false*/
       if (value) {
         var u = cleanUrl(value);
-        for (var i = 0; i < $scope.player.tracks.length; i++) {
-          if ($scope.player.tracks[i].permalink_url === u) {
+        for (var i = 0; i < $rootScope.player.tracks.length; i++) {
+          if ($rootScope.player.tracks[i].permalink_url === u) {
             return false;
           }
         }
       }
       return true;
-    };
+    }
     // Get the playlist order
     function getWorksOrder() {
       return $http.get('/api/playlists').success(function(data) {
         console.log(data);
-        angular.copy(data.order, fact.worksOrder)
+        angular.copy(data.order, fact.worksOrder);
       });
-    };
+    }
     // Update the playlist order
     function updateWorksOrder(o) {
-      return $http.patch('/api/playlists', {order: o}).success(function(data) {
+      return $http.patch('/api/playlists', {order: o}).success(function() {
         fact.worksOrder = o;
       });
-    };
-    // Update the player order by Playlist
-    function updatePlayerOrder() {
-
-    };
+    }
     return {
       loadAll: loadAll,
       // Resources
@@ -256,7 +250,6 @@ angular.module('lorenjonesApp')
       uniqueUrl: uniqueUrl,
       // Playlist order functions
       getWorksOrder: getWorksOrder,
-      updateWorksOrder: updateWorksOrder,
-      updatePlayerOrder: updatePlayerOrder
+      updateWorksOrder: updateWorksOrder
     };
   }]);

@@ -53,9 +53,9 @@ angular.module('lorenjonesApp')
         return 'This tracks is already loaded in the player.';
       }
       var d = $q.defer();
-      soundcloud.testLoad(data).success(function(res) {
+      soundcloud.testLoad(data).success(function() {
         d.resolve();
-      }).error(function(err) {
+      }).error(function() {
         d.reject('Invalid URL');
       });
       return d.promise;

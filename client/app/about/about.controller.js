@@ -8,11 +8,11 @@ angular.module('lorenjonesApp')
       socket.syncUpdates('bio_entry', $scope.bioEntries);
     });
     $scope.pics = [];
-    var per_page = 12;
+    var perPage = 12;
     $scope.page = 1;
     var src = 'flickr.photosets.getPhotos';
     $scope.loadPhotos = function(page) {
-      flickr.query(src, per_page, page)
+      flickr.query(src, perPage, page)
       .then(function(data) {
         console.log(data);
         for (var i = 0, len = data.length; i < len; i++) {
@@ -24,7 +24,7 @@ angular.module('lorenjonesApp')
     $scope.loadMore = function() {
       $scope.page++;
       console.log($scope.page);
-      console.log(per_page);
+      console.log(perPage);
       $scope.loadPhotos($scope.page);
       console.log($scope.pics);
     };

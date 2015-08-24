@@ -22,6 +22,7 @@ angular.module('lorenjonesApp')
           fact.player.i++;
         },
         play: function(index, playlistIndex) {
+          /*jshint camelcase: false*/
           fact.player.i = index || 0;
           var track = fact.player.tracks[fact.player.i];
           var src = null;
@@ -109,6 +110,7 @@ angular.module('lorenjonesApp')
           //get index
           var tracks = fact.player.tracks;
           for (var y = 0; y < tracks.length; y++) {
+            /*jshint camelcase: false*/
             if (query === tracks[y].permalink_url) {
               mem = y;
               return mem;
@@ -138,9 +140,10 @@ angular.module('lorenjonesApp')
       fact.player.tracks = [];
       fact.player.i = 0;
       return fact.player;
-    };
+    }
     // Load track on an individual basis
     function loadPlayer(track, index) {
+      /*jshint camelcase: false*/
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       if(fact.player.data[track]) {
         var t = fact.player.data[track];
@@ -150,22 +153,21 @@ angular.module('lorenjonesApp')
         $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
           fact.player.data[track] = data;
           fact.player.load(data, index);
-        }).error(function(data, status) {
-          alert('There was an error loading the following track to the audio player: ' + track);
         });
-      };
+      }
       return fact.player;
-    };
+    }
     function testLoad(track) {
+      /*jshint camelcase: false*/
       var deferred = $q.defer();
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
-      return $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
+      $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function() {
         deferred.resolve();
-      }).error(function(err) {
+      }).error(function() {
         deferred.reject('Invalid URL');
       });
       return deferred.promise;
-    };
+    }
     return {
       player: fact.player,
       loadPlayerWith: loadPlayer,
