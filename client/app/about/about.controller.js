@@ -14,6 +14,7 @@ angular.module('lorenjonesApp')
     $scope.loadPhotos = function(page) {
       flickr.query(src, per_page, page)
       .then(function(data) {
+        console.log(data);
         for (var i = 0, len = data.length; i < len; i++) {
           $scope.pics.push(data[i]);
         }
@@ -23,10 +24,11 @@ angular.module('lorenjonesApp')
     $scope.loadMore = function() {
       $scope.page++;
       console.log($scope.page);
+      console.log(per_page);
       $scope.loadPhotos($scope.page);
       console.log($scope.pics);
     };
     $scope.openLightboxModal = function(index) {
-      Lightbox.openModal($scope.largePics, index);
+      Lightbox.openModal($scope.pics, index);
     };
   });

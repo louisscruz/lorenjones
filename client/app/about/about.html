@@ -16,6 +16,7 @@
   </div>
   <div class="thumbnails row">
     <div ng-repeat="p in pics track by $index" class="col-xs-6 col-sm-4 col-md-3">
+      {{$index}}
       <a ng-click="openLightboxModal($index)" ng-style="{'background-image' : 'url(' + p.thumbnail + ')'}" angular-ripple>
         <!--img ng-src="{{::p.thumbnail}}" class="img-thumbnail"-->
       </a>

@@ -6,9 +6,11 @@ angular.module('lorenjonesApp')
       var api_key = 'b288d1360b00e2f8584150f7da3ff3ef';
       var user_id = 'id=134139109@N08';
       var photoset_id = '72157657015377619';
-      o.query = function(src,per_page, page) {
+      o.query = function(src, per_page, page) {
+        console.log(page)
         var deferred = $q.defer();
-        if (o.photos) {
+        //if (o.photos) {
+        if (o.photos && o.photos.length === per_page * page) {
           deferred.resolve(o.photos);
         } else {
           $http.jsonp('https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&api_key=b288d1360b00e2f8584150f7da3ff3ef&photoset_id=72157657015377619&user_id=134139109@N08&per_page=' + per_page + '&page=' + page + '&format=json&jsoncallback=JSON_CALLBACK', {
