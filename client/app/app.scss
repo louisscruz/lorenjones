@@ -269,6 +269,21 @@ form label {
 .alert.ng-leave-active {
   opacity: 0;
 }
+.light {
+transition: all ease-in-out 0.5s;
+}
+.light.ng-enter {
+  opacity: 1;
+}
+.light.ng-enter-active {
+  opacity: 0.8;
+}
+.light.ng-leave {
+  opacity: 0.8;
+}
+.light.ng-leave-active {
+  opacity: 1;
+}
 .repeated-item { }
 .repeated-item.ng-move,
 .repeated-item.ng-enter {
