@@ -1,9 +1,10 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 $fa-font-path: "/bower_components/font-awesome/fonts";
 
-$primary: #3C3B5C;
-$primary-medium: #7986CB;
-$primary-light: lighten($primary, 35%);
+$background-color: #2C2830;
+$primary: #4B4452;
+$primary-light: #81758C;
+$white: #FFFFF3;
 $dark-gray: #424242;
 $light-gray: #F5F5F5;
 $blue: #66b8ac;
@@ -13,9 +14,6 @@ $border-radius-large: 4px;
 $border-radius-small: 1px;
 
 $animation-time: 0.15s;
-
-$background-color: #1e1b21;
-$white: #d6d6d6;
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
@@ -98,6 +96,7 @@ body {
 }
 #footer {
   position: fixed;
+  color: $white;
   height: 42px;
   bottom: 0px;
   z-index: 100;
@@ -191,14 +190,14 @@ p {
   font-weight: 400;
 }
 h1 {
-  color: white;
+  color: $white;
 }
 form label {
-  color: white;
+  color: $white;
 }
 // Buttons
 .btn-default {
-  background: white;
+  background: $white;
   color: $primary;
   border: none;
   .active {
@@ -209,12 +208,12 @@ form label {
   }
   &:hover {
     background-color: $primary-light;
-    color: $primary;
+    color: $white;
   }
 }
 .btn-default.active {
   background-color: $primary;
-  color: white;
+  color: $white;
 }
 .flip {
   -webkit-perspective: 800;
@@ -270,7 +269,7 @@ form label {
   opacity: 0;
 }
 .light {
-transition: all ease-in-out 0.5s;
+  transition: all ease-in-out 0.5s;
 }
 .light.ng-enter {
   opacity: 1;
@@ -283,6 +282,20 @@ transition: all ease-in-out 0.5s;
 }
 .light.ng-leave-active {
   opacity: 1;
+}
+.navbar-brand {
+  transition: all ease-in-out 0.5s;
+}
+.navbar-brand-add,
+.navbar-brand-remove {
+  transition: all ease-in-out 0.5s;
+}
+.navbar-brand,
+.navbar-brand-add.navbar-brand-active {
+  opacity: 1;
+}
+.navbar-brand-remove.navbar-brand-remove-active {
+  opacity: 0;
 }
 .repeated-item { }
 .repeated-item.ng-move,
@@ -298,12 +311,8 @@ transition: all ease-in-out 0.5s;
 .repeated-item.ng-enter.ng-enter-active {
   opacity:1;
 }
-.vis-hidden.ng-enter {
-  transition: 0.5s ease-in-out;
+.vis-hidden {
   opacity: 0;
-}
-.vis-hidden.ng-enter.ng-enter-active {
-  opacity: 1;
 }
 [angular-ripple] {
   position: relative;

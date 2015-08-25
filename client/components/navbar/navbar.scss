@@ -14,6 +14,9 @@ $sand-serif-normal: 400 !important;
 .navbar {
   background-color: transparent;
   border: 0px;
+  .container {
+    opacity: 1;
+  }
   .navbar-toggle.collapsed {
     .top-bar {
       transform: rotate(0);
@@ -107,7 +110,8 @@ $sand-serif-normal: 400 !important;
 .navbar-brand {
   font-family: $serif-font;
   font-weight: $serif-font-bold;
-  color: white !important;
+  color: $white !important;
+  transition: all ease-in-out 0.5s;
 }
 
 .nav-tabs {
