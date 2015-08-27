@@ -15,4 +15,8 @@ describe('Service: worksFact', function () {
     expect(!!worksFact).toBe(true);
   });
 
+  it('should return something', function() {
+    expect(works.works).toBe(true);
+  });
+
 });
