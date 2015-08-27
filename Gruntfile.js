@@ -429,14 +429,18 @@ module.exports = function (grunt) {
           'node-inspector'
         ],
         options: {
-          logConcurrentOutput: true
+          logConcurrentOutput: true,
+          limit: 8
         }
       },
       dist: [
         'sass',
         'imagemin',
         'svgmin'
-      ]
+      ], options: {
+        logConcurrentOutput: true,
+        limit: 8
+      }
     },
 
     // Test settings
