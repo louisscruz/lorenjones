@@ -17,7 +17,8 @@ angular.module('lorenjonesApp', [
   'duScroll',
   'duParallax',
   'ngMessages',
-  'angularRipple'
+  'angularRipple',
+  'ngPicturefill'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider) {
     $urlRouterProvider.otherwise('/');

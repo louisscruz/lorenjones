@@ -5,9 +5,9 @@ angular.module('lorenjonesApp')
     $scope.background = parallaxHelper.createAnimator(-0.3);
     $scope.fastBackground = parallaxHelper.createAnimator(-0.8);
     $scope.titleBackground = parallaxHelper.createAnimator(-0.5);
-    $scope.panoramaOne = parallaxHelper.createAnimator(0.15, 0, -800, -1200);
-    $scope.panoramaTwo = parallaxHelper.createAnimator(0.2, 0, -800, -1200);
-    $scope.panoramaThree = parallaxHelper.createAnimator(0.25, 0, -800, -1200);
+    $scope.panoramaOne = parallaxHelper.createAnimator(0.05, 0, 0, 0);
+    /*$scope.panoramaTwo = parallaxHelper.createAnimator(0.2, 0, -800, -1200);
+    $scope.panoramaThree = parallaxHelper.createAnimator(0.25, 0, -800, -1200);*/
     $scope.videoUrl = 'https://www.youtube.com/watch?v=CCwB4TRJUgc';
     $scope.dbwMovements = works.dbwMovements;
     $scope.movements = [

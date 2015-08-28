@@ -16,9 +16,17 @@
       }
     }
     .hor-photo {
-      height: 320px;
+      height: 120px;
       overflow: hidden;
       position: absolute;
+      .hor-parallax-img {
+        height: 100%;
+        overflow:hidden;
+        width: auto;
+        img {
+          height: 100%;
+        }
+      }
     }
     .content {
       min-height: 100vh;
@@ -26,17 +34,13 @@
       z-index: 10;
     }
     .parallax-img {
-      min-height: 100%;
-      min-width: 1024px;
-      height: auto;
-      width: 100%;;
+      position: relative;
+      width: 100%;
+      display: block;
       overflow: hidden;
-      z-index: 1;
-    }
-    .hor-parallax-img {
-      height: 320px;
-      overflow:hidden;
-      width: auto;
+      img {
+        //min-width: 100%;
+      }
     }
     .parallax-txt {
       z-index: 2;
@@ -193,6 +197,11 @@
     }
   }
 }
+@media only screen and (min-width: 480px) {
+  .hor-photo, .hor-parallax-img {
+    height: 240px;
+  }
+}
 @media only screen and (min-width : 768px) {
   .parallax {
     .movements {
@@ -209,6 +218,9 @@
       li {
         font-size: 14px;
       }
+    }
+    .hor-photo {
+      height: 320px;
     }
   }
 }

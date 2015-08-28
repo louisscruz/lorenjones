@@ -30,7 +30,8 @@
     "angular-bootstrap-lightbox": "~0.6.1",
     "ng-parallax": "~0.1.8",
     "angular-messages": "~1.4.3",
-    "angular-ripple": "*"
+    "angular-ripple": "*",
+    "angular-picture": "*"
   },
   "devDependencies": {
     "angular-mocks": "1.3.15",
