@@ -8,7 +8,7 @@
     overflow: hidden;
     .photo {
       height: 100vh;
-      overflow: hidden;
+      overflow: visible;
       position: absolute;
       .wrapper {
         overflow: hidden;
@@ -17,11 +17,8 @@
     }
     .hor-photo {
       height: 120px;
-      overflow: hidden;
-      position: absolute;
       .hor-parallax-img {
         height: 100%;
-        overflow:hidden;
         width: auto;
         img {
           height: 100%;
@@ -198,8 +195,12 @@
   }
 }
 @media only screen and (min-width: 480px) {
-  .hor-photo, .hor-parallax-img {
-    height: 240px;
+  .parallax {
+    section {
+      .hor-photo {
+        height: 240px;
+      }
+    }
   }
 }
 @media only screen and (min-width : 768px) {
