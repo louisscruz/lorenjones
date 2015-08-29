@@ -1,11 +1,33 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('DbwCtrl', function ($scope, parallaxHelper, works) {
+  .controller('DbwCtrl', function ($scope, parallaxHelper, works, $window) {
+    var introSpeed = -0.5;
     $scope.background = parallaxHelper.createAnimator(-0.3);
     $scope.fastBackground = parallaxHelper.createAnimator(-0.8);
-    $scope.titleBackground = parallaxHelper.createAnimator(-0.5);
-    $scope.panoramaOne = parallaxHelper.createAnimator(1);
+    $scope.titleBackground = parallaxHelper.createAnimator(introSpeed);
+    //$scope.panoramaOne = parallaxHelper.createAnimator(0.3);
+    console.log($window.innerHeight);
+    $scope.fadeOut = function(elementPosition) {
+      //console.log(elementPosition.elemY);
+      var height = $window.innerHeight;
+      var pos = elementPosition.elemY;
+      //console.log($window.innerHeight);
+      //var pos = (elementPosition.elemY / -1 * $window.innerHeight);
+      if (pos < (-0.66 * height) || pos > 0) { return; }
+      var percent = (-1 * pos) / height;
+      //console.log(pos);
+      var opacity = Math.pow(Math.cos(3.14 * percent / 2), 2);
+      //console.log(opacity);
+      return opacity;
+    }
+    $scope.fadeInOut = function(elementPosition) {
+      var pos = (1 - elementPosition.elemY / $window.innerHeight);
+      if (pos < 0 || pos > 1) { return; }
+      //var opacity = 4 * (1 - pos) * pos;
+      var opacity = Math.pow(Math.sin(3.14 * pos), 2);
+      return opacity;
+    }
     /*$scope.panoramaTwo = parallaxHelper.createAnimator(0.2, 0, -800, -1200);
     $scope.panoramaThree = parallaxHelper.createAnimator(0.25, 0, -800, -1200);*/
     $scope.videoUrl = 'https://www.youtube.com/watch?v=CCwB4TRJUgc';

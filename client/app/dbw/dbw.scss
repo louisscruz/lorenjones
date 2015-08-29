@@ -3,13 +3,15 @@
   padding-right: 0px;
   margin-top: -51px;
   section {
-    background: white;
+    background-color: $orange;
     text-align: center;
     overflow: hidden;
+    position: relative;
+    .splash {
+      z-index: 1;
+    }
     .photo {
-      height: 100vh;
-      overflow: visible;
-      position: absolute;
+      background-color: white;
       .wrapper {
         overflow: hidden;
         height: 100%;
@@ -17,11 +19,19 @@
     }
     .hor-photo {
       height: 120px;
+      width: 100%;
+      z-index: 10 !important;
+      background-color: $orange;
+      //background-color: white;
       .hor-parallax-img {
         height: 100%;
-        width: auto;
+        //background-color: white;
+        //width: auto;
+        z-index: 10 !important;
         img {
+          z-index: 10 !important;
           height: 100%;
+          min-width: 100%;
         }
       }
     }
@@ -31,12 +41,19 @@
       z-index: 10;
     }
     .parallax-img {
-      position: relative;
-      width: 100%;
-      display: block;
-      overflow: hidden;
       img {
+        //display: block;
+        //min-height: 100%;
         //min-width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        min-width: 50%;
+        min-height: 50%;
+        overflow-x: hidden;
       }
     }
     .parallax-txt {
@@ -66,12 +83,25 @@
     h1, h2 {
       color: white;
       text-align: center;
+      font-family: 'Elsie Swash Caps', cursive;
+      font-weight: 700;
     }
     h1 {
       font-size: 100px
     }
     h2 {
       font-size: 50px;
+    }
+    .wrapper {
+      //min-height: 100vh;
+      //overflow: hidden;
+      //text-align: center;
+      z-index: 0;
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
     }
   }
   .ohlone {
@@ -95,6 +125,7 @@
   .video {
     background-color: $primary;
     color: white;
+    color: black;
     position: relative;
     z-index: 10;
     h2 {
@@ -104,14 +135,19 @@
   .movements {
     position: relative;
     z-index: 10;
+    background-color: $white;
     h1 {
-      color: black;
       font-weight: 500;
     }
+    h3 {
+      color: black;
+    }
     h4 {
+      color: black;
       text-transform: uppercase;
     }
     p {
+      color: black;
       font-size: 15px;
     }
     li {
@@ -220,8 +256,10 @@
         font-size: 14px;
       }
     }
-    .hor-photo {
-      height: 320px;
+    section {
+      .hor-photo {
+        height: 320px;
+      }
     }
   }
 }
