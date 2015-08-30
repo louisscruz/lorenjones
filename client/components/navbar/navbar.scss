@@ -29,9 +29,19 @@ $sand-serif-normal: 400 !important;
     }
   }
   .navbar-toggle {
+    border: 2px solid $white;
+    background-color: $primary;
+    transition: all 0.25s ease-in-out;
+    &:hover, &:focus {
+      background-color: $white;
+      .icon-bar {
+        background-color: $background-color;
+      }
+    }
     .icon-bar {
       width: 22px;
-      transition: all 0.5s;
+      background-color: $white;
+      transition: all 0.25s ease-in-out;
     }
     .top-bar {
       transform: translateX(3px) rotate(45deg);

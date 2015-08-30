@@ -1,7 +1,7 @@
 <div id="about" class="container">
   <h1 class="center">Bio</h1>
-  <tabset class="col-md-8 col-md-offset-2 col-sm-12">
-    <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" class="cursor">
+  <tabset class="bios col-md-8 col-md-offset-2 col-sm-12">
+    <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" class="cursor tab">
       <div class="bio section">
         <p class="new-lines" ng-bind-html="entry.content">{{entry.content}}</p>
       </div>

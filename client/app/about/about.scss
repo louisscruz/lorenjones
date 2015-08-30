@@ -1,12 +1,19 @@
 .section {
   padding: 50px;
-  background-color: white;
+  background-color: $white;
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   border-top-right-radius: 10px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  p {
+    color: $black;
+  }
+}
+
+.bios ul li a {
+  background-color: $white !important;
 }
 
 .flickr {

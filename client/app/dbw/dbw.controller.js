@@ -22,10 +22,23 @@ angular.module('lorenjonesApp')
       return opacity;
     }
     $scope.fadeInOut = function(elementPosition) {
-      var pos = (1 - elementPosition.elemY / $window.innerHeight);
-      if (pos < 0 || pos > 1) { return; }
+      var offset;
+      var opacity;
+      var width = $window.innerWidth;
+      if (width <= 480) {
+        offset = 60;
+      } else if (width <= 992) {
+        offset = 120;
+      } else {
+        offset = 160;
+      }
+      var pos = (1 - (elementPosition.elemY + offset) / $window.innerHeight);
+      if (pos < 0 || pos > 1) {
+        opacity = 0;
+        return opacity;
+      }
       //var opacity = 4 * (1 - pos) * pos;
-      var opacity = Math.pow(Math.sin(3.14 * pos), 2);
+      opacity = Math.pow(Math.sin(3.14 * pos), 2);
       return opacity;
     }
     /*$scope.panoramaTwo = parallaxHelper.createAnimator(0.2, 0, -800, -1200);
