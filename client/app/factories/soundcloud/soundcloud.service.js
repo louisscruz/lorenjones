@@ -26,14 +26,8 @@ angular.module('lorenjonesApp')
           fact.player.i = index || 0;
           var track = fact.player.tracks[fact.player.i];
           var src = null;
-          if (track.tracks) {
-            fact.player.playlistIndex = playlistIndex || 0;
-            fact.player.playing = track.tracks[fact.player.playlistIndex];
-            src = track.tracks[fact.player.playlistIndex].stream_url + '?client_id=' + fact.clientId;
-          } else {
-            fact.player.playing = track;
-            src = track.stream_url + '?client_id=' + fact.clientId;
-          }
+          fact.player.playing = track;
+          src = track.stream_url + '?client_id=' + fact.clientId;
           fact.player.currentTrack = fact.player.playing;
           if (src !== fact.audio.src) {
             fact.audio.src = src;
