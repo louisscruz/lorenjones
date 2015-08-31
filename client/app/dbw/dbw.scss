@@ -17,6 +17,29 @@
         height: 100%;
       }
     }
+    &.full-image {
+      position: relative;
+      z-index: 2;
+      height: 100vh;
+      .wrapper {
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;
+          min-width: 100%;
+          min-height: 50%;
+          overflow-x: hidden;
+        }
+      }
+    }
     .hor-photo {
       height: 120px;
       width: 100%;
@@ -138,6 +161,7 @@
   }
   .history {
     background-color: $background-color;
+    z-index: 10;
     p {
       color: $white;
       font-size: 16px;
@@ -213,18 +237,6 @@
   color: $primary;
 }
 
-#panel-1 {
-  //background-image: url("/assets/images/dbw/dbw_applause1.jpg");
-}
-
-#panel-3 {
-  //background-image: url("/assets/images/dbw/loren_jones1.jpg");
-}
-
-#panel-2 {
-  //background-image: url("/assets/images/dbw/dbw_poster.jpg")
-}
-
 #poem {
   background-color: $blue;
   color: white;
@@ -243,8 +255,6 @@
 .tab-content.ng-move.ng-move-active {
   opacity: 1;
 }
-
-/* Responsive Sizes*/
 @media only screen and (max-width: 767px) {
   .movements {
     h1 {
