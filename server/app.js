@@ -6,9 +6,9 @@
 
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.FLICKR_API_KEY = 'b288d1360b00e2f8584150f7da3ff3ef';
 
 var express = require('express');
-var multer = require('multer');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
 var done = false;
@@ -37,25 +37,3 @@ server.listen(config.port, config.ip, function () {
 
 // Expose app
 exports = module.exports = app;
-
-// Multer Images
-
-/*app.use(multer({ dest: './uploads/',
- rename: function (fieldname, filename) {
-    return filename+Date.now();
-  },
-  onFileUploadStart: function (file) {
-    console.log(file.originalname + ' is starting ...')
-  },
-  onFileUploadComplete: function (file) {
-    console.log(file.fieldname + ' uploaded to  ' + file.path)
-    done=true;
-  }
-}));
-
-app.post('/api/photo',function(req,res){
-  if(done === true){
-    console.log(req.files);
-    res.end("File uploaded.");
-  }
-});*/

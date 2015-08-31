@@ -11,7 +11,7 @@ var DefaultTrack = require('../api/default_track/default_track.model');
 var DbwMovement = require('../api/dbw_movement/dbw_movement.model');
 var Playlist = require('../api/playlist/playlist.model');
 
-/*DbwMovement.find({}).remove(function() {
+DbwMovement.find({}).remove(function() {
   DbwMovement.create({
     movement: 1,
     audio: 'https://soundcloud.com/lorenjones-2/1-ohlone-song'
@@ -22,7 +22,7 @@ var Playlist = require('../api/playlist/playlist.model');
     console.log('finished populating dbw movements');
   }
   );
-});*/
+});
 
 /*Playlist.find({}).remove(function() {
   Playlist.create({
