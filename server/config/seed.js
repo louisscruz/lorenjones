@@ -20,9 +20,14 @@ DbwMovement.find({}).remove(function() {
     audio: 'https://soundcloud.com/lorenjones-2/5-earthquake-fire'
   }, function() {
     console.log('finished populating dbw movements');
-  }
-  );
+  });
 });
+
+/*Playlist.find({}).remove(function() {
+  Playlist.create({
+
+  });
+});*/
 
 /*Playlist.find({}).remove(function() {
   Playlist.create({
