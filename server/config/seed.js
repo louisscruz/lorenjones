@@ -23,17 +23,13 @@ DbwMovement.find({}).remove(function() {
   });
 });
 
-/*Playlist.find({}).remove(function() {
-  Playlist.create({
-
+if (!Playlist.count() >= 1) {
+  Playlist.find({}).remove(function() {
+    Playlist.create({
+      order: []
+    });
   });
-});*/
-
-/*Playlist.find({}).remove(function() {
-  Playlist.create({
-    order: [1, 0]
-  });
-});*/
+}
 
 /**User.find({}).remove(function() {
   User.create({
