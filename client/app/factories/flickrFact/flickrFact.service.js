@@ -9,31 +9,23 @@ angular.module('lorenjonesApp')
       o.query = function(src, perPage, page) {
         /*jshint camelcase: false*/
         var deferred = $q.defer();
-        //if (o.photos) {
-        if (page === 1 && o.photos) {
-          deferred.resolve(o.photos);
-        } else {
-          $http.jsonp('https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&api_key=' + apiKey + '&photoset_id=' + photosetId + '&user_id=' + userId + '&per_page=' + perPage + '&page=' + page + '&format=json&jsoncallback=JSON_CALLBACK', {
-            cache: true
-          })
-          .then(function(result) {
-            console.log(result);
+        $http.jsonp('https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&api_key=' + apiKey + '&photoset_id=' + photosetId + '&user_id=' + userId + '&per_page=' + perPage + '&page=' + page + '&format=json&jsoncallback=JSON_CALLBACK', {
+          cache: false
+        })
+        .then(function(result) {
+          console.log(result);
             //if has photos, concat photos to old photos, else:
-            o.photos = result.data.photoset.photo;
-            for (var i = 0, len = o.photos.length; i < len; i++) {
-              var photo = o.photos[i];
-              o.photos[i].thumbnail = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_n.jpg';
-              o.photos[i].url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
-            }
-            deferred.resolve(o.photos);
-          }, function() {
-            deferred.reject('Could not get json');
-          });
-        }
-        return deferred.promise;
-      };
-      o.hasPhotos = function() {
-        return !!o.photos;
+          o.photos = result.data.photoset.photo;
+          for (var i = 0, len = o.photos.length; i < len; i++) {
+            var photo = o.photos[i];
+            o.photos[i].thumbnail = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_n.jpg';
+            o.photos[i].url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
+          }
+          deferred.resolve(o.photos);
+        }, function() {
+          deferred.reject('Could not get json');
+        });
+      return deferred.promise;
       };
       return o;
     }
