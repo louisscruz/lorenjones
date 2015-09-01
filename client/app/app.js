@@ -33,7 +33,7 @@ angular.module('lorenjonesApp', [
       // 200px = arbitrary min height
       // 66px = 32px as above
       //        + 34px outer height of .lightbox-nav
-      var height = Math.max(200, dimensions.imageDisplayHeight + 108);
+      var height = Math.max(200, dimensions.imageDisplayHeight + 120);
       // first case:  the modal width cannot be larger than the window width
       //              20px = arbitrary value larger than the vertical scrollbar
       //                     width in order to avoid having a horizontal scrollbar

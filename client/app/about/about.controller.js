@@ -23,6 +23,7 @@ angular.module('lorenjonesApp')
           $scope.endOfAlbum = true;
         }
         for (var i = 0, len = data.length; i < len; i++) {
+          console.log(data[i])
           $scope.pics.push(data[i]);
         }
       });

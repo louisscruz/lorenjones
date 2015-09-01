@@ -8,6 +8,7 @@ angular.module('lorenjonesApp')
       'Solo',
       'Chamber',
       'Orchestral',
+      'Band',
       'Wind Ensemble',
       'Vocal',
       'Choral',

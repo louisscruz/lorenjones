@@ -29,6 +29,7 @@
       background: center center relative;
       background-size: cover;
       cursor: pointer;
+      transition: all 0.5s ease;
       &:hover {
         opacity: 0.5;
       }
@@ -58,5 +59,8 @@
   h3 {
     line-height: 20px;
     margin-top: 0px;
+  }
+  .caption {
+    color: $black;
   }
 }

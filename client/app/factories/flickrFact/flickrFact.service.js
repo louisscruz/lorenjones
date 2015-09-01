@@ -20,6 +20,7 @@ angular.module('lorenjonesApp')
             var photo = o.photos[i];
             o.photos[i].thumbnail = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_n.jpg';
             o.photos[i].url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
+            o.photos[i].caption = o.photos[i].title;
           }
           deferred.resolve(o.photos);
         }, function() {
