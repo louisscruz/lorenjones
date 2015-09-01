@@ -2,17 +2,35 @@
   <h1 class="col-md-12 text-center">Manage Works</h1>
   <div class="col-md-3">
     <h2>Add Work</h2>
-    <form class="thing-form" name="worksForm" ng-submit="addWork(worksForm.$valid)">
-      <label><i class="fa fa-asterisk"></i>Title of the Work</label>
-      <p class="input-group" ng-class="{ 'has-error' : worksForm.title.$invalid && !worksForm.title.$pristine }">
-        <input type="text" name="title" class="form-control" placeholder="Work Title" ng-model="newTitle" required>
-        <p ng-show="worksForm.title.$invalid && !worksForm.title.$pristine" class="help-block">You must enter a title</p>
-      </p>
-      <label><i class="fa fa-asterisk"></i>Category of the Work</label>
-      <p class="input-group" ng-class="{ 'has-error' : worksForm.category.$invalid && !worksForm.category.$pristine }">
-        <select ng-model="newCategory" name="category" ng-options="g as g for g in groups" ng-init="newCategory = groups[0]"></select>
-        <p ng-show="worksForm.category.$invalid && !worksForm.category.$pristine" class="help-block">You must enter a category</p>
-      </p>
+    <form name="worksForm" ng-submit="addWork(worksForm.$valid)" novalidate>
+      <div class="form-group" ng-class="{ 'has-success' : worksForm.title.$valid && worksForm.title.$touched, 'has-error' : worksForm.title.$touched && worksForm.title.$invalid }">
+        <label class="control-label">Title</label>
+        <div class="input-group">
+          <input type="text" name="title" class="form-control" ng-model="newTitle" placeholder="Symphony No.10" required ng-maxlength="80">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.title.$valid && worksForm.title.$touched, 'fa-times' : worksForm.title.$invalid && worksForm.title.$touched }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="worksForm.title.$error" ng-if="worksForm.title.$touched">
+          <p ng-message="required">A title is required.</p>
+          <p ng-message="maxlength">The title must be under 80 characters long.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : worksForm.category.$valid && worksForm.category.$touched, 'has-error' : worksForm.category.$touched && worksForm.category.$invalid }">
+        <label class="control-label">Category of the Work</label>
+        <div class="input-group">
+          <select ng-model="newCategory" name="category" class="selectpicker form-control" ng-options="g as g for g in groups" required></select>
+          <span class="input-group-addon">
+            Label
+            <!--span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.category.$valid && worksForm.category.$touched, 'fa-times' : worksForm.category.$invalid && worksForm.category.$touched }" aria-hidden="true"></span-->
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="worksForm.category.$error" ng-if="worksForm.category.$touched">
+          <p ng-message="required">You must choose a category</p>
+        </div>
+      </div>
       <label><i class="fa fa-asterisk"></i>Year of the Work</label>
       <p class="input-group" ng-class="{ 'has-error' : worksForm.date.$invalid && !worksForm.date.$pristine }">
         <input type="number" name="date" class="form-control" ng-model="newDate" ng-init="newDate = currentYear" required>
@@ -38,9 +56,7 @@
       <p class="input-group">
         <input type="url" class="form-control" placeholder="Link to Video" ng-model="newVideo">
       </p>
-      <p class="input-group">
-        <button type="submit" class="btn btn-primary" ng-disabled="worksForm.$invalid || worksTracks.indexOf(newAudio) !== -1">Add New</button>
-      </p>
+      <button type="submit" class="btn btn-primary btn-block" ng-disabled="worksForm.$invalid || worksTracks.indexOf(newAudio) !== -1">Add New</button>
     </form>
   </div>
 
@@ -51,7 +67,7 @@
           {{ category }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </div>
       </accordion-heading>
-      <div ng-repeat="work in works | orderBy: 'date':true">
+      <div class="admin-works" ng-repeat="work in works | orderBy: 'date':true">
         <div>
           <h3>
             <a href="#" editable-text="work.title" onaftersave="updateWork(work)">
@@ -95,7 +111,7 @@
           <a href="#" editable-text="work.audio" onshow="cacheWork(work)" onbeforesave="checkUrl($data)" onaftersave="updateWork(work)">
             {{ work.audio || "empty" }}
           </a>
-          <button type="button" class="btn btn-danger btn-xs" ng-if="work.audio !== ''" ng-click="clearWorkTrack(work)">remove</button>
+          <button type="button" class="btn btn-danger btn-xs" ng-if="work.audio" ng-click="clearWorkTrack(work)">remove</button>
         </div>
         <label>Video</label>
         <div>

@@ -53,13 +53,13 @@ angular.module('lorenjonesApp')
       if ($scope.worksTracks.indexOf(data) !== -1) {
         return 'This tracks is already loaded in the player.';
       }
-      var d = $q.defer();
-      soundcloud.testLoad(data).success(function() {
-        d.resolve();
-      }).error(function() {
-        d.reject('Invalid URL');
+      var deferred = $q.defer();
+      soundcloud.testLoad(data).then(function() {
+        deferred.resolve();
+      }, function() {
+        deferred.reject('Invalid Soundcloud URL');
       });
-      return d.promise;
+      return deferred.promise;
     };
     $scope.clearWorkTrack = function(work) {
       works.cacheWork(work);
