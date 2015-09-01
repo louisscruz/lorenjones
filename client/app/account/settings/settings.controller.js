@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('SettingsCtrl', function ($scope, User, Auth, $location) {
+  .controller('SettingsCtrl', function ($scope, User, Auth, $location, alertFact) {
     $scope.errors = {};
 
     $scope.changePassword = function(form) {
