@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('SettingsCtrl', function ($scope, User, Auth) {
+  .controller('SettingsCtrl', function ($scope, User, Auth, $location) {
     $scope.errors = {};
 
     $scope.changePassword = function(form) {
@@ -9,12 +9,12 @@ angular.module('lorenjonesApp')
       if(form.$valid) {
         Auth.changePassword( $scope.user.oldPassword, $scope.user.newPassword )
         .then( function() {
-          $scope.message = 'Password successfully changed.';
+          alertFact.add('success', 'Your password was successfully changed!');
+          $location.path('/');
         })
         .catch( function() {
           form.password.$setValidity('mongoose', false);
-          $scope.errors.other = 'Incorrect password';
-          $scope.message = '';
+          alertFact.add('danger', 'Unsuccessful attempt to change password.')
         });
       }
 		};
