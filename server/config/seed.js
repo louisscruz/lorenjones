@@ -31,7 +31,7 @@ if (!Playlist.count() >= 1) {
   });
 }
 
-User.find({}).remove(function() {
+/*User.find({}).remove(function() {
   User.create({
     provider: 'local',
     role: 'admin',
@@ -48,4 +48,4 @@ User.find({}).remove(function() {
       console.log('finished populating users');
     }
   );
-});
+});*/
