@@ -31,21 +31,21 @@ if (!Playlist.count() >= 1) {
   });
 }
 
-/**User.find({}).remove(function() {
+User.find({}).remove(function() {
   User.create({
     provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
+    role: 'admin',
+    name: 'Admin',
+    email: 'lorenjjones@earthlink.net',
     password: 'test'
   }, {
     provider: 'local',
     role: 'admin',
     name: 'Admin',
     email: 'lsc@juilliard.edu',
-    password: 'admin'
+    password: 'test'
   }, function() {
       console.log('finished populating users');
     }
   );
 });
-*/
