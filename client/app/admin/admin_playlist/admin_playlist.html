@@ -1,36 +1,41 @@
 <div class="container">
   <h1>Manage Playlist</h1>
-  <h3>Splash Track</h4>
-    <div ng-if="defaultTrack[0].link">
-      <p>This is the track that is initially loaded to the site. When a visitor clicks the play button for the first time, the splash track will play.</p>
-    </div>
-  <h4>The current splash track is:</h4>
-  <code ng-if="defaultTrack[0].link" ng-click="confirmDelete('the default track')">{{defaultTrack[0].link}}</code>
+  <h3>Splash Track</h3>
+  <div>
+    <p>The splash track is the track that is initially loaded to the site. When a visitor clicks the play button for the first time, the splash track will play.</p>
+  </div>
+  <div ng-if="defaultTrack[0].link">
+    <h4>The current splash track is:</h4>
+    <code>{{defaultTrack[0].link}}</code>
+    <button ng-click="confirmDelete('the default track')">Delete</button>
+  </div>
   <h4 ng-if="defaultTrack[0].link">To change the current splash track, copy and paste a track URL from Soundcloud.</h4>
   <h4 ng-if="!defaultTrack[0].link">To add a splash track, copy and paste a track URL from Soundcloud.</h4>
-  <div class="col-md-12">
-    <form name="defaultTrackForm" ng-submit="addDefaultTrack(defaultTrackForm.$valid)" novalidate>
-      <div class="form-group" ng-class="{ 'has-success' : defaultTrackForm.link.$valid && defaultTrackForm.link.$touched, 'has-error' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched && !defaultTrackForm.link.$error.required}">
-        <label class="control-label">Link</label>
-        <div class="input-group">
-          <input name="link" type="url" class="form-control" placeholder="Splash Track Link" ng-model="newLink" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url required>
-          <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : defaultTrackForm.link.$valid, 'fa-times' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched && !defaultTrackForm.link.$error.required, 'fa-circle-o-notch fa-spin': defaultTrackForm.$pending }" aria-hidden="true"></span>
-          </span>
+  <div class="row">
+    <div class="col-md-12">
+      <form name="defaultTrackForm" ng-submit="addDefaultTrack(defaultTrackForm.$valid)" novalidate>
+        <div class="form-group" ng-class="{ 'has-success' : defaultTrackForm.link.$valid && defaultTrackForm.link.$touched, 'has-error' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched && !defaultTrackForm.link.$error.required}">
+          <label class="control-label">Link</label>
+          <div class="input-group">
+            <input name="link" type="url" class="form-control" placeholder="Splash Track Link" ng-model="newLink" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url required>
+            <span class="input-group-addon">
+              <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : defaultTrackForm.link.$valid, 'fa-times' : defaultTrackForm.link.$invalid && defaultTrackForm.link.$touched && !defaultTrackForm.link.$error.required, 'fa-circle-o-notch fa-spin': defaultTrackForm.$pending }" aria-hidden="true"></span>
+            </span>
+          </div>
+          <span class="sr-only">(success)</span>
+          <div class="help-block" ng-messages="defaultTrackForm.link.$error" ng-if="defaultTrackForm.link.$touched">
+            <p ng-message="url">You must enter a valid soundcloud url.</p>
+            <p ng-message="uniqueUrl">This track is already loaded in the player.</p>
+            <p ng-message="validUrl">This URL is not a valid Soundcloud link.</p>
+          </div>
         </div>
-        <span class="sr-only">(success)</span>
-        <div class="help-block" ng-messages="defaultTrackForm.link.$error" ng-if="defaultTrackForm.link.$touched">
-          <p ng-message="url">You must enter a valid soundcloud url.</p>
-          <p ng-message="uniqueUrl">This track is already loaded in the player.</p>
-          <p ng-message="validUrl">This URL is not a valid Soundcloud link.</p>
+        <div class="form-group">
+          <div class="input-group">
+            <button type="submit" class="btn btn-primary" ng-disabled="defaultTrackForm.$invalid || defaultTrackForm.$pending">Save Track</button>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="input-group">
-          <button type="submit" class="btn btn-primary" ng-disabled="defaultTrackForm.$invalid || defaultTrackForm.$pending">Save Track</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
   <div class="row playlist-order">
     <div class="col-md-12">
@@ -42,15 +47,16 @@
         <li>{{defaultTrack[0].link}}</li>
       </ul>
     </div>
-    <div class="col-md-12">
+    <div ng-if="worksOrder > 0" class="col-md-12 draggable">
+      <h4>Works</h4>
+      <h6><i>(Drag and drop to reorder the works in the playlist)</i></h6>
       <ul class="movable" ui-sortable="sortableOptions" ng-model="worksOrder">
-        Works
         <li ng-repeat="track in worksOrder">{{worksTracks[track]}}</li>
       </ul>
     </div>
     <div class="col-md-12">
+      <h4>Dancing on the Brink of the World</h4>
       <ul>
-        Dancing on the Brink of the World
         <li ng-repeat="track in dbwMovements track by $index"> {{ track.audio }}</li>
       </ul>
     </div>
