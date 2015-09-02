@@ -156,7 +156,7 @@ angular.module('lorenjonesApp')
     function loadPlayer(track, index) {
       /*jshint camelcase: false*/
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
-      if(fact.player.data[track]) {
+      if (fact.player.data[track]) {
         var t = fact.player.data[track];
         fact.player.data[track] = t;
         fact.player.load(t, index);

@@ -1,11 +1,12 @@
 'use strict';
 /*jshint shadow: true*/
 angular.module('lorenjonesApp')
-  .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', 'cleanUrl', function ($http, $rootScope, socket, soundcloud, cleanUrl) {
+  .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', 'cleanUrl', '$q', function ($http, $rootScope, socket, soundcloud, cleanUrl, $q) {
     var fact = { defaultTrack: [], works: [], dbwMovements: [], worksTracks: [], worksOrder: [] };
     var cachedWork;
     // Get all works and tracks; send tracks to soundcloud player
     function loadAll() {
+      var deferred = $q.defer();
       soundcloud.dumpData();
       var index = 0;
       $http.get('/api/default_tracks').success(function(t) {
@@ -61,7 +62,10 @@ angular.module('lorenjonesApp')
             }
           }
         });
+      }).then(function() {
+        deferred.resolve(fact);
       });
+      return deferred.promise;
     }
     // Add default track
     function addDefaultTrack(track) {
