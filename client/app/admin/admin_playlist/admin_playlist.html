@@ -7,7 +7,7 @@
   <div ng-if="defaultTrack[0].link">
     <h4>The current splash track is:</h4>
     <code>{{defaultTrack[0].link}}</code>
-    <button ng-click="confirmDelete('the default track')">Delete</button>
+    <button class="btn btn-danger" ng-click="confirmDelete('the default track')">Delete</button>
   </div>
   <h4 ng-if="defaultTrack[0].link">To change the current splash track, copy and paste a track URL from Soundcloud.</h4>
   <h4 ng-if="!defaultTrack[0].link">To add a splash track, copy and paste a track URL from Soundcloud.</h4>
@@ -41,9 +41,9 @@
     <div class="col-md-12">
       <h3>Current Playlist Order</h3>
     </div>
-    <div class="col-md-12">
+    <div ng-if="defaultTrack[0].link" class="col-md-12">
       <h4>Splash Track</h4>
-      <ul ng-if="defaultTrack[0].link">
+      <ul>
         <li>{{defaultTrack[0].link}}</li>
       </ul>
     </div>
