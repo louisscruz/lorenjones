@@ -72,14 +72,14 @@
         <div>
           <h1 data-fittext data-fittext-max="170">Movements</h1>
           <tabset vertical="true" type="pills">
-            <tab ng-repeat="movement in movements" heading="{{::movement.title}}" ng-click="changeInfo(movement)" class="cursor">
+            <tab ng-repeat="movement in movements track by $index" heading="{{::movement.title}}" ng-click="changeInfo(movement)" class="cursor">
             </tab>
           </tabset>
         </div>
       </div>
       <div class="col-xs-9 movement-content vertical-center">
         <div class="tab-content">
-          <div ng-repeat="m in dbwMovements">
+          <div ng-repeat="m in dbwMovements track by $index">
             <div ng-if="currentMovement.movement === m.movement" class="table">
               <div class="table-cell">
                 <button class="button-icon" ng-click="player.playPause(player.trackIndex(m.audio))" angular-ripple>

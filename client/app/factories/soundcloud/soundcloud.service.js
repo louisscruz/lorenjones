@@ -23,12 +23,15 @@ angular.module('lorenjonesApp')
         },
         play: function(index, playlistIndex) {
           /*jshint camelcase: false*/
+          console.log('play attempting on track ' + index);
+          console.log('fact.player.i is currently ' + index);
           fact.player.i = index || 0;
           var track = fact.player.tracks[fact.player.i];
-          var src = null;
+          var src;
           console.log(track);
           fact.player.playing = track;
           src = track.stream_url + '?client_id=' + fact.clientId;
+          console.log(src);
           fact.player.currentTrack = fact.player.playing;
           if (src !== fact.audio.src) {
             fact.audio.src = src;
@@ -40,14 +43,24 @@ angular.module('lorenjonesApp')
           fact.player.playing = false;
         },
         playPause: function(index) {
-          var i = index || fact.player.tracks.indexOf(fact.player.currentTrack) || 0;
+          console.log(index);
+          var i;
+          if (index === undefined) {
+            i = fact.player.tracks.indexOf(fact.player.currentTrack);
+          } else {
+            i = index
+          }
+          console.log(i);
           var track = fact.player.tracks[fact.player.i];
+          console.log(fact.player.currentTrack);
+          console.log(fact.player.tracks[i]);
           if (fact.player.currentTrack !== fact.player.tracks[i] || fact.player.playing !== track) {
+            console.log('playPause sending to play');
             fact.player.play(i);
           } else {
             fact.player.pause();
           }
-          fact.player.currentTime = 0;
+          //fact.player.currentTime = 0;
         },
         next: function() {
           var playlist = fact.player.tracks[fact.player.i].tracks || null;
@@ -97,6 +110,7 @@ angular.module('lorenjonesApp')
           audio.currentTime = time;
         },
         trackIndex: function(query) {
+          console.log('attempting to get track index');
           var mem = null;
           //clean https
           if (query.indexOf('https') !== -1) {
@@ -107,10 +121,12 @@ angular.module('lorenjonesApp')
           for (var y = 0; y < tracks.length; y++) {
             /*jshint camelcase: false*/
             if (query === tracks[y].permalink_url) {
+              console.log(y);
               mem = y;
               return mem;
             }
           }
+          return mem;
         }
       }
     };
