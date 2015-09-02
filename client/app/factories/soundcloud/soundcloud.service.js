@@ -45,10 +45,12 @@ angular.module('lorenjonesApp')
         playPause: function(index) {
           console.log(index);
           var i;
-          if (index === undefined) {
+          if (index === undefined && !fact.player.currentTrack) {
+            i = 0;
+          } else if (index === undefined && fact.player.currentTrack) {
             i = fact.player.tracks.indexOf(fact.player.currentTrack);
           } else {
-            i = index
+            i = index;
           }
           console.log(i);
           var track = fact.player.tracks[fact.player.i];
