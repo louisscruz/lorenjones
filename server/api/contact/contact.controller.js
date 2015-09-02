@@ -16,7 +16,7 @@ exports.sendMail = function(req, res) {
   var data = req.body;
   var mailOptions = {
     from: data.email,
-    to: 'louisstephancruz@me.com',
+    to: 'lorenjjones@earthlink.net',
     subject: 'Message from ' + data.name,
     text: data.message
   };
