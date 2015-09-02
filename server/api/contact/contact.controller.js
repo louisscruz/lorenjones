@@ -7,8 +7,8 @@ var smtpTransport = require('nodemailer-smtp-transport');
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.CONTACT_EMAIL_ADDRESS,
-    pass: process.env.CONTACT_EMAIL_PASSWORD
+    user: process.env.CONTACT_EMAIL_ADDRESS || CONTACT_EMAIL_ADDRESS,
+    pass: process.env.CONTACT_EMAIL_PASSWORD || CONTACT_EMAIL_PASSWORD
   }
 });
 
