@@ -43,7 +43,6 @@ angular.module('lorenjonesApp')
           fact.player.playing = false;
         },
         playPause: function(index) {
-          console.log(index);
           var i;
           if (index === undefined && !fact.player.currentTrack) {
             i = 0;
@@ -52,17 +51,12 @@ angular.module('lorenjonesApp')
           } else {
             i = index;
           }
-          console.log(i);
           var track = fact.player.tracks[fact.player.i];
-          console.log(fact.player.currentTrack);
-          console.log(fact.player.tracks[i]);
           if (fact.player.currentTrack !== fact.player.tracks[i] || fact.player.playing !== track) {
-            console.log('playPause sending to play');
             fact.player.play(i);
           } else {
             fact.player.pause();
           }
-          //fact.player.currentTime = 0;
         },
         next: function() {
           var playlist = fact.player.tracks[fact.player.i].tracks || null;

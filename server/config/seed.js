@@ -22,14 +22,14 @@ DbwMovement.find({}).remove(function() {
     console.log('finished populating dbw movements');
   });
 });
-
-if (!Playlist.count() >= 1) {
+if (Playlist.count() === 0 ) {
   Playlist.find({}).remove(function() {
     Playlist.create({
-      order: []
+      order: [0]
     });
   });
 }
+
 
 /*User.find({}).remove(function() {
   User.create({
