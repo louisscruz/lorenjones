@@ -1,12 +1,12 @@
 <div class="admin container">
   <h1 class="col-md-12 text-center">Manage Works</h1>
-  <div class="col-md-3">
+  <div class="works-input col-md-3">
     <h2>Add Work</h2>
     <form name="worksForm" ng-submit="addWork(worksForm.$valid)" novalidate>
       <div class="form-group" ng-class="{ 'has-success' : worksForm.title.$valid && worksForm.title.$touched, 'has-error' : worksForm.title.$touched && worksForm.title.$invalid }">
         <label class="control-label">Title</label>
         <div class="input-group">
-          <input type="text" name="title" class="form-control" ng-model="newTitle" placeholder="Symphony No.10" required ng-maxlength="80">
+          <input type="text" name="title" class="form-control" ng-model="newTitle" placeholder="Sonata for Bassoon and Piano" required ng-maxlength="80">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.title.$valid && worksForm.title.$touched, 'fa-times' : worksForm.title.$invalid && worksForm.title.$touched }" aria-hidden="true"></span>
           </span>
@@ -30,31 +30,78 @@
           <p ng-message="required">You must choose a category</p>
         </div>
       </div>
-      <label><i class="fa fa-asterisk"></i>Year of the Work</label>
-      <p class="input-group" ng-class="{ 'has-error' : worksForm.date.$invalid && !worksForm.date.$pristine }">
-        <input type="number" name="date" class="form-control" ng-model="newDate" ng-init="newDate = currentYear" required>
-        <p ng-show="worksForm.date.$invalid && !worksForm.date.$pristine" class="help-block">You must enter a year</p>
-      </p>
-      <label>Instrumentation of the Work</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Instrumentation" ng-model="newInstrumentation">
-      </p>
-      <label>Information</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Work Info" ng-model="newInfo">
-      </p>
-      <label>Link to Score</label>
-      <p class="input-group">
-        <input type="url" class="form-control" placeholder="Link to Score" ng-model="newLink">
-      </p>
-      <label>Link to Audio</label>
-      <p class="input-group">
-        <input type="url" name="audio" class="form-control" placeholder="Link to Audio" ng-model="newAudio">
-      </p>
-      <label>Link to Video</label>
-      <p class="input-group">
-        <input type="url" class="form-control" placeholder="Link to Video" ng-model="newVideo">
-      </p>
+      <div class="form-group" ng-class="{ 'has-success' : worksForm.date.$valid && worksForm.date.$touched, 'has-error' : worksForm.date.$touched && worksForm.date.$invalid }">
+        <label class="control-label">Year of the Work</label>
+        <div class="input-group">
+          <input type="number" name="date" class="form-control" ng-model="newDate" ng-click="initDate(worksForm.date.$touched)" required>
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.date.$valid && worksForm.date.$touched, 'fa-times' : worksForm.date.$invalid && worksForm.date.$touched }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="worksForm.date.$error" ng-if="worksForm.date.$touched">
+          <p ng-message="required">You must enter a date</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : worksForm.instrumentation.$valid && worksForm.instrumentation.$touched && newInstrumentation, 'has-error' : worksForm.instrumentation.$touched && worksForm.instrumentation.$invalid }">
+        <label class="control-label">Instrumentation</label>
+        <div class="input-group">
+          <input type="text" name="instrumentation" class="form-control" placeholder="bassoon and piano" ng-model="newInstrumentation">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.instrumentation.$valid && worksForm.instrumentation.$touched && newInstrumentation, 'fa-times' : worksForm.instrumentation.$invalid && worksForm.instrumentation.$touched }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : worksForm.info.$valid && worksForm.info.$touched && newInfo, 'has-error' : worksForm.info.$touched && worksForm.info.$invalid }">
+        <label class="control-label">Information</label>
+        <div class="input-group">
+          <textarea name="info" class="form-control" placeholder="Work Info" placeholder="David Nagy approached me in the winter of 2014 ..." ng-model="newInfo"></textarea>
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.info.$valid && worksForm.info.$touched && newInfo, 'fa-times' : worksForm.info.$touched && worksForm.info.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : worksForm.score.$valid && worksForm.score.$touched && newLink, 'has-error' : worksForm.score.$touched && worksForm.score.$invalid }">
+        <label class="control-label">Link to Score</label>
+        <div class="input-group">
+          <input type="url" name="score" class="form-control" placeholder="http://www.sheetmusicplus.com/title/rite-of-spring-sheet-music/1573215" ng-model="newLink">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.score.$valid && worksForm.score.$touched && newLink, 'fa-times' : worksForm.score.$touched && worksForm.score.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="worksForm.score.$error" ng-if="worksForm.score.$touched">
+          <p ng-message="url">Invalid URL</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : worksForm.audio.$valid && worksForm.audio.$touched && newAudio, 'has-error' : worksForm.audio.$touched && worksForm.audio.$invalid }">
+        <label class="control-label">Link to Audio</label>
+        <div class="input-group">
+          <input type="url" name="audio" class="form-control" placeholder="https://soundcloud.com/louis-cruz/sonata-for-bassoon-and-piano-i" ng-model="newAudio">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.audio.$valid && worksForm.audio.$touched && newAudio, 'fa-times' : worksForm.audio.$touched && worksForm.audio.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="worksForm.audio.$error" ng-if="worksForm.audio.$touched">
+          <p ng-message="url">Invalid URL</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : worksForm.video.$valid && worksForm.video.$touched && newVido, 'has-error' : worksForm.video.$touched && worksForm.video.$invalid }">
+        <label class="control-group">Link to Video</label>
+        <div class="input-group">
+          <input type="url" name="video" class="form-control" placeholder="https://www.youtube.com/watch?v=NA13W7IAjXk" ng-model="newVideo">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.video.$valid && worksForm.video.$touched && newVideo, 'fa-times' : worksForm.video.$touched && worksForm.video.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="worksForm.video.$error" ng-if="worksForm.video.$touched">
+          <p ng-message="url">Invalid URL</p>
+        </div>
+      </div>
       <button type="submit" class="btn btn-primary btn-block" ng-disabled="worksForm.$invalid || worksTracks.indexOf(newAudio) !== -1">Add New</button>
     </form>
   </div>

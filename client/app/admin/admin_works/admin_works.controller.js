@@ -4,6 +4,7 @@ angular.module('lorenjonesApp')
   .controller('AdminWorksCtrl', function ($scope, $http, socket, Modal, works, $q, soundcloud) {
     $scope.works = works.works;
     $scope.currentYear = new Date().getFullYear();
+    var initDate = false;
     $scope.groups = [
       'Solo',
       'Chamber',
@@ -29,24 +30,12 @@ angular.module('lorenjonesApp')
         works.addWork(work);
         $scope.newTitle = '';
         $scope.newCategory = '';
-        $scope.newDate = '2015';
+        $scope.newDate = '';
         $scope.newScore = '';
         $scope.newAudio = '';
+        $scope.worksForm.$setUntouched();
       }
     };
-    //$scope.updateWork = function(work) {
-      //console.log(work);
-      /*return $http.put('/api/works/' + work._id, {
-        title: work.title,
-        category: work.category,
-        date: work.date,
-        instrumentation: work.instrumentation,
-        info: work.info,
-        link: work.link,
-        audio: work.audio,
-        video: work.video
-      });*/
-    //};
     $scope.cacheWork = works.cacheWork;
     $scope.updateWork = works.updateWork;
     $scope.checkUrl = function(data) {
@@ -66,6 +55,12 @@ angular.module('lorenjonesApp')
       work.audio = '';
       console.log(work);
       works.updateWork(work);
+    };
+    $scope.initDate = function(touched) {
+      if (!touched && !initDate) {
+        initDate = true;
+        return $scope.newDate = $scope.currentYear;
+      }
     };
     $scope.confirmDelete = Modal.confirm.delete(function(work) {
       works.deleteWork(work);

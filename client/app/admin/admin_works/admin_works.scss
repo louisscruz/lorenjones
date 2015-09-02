@@ -4,6 +4,16 @@
   }
 }
 
+select {
+  border-radius: 0px;
+}
+
 .selectpicker {
   border-top-right-radius: 0px;
+}
+
+.works-input {
+  textarea {
+    resize: vertical;
+  }
 }
