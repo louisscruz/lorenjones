@@ -1,27 +1,40 @@
 <div class="admin container">
   <h1 class="col-md-12 text-center">Manage Bio Content</h1>
-
   <div class="col-md-4">
-    <h2>Add Bio Entry</h2>
-    <form class="thing-form" name="bioEntryForm" ng-submit="addBioEntry(bioEntryForm.$valid)" novalidate>
-      <label>Title of the Bio Tab</label>
-      <p class="input-group" ng-class="{ 'has-error' : bioEntryForm.title.$invalid && !bioEntryForm.title.$pristine }">
-        <input type="text" name="title" class="form-control" placeholder="Bio Tab Title" ng-model="newTab" required>
-        <p ng-show="bioEntryForm.title.$invalid && !bioEntryForm.title.$pristine" class="help-block">A title is required</p>
-      </p>
-      <label>Bio Content</label>
-      <p class="input-group" ng-class="{ 'has-error' : bioEntryForm.content.$invalid && !bioEntryForm.content.$pristine }">
-        <textarea type="text" name="content" class="form-control" placeholder="Bio Content" ng-model="newContent" required></textarea>
-        <p ng-show="bioEntryForm.content.$invalid && !bioEntryForm.content.$pristine" class="help-block">You must enter content</p>
-      </p>
-      <p class="input-group">
-        <button type="submit" class="btn btn-primary" ng-disabled="bioEntryForm.$invalid">Add New</button>
-      </p>
+    <h2 class="text-center">Add Bio Entry</h2>
+    <form class="" name="bioForm" ng-submit="addBioEntry(bioForm.$valid)" novalidate>
+      <div class="form-group" ng-class="{ 'has-success' : bioForm.title.$valid && bioForm.title.$touched, 'has-error' : bioForm.title.$invalid && bioForm.title.$touched }">
+        <label class="control-label">Title of Bio Tab</label>
+        <div class="input-group">
+          <input type="text" name="title" class="form-control" ng-model="newTab" placeholder="Bio Tab Title" required ng-maxlength="32">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : bioForm.title.$valid && bioForm.title.$touched, 'fa-times' : bioForm.title.$invalid && bioForm.title.$touched }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="bioForm.title.$error" ng-if="bioForm.title.$touched">
+          <p ng-message="required">Bio title tab is required.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : bioForm.content.$valid && bioForm.content.$touched, 'has-error' : bioForm.content.$invalid && bioForm.content.$touched }">
+        <label class="control-label">Bio Content</label>
+        <div class="input-group">
+          <textarea class="form-control" name="content" ng-model="newContent" placeholder="Bio Content" required ng-maxlength="50000"></textarea>
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : bioForm.content.$valid && bioForm.content.$touched, 'fa-times' : bioForm.content.$touched && bioForm.content.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="bioForm.content.$error" ng-if="bioForm.content.$touched">
+          <p ng-message="required">Bio content is required.</p>
+          <p ng-message="maxlength">Bio content must be less than 50,000 characters.</p>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" ng-disabled="bioForm.$invalid">Add New</button>
     </form>
   </div>
-
   <div class="col-md-8">
-    <tabset class="row col-md-12">
+    <tabset class="bios row col-md-12">
       <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
         <div class="bio section">
           <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(entry.title, entry)"><i class="fa fa-times"></i></button>

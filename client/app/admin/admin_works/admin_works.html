@@ -56,7 +56,7 @@
       <div class="form-group" ng-class="{ 'has-success' : worksForm.info.$valid && worksForm.info.$touched && newInfo, 'has-error' : worksForm.info.$touched && worksForm.info.$invalid }">
         <label class="control-label">Information</label>
         <div class="input-group">
-          <textarea name="info" class="form-control" placeholder="Work Info" placeholder="David Nagy approached me in the winter of 2014 ..." ng-model="newInfo"></textarea>
+          <textarea name="info" class="form-control" placeholder="Work Info" ng-model="newInfo"></textarea>
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.info.$valid && worksForm.info.$touched && newInfo, 'fa-times' : worksForm.info.$touched && worksForm.info.$invalid }" aria-hidden="true"></span>
           </span>
