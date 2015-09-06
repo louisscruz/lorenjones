@@ -1,6 +1,6 @@
 <div class="admin container">
   <h1 class="col-md-12 text-center">Manage Events</h1>
-  <div class="col-md-6">
+  <div class="col-md-4">
     <h2 class="text-center">Add Event</h2>
     <form name="eventForm" ng-submit="addEvent(eventForm.$valid)" novalidate>
       <div class="form-group" ng-class="{ 'has-success' : eventForm.title.$valid && eventForm.title.$touched, 'has-error' : eventForm.title.$invalid && eventForm.title.$touched }">
@@ -49,26 +49,40 @@
         </div>
         <span class="sr-only">(success)</span>
       </div>
-      <div class="form-group" ng-class="{ 'has-success' : eventForm.address.$valid && eventForm.address.$touched, 'has-error' : eventForm.address.$invalid && eventForm.address.$touched }">
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.address.$valid && eventForm.address.$touched && newAddress, 'has-error' : eventForm.address.$invalid && eventForm.address.$touched && newAddress}">
         <label class="control-label">Event Address</label>
         <div class="input-group">
           <input class="form-control" name="address" ng-model="newAddress" placeholder="881 7th Ave.">
           <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.address.$valid && eventForm.address.$touched, 'fa-times' : eventForm.address.$invalid && eventForm.address.$touched }" aria-hidden="true"></span>
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.address.$valid && eventForm.address.$touched && newAddress, 'fa-times' : eventForm.address.$invalid && eventForm.address.$touched && newAddress}" aria-hidden="true"></span>
           </span>
         </div>
       </div>
       <div class="form-group" ng-class="{ 'has-success' : eventForm.city.$valid && eventForm.city.$touched && newCity, 'has-error' : eventForm.city.$invalid && eventForm.city.$touched }">
         <label class="control-label">Event City</label>
         <div class="input-group">
-          <input class="form-control" name="city" ng-model="newCity" placeholder="New York">
+          <input class="form-control" name="city" ng-model="newCity" placeholder="New York" ng-model-options="{ updateOn: 'blur' }" ng-change="loadMap()">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.city.$valid && eventForm.city.$touched && newCity, 'fa-times' : eventForm.city.$touched && eventForm.city.$invalid }" aria-hidden="true"></span>
           </span>
         </div>
         <span class="sr-only">(success)</span>
       </div>
-      <ui-gmap-google-map ng-if="newVenue && newAddress && newCity" center="map.center" zoom='map.zoom'>
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.zoom.$valid && eventForm.zoom.$touched && newZoom, 'has-error' : eventForm.zoom.$invalid && eventForm.zoom.$touched }">
+        <label class="control-label">Event Zoom</label>
+        <div class="input-group">
+          <select class="form-control" name="zoom" ng-model="newZoom" ng-options="l as l for l in levels"></select>
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.zoom.$valid && eventForm.zoom.$touched && newZoom, 'fa-times' : eventForm.zoom.$touched && eventForm.zoom.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+      </div>
+      {{loadingMap}}
+      <div ng-show="loadingMap">
+        <p>The map is loading...</p>
+      </div>
+      <ui-gmap-google-map ng-if="newVenue && newAddress && newCity" center="newMap" zoom="newZoom || 15" options="options">
       </ui-gmap-google-map>
       <div class="form-group" ng-class="{ 'has-success' : eventForm.info.$valid && eventForm.info.$touched && newInfo, 'has-error' : eventForm.info.$invalid && eventForm.info.$touched }">
         <label class="control-label">Event Info</label>
@@ -90,22 +104,10 @@
         </div>
         <span class="sr-only">(success)</span>
       </div>
-      <div class="form-group" ng-class="{ 'has-success' : eventForm.zoom.$valid && eventForm.zoom.$touched && newZoom, 'has-error' : eventForm.zoom.$invalid && eventForm.zoom.$touched }">
-        <label class="control-label">Event Zoom</label>
-        <div class="input-group">
-          <select class="form-control" name="zoom" ng-model="newZoom" ng-options="l as l for l in levels"></select>
-          <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.zoom.$valid && eventForm.zoom.$touched && newZoom, 'fa-times' : eventForm.zoom.$touched && eventForm.zoom.$invalid }" aria-hidden="true"></span>
-          </span>
-        </div>
-        <span class="sr-only">(success)</span>
-      </div>
       <button type="submit" class="btn btn-primary btn-block" ng-disabled="eventForm.$invalid">Add New</button>
     </form>
   </div>
-  <div class="col-md-6">
-  </div>
-  <div class="col-md-12">
+  <div class="col-md-8">
     <ul class="admin events">
       <li ng-repeat="event in events | orderBy: 'date':reverse" class="well well-lg">
         <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(event.name, event)"><i class="fa fa-times"></i></button>
@@ -169,8 +171,8 @@
           </a>
         </div>
         <ui-gmap-google-map ng-if="event.lat != null && event.lng != null" center="[event.lat, event.lng ]" zoom='event.zoom' options='options'>
-          <ui-gmap-marker idkey="event.venue" coords="[event.lat, event.lng ]">
-          </ui-gmap-marker>
+          <!--ui-gmap-marker idkey="test" coords="[event.lat, event.lng ]" key>
+          </ui-gmap-marker-->
         </ui-gmap-google-map>
       </li>
     </ul>

@@ -13,6 +13,22 @@ angular.module('lorenjonesApp')
       });
     });
     $scope.events = [];
+    $scope.loadMap = function() {
+      if ($scope.newAddress && $scope.newCity) {
+        $scope.loadingMap = true;
+        //console.log('both are filled');
+        uiGmapGoogleMapApi.then(function(maps) {
+          var geocoder = new maps.Geocoder();
+          geocoder.geocode({'address': $scope.newAddress + $scope.newCity}, function(results, status) {
+            var newLat = results[0].geometry.location.G;
+            var newLng = results[0].geometry.location.K;
+            $scope.newMap = { latitude: newLat, longitude: newLng }
+            console.log(results);
+            $scope.loadingMap = false;
+          });
+        });
+      }
+    };
     $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
     $scope.options = {scrollwheel: false};
     $scope.isDateCollapsed = true;
