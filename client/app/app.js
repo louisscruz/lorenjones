@@ -18,11 +18,15 @@ angular.module('lorenjonesApp', [
   'duParallax',
   'ngMessages',
   'angularRipple',
-  'ngPicturefill'
+  'ngPicturefill',
+  'ui.bootstrap.datetimepicker'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider, uiGmapGoogleMapApiProvider) {
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
+    uiGmapGoogleMapApiProvider.configure({
+      key: 'AIzaSyDM6V6zJOevNNNty9JwqVwakF2wLiSIr60'
+    });
     $httpProvider.interceptors.push('authInterceptor');
     LightboxProvider.templateUrl = 'app/about/aboutModal.html';
     LightboxProvider.calculateModalDimensions = function(dimensions) {

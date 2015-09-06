@@ -1,64 +1,111 @@
-<script>
-  $('.datepicker').pickadate()
-  $('.timepicker').pickatime()
-</script>
-
 <div class="admin container">
   <h1 class="col-md-12 text-center">Manage Events</h1>
-
-  <div class="col-md-3">
-    <h2>Add Event</h2>
-    <form class="thing-form" name="eventsForm" ng-submit="addEvent(eventsForm.$valid)" novalidate>
-      <label><i class="fa fa-asterisk"></i>Name of Event</label>
-      <p class="input-group" ng-class="{ 'has-error' : eventsForm.name.$invalid && !eventsForm.name.$pristine }">
-        <input type="text" name="name" class="form-control" placeholder="Event Title" ng-model="newName" required>
-        <p ng-show="eventsForm.name.$invalid && !eventsForm.name.$pristine" class="help-block">You must enter a name</p>
-      </p>
-      <label><i class="fa fa-asterisk"></i>Date of Event:</label>
-      <p class="input-group" ng-class="{ 'has-error' : eventsForm.date.$invalid && !eventsForm.date.$pristine }">
-        <input type="number" name="date" class="form-control datepicker" placeholder="Event Date" ng-model="newDate" required>
-        <p ng-show="eventsForm.date.$invalid && !eventsForm.date.$pristine" class="help-block">You must enter a date</p>
-      </p>
-      <label>Time of Event:</label>
-      <p class="input-group">
-        <input type="text" class="form-control timepicker" placeholder="Event Time" pick-a-date-options="dateOptions" ng-model="newTime">
-      </p>
-      <label>Name of Venue:</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Venue" ng-model="newVenue">
-      </p>
-      <label><i class="fa fa-asterisk"></i>City:</label>
-      <p class="input-group" ng-class="{ 'has-error' : eventsForm.city.$invalid && !eventsForm.city.$pristine }">
-        <input type="text" name="city" class="form-control" placeholder="Event City" ng-model="newCity" required>
-        <p ng-show="eventsForm.city.$invalid && !eventsForm.city.$pristine" class="help-block">You must enter a city</p>
-      </p>
-      <label>Info:</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Info" ng-model="newInfo">
-      </p>
-      <label>Link:</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Link" ng-model="newLink">
-      </p>
-      <label>Address:</label>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Longitude" ng-model="newLng">
-      </p>
-      <p class="input-group">
-        <input type="text" class="form-control" placeholder="Event Latitude" ng-model="newLat">
-      </p>
-      <label>Map Zoom:</label>
-      <p class="input-group">
-        <select ng-model="newZoom" ng-options="l as l for l in levels" ng-init="newZoom = levels[14]">
-        </select>
-      </p>
-      <p class="input-group">
-        <button type="submit" class="btn btn-primary" ng-disabled="eventsForm.$invalid">Add New</button>
-      </p>
+  <div class="col-md-6">
+    <h2 class="text-center">Add Event</h2>
+    <form name="eventForm" ng-submit="addEvent(eventForm.$valid)" novalidate>
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.title.$valid && eventForm.title.$touched, 'has-error' : eventForm.title.$invalid && eventForm.title.$touched }">
+        <label class="control-label">Title of Event</label>
+        <div class="input-group">
+          <input class="form-control" name="title" ng-model="newTitle" placeholder="Opening Concert at Carnegie Hall" required ng-maxlength="82">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.title.$valid && eventForm.title.$touched, 'fa-times' : eventForm.title.$touched && eventForm.title.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="eventForm.title.$error" ng-if="eventForm.title.$touched">
+          <p ng-message="required">A title is required.</p>
+          <p ng-message="maxlength">The title must be less than 82 characters.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.date.$valid && eventForm.date.$touched && isDateCollapsed, 'has-error' : eventForm.date.$invalid && eventForm.date.$touched && isDateCollapsed }">
+        <label class="control-label">Date and Time</label>
+        <div click-outside="closeDate()">
+          <div class="dropdown" ng-click="isDateCollapsed = !isDateCollapsed">
+            <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#" href="#">
+              <div class="input-group">
+                <input type="datetime-local" name="date" class="form-control" placeholder="May 5, 1891" data-ng-model="newDate" required ng-readonly>
+                <span class="input-group-addon">
+                  <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.date.$valid && eventForm.date.$touched && isDateCollapsed, 'fa-times' : eventForm.date.$invalid && eventForm.date.$touched && isDateCollapsed}"></span>
+                </span>
+              </div>
+            </a>
+            <ul aria-labelledby="dLabel" ng-hide="isDateCollapsed">
+              <datetimepicker data-ng-model="newDate" data-on-set-time="toggleCollapseDate()"></datetimepicker>
+            </ul>
+          </div>
+        </div>
+        <div class="help-block" ng-messages="eventForm.date.$error" ng-if="eventForm.date.$touched && isDateCollapsed">
+          <p ng-message="required">The event must have a date and time.</p>
+          <p ng-message="datetimelocal">The event date must be in a valid format.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.venue.$valid && eventForm.venue.$touched && newVenue, 'has-error' : eventForm.venue.$invalid && eventForm.venue.$touched }">
+        <label class="control-label">Event Venue</label>
+        <div class="input-group">
+          <input class="form-control" name="venue" ng-model="newVenue" placeholder="Carnegie Hall">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.venue.$valid && eventForm.venue.$touched && newVenue, 'fa-times' : eventForm.venue.$touched && eventForm.venue.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.address.$valid && eventForm.address.$touched, 'has-error' : eventForm.address.$invalid && eventForm.address.$touched }">
+        <label class="control-label">Event Address</label>
+        <div class="input-group">
+          <input class="form-control" name="address" ng-model="newAddress" placeholder="881 7th Ave.">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.address.$valid && eventForm.address.$touched, 'fa-times' : eventForm.address.$invalid && eventForm.address.$touched }" aria-hidden="true"></span>
+          </span>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.city.$valid && eventForm.city.$touched && newCity, 'has-error' : eventForm.city.$invalid && eventForm.city.$touched }">
+        <label class="control-label">Event City</label>
+        <div class="input-group">
+          <input class="form-control" name="city" ng-model="newCity" placeholder="New York">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.city.$valid && eventForm.city.$touched && newCity, 'fa-times' : eventForm.city.$touched && eventForm.city.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+      </div>
+      <ui-gmap-google-map ng-if="newVenue && newAddress && newCity" center="map.center" zoom='map.zoom'>
+      </ui-gmap-google-map>
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.info.$valid && eventForm.info.$touched && newInfo, 'has-error' : eventForm.info.$invalid && eventForm.info.$touched }">
+        <label class="control-label">Event Info</label>
+        <div class="input-group">
+          <input class="form-control" name="info" ng-model="newInfo" placeholder="Event Info">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.info.$valid && eventForm.info.$touched && newInfo, 'fa-times' : eventForm.info.$touched && eventForm.info.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.link.$valid && eventForm.link.$touched && newLink, 'has-error' : eventForm.link.$invalid && eventForm.link.$touched }">
+        <label class="control-label">Event Link</label>
+        <div class="input-group">
+          <input class="form-control" name="link" ng-model="newLink" placeholder="Event Link">
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.link.$valid && eventForm.link.$touched && newLink, 'fa-times' : eventForm.link.$touched && eventForm.link.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+      </div>
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.zoom.$valid && eventForm.zoom.$touched && newZoom, 'has-error' : eventForm.zoom.$invalid && eventForm.zoom.$touched }">
+        <label class="control-label">Event Zoom</label>
+        <div class="input-group">
+          <select class="form-control" name="zoom" ng-model="newZoom" ng-options="l as l for l in levels"></select>
+          <span class="input-group-addon">
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.zoom.$valid && eventForm.zoom.$touched && newZoom, 'fa-times' : eventForm.zoom.$touched && eventForm.zoom.$invalid }" aria-hidden="true"></span>
+          </span>
+        </div>
+        <span class="sr-only">(success)</span>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" ng-disabled="eventForm.$invalid">Add New</button>
     </form>
   </div>
-
-  <div class="col-md-9">
+  <div class="col-md-6">
+  </div>
+  <div class="col-md-12">
     <ul class="admin events">
       <li ng-repeat="event in events | orderBy: 'date':reverse" class="well well-lg">
         <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(event.name, event)"><i class="fa fa-times"></i></button>
@@ -77,8 +124,8 @@
         </div>
         <label>Time</label>
         <div>
-          <a href="#" editable-text="event.time" onaftersave="updateEvent(event)">
-            {{ event.time || "empty" }}
+          <a href="#" editable-bstime="event.time" e-show-meridian="true" onaftersave="updateEvent(event)">
+            {{ (event.time | date:"HH:mm") || "empty" }}
           </a>
         </div>
         <label>Venue</label>

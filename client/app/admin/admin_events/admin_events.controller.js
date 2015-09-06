@@ -1,9 +1,29 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal) {
+  .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal, uiGmapGoogleMapApi) {
+    uiGmapGoogleMapApi.then(function(maps) {
+      var geocoder = new maps.Geocoder();
+      geocoder.geocode({'address': '1600+Amphitheatre+Parkway,+San+Jose'}, function(results, status) {
+        console.log(results[0].geometry.location);
+        var lat = results[0].geometry.location.G;
+        var lng = results[0].geometry.location.K;
+        console.log(lat);
+        console.log(lng);
+      });
+    });
     $scope.events = [];
+    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
     $scope.options = {scrollwheel: false};
+    $scope.isDateCollapsed = true;
+    $scope.toggleCollapseDate = function() {
+      $scope.isDateCollapsed = !$scope.isDateCollapsed;
+    };
+    $scope.closeDate = function() {
+      if (!$scope.isDateCollapsed) {
+        $scope.toggleCollapseDate();
+      }
+    };
     $scope.levels = [
       1,
       2,
@@ -35,7 +55,7 @@ angular.module('lorenjonesApp')
     });
 
     $scope.addEvent = function(isValid) {
-      if( isValid ) {
+      if (isValid) {
         $http.post('/api/events', {
           name: $scope.newName,
           date: $scope.newDate,
