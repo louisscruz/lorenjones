@@ -19,7 +19,8 @@ angular.module('lorenjonesApp', [
   'ngMessages',
   'angularRipple',
   'ngPicturefill',
-  'ui.bootstrap.datetimepicker'
+  'ui.bootstrap.datetimepicker',
+  'rzModule'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider, uiGmapGoogleMapApiProvider) {
     $urlRouterProvider.otherwise('/');

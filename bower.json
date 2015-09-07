@@ -32,7 +32,8 @@
     "angular-messages": "~1.4.3",
     "angular-ripple": "*",
     "angular-picture": "*",
-    "angular-bootstrap-datetimepicker": "~0.3.13"
+    "angular-bootstrap-datetimepicker": "~0.3.13",
+    "angularjs-slider": "~0.1.27"
   },
   "devDependencies": {
     "angular-mocks": "1.3.15",

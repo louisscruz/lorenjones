@@ -2,30 +2,24 @@
 
 angular.module('lorenjonesApp')
   .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal, uiGmapGoogleMapApi) {
-    uiGmapGoogleMapApi.then(function(maps) {
-      var geocoder = new maps.Geocoder();
-      geocoder.geocode({'address': '1600+Amphitheatre+Parkway,+San+Jose'}, function(results, status) {
-        console.log(results[0].geometry.location);
-        var lat = results[0].geometry.location.G;
-        var lng = results[0].geometry.location.K;
-        console.log(lat);
-        console.log(lng);
-      });
-    });
     $scope.events = [];
     $scope.loadMap = function() {
       if ($scope.newAddress && $scope.newCity) {
         $scope.loadingMap = true;
-        //console.log('both are filled');
+        console.log('both are filled');
         uiGmapGoogleMapApi.then(function(maps) {
+          console.log('activating api');
           var geocoder = new maps.Geocoder();
-          geocoder.geocode({'address': $scope.newAddress + $scope.newCity}, function(results, status) {
+          geocoder.geocode({'address': $scope.newAddress + ',' + $scope.newCity}, function(results, status) {
+            if (!results[0]) { return; }
             var newLat = results[0].geometry.location.G;
             var newLng = results[0].geometry.location.K;
             $scope.newMap = { latitude: newLat, longitude: newLng }
-            console.log(results);
-            $scope.loadingMap = false;
           });
+          $scope.newZoom = 15;
+          $scope.loadingMap = false;
+        }, function() {
+          console.log('Server error');
         });
       }
     };
@@ -40,27 +34,10 @@ angular.module('lorenjonesApp')
         $scope.toggleCollapseDate();
       }
     };
-    $scope.levels = [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19
-    ];
+    $scope.levels = [];
+    for (var i = 1; i < 20; i++) {
+      $scope.levels.push(i);
+    }
     $scope.dateOptions = {
       format: 'ddd, dd-mm-yyyy',
     };

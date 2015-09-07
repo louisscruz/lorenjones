@@ -8,7 +8,7 @@
         <div class="input-group">
           <input class="form-control" name="title" ng-model="newTitle" placeholder="Opening Concert at Carnegie Hall" required ng-maxlength="82">
           <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.title.$valid && eventForm.title.$touched, 'fa-times' : eventForm.title.$touched && eventForm.title.$invalid }" aria-hidden="true"></span>
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.title.$valid && eventForm.title.$touched, 'fa-times' : eventForm.title.$touched && eventForm.title.$invalid, 'fa-asterisk' : eventForm.title.$untouched}" aria-hidden="true"></span>
           </span>
         </div>
         <span class="sr-only">(success)</span>
@@ -25,7 +25,7 @@
               <div class="input-group">
                 <input type="datetime-local" name="date" class="form-control" placeholder="May 5, 1891" data-ng-model="newDate" required ng-readonly>
                 <span class="input-group-addon">
-                  <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.date.$valid && eventForm.date.$touched && isDateCollapsed, 'fa-times' : eventForm.date.$invalid && eventForm.date.$touched && isDateCollapsed}"></span>
+                  <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.date.$valid && eventForm.date.$touched && isDateCollapsed, 'fa-times' : eventForm.date.$invalid && eventForm.date.$touched && isDateCollapsed, 'fa-asterisk' : eventForm.date.$untouched }"></span>
                 </span>
               </div>
             </a>
@@ -40,49 +40,56 @@
         </div>
       </div>
       <div class="form-group" ng-class="{ 'has-success' : eventForm.venue.$valid && eventForm.venue.$touched && newVenue, 'has-error' : eventForm.venue.$invalid && eventForm.venue.$touched }">
-        <label class="control-label">Event Venue</label>
+        <label class="control-label">Name of Venue</label>
         <div class="input-group">
-          <input class="form-control" name="venue" ng-model="newVenue" placeholder="Carnegie Hall">
+          <input class="form-control" name="venue" ng-model="newVenue" placeholder="Carnegie Hall" ng-required="newAddress || newCity">
           <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.venue.$valid && eventForm.venue.$touched && newVenue, 'fa-times' : eventForm.venue.$touched && eventForm.venue.$invalid }" aria-hidden="true"></span>
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.venue.$valid && eventForm.venue.$touched && newVenue, 'fa-times' : eventForm.venue.$touched && eventForm.venue.$invalid, 'fa-asterisk' : (newVenue || newAddress || newCity) && !eventForm.venue.$touched}" aria-hidden="true"></span>
           </span>
         </div>
         <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="eventForm.venue.$error" ng-if="eventForm.venue.$touched">
+          <p ng-message="required">A venue name is required for the event map.</p>
+        </div>
       </div>
-      <div class="form-group" ng-class="{ 'has-success' : eventForm.address.$valid && eventForm.address.$touched && newAddress, 'has-error' : eventForm.address.$invalid && eventForm.address.$touched && newAddress}">
-        <label class="control-label">Event Address</label>
+      <div class="form-group" ng-class="{ 'has-success' : eventForm.address.$valid && eventForm.address.$touched && newAddress, 'has-error' : eventForm.address.$invalid && eventForm.address.$touched}">
+        <label class="control-label">Address of Venue</label>
         <div class="input-group">
-          <input class="form-control" name="address" ng-model="newAddress" placeholder="881 7th Ave.">
+          <input class="form-control" name="address" ng-model="newAddress" placeholder="881 7th Ave." ng-model-options="{ debounce: 1000 }" ng-change="loadMap()" ng-required="newVenue || newCity">
           <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.address.$valid && eventForm.address.$touched && newAddress, 'fa-times' : eventForm.address.$invalid && eventForm.address.$touched && newAddress}" aria-hidden="true"></span>
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.address.$valid && eventForm.address.$touched && newAddress, 'fa-times' : eventForm.address.$invalid && eventForm.address.$touched && newAddress, 'fa-asterisk' : (newVenue || newAddress || newCity) && !eventForm.address.$touched }" aria-hidden="true"></span>
           </span>
+        </div>
+        <span class="sr-only">(success)</span>
+        <div class="help-block" ng-messages="eventForm.address.$error" ng-if="eventForm.address.$touched">
+          <p ng-message="required">An address is required for the event map.</p>
         </div>
       </div>
       <div class="form-group" ng-class="{ 'has-success' : eventForm.city.$valid && eventForm.city.$touched && newCity, 'has-error' : eventForm.city.$invalid && eventForm.city.$touched }">
-        <label class="control-label">Event City</label>
+        <label class="control-label">City of Venue</label>
         <div class="input-group">
-          <input class="form-control" name="city" ng-model="newCity" placeholder="New York" ng-model-options="{ updateOn: 'blur' }" ng-change="loadMap()">
+          <input class="form-control" name="city" ng-model="newCity" placeholder="New York" ng-model-options="{ debounce: 1000 }" ng-change="loadMap()" ng-required="newName || newAddress || newCity">
           <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.city.$valid && eventForm.city.$touched && newCity, 'fa-times' : eventForm.city.$touched && eventForm.city.$invalid }" aria-hidden="true"></span>
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.city.$valid && eventForm.city.$touched && newCity, 'fa-times' : eventForm.city.$touched && eventForm.city.$invalid, 'fa-asterisk' : (newVenue || newAddress || newCity) && !eventForm.city.$touched }" aria-hidden="true"></span>
           </span>
         </div>
         <span class="sr-only">(success)</span>
-      </div>
-      <div class="form-group" ng-class="{ 'has-success' : eventForm.zoom.$valid && eventForm.zoom.$touched && newZoom, 'has-error' : eventForm.zoom.$invalid && eventForm.zoom.$touched }">
-        <label class="control-label">Event Zoom</label>
-        <div class="input-group">
-          <select class="form-control" name="zoom" ng-model="newZoom" ng-options="l as l for l in levels"></select>
-          <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.zoom.$valid && eventForm.zoom.$touched && newZoom, 'fa-times' : eventForm.zoom.$touched && eventForm.zoom.$invalid }" aria-hidden="true"></span>
-          </span>
+        <div class="help-block" ng-messages="eventForm.city.$error" ng-if="eventForm.city.$touched">
+          <p ng-message="required">A city is required for the event map.</p>
         </div>
+      </div>
+      <div class="form-group has-success" ng-show="newVenue && newAddress && newCity">
+        <label class="control-label">Even Map Zoom</label>
+        <!--select class="form-control" name="zoom" ng-model="newZoom" ng-options="l as l for l in levels" ng-required="newVenue || newAddress || newCity"></select-->
+        <rzslider name="zoom" rz-slider-model="newZoom" rz-slider-floor="1" rz-slider-ceil="20" ng-required="newVenue || newAddress || newCity"></rzslider>
         <span class="sr-only">(success)</span>
       </div>
-      {{loadingMap}}
       <div ng-show="loadingMap">
+        <i class="fa fa-fw fa-circle-o-notch fa-spin"></i>
         <p>The map is loading...</p>
       </div>
-      <ui-gmap-google-map ng-if="newVenue && newAddress && newCity" center="newMap" zoom="newZoom || 15" options="options">
+      <ui-gmap-google-map ng-show="newVenue && newAddress && newCity" center="newMap" zoom="newZoom || 15" options="options">
+        <!--ui-gmap-marker idKey="newVenue" coords="newMap"></ui-gmap-marker-->
       </ui-gmap-google-map>
       <div class="form-group" ng-class="{ 'has-success' : eventForm.info.$valid && eventForm.info.$touched && newInfo, 'has-error' : eventForm.info.$invalid && eventForm.info.$touched }">
         <label class="control-label">Event Info</label>
@@ -171,7 +178,7 @@
           </a>
         </div>
         <ui-gmap-google-map ng-if="event.lat != null && event.lng != null" center="[event.lat, event.lng ]" zoom='event.zoom' options='options'>
-          <!--ui-gmap-marker idkey="test" coords="[event.lat, event.lng ]" key>
+          <!--ui-gmap-marker idKey="$index" coords="[event.lat, event.lng ]">
           </ui-gmap-marker-->
         </ui-gmap-google-map>
       </li>
