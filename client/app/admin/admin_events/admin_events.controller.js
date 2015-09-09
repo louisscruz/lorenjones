@@ -110,13 +110,17 @@ angular.module('lorenjonesApp')
       $scope.eventForm.$setUntouched();
     };
     $scope.editing = false;
-    $scope.toggleEdit = function(index) {
+    $scope.copiedEvent;
+    $scope.toggleEdit = function(index, item) {
       if ($scope.editing === index) {
         $scope.editing = false;
+        $scope.copiedEvent = null;
       } else {
         $scope.editing = index;
+        $scope.copiedEvent = item;
       }
     }
+    $scope.copiedEvent;
     $scope.confirmDelete = Modal.confirm.delete(function(event) {
       $scope.deleteEvent(event._id);
     });

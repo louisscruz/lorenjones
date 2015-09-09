@@ -11,8 +11,10 @@ angular.module('lorenjonesApp')
         }
         var validateFn = function (viewValue) {
           var result = viewValue;
+          console.log(result);
+          console.log(moment(result).isValid())
           if (viewValue) {
-            var momentValue = moment(viewValue);
+            var momentValue = moment(String(viewValue), 'M/D/YY h:mma');
             if (momentValue.isValid()) {
               controller.$setValidity(attrs.ngModel, true);
               result = momentValue.format();
