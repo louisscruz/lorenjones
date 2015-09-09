@@ -6,12 +6,15 @@
   li {
     list-style:none;
     padding: 10px;
-    button {
+    button.btn-danger {
       float: right;
     }
   }
   .well label {
-    color: black;
+    color: $black;
+  }
+  form {
+    color: $black;
   }
 }
 
@@ -39,4 +42,7 @@
   font-style: normal;
   font-weight: normal;
   line-height: 1;
+}
+rzslider span.rz-bubble, rzslider span.rz-bubble.rz-limit {
+  color: $white;
 }

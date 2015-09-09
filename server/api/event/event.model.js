@@ -4,16 +4,16 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var EventSchema = new Schema({
-  name: String,
-  date: Date,
-  time: String,
+  title: String,
+  datetime: Date,
   venue: String,
+  address: String,
+  lat: String,
+  lng: String,
   city: String,
   link: String,
   info: String,
   center: String,
-  lat: String,
-  lng: String,
   zoom: Number
 });
 
