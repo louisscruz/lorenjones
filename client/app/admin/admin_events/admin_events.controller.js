@@ -3,6 +3,33 @@
 angular.module('lorenjonesApp')
   .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal, uiGmapGoogleMapApi, $compile) {
     $scope.events = [];
+    $scope.eventSelector = 'Upcoming';
+    var upcomingEvents = [];
+    var pastEvents = [];
+    //$scope.eventSelector = 'Upcoming';
+    $http.get('/api/events', {cache: true}).success(function(events) {
+      var currentDate = new Date();
+      for (var i = 0; i < events.length; i++) {
+        if (new Date(events[i].datetime) < currentDate) {
+          pastEvents.push(events[i]);
+        } else {
+          upcomingEvents.push(events[i]);
+        }
+      }
+      if ($scope.eventSelector === 'Upcoming') {
+        $scope.events = angular.copy(upcomingEvents);
+      } else {
+        $scope.events = angular.copy(pastEvents);
+      }
+      socket.syncUpdates('event', $scope.events);
+    });
+    $scope.$watch('eventSelector', function() {
+      if ($scope.eventSelector === 'Upcoming') {
+        $scope.events = angular.copy(upcomingEvents);
+      } else {
+        $scope.events = angular.copy(pastEvents);
+      }
+    });
     $scope.levels = [];
     var newLat;
     var newLng;
@@ -33,19 +60,24 @@ angular.module('lorenjonesApp')
     $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
     $scope.options = {scrollwheel: false};
     $scope.isDateCollapsed = true;
+    $scope.isEditDateCollapsed = true;
     $scope.toggleCollapseDate = function() {
       $scope.isDateCollapsed = !$scope.isDateCollapsed;
     };
+    $scope.toggleEditCollapseDate = function() {
+      $scope.isEditDateCollapsed = !$scope.isEditDateCollapsed;
+    }
     $scope.closeDate = function() {
-      if (!$scope.isDateCollapsed) {
+      if ($scope.isDateCollapsed === false) {
         $scope.toggleCollapseDate();
       }
     };
+    $scope.closeEditDate = function() {
+      if ($scope.isEditDateCollapsed !== true) {
+        $scope.isEditDateCollapsed = true;
+      }
+    }
     $scope.dateFormat = /^(0[1-9]|1[0-2]|[1-9])\/(0[1-9]|1[0-9]|2[0-9]|3[0-1]|[0-9])\/(\d{2,4})\s(0[0-9]|1[0-2]|[1-9]):([0-5])([0-9])(?:am|pm)$/;
-    $http.get('/api/events', {cache: true}).success(function(events) {
-      $scope.events = events;
-      socket.syncUpdates('event', $scope.events);
-    });
     $scope.addEvent = function(isValid) {
       if (isValid) {
         $http.post('/api/events', {
@@ -64,6 +96,7 @@ angular.module('lorenjonesApp')
       }
     };
     $scope.updateEvent = function(event) {
+      $scope.editing = false;
       return $http.put('/api/events/' + event._id, {
         title: event.title,
         datetime: event.datetime,
@@ -117,7 +150,7 @@ angular.module('lorenjonesApp')
         $scope.copiedEvent = null;
       } else {
         $scope.editing = index;
-        $scope.copiedEvent = item;
+        $scope.copiedEvent = angular.copy(item);
       }
     }
     $scope.copiedEvent;

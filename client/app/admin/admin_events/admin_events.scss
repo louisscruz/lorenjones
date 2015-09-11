@@ -22,6 +22,9 @@ input[readonly] {
     .pre-edit {
       padding: 15px;
     }
+    rzslider span.rz-bubble, rzslider span.rz-bubble.rz-limit {
+      color: $black;
+    }
   }
 }
 
