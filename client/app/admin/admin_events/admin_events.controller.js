@@ -29,6 +29,7 @@ angular.module('lorenjonesApp')
       } else {
         $scope.events = angular.copy(pastEvents);
       }
+      $scope.editing = false;
     });
     $scope.levels = [];
     var newLat;
@@ -39,13 +40,10 @@ angular.module('lorenjonesApp')
     $scope.loadMap = function() {
       if ($scope.newAddress && $scope.newCity) {
         $scope.loadingMap = true;
-        console.log('both are filled');
         uiGmapGoogleMapApi.then(function(maps) {
-          console.log('activating api');
           var geocoder = new maps.Geocoder();
           geocoder.geocode({'address': $scope.newAddress + ',' + $scope.newCity}, function(results, status) {
             if (!results[0]) { return; }
-            console.log(results);
             newLat = results[0].geometry.location.G;
             newLng = results[0].geometry.location.K;
             $scope.newMap = { latitude: newLat, longitude: newLng }

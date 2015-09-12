@@ -78,17 +78,17 @@
           <p ng-message="required">A city is required for the event map.</p>
         </div>
       </div>
-      <div class="form-group has-success" ng-show="newVenue && newAddress && newCity">
+      <div class="form-group has-success" ng-if="newVenue && newAddress && newCity">
         <label class="control-label">Event Map Zoom</label>
         <!--select class="form-control" name="zoom" ng-model="newZoom" ng-options="l as l for l in levels" ng-required="newVenue || newAddress || newCity"></select-->
         <rzslider name="zoom" rz-slider-model="newZoom" rz-slider-floor="1" rz-slider-ceil="20" ng-required="newVenue || newAddress || newCity"></rzslider>
         <span class="sr-only">(success)</span>
       </div>
-      <div ng-show="loadingMap">
+      <div ng-if="loadingMap">
         <i class="fa fa-fw fa-circle-o-notch fa-spin"></i>
         <p>The map is loading...</p>
       </div>
-      <ui-gmap-google-map ng-show="newVenue && newAddress && newCity" center="newMap" zoom="newZoom || 15" options="options">
+      <ui-gmap-google-map ng-if="newVenue && newAddress && newCity" center="newMap" zoom="newZoom || 15" options="options">
         <!--ui-gmap-marker idKey="newVenue" coords="newMap"></ui-gmap-marker-->
       </ui-gmap-google-map>
       <div class="form-group" ng-class="{ 'has-success' : eventForm.info.$valid && eventForm.info.$touched && newInfo, 'has-error' : eventForm.info.$invalid && eventForm.info.$touched }">
@@ -124,127 +124,125 @@
     </div>
     <br>
     <ul class="admin events">
-      <li ng-repeat="event in events | orderBy: 'datetime':reverse" class="well well-lg">
+      <li ng-repeat="event in events | orderBy: 'datetime':reverse" class="well well-lg row">
         <div class="col-xs-12">
           <form name="editForm" ng-submit="updateEvent(copiedEvent)" novalidate>
             <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(event.name, event)"><i class="fa fa-times"></i></button>
             <h2>{{ event.title || "(empty)" }}</h2>
-            <div class="form-group" ng-if="editing === $index" ng-class="{ 'has-error' : editForm.title.$invalid && editForm.title.$touched }">
-              <label class="control-label">Title</label>
-              <div class="input-group">
+            <div ng-if="editing !== $index" ng-cloak>
+              <div class="pre-edit">
+                <label>Date and Time</label>
+                <p>{{ event.datetime | date: 'M/d/yyyy h:mma' || "(empty)"}}</p>
+              </div>
+              <div class="pre-edit">
+                <label>Name of Venue</label>
+                <p>{{ event.venue || "(empty)" }}</p>
+              </div>
+              <div class="pre-edit">
+                <label>Address of Venue</label>
+                <p>{{ event.address || "(empty)" }}</p>
+              </div>
+              <div class="pre-edit">
+                <label>City of Venue</label>
+                <p>{{ event.city || "(empty)" }}</p>
+              </div>
+              <div class="pre-edit" ng-if="(copiedEvent.venue || copiedEvent.address || copiedEvent.city)">
+                <label>Map Zoom</label>
+                <p>{{ event.zoom || "(empty)" }}</p>
+              </div>
+              <div>
+                <ui-gmap-google-map ng-if="event.lat != null && event.lng != null" center="[event.lng, event.lat]" zoom='event.zoom' options='options'>
+                  <!--ui-gmap-marker idKey="$index" coords="[event.lat, event.lng ]">
+                  </ui-gmap-marker-->
+                </ui-gmap-google-map>
+              </div>
+              <div class="pre-edit">
+                <label>Event Info</label>
+                <p>{{ event.info || "(empty)" }}</p>
+              </div>
+              <div class="pre-edit">
+                <label>Event Link</label>
+                <p>{{ event.link || "(empty)" }}</p>
+              </div>
+              <button type="button" class="btn btn-default" ng-click="toggleEdit($index, event)"><i class="fa fa-edit"></i> Edit</button>
+            </div>
+            <div ng-if="editing === $index" ng-cloak>
+              <div class="form-group" ng-class="{ 'has-error' : editForm.title.$invalid && editForm.title.$touched }">
+                <label class="control-label">Title</label>
                 <input type="text" class="form-control" name="title" ng-model="copiedEvent.title" placeholder="Opening Concert at Carnegie Hall" required ng-maxlength="82">
-              </div>
-              <span class="sr-only">(success)</span>
-              <div class="help-block" ng-messages="editForm.title.$error" ng-if="editForm.title.$touched">
-                <p ng-message="required">A title is required.</p>
-              </div>
-            </div>
-            <div class="pre-edit" ng-if="editing !== $index">
-              <label>Date and Time</label>
-              <p>{{ event.datetime | date: 'M/d/yyyy h:mma' || "(empty)"}}</p>
-            </div>
-            <div class="form-group" ng-if="editing === $index" ng-class="{ 'has-error' : editForm.datetime.$invalid && editForm.datetime.$touched }">
-              <label class="control-label">Date and Time</label>
-              <div click-outside="isEditDateCollapsed = true">
-                <div class="dropdown" ng-click="isEditDateCollapsed = !isEditDateCollapsed">
-                  <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#" href="#">
-                    <div class="input-group">
-                      <input type="text" name="date" class="form-control" placeholder="5/5/91 8:00pm" data-ng-model="copiedEvent.datetime" required readonly format-datetime="M/D/YY h:mma" ng-pattern="dateFormat">
-                    </div>
-                  </a>
-                  <ul aria-labelledby="dLabel" ng-hide="isEditDateCollapsed" click-outside="closeEditDate()">
-                    <datetimepicker data-ng-model="copiedEvent.datetime" data-on-set-time="isEditDateCollapsed = true"></datetimepicker>
-                  </ul>
+                <span class="sr-only">(success)</span>
+                <div class="help-block" ng-messages="editForm.title.$error" ng-if="editForm.title.$touched">
+                  <p ng-message="required">A title is required.</p>
                 </div>
               </div>
-            </div>
-            <div class="pre-edit" ng-if="editing !== $index">
-              <label>Name of Venue</label>
-              <p>{{ event.venue || "(empty)" }}</p>
-            </div>
-            <div class="form-group" ng-if="editing === $index" ng-class="{ 'has-error' : editForm.venue.$invalid && editForm.venue.$touched }">
-              <label class="control-label">Name of Venue</label>
-              <div class="input-group">
+              <div class="form-group" ng-class="{ 'has-error' : editForm.datetime.$invalid && editForm.datetime.$touched }">
+                <label class="control-label">Date and Time</label>
+                <div click-outside="isEditDateCollapsed = true">
+                  <div class="dropdown" ng-click="isEditDateCollapsed = !isEditDateCollapsed">
+                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#" href="#">
+                      <input type="text" name="date" class="form-control" placeholder="5/5/91 8:00pm" data-ng-model="copiedEvent.datetime" required readonly format-datetime="M/D/YY h:mma" ng-pattern="dateFormat">
+                    </a>
+                    <ul aria-labelledby="dLabel" ng-hide="isEditDateCollapsed" click-outside="closeEditDate()">
+                      <datetimepicker data-ng-model="copiedEvent.datetime" data-on-set-time="isEditDateCollapsed = true"></datetimepicker>
+                    </ul>
+                  </div>
+                </div>
+                <span class="sr-only">(success)</span>
+                <div class="help-block" ng-messages="editForm.date.$error" ng-if="editForm.date.$touched">
+                  <p ng-message="required">A date is required.</p>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : editForm.venue.$invalid && editForm.venue.$touched }">
+                <label class="control-label">Name of Venue</label>
                 <input type="text" class="form-control" name="venue" ng-model="copiedEvent.venue" ng-required="copiedEvent.address || copiedEvent.city">
+                <span class="sr-only">(success)</span>
+                <div class="help-block" ng-messages="editForm.venue.$error" ng-if="editForm.venue.$touched">
+                  <p ng-message="required">A venue name is required if you are adding a location.</p>
+                </div>
               </div>
-              <span class="sr-only">(success)</span>
-              <div class="help-block" ng-messages="editForm.venue.$error" ng-if="editForm.venue.$touched">
-                <p ng-message="required">A venue name is required if you are adding a location.</p>
+              <div class="form-group" ng-class="{ 'has-error' : editForm.address.$invalid && editForm.address.$touched }">
+                <label class="control-label">Address of Venue</label>
+                <input type="text" class="form-control" name="address" ng-if="editing === $index" ng-model="copiedEvent.address" ng-required="copiedEvent.venue || copiedEvent.city" valid-address ng-model-options="{ debounce: 750 }">
+                <span class="sr-only">(success)</span>
+                <div class="help-block" ng-messages="editForm.address.$error" ng-if="editForm.address.$touched">
+                  <p ng-message="required">A venue address is required if you are adding a location.</p>
+                  <p ng-message="valid">Invalid address</p>
+                </div>
               </div>
-            </div>
-            <div class="pre-edit" ng-if="editing !== $index">
-              <label>Address of Venue</label>
-              <p>{{ event.address || "(empty)" }}</p>
-            </div>
-            <div class="form-group" ng-if="editing === $index" ng-class="{ 'has-error' : editForm.address.$invalid && editForm.address.$touched }">
-              <label class="control-label">Address of Venue</label>
-              <div class="input-group">
-                <input type="text" class="form-control" name="address" ng-model="copiedEvent.address" ng-required="copiedEvent.venue || copiedEvent.city">
-              </div>
-              <span class="sr-only">(success)</span>
-              <div class="help-block" ng-messages="editForm.address.$error" ng-if="editForm.address.$touched">
-                <p ng-message="required">A venue address is required if you are adding a location.</p>
-              </div>
-            </div>
-            <div class="pre-edit" ng-if="editing !== $index">
-              <label>City of Venue</label>
-              <p>{{ event.city || "(empty)" }}</p>
-            </div>
-            <div class="form-group" ng-if="editing === $index" ng-class="{ 'has-error' : editForm.city.$invalid && editForm.city.$touched }">
-              <label class="control-label">City of Venue</label>
-              <div class="input-group">
+              <div class="form-group" ng-class="{ 'has-error' : editForm.city.$invalid && editForm.city.$touched }">
+                <label class="control-label">City of Venue</label>
                 <input type="text" class="form-control" name="city" ng-model="copiedEvent.city" ng-required="copiedEvent.venue || copiedEvent.address">
+                <span class="sr-only">(success)</span>
+                <div class="help-block" ng-messages="editForm.city.$error" ng-if="editForm.city.$touched">
+                  <p ng-message="required">A venue city is required if you are adding a location.</p>
+                </div>
               </div>
-              <span class="sr-only">(success)</span>
-              <div class="help-block" ng-messages="editForm.city.$error" ng-if="editForm.city.$touched">
-                <p ng-message="required">A venue city is required if you are adding a location.</p>
+              <div class="form-group" ng-if="(copiedEvent.venue || copiedEvent.address || copiedEvent.city)" ng-class="{ 'has-error' : editForm.zoom.$invalid && editForm.zoom.$touched }">
+                <label>Map Zoom</label>
+                <rzslider name="zoom" rz-slider-model="copiedEvent.zoom" rz-slider-floor="1" rz-slider-ceil="20" ng-required="copiedEvent.venue || copiedEvent.address || copiedEvent.city"></rzslider>
               </div>
-            </div>
-            <div class="pre-edit" ng-if="editing !== $index && (copiedEvent.venue || copiedEvent.address || copiedEvent.city)">
-              <label>Map Zoom</label>
-              <p>{{ event.zoom || "(empty)" }}</p>
-            </div>
-            <div class="form-group" ng-if="editing === $index && (copiedEvent.venue || copiedEvent.address || copiedEvent.city)" ng-class="{ 'has-error' : editForm.zoom.$invalid && editForm.zoom.$touched }">
-              <label>Map Zoom</label>
-              <rzslider name="zoom" rz-slider-model="copiedEvent.zoom" rz-slider-floor="1" rz-slider-ceil="20" ng-required="copiedEvent.venue || copiedEvent.address || copiedEvent.city"></rzslider>
-            </div>
-            <div>
-              <ui-gmap-google-map ng-if="event.lat != null && event.lng != null" center="[event.lng, event.lat]" zoom='editing === false ? event.zoom : copiedEvent.zoom' options='options'>
-                <!--ui-gmap-marker idKey="$index" coords="[event.lat, event.lng ]">
-                </ui-gmap-marker-->
-              </ui-gmap-google-map>
-            </div>
-            <div class="pre-edit" ng-if="editing !== $index">
-              <label>Event Info</label>
-              <p>{{ event.info || "(empty)" }}</p>
-            </div>
-            <div class="form-group" ng-if="editing === $index" ng-class="{ 'has-error' : editForm.info.$invalid && editForm.info.$touched }">
-              <label class="control-label">Event Info</label>
-              <div class="input-group">
+              <div>
+                <ui-gmap-google-map ng-if="event.lat != null && event.lng != null" center="[event.lng, event.lat]" zoom='copiedEvent.zoom' options='options'>
+                  <!--ui-gmap-marker idKey="$index" coords="[event.lat, event.lng ]">
+                  </ui-gmap-marker-->
+                </ui-gmap-google-map>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : editForm.info.$invalid && editForm.info.$touched }">
+                <label class="control-label">Event Info</label>
                 <input type="text" class="form-control" name="info" ng-model="copiedEvent.info">
               </div>
-            </div>
-            <div class="pre-edit" ng-if="editing !== $index">
-              <label>Event Link</label>
-              <p>{{ event.link || "(empty)" }}</p>
-            </div>
-            <div class="form-group" ng-if="editing === $index" ng-class="{ 'has-error' : editForm.link.$invalid && editForm.link.$touched }">
-              <label class="control-label">Event Link</label>
-              <div class="input-group">
+              <div class="form-group" ng-class="{ 'has-error' : editForm.link.$invalid && editForm.link.$touched }">
+                <label class="control-label">Event Link</label>
                 <input type="text" class="form-control" name="link" ng-model="copiedEvent.link">
               </div>
-            </div>
-            <div>
-              <button type="button" class="btn btn-default" ng-if="editing !== $index" ng-click="toggleEdit($index, event)"><i class="fa fa-edit"></i> Edit</button>
-              <span ng-if="editing === $index">
-                <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid">Save</button>
-                <button type="button" class="btn btn-default" ng-click="toggleEdit($index)">Cancel</button>
-              </span>
+              <div>
+                <span>
+                  <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid">Save</button>
+                  <button type="button" class="btn btn-default" ng-click="toggleEdit($index)">Cancel</button>
+                </span>
+              </div>
             </div>
           </form>
-        </div>
-        <div>
-            <a>{{ event.title }}</a>
         </div>
       </li>
     </ul>
