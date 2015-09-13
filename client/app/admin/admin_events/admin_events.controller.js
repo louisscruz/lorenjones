@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal, uiGmapGoogleMapApi, $compile) {
+  .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal, uiGmapGoogleMapApi, $compile, eventsFact) {
     $scope.events = [];
+    $scope.newZoom;
     $scope.eventSelector = 'Upcoming';
     var upcomingEvents = [];
     var pastEvents = [];
@@ -40,22 +41,28 @@ angular.module('lorenjonesApp')
     $scope.loadMap = function() {
       if ($scope.newAddress && $scope.newCity) {
         $scope.loadingMap = true;
-        uiGmapGoogleMapApi.then(function(maps) {
+        eventsFact.getCoords($scope.newAddress, $scope.newCity).then(function(result) {
+          console.log(result);
+          $scope.newLat = result[0];
+          $scope.newLng = result[1];
+          console.log('updating result');
+        });
+        $scope.newZoom = 15;
+        $scope.loadingMap = false;
+        /*uiGmapGoogleMapApi.then(function(maps) {
           var geocoder = new maps.Geocoder();
           geocoder.geocode({'address': $scope.newAddress + ',' + $scope.newCity}, function(results, status) {
             if (!results[0]) { return; }
             newLat = results[0].geometry.location.G;
             newLng = results[0].geometry.location.K;
-            $scope.newMap = { latitude: newLat, longitude: newLng }
           });
-          $scope.newZoom = 15;
-          $scope.loadingMap = false;
         }, function() {
           console.log('Server error');
         });
+        $scope.newZoom = 15;
+        $scope.loadingMap = false;*/
       }
     };
-    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
     $scope.options = {scrollwheel: false};
     $scope.isDateCollapsed = true;
     $scope.isEditDateCollapsed = true;
@@ -117,7 +124,7 @@ angular.module('lorenjonesApp')
           event.lng = results[0].geometry.location.K;
           $scope.newMap = { latitude: newLat, longitude: newLng }
         });
-        $scope.newZoom = 15;
+        //$scope.newZoom = 15;
         $scope.loadingMap = false;
       }, function() {
         console.log('Server error');
@@ -150,8 +157,12 @@ angular.module('lorenjonesApp')
         $scope.editing = index;
         $scope.copiedEvent = angular.copy(item);
       }
-    }
-    $scope.copiedEvent;
+    };
+    /*$scope.updateCopiedCoords = function() {
+      if ($scope.copiedEvent.address && $scope.copiedEvent.city) {
+
+      }
+    };*/
     $scope.confirmDelete = Modal.confirm.delete(function(event) {
       $scope.deleteEvent(event._id);
     });

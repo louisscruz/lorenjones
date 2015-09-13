@@ -78,7 +78,7 @@
           <p ng-message="required">A city is required for the event map.</p>
         </div>
       </div>
-      <div class="form-group has-success" ng-if="newVenue && newAddress && newCity">
+      <div class="form-group has-success" ng-show="newVenue && newAddress && newCity">
         <label class="control-label">Event Map Zoom</label>
         <!--select class="form-control" name="zoom" ng-model="newZoom" ng-options="l as l for l in levels" ng-required="newVenue || newAddress || newCity"></select-->
         <rzslider name="zoom" rz-slider-model="newZoom" rz-slider-floor="1" rz-slider-ceil="20" ng-required="newVenue || newAddress || newCity"></rzslider>
@@ -88,7 +88,8 @@
         <i class="fa fa-fw fa-circle-o-notch fa-spin"></i>
         <p>The map is loading...</p>
       </div>
-      <ui-gmap-google-map ng-if="newVenue && newAddress && newCity" center="newMap" zoom="newZoom || 15" options="options">
+      {{newZoom}}
+      <ui-gmap-google-map ng-if="newVenue && newAddress && newCity" center="[newLng, newLat]" zoom="newZoom" options="options">
         <!--ui-gmap-marker idKey="newVenue" coords="newMap"></ui-gmap-marker-->
       </ui-gmap-google-map>
       <div class="form-group" ng-class="{ 'has-success' : eventForm.info.$valid && eventForm.info.$touched && newInfo, 'has-error' : eventForm.info.$invalid && eventForm.info.$touched }">
@@ -202,7 +203,7 @@
               </div>
               <div class="form-group" ng-class="{ 'has-error' : editForm.address.$invalid && editForm.address.$touched }">
                 <label class="control-label">Address of Venue</label>
-                <input type="text" class="form-control" name="address" ng-if="editing === $index" ng-model="copiedEvent.address" ng-required="copiedEvent.venue || copiedEvent.city" valid-address ng-model-options="{ debounce: 750 }">
+                <input type="text" class="form-control" name="address" ng-model="copiedEvent.address" ng-required="copiedEvent.venue || copiedEvent.city" valid-address ng-model-options="{ debounce: 750 }" ng-change="updateCopiedCoords()">
                 <span class="sr-only">(success)</span>
                 <div class="help-block" ng-messages="editForm.address.$error" ng-if="editForm.address.$touched">
                   <p ng-message="required">A venue address is required if you are adding a location.</p>
@@ -211,7 +212,7 @@
               </div>
               <div class="form-group" ng-class="{ 'has-error' : editForm.city.$invalid && editForm.city.$touched }">
                 <label class="control-label">City of Venue</label>
-                <input type="text" class="form-control" name="city" ng-model="copiedEvent.city" ng-required="copiedEvent.venue || copiedEvent.address">
+                <input type="text" class="form-control" name="city" ng-model="copiedEvent.city" ng-required="copiedEvent.venue || copiedEvent.address" ng-model-options="{ debounce: 750 }" ng-change="updateCopiedCoords()">
                 <span class="sr-only">(success)</span>
                 <div class="help-block" ng-messages="editForm.city.$error" ng-if="editForm.city.$touched">
                   <p ng-message="required">A venue city is required if you are adding a location.</p>
@@ -222,7 +223,7 @@
                 <rzslider name="zoom" rz-slider-model="copiedEvent.zoom" rz-slider-floor="1" rz-slider-ceil="20" ng-required="copiedEvent.venue || copiedEvent.address || copiedEvent.city"></rzslider>
               </div>
               <div>
-                <ui-gmap-google-map ng-if="event.lat != null && event.lng != null" center="[event.lng, event.lat]" zoom='copiedEvent.zoom' options='options'>
+                <ui-gmap-google-map ng-if="copiedEvent.lng && copiedEvent.lat" center="[copiedEvent.lng, copiedEvent.lat]" zoom='copiedEvent.zoom' options='options'>
                   <!--ui-gmap-marker idKey="$index" coords="[event.lat, event.lng ]">
                   </ui-gmap-marker-->
                 </ui-gmap-google-map>
