@@ -88,8 +88,7 @@
         <i class="fa fa-fw fa-circle-o-notch fa-spin"></i>
         <p>The map is loading...</p>
       </div>
-      {{newZoom}}
-      <ui-gmap-google-map ng-if="newVenue && newAddress && newCity" center="[newLng, newLat]" zoom="newZoom" options="options">
+      <ui-gmap-google-map ng-if="newVenue && newAddress && newCity" center="[newLng, newLat]" zoom="newZoom || 15" options="options">
         <!--ui-gmap-marker idKey="newVenue" coords="newMap"></ui-gmap-marker-->
       </ui-gmap-google-map>
       <div class="form-group" ng-class="{ 'has-success' : eventForm.info.$valid && eventForm.info.$touched && newInfo, 'has-error' : eventForm.info.$invalid && eventForm.info.$touched }">
@@ -125,7 +124,7 @@
     </div>
     <br>
     <ul class="admin events">
-      <li ng-repeat="event in events | orderBy: 'datetime':reverse" class="well well-lg row">
+      <li ng-repeat="event in events track by $index | orderBy: 'datetime':reverse" class="well well-lg row">
         <div class="col-xs-12">
           <form name="editForm" ng-submit="updateEvent(copiedEvent)" novalidate>
             <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(event.name, event)"><i class="fa fa-times"></i></button>
@@ -151,6 +150,8 @@
                 <label>Map Zoom</label>
                 <p>{{ event.zoom || "(empty)" }}</p>
               </div>
+              zoom is {{event.zoom}}
+              coords are {{event.lat}} {{event.lng}}
               <div>
                 <ui-gmap-google-map ng-if="event.lat != null && event.lng != null" center="[event.lng, event.lat]" zoom='event.zoom' options='options'>
                   <!--ui-gmap-marker idKey="$index" coords="[event.lat, event.lng ]">
