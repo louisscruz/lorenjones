@@ -2,11 +2,11 @@
 
 angular.module('lorenjonesApp')
   .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal, uiGmapGoogleMapApi, $compile, eventsFact) {
-    //$scope.events = [];
     $scope.pastEvents = [];
     $scope.upcomingEvents = [];
     $scope.newZoom;
     $scope.eventSelector = 'Upcoming';
+    $scope.sort = 'datetime';
     $scope.editing = false;
     $scope.copiedEvent;
     $http.get('/api/events', {cache: false}).success(function(events) {
@@ -17,11 +17,6 @@ angular.module('lorenjonesApp')
         } else {
           $scope.upcomingEvents.push(events[i]);
         }
-      }
-      if ($scope.eventSelector === 'Upcoming') {
-        //$scope.events = $scope.upcomingEvents;
-      } else {
-        //$scope.events = $scope.pastEvents;
       }
       socket.syncUpdates('event', $scope.events);
     });
@@ -36,8 +31,10 @@ angular.module('lorenjonesApp')
     }
     $scope.eventDataset = function(selector) {
       if (selector === 'Upcoming') {
+        $scope.sort = 'datetime';
         return $scope.upcomingEvents;
       } else {
+        $scope.sort = '-datetime';
         return $scope.pastEvents;
       }
     };
@@ -75,17 +72,23 @@ angular.module('lorenjonesApp')
     $scope.dateFormat = /^(0[1-9]|1[0-2]|[1-9])\/(0[1-9]|1[0-9]|2[0-9]|3[0-1]|[0-9])\/(\d{2,4})\s(0[0-9]|1[0-2]|[1-9]):([0-5])([0-9])(?:am|pm)$/;
     $scope.addEvent = function(isValid) {
       if (isValid) {
+        var currentDate = new Date();
+        if (new Date($scope.newEvent.datetime) < currentDate) {
+          $scope.pastEvents.push($scope.newEvent);
+        } else {
+          $scope.upcomingEvents.push($scope.newEvent);
+        }
         $http.post('/api/events', {
-          title: $scope.newTitle,
-          datetime: $scope.newDate,
-          venue: $scope.newVenue,
-          address: $scope.newAddress,
-          lat: $scope.newLat,
-          lng: $scope.newLng,
-          city: $scope.newCity,
-          link: $scope.newLink,
-          info: $scope.newInfo,
-          zoom: $scope.newZoom
+          title: $scope.newEvent.title,
+          datetime: $scope.newEvent.datetime,
+          venue: $scope.newEvent.venue,
+          address: $scope.newEvent.address,
+          lat: $scope.newEvent.lat,
+          lng: $scope.newEvent.lng,
+          city: $scope.newEvent.city,
+          link: $scope.newEvent.link,
+          info: $scope.newEvent.info,
+          zoom: $scope.newEvent.zoom
         }).then(function() {
           $scope.resetForm();
         });
@@ -98,7 +101,6 @@ angular.module('lorenjonesApp')
         for (var i = 0; i < $scope.upcomingEvents.length; i++) {
           if ($scope.upcomingEvents[i]._id === event._id) {
             $scope.upcomingEvents[i] = event;
-            $scope.events = $scope.upcomingEvents;
             break;
           }
         }
@@ -106,7 +108,6 @@ angular.module('lorenjonesApp')
         for (var i = 0; i < $scope.pastEvents.length; i++) {
           if ($scope.pastEvents[i]._id === event._id) {
             $scope.pastEvents[i] = event;
-            $scope.events = $scope.pastEvents;
             break;
           }
         }
@@ -125,6 +126,23 @@ angular.module('lorenjonesApp')
       });
     };
     $scope.deleteEvent = function(id) {
+      var caught = false;
+      console.log(id);
+      for (var i = 0; i < $scope.upcomingEvents.length; i++) {
+        if ($scope.upcomingEvents[i]._id === id) {
+          $scope.upcomingEvents.splice(i, 1);
+          caught = true;
+          break;
+        }
+      }
+      if (!caught) {
+        for (var i = 0; i < $scope.pastEvents.length; i++) {
+          if ($scope.pastEvents[i]._id === id) {
+            $scope.pastEvents.splice(i, 1);
+            break;
+          }
+        }
+      }
       $http.delete('/api/events/' + id);
     };
     $scope.resetForm = function() {

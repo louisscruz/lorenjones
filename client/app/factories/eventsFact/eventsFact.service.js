@@ -2,6 +2,11 @@
 
 angular.module('lorenjonesApp')
   .factory('eventsFact', function (uiGmapGoogleMapApi, $q) {
+    function roundDate(timeStamp){
+      timeStamp -= timeStamp % (24 * 60 * 60 * 1000);
+      timeStamp += new Date().getTimezoneOffset() * 60 * 1000;
+      return new Date(timeStamp);
+    }
     function getCoords(address, city) {
       var deferred = $q.defer();
       uiGmapGoogleMapApi.then(function(maps) {
