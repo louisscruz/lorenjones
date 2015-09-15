@@ -124,7 +124,8 @@
     </div>
     <br>
     <ul class="admin events">
-      <li ng-repeat="event in events track by $index | orderBy: 'datetime':reverse" class="well well-lg row">
+      {{upcomingEvents.length}} {{pastEvents.length}}
+      <li ng-repeat="event in eventDataset(eventSelector) | orderBy: 'datetime':reverse" class="well well-lg row">
         <div class="col-xs-12">
           <form name="editForm" ng-submit="updateEvent(copiedEvent)" novalidate>
             <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(event.name, event)"><i class="fa fa-times"></i></button>

@@ -2,13 +2,13 @@
 
 angular.module('lorenjonesApp')
   .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal, uiGmapGoogleMapApi, $compile, eventsFact) {
-    $scope.events = [];
+    //$scope.events = [];
+    $scope.pastEvents = [];
+    $scope.upcomingEvents = [];
     $scope.newZoom;
     $scope.eventSelector = 'Upcoming';
     $scope.editing = false;
     $scope.copiedEvent;
-    $scope.pastEvents = [];
-    $scope.upcomingEvents = [];
     $http.get('/api/events', {cache: false}).success(function(events) {
       var currentDate = new Date();
       for (var i = 0; i < events.length; i++) {
@@ -19,18 +19,13 @@ angular.module('lorenjonesApp')
         }
       }
       if ($scope.eventSelector === 'Upcoming') {
-        $scope.events = $scope.upcomingEvents;
+        //$scope.events = $scope.upcomingEvents;
       } else {
-        $scope.events = $scope.pastEvents;
+        //$scope.events = $scope.pastEvents;
       }
       socket.syncUpdates('event', $scope.events);
     });
     $scope.$watch('eventSelector', function() {
-      if ($scope.eventSelector === 'Upcoming') {
-        $scope.events = $scope.upcomingEvents;
-      } else {
-        $scope.events = $scope.pastEvents;
-      }
       $scope.editing = false;
     });
     $scope.levels = [];
@@ -39,6 +34,13 @@ angular.module('lorenjonesApp')
     for (var i = 1; i < 20; i++) {
       $scope.levels.push(i);
     }
+    $scope.eventDataset = function(selector) {
+      if (selector === 'Upcoming') {
+        return $scope.upcomingEvents;
+      } else {
+        return $scope.pastEvents;
+      }
+    };
     $scope.loadMap = function() {
       if ($scope.newAddress && $scope.newCity) {
         $scope.loadingMap = true;
@@ -91,27 +93,25 @@ angular.module('lorenjonesApp')
     };
     $scope.updateEvent = function(event) {
       $scope.editing = false;
-      console.log('updating');
+      console.log(event);
       if ($scope.eventSelector === 'Upcoming') {
-        console.log('event selector is upcoming');
         for (var i = 0; i < $scope.upcomingEvents.length; i++) {
           if ($scope.upcomingEvents[i]._id === event._id) {
             $scope.upcomingEvents[i] = event;
+            $scope.events = $scope.upcomingEvents;
             break;
           }
         }
-        $scope.events = $scope.upcomingEvents;
       } else {
         for (var i = 0; i < $scope.pastEvents.length; i++) {
           if ($scope.pastEvents[i]._id === event._id) {
-            console.log(event);
             $scope.pastEvents[i] = event;
+            $scope.events = $scope.pastEvents;
             break;
           }
         }
-        $scope.events = $scope.pastEvents;
       }
-      return $http.put('/api/events/' + event._id, {
+      $http.put('/api/events/' + event._id, {
         title: event.title,
         datetime: event.datetime,
         venue: event.venue,
