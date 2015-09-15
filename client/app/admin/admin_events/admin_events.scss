@@ -1,15 +1,20 @@
+.admin {
+  textarea {
+    max-width: 100%;
+    width: 100%;
+    max-height: 400px;
+    resize: vertical;
+  }
+}
 .angular-google-map-container {
   height: 200px;
 }
-
 input[readonly] {
   cursor: pointer !important;
 }
-
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
-
 .admin.events {
   li {
     list-style:none;
@@ -31,14 +36,12 @@ input[readonly] {
     }
   }
 }
-
 .datetimepicker {
   position: absolute;
   background-color: $white;
   color: $black;
-  z-index: 2;
+  z-index: 10;
 }
-
 /* temporary workaround for display editable-bstime in bs3 - up/down symbols not shown */
 .editable-bstime .editable-input i.icon-chevron-up:before {
   content: '\e113';
