@@ -238,7 +238,7 @@
                 <input type="url" class="form-control" name="link" ng-model="copiedEvent.link" placeholder="https://en.wikipedia.org/wiki/The_Rite_of_Spring">
                 <span class="sr-only">(succes)</span>
                 <div class="help-block" ng-messages="editForm.link.$error" ng-if="editForm.link.$touched">
-                  <p ng-message="url">Invalid URL</p>
+                  <p ng-message="url">Invalid URL (Link Must Begin with either 'http://' or 'https://')</p>
                 </div>
               </div>
               <div>

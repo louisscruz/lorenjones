@@ -1,22 +1,22 @@
 <div class="container text-center">
   <h1 class="center">Events</h1>
   <div class="button-select btn-group">
-    <label class="btn btn-default" ng-click="upcomingEvents()" ng-model="radioModel" btn-radio="'Upcoming'" angular-ripple>Upcoming Events</label>
-    <label class="btn btn-default" ng-click="pastEvents()" ng-model="radioModel" btn-radio="'Past'" angular-ripple>Past Events</label>
+    <label class="btn btn-default" ng-click="upcomingEvents()" ng-model="eventSelector" btn-radio="'Upcoming'" angular-ripple>Upcoming Events</label>
+    <label class="btn btn-default" ng-click="pastEvents()" ng-model="eventSelector" btn-radio="'Past'" angular-ripple>Past Events</label>
   </div>
   <ul class="events text-nowrap">
-    <li class="event repeated-item" ng-repeat="event in events">
+    <li class="event repeated-item" ng-repeat="event in eventDataset(eventSelector)">
       <div class="row">
         <div class="col-md-2 col-md-offset-2 col-sm-2 col-sm-offset-0 col-xs-3">
           <div class="square">
-            <p class="month">{{::event.date | date:'MMM'}} &#39;{{::event.date | date:'yy'}}</p>
-            <p class="date">{{::event.date | date:'d'}}</p>
-            <p class="day">{{::event.date | date:'EEE'}}</p>
+            <p class="month">{{::event.datetime | date:'MMM'}} &#39;{{::event.datetime | date:'yy'}}</p>
+            <p class="date">{{::event.datetime | date:'d'}}</p>
+            <p class="day">{{::event.datetime | date:'EEE'}}</p>
           </div>
         </div>
         <div class="col-md-8 col-sm-6 col-xs-9 text-left">
-          <h1 class="name">{{::event.name}}</h1>
-          <p class="time">{{::event.time}}</p>
+          <h1 class="name">{{::event.title}}</h1>
+          <p class="time">{{::event.datetime | date:'h:mm a'}}</p>
           <p class="info">
             {{::event.info}}
           </p>
@@ -25,11 +25,11 @@
         <div class="col-sm-3 col-xs-12">
         </div>
       </div>
-      <ui-gmap-google-map center="[event.lat, event.lng ]" zoom='event.zoom' options='options'>
-        <ui-gmap-marker idkey="event.venue || event.name" coords="[event.lat, event.lng ]">
-        </ui-gmap-marker>
+      <ui-gmap-google-map ng-if="event.lng && event.lat" center="[event.lng, event.lat]" zoom="event.zoom" options="options">
+        <!--ui-gmap-marker idkey="event.venue || event.name" coords="[event.lat, event.lng ]">
+        </ui-gmap-marker-->
       </ui-gmap-google-map>
-      <hr ng-show="! $last">
+      <hr ng-show="!$last">
     </li>
   </ul>
 </div>

@@ -2,7 +2,7 @@
 
 angular.module('lorenjonesApp')
   .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal, uiGmapGoogleMapApi, $compile, eventsFact) {
-    $scope.pastEvents = [];
+    //$scope.pastEvents = [];
     $scope.upcomingEvents = [];
     $scope.newZoom;
     $scope.eventSelector = 'Upcoming';
