@@ -2,9 +2,9 @@
 
 angular.module('lorenjonesApp')
   .controller('EventsCtrl', function ($scope, $http, socket, eventsFact) {
-    $scope.eventSelector = 'Upcoming';
     $scope.upcomingEvents = [];
     $scope.pastEvents = [];
+    $scope.eventSelector = 'Upcoming';
     $scope.options = {scrollwheel: false};
     $scope.dateOptions = {
       format: 'dddd, mmmm dddd',
@@ -14,50 +14,35 @@ angular.module('lorenjonesApp')
       var eventDate = roundDate(new Date(obj.date));
       return eventDate >= date;
     };
-    $scope.sort = 'date';
+    $scope.sort = 'datetime';
     $http.get('/api/events', {cache: false}).success(function(events) {
       var currentDate = new Date();
       console.log(events);
       for (var i = 0; i < events.length; i++) {
-        console.log(i);
         if (new Date(events[i].datetime) < currentDate) {
-          console.log($scope.pastEvents);
           $scope.pastEvents.push(events[i]);
         } else {
           $scope.upcomingEvents.push(events[i]);
         }
       }
+      if ($scope.upcomingEvents.length === 0) {
+        $scope.eventSelector = 'Past';
+        $scope.eventDataset($scope.eventSelector);
+      }
       socket.syncUpdates('event', $scope.events);
     });
     $scope.eventDataset = function(selector) {
+      var events = [];
       if (selector === 'Upcoming') {
         $scope.sort = 'datetime';
-        return $scope.upcomingEvents;
+        events = $scope.upcomingEvents;
       } else {
         $scope.sort = '-datetime';
-        return $scope.pastEvents;
+        events = $scope.pastEvents;
       }
+      return events;
     };
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('event');
     });
-
-    /*$scope.pastEvents = function() {
-      $scope.dateFilter = function(obj) {
-        var date = eventsFact.roundDate(new Date());
-        var eventDate = eventsFact.roundDate(new Date(obj.date));
-        return eventDate < date;
-      };
-      $scope.sort = '-date';
-    };
-
-    $scope.upcomingEvents = function() {
-      $scope.dateFilter = function(obj) {
-        var date = eventFacts.roundDate(new Date());
-        var eventDate = eventsFact.roundDate(new Date(obj.date));
-        return eventDate >= date;
-      };
-      $scope.sort = 'date';
-    };*/
-
   });

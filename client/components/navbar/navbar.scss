@@ -65,7 +65,7 @@ $sand-serif-normal: 400 !important;
   }
 }
 .navbar-default .navbar-nav > li > a {
-  background-color: $background-color;
+  //background-color: $background-color;
 }
 .navbar-default .navbar-nav > li {
   -webkit-transition-property: background-color, color;
@@ -94,7 +94,7 @@ $sand-serif-normal: 400 !important;
          -o-transition-timing-function: ease-in-out;
             transition-timing-function: ease-in-out;
     color: $primary;
-    background-color: $white;
+    //background-color: $white;
   }
 }
 
@@ -120,13 +120,13 @@ $sand-serif-normal: 400 !important;
 }
 
 .navbar-default .navbar-nav > .open > a {
-  background-color: $primary;
+  //background-color: $primary;
   color: $white;
 }
 
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  background-color: $primary-light;
+  //background-color: $primary-light;
   color: $white;
 }
 
@@ -149,6 +149,10 @@ $sand-serif-normal: 400 !important;
     background-color: $primary;
     color: $white;
   }
+}
+
+.navbar-collapse.collapse.in {
+  background-color: red;
 }
 
 .nav-tabs {
