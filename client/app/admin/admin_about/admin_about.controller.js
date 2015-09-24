@@ -3,12 +3,22 @@
 angular.module('lorenjonesApp')
   .controller('AdminAboutCtrl', function ($scope, $http, socket, Modal) {
     $scope.bioEntries = [];
+    $scope.editing = false;
+    $scope.copiedEntry;
     $http.get('/api/bio_entries', {cache: true}).success(function(bioEntries) {
       $scope.bioEntries = bioEntries;
       socket.syncUpdates('bio_entry', $scope.bioEntries);
     });
+    $scope.toggleEdit = function(event) {
+      if ($scope.editing === event._id) {
+        $scope.editing = false;
+      } else {
+        $scope.editing = event._id;
+        $scope.copiedEntry = event;
+      }
+    };
     $scope.addBioEntry = function(isValid) {
-      if( isValid ) {
+      if (isValid) {
         $http.post('/api/bio_entries', {
           title: $scope.newTab,
           content: $scope.newContent

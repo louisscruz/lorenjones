@@ -1,9 +1,9 @@
 .bio {
-  button {
+  button.btn-danger {
     float: right;
   }
 }
 
-.bios ul li a {
-  background-color: $white !important;
+.bios .input-group input {
+  color: $black;
 }

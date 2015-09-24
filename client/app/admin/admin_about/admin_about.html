@@ -2,7 +2,7 @@
   <h1 class="col-md-12 text-center">Manage Bio Content</h1>
   <div class="col-md-4">
     <h2 class="text-center">Add Bio Entry</h2>
-    <form class="" name="bioForm" ng-submit="addBioEntry(bioForm.$valid)" novalidate>
+    <form name="bioForm" ng-submit="addBioEntry(bioForm.$valid)" novalidate>
       <div class="form-group" ng-class="{ 'has-success' : bioForm.title.$valid && bioForm.title.$touched, 'has-error' : bioForm.title.$invalid && bioForm.title.$touched }">
         <label class="control-label">Title of Bio Tab</label>
         <div class="input-group">
@@ -37,8 +37,7 @@
     <tabset class="bios row col-md-12">
       <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
         <div class="bio section">
-          <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(entry.title, entry)"><i class="fa fa-times"></i></button>
-          <h2>
+          <!--h2>
             <a href="#" editable-text="entry.title" onaftersave="updateBioEntry(entry)">
               {{ entry.title || "empty" }}
             </a>
@@ -47,7 +46,20 @@
             <a href="#" editable-textarea="entry.content" ng-bind-html="entry.content || 'empty'" e-rows="12" e-cols="40" e-style="max-height: 500px; max-width: 540px" onaftersave="updateBioEntry(entry)">
               {{ entry.content || "empty" }}
             </a>
-          </p>
+          </p-->
+          <div class="row">
+            <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(entry.title, entry)"><i class="fa fa-times"></i></button>
+            <div>
+              <h2>{{entry.title}}</h2>
+            </div>
+            {{copiedEntry.title}}
+            <button class="btn btn-primary" ng-click="toggleEdit(entry)"><i class="fa fa-pencil fa-fw"></i> Edit</button>
+            <form ng-if="editing === entry._id" name="editForm" ng-submit="updateBioEntry(entry)" novalidate>
+              <div class="input-group">
+                <input type="text" class="form-control" ng-model="copiedEntry.title"></input>
+              </div>
+            </form>
+          </div>
         </div>
       </tab>
     </tabset>
