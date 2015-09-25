@@ -48,17 +48,42 @@
             </a>
           </p-->
           <div class="row">
-            <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(entry.title, entry)"><i class="fa fa-times"></i></button>
+            <button type="button" ng-if="editing === entry._id" class="btn btn-danger btn-xs" ng-click="confirmDelete(entry.title, entry)"><i class="fa fa-times"></i></button>
             <div>
+              <span>
               <h2>{{entry.title}}</h2>
+              <button class="btn btn-primary" ng-if="editing !== entry._id" ng-click="toggleEdit(entry)"><i class="fa fa-pencil fa-fw"></i> Edit</button>
+            </span>
             </div>
-            {{copiedEntry.title}}
-            <button class="btn btn-primary" ng-click="toggleEdit(entry)"><i class="fa fa-pencil fa-fw"></i> Edit</button>
-            <form ng-if="editing === entry._id" name="editForm" ng-submit="updateBioEntry(entry)" novalidate>
-              <div class="input-group">
-                <input type="text" class="form-control" ng-model="copiedEntry.title"></input>
-              </div>
-            </form>
+            <div ng-if="editing !== entry._id">
+              <p ng-bind-html="entry.content"></p>
+            </div>
+            <div ng-if="editing === entry._id">
+              <form ng-if="editing === entry._id" name="editForm" ng-submit="updateBioEntry(copiedEntry)" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : editForm.title.$invalid && editForm.title.$touched }">
+                  <label class="control-label">Title</label>
+                  <input type="text" name="title" class="form-control" ng-model="copiedEntry.title" required>
+                  <span class="sr-only">(success)</span>
+                  <div class="help-block" ng-messages="editForm.title.$error" ng-if="editForm.title.$touched">
+                    <p ng-message="required">A title is required.</p>
+                  </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : editForm.content.$invalid && editForm.content.$touched }">
+                  <label class="control-label">Content</label>
+                  <textarea class="form-control" name="content" ng-model="copiedEntry.content" required></textarea>
+                  <span class="sr-only">(success)</span>
+                  <div class="help-block" ng-messages="editForm.content.$error" ng-if="editForm.content.$touched">
+                    <p ng-message="required">Content is required.</p>
+                  </div>
+                </div>
+                <div>
+                  <span>
+                    <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="toggleEdit(entry)">Cancel</button>
+                  </span>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </tab>

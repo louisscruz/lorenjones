@@ -9,12 +9,13 @@ angular.module('lorenjonesApp')
       $scope.bioEntries = bioEntries;
       socket.syncUpdates('bio_entry', $scope.bioEntries);
     });
-    $scope.toggleEdit = function(event) {
-      if ($scope.editing === event._id) {
+    $scope.toggleEdit = function(entry) {
+      if ($scope.editing === entry._id) {
         $scope.editing = false;
+        $scope.copiedEntry = null;
       } else {
-        $scope.editing = event._id;
-        $scope.copiedEntry = event;
+        $scope.editing = entry._id;
+        $scope.copiedEntry = angular.copy(entry);
       }
     };
     $scope.addBioEntry = function(isValid) {
@@ -31,6 +32,9 @@ angular.module('lorenjonesApp')
       return $http.put('/api/bio_entries/' + entry._id, {
         title: entry.title,
         content: entry.content
+      }).success(function() {
+        $scope.editing = false;
+        $scope.copiedEntry = null;
       });
     };
     $scope.deleteEntry = function(id) {

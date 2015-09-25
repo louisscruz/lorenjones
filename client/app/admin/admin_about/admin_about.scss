@@ -2,8 +2,16 @@
   button.btn-danger {
     float: right;
   }
+  color: $black;
+  label {
+    color: $black;
+  }
+  textarea {
+    min-height: 300px;
+    max-height: 1500px;
+  }
 }
 
-.bios .input-group input {
+.bios .form-group input {
   color: $black;
 }
