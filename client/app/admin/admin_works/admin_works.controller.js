@@ -3,6 +3,7 @@
 angular.module('lorenjonesApp')
   .controller('AdminWorksCtrl', function ($scope, $http, socket, Modal, works, $q, soundcloud) {
     $scope.works = works.works;
+    $scope.copiedWork;
     $scope.currentYear = new Date().getFullYear();
     var initDate = false;
     $scope.groups = [
