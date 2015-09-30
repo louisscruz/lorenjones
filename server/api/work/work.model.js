@@ -4,8 +4,14 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var WorkSchema = new Schema({
-  title: String,
-  category: String,
+  title: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
   date: Number,
   instrumentation: String,
   info: String,
