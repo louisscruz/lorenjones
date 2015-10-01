@@ -23,6 +23,9 @@ angular.module('lorenjonesApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
+    $scope.closeCollapsed = function() {
+      $scope.isCollapsed = true;
+    };
     $scope.logout = function() {
       Auth.logout();
       $location.path('/login');

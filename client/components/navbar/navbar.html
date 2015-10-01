@@ -1,5 +1,5 @@
 <div class="navbar navbar-default navbar-fixed-top" ng-class="{'dark' : isActive('/dbw'), 'light' : scrolled}" ng-controller="NavbarCtrl">
-  <div class="container">
+  <div class="container" click-outside="closeCollapsed()">
     <div class="navbar-header">
       <button class="navbar-toggle" ng-class="{'collapsed': isCollapsed}" type="button" ng-click="isCollapsed = !isCollapsed" angular-ripple>
         <span class="sr-only">Toggle navigation</span>
