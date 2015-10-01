@@ -78,8 +78,9 @@
       </div>
       <div class="form-group" ng-class="{ 'has-success' : worksForm.audio.$valid && worksForm.audio.$touched && newAudio, 'has-error' : worksForm.audio.$touched && worksForm.audio.$invalid }">
         <label class="control-label">Soundcloud Link</label>
+        <a href="https://soundcloud.com/lorenjones-2" target="_blank"><i>Visit Soundcloud</i></a>
         <div class="input-group">
-          <input type="url" name="audio" class="form-control" placeholder="https://soundcloud.com/louis-cruz/sonata-for-bassoon-and-piano-i" ng-model="newAudio">
+          <input type="url" name="audio" class="form-control" placeholder="https://soundcloud.com/louis-cruz/sonata-for-bassoon-and-piano-i" ng-model="newAudio" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url>
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.audio.$valid && worksForm.audio.$touched && newAudio, 'fa-times' : worksForm.audio.$touched && worksForm.audio.$invalid }" aria-hidden="true"></span>
           </span>
@@ -87,10 +88,13 @@
         <span class="sr-only">(success)</span>
         <div class="help-block" ng-messages="worksForm.audio.$error" ng-if="worksForm.audio.$touched">
           <p ng-message="url">Invalid URL</p>
+          <p ng-message="unqiueUrl">This track is already loaded in the global audio player.</p>
+          <p ng-message="validUrl">This is not a valid Soundcloud URL.</p>
         </div>
       </div>
       <div class="form-group" ng-class="{ 'has-success' : worksForm.video.$valid && worksForm.video.$touched && newVido, 'has-error' : worksForm.video.$touched && worksForm.video.$invalid }">
         <label class="control-group">Youtube Link</label>
+        <a href="https://www.youtube.com/channel/UCGKWKYNw0NStXUYvuFairfA/videos" target="_blank"><i>Visit Youtube</i></a>
         <div class="input-group">
           <input type="url" name="video" class="form-control" placeholder="https://www.youtube.com/watch?v=NA13W7IAjXk" ng-model="newVideo">
           <span class="input-group-addon">
@@ -117,18 +121,6 @@
           <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(work.title, work)"><i class="fa fa-times"></i></button>
           <h2>{{ work.title }}</h2>
           <button ng-if="editing !== work._id" class="btn btn-primary" ng-click="toggleEdit(work)"><i class="fa fa-pencil fa-fw"></i> Edit</button>
-        </div>
-        <label>Link</label>
-        <div>
-          <a href="#" editable-text="work.link" onaftersave="updateWork(work)">
-            {{ work.link || "empty" }}
-          </a>
-        </div>
-        <label>Audio</label>
-        <div>
-          <a href="#" editable-text="work.audio" onshow="cacheWork(work)" onbeforesave="checkUrl($data)" onaftersave="updateWork(work)">
-            {{ work.audio || "empty" }}
-          </a>
         </div>
         <div ng-if="editing !== work._id">
           <label>Category</label>
@@ -189,11 +181,13 @@
             </div>
             <div class="form-group" ng-class="{ 'has-error' : editForm.audio.$invalid && editForm.audio.$touched }">
               <label class="control-label">Soundcloud Link</label>
-              <button type="button" class="btn btn-danger btn-xs" ng-if="work.audio" ng-click="clearWorkTrack(work)">remove</button>
+              <!--input type="url" name="audio" class="form-control" ng-model="copiedWork.audio" placeholder="https://soundcloud.com/lorenjones-2/4-februarys-children-1" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url-->
               <input type="url" name="audio" class="form-control" ng-model="copiedWork.audio" placeholder="https://soundcloud.com/lorenjones-2/4-februarys-children-1">
               <span class="sr-only">(success)</span>
               <div class="help-block" ng-messages="editForm.audio.$error" ng-if="editForm.audio.$touched">
-                <p ng-message="url">Invalid URL (must begin with https:// or http://)
+                <p ng-message="url">Invalid URL (must begin with https:// or http://)</p>
+                <p ng-message="uniqueUrl">This track is already loaded into the global audio player.</p>
+                <p ng-message="validUrl">Invalid Soundcloud URL.</p>
               </div>
             </div>
             <div class="form-group">

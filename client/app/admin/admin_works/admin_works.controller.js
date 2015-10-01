@@ -63,7 +63,7 @@ angular.module('lorenjonesApp')
     };
     $scope.clearWorkTrack = function(work) {
       works.cacheWork(work);
-      work.audio = '';
+      copiedWork.audio = '';
     };
     $scope.initDate = function(touched) {
       if (!touched && !initDate) {

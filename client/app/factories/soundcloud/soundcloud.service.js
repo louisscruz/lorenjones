@@ -167,6 +167,9 @@ angular.module('lorenjonesApp')
     function testLoad(track) {
       /*jshint camelcase: false*/
       var deferred = $q.defer();
+      if (!track) {
+        deferred.resolve();
+      }
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function() {
         deferred.resolve();

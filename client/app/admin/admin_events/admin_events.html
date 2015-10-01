@@ -84,6 +84,8 @@
         <rzslider name="zoom" rz-slider-model="newEvent.zoom" rz-slider-floor="1" rz-slider-ceil="20" ng-required="newEvent.venue || newEvent.address || newEvent.city"></rzslider>
         <span class="sr-only">(success)</span>
       </div>
+      {{newEvent}}
+      {{newLat}}
       <div ng-if="loadingMap">
         <i class="fa fa-fw fa-circle-o-notch fa-spin"></i>
         <p>The map is loading...</p>
@@ -126,7 +128,7 @@
     <ul class="admin events">
       <li ng-repeat="event in eventDataset(eventSelector) | orderBy: sort" class="well well-lg row">
         <div class="col-xs-12">
-          <form name="editForm" ng-submit="updateEvent(copiedEvent)" novalidate>
+          <form name="editForm" ng-submit="updateEvent(event._id ,copiedEvent)" novalidate>
             <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(event.title, event)"><i class="fa fa-times"></i></button>
             <h2>{{ event.title || "(empty)" }}</h2>
             <div ng-if="editing !== $index" ng-cloak>
@@ -223,6 +225,7 @@
                 <label>Map Zoom</label>
                 <rzslider name="zoom" rz-slider-model="copiedEvent.zoom" rz-slider-floor="1" rz-slider-ceil="20" ng-required="copiedEvent.venue || copiedEvent.address || copiedEvent.city"></rzslider>
               </div>
+              {{copiedEvent}}
               <div>
                 <ui-gmap-google-map ng-if="copiedEvent.lng && copiedEvent.lat" center="[copiedEvent.lng, copiedEvent.lat]" zoom='copiedEvent.zoom' options='options'>
                   <!--ui-gmap-marker idKey="$index" coords="[event.lat, event.lng ]">

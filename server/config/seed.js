@@ -30,6 +30,12 @@ if (Playlist.count() === 0 ) {
   });
 }
 
+Playlist.find({}).remove(function() {
+  Playlist.create({
+    order: [1, 0]
+  });
+});
+
 
 /*User.find({}).remove(function() {
   User.create({

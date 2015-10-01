@@ -126,11 +126,12 @@ angular.module('lorenjonesApp')
         audio: work.audio,
         video: work.video
       };
+      console.log(cachedWork)
       if (!cachedWork) {
         // If no track previously associated with the work, add a track and update the playlist
         for (var i = 0, len = fact.works.length; i < len; i++) {
           if (fact.works[i].audio) {
-            if (fact.works[i]._id === work._id) {
+            if (fact.works[i].audio === work.audio) {
               naturalPlacement = count;
               break;
             }

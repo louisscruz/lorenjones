@@ -39,13 +39,15 @@ angular.module('lorenjonesApp')
       }
     };
     $scope.loadMap = function() {
-      if ($scope.newAddress && $scope.newCity) {
+      if ($scope.newEvent.address && $scope.newEvent.city) {
         $scope.loadingMap = true;
-        eventsFact.getCoords($scope.newAddress, $scope.newCity).then(function(result) {
-          $scope.newLat = result[0];
-          $scope.newLng = result[1];
+        eventsFact.getCoords($scope.newEvent.address, $scope.newEvent.city).then(function(result) {
+          console.log(result);
+          $scope.newEvent.lat = result[0];
+          $scope.newEvent.lng = result[1];
+          console.log($scope.newEvent.lng);
         }).then(function() {
-          $scope.newZoom = 15;
+          $scope.newEvent.zoom = 15;
           $scope.loadingMap = false;
         });
       }
@@ -94,7 +96,7 @@ angular.module('lorenjonesApp')
         });
       }
     };
-    $scope.updateEvent = function(event) {
+    $scope.updateEvent = function(id, event) {
       $scope.editing = false;
       console.log(event);
       if ($scope.eventSelector === 'Upcoming') {
@@ -112,7 +114,7 @@ angular.module('lorenjonesApp')
           }
         }
       }
-      $http.put('/api/events/' + event._id, {
+      $http.put('/api/events/' + id, {
         title: event.title,
         datetime: event.datetime,
         venue: event.venue,
