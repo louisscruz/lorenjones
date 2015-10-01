@@ -64,7 +64,7 @@
         <span class="sr-only">(success)</span>
       </div>
       <div class="form-group" ng-class="{ 'has-success' : worksForm.score.$valid && worksForm.score.$touched && newLink, 'has-error' : worksForm.score.$touched && worksForm.score.$invalid }">
-        <label class="control-label">Link to Score</label>
+        <label class="control-label">Purchase Link</label>
         <div class="input-group">
           <input type="url" name="score" class="form-control" placeholder="http://www.sheetmusicplus.com/title/rite-of-spring-sheet-music/1573215" ng-model="newLink">
           <span class="input-group-addon">
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="form-group" ng-class="{ 'has-success' : worksForm.audio.$valid && worksForm.audio.$touched && newAudio, 'has-error' : worksForm.audio.$touched && worksForm.audio.$invalid }">
-        <label class="control-label">Link to Audio</label>
+        <label class="control-label">Soundcloud Link</label>
         <div class="input-group">
           <input type="url" name="audio" class="form-control" placeholder="https://soundcloud.com/louis-cruz/sonata-for-bassoon-and-piano-i" ng-model="newAudio">
           <span class="input-group-addon">
@@ -90,7 +90,7 @@
         </div>
       </div>
       <div class="form-group" ng-class="{ 'has-success' : worksForm.video.$valid && worksForm.video.$touched && newVido, 'has-error' : worksForm.video.$touched && worksForm.video.$invalid }">
-        <label class="control-group">Link to Video</label>
+        <label class="control-group">Youtube Link</label>
         <div class="input-group">
           <input type="url" name="video" class="form-control" placeholder="https://www.youtube.com/watch?v=NA13W7IAjXk" ng-model="newVideo">
           <span class="input-group-addon">
@@ -114,40 +114,9 @@
       </accordion-heading>
       <div class="admin-works" ng-repeat="work in works | orderBy: 'date':true">
         <div>
+          <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(work.title, work)"><i class="fa fa-times"></i></button>
           <h2>{{ work.title }}</h2>
-          <button class="btn btn-primary"><i class="fa fa-pencil fa-fw"></i> Edit</button>
-        </div>
-        <div>
-          <h3>
-            <a href="#" editable-text="work.title" onaftersave="updateWork(work)">
-              {{ work.title || "empty" }}
-            </a>
-            <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(work.title, work)"><i class="fa fa-times"></i></button>
-          </h3>
-        </div>
-        <label>Category</label>
-        <div>
-          <a href="#" editable-select="work.category" e-ng-options="g as g for g in groups" onaftersave="updateWork(work)">
-            {{ work.category || "empty" }}
-          </a>
-        </div>
-        <label>Date</label>
-        <div>
-          <a href="#" editable-number="work.date" onaftersave="updateWork(work)">
-            {{ work.date || "empty" }}
-          </a>
-        </div>
-        <label>Instrumentation</label>
-        <div>
-          <a href="#" editable-text="work.instrumentation" onaftersave="updateWork(work)">
-            {{ work.instrumentation || "empty" }}
-          </a>
-        </div>
-        <label>Info</label>
-        <div>
-          <a href="#" editable-textarea="work.info" e-rows="7" e-cols="40" ng-bind-html="work.info || 'empty'" onaftersave="updateWork(work)">
-            {{ work.info || "empty" }}
-          </a>
+          <button ng-if="editing !== work._id" class="btn btn-primary" ng-click="toggleEdit(work)"><i class="fa fa-pencil fa-fw"></i> Edit</button>
         </div>
         <label>Link</label>
         <div>
@@ -160,24 +129,84 @@
           <a href="#" editable-text="work.audio" onshow="cacheWork(work)" onbeforesave="checkUrl($data)" onaftersave="updateWork(work)">
             {{ work.audio || "empty" }}
           </a>
-          <button type="button" class="btn btn-danger btn-xs" ng-if="work.audio" ng-click="clearWorkTrack(work)">remove</button>
         </div>
-        <label>Video</label>
-        <div>
-          <a href="#" editable-text="work.video" onaftersave="updateWork(work)">
-            {{ work.video || "empty" }}
-          </a>
+        <div ng-if="editing !== work._id">
+          <label>Category</label>
+          <p>{{ work.category }}</p>
+          <label>Year</label>
+          <p>{{ work.date }}</p>
+          <label>Instrumentation</label>
+          <p>{{ work.instrumentation }}</p>
+          <label>Info</label>
+          <p>{{ work.info || "empty"}}</p>
+          <label>Link</label>
+          <p ng-if="work.link"><a href="work.link" target="_blank">{{ work.link }}</a></p>
+          <p ng-if="!work.link">empty</p>
+          <label>Audio</label>
+          <p ng-if="work.audio"><a href="{{work.audio}}" target="_blank">{{ work.audio }}</a></p>
+          <p ng-if="!work.audio">empty</p>
+          <label>Video</label>
+          <p ng-if="work.video"><a href="work.video" target="_blank">{{ work.video }}</a></p>
+          <p ng-if="!work.video">empty</p>
         </div>
-        <form ng-if="editing === work._id" name="editForm" ng-submit="updateWork(work)" novalidate>
-          <div class="form-group">
-            <label class="control-label">Category</label>
-            <input type="text" class="form-control" ng-model="copiedWork.category">
-          </div>
-        </form>
-        <div>
-          <span>
-            <button class="btn btn-primary" type="submit">Save</button>
-          </span>
+        <div ng-if="editing === work._id">
+          <form name="editForm" ng-submit="updateWork(copiedWork); toggleEdit(work)" novalidate>
+            <div class="form-group" ng-class="{ 'has-error' : editForm.title.$invalid && editForm.title.$touched }">
+              <label class="control-label">Title</label>
+              <input type="text" name="title" class="form-control" ng-model="copiedWork.title" required>
+              <span class="sr-only">(success)</span>
+              <div class="help-block" ng-messages="editForm.title.$error" ng-if="editForm.title.$touched">
+                <p ng-message="required">You must enter a title</p>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : editForm.category.$invalid && editForm.category.$touched }">
+              <label class="control-label">Category</label>
+              <select ng-model="copiedWork.category" name="category" class="selectpicker form-control" ng-options="g as g for g in groups" required></select>
+              <span class="sr-only">(success)</span>
+              <div class="help-block" ng-messages="editForm.category.$error" ng-if="editForm.category.$touched">
+                <p ng-message="required">You must enter a category.</p>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : editForm.date.$invalid && editForm.date.$touched }">
+              <label class="control-label">Year</label>
+              <input type="number" name="date" class="form-control" ng-model="copiedWork.date" required>
+              <span class="sr-only">(success)</span>
+              <div class="help-block" ng-messages="editForm.date.$error" ng-if="editForm.date.$touched">
+                <p ng-message="required">You must enter a year.</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Instrumentation</label>
+              <input type="text" name="instrumentation" class="form-control" ng-model="copiedWork.instrumentation" placeholder="bassoon and piano">
+            </div>
+            <div class="form-group">
+              <label class="control-label">Info</label>
+              <textarea name="info" class="form-control" ng-model="copiedWorks.info" placeholder="My Sonata for bassoon and piano was written in 2015."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Link to Score</label>
+              <input type="text" name="link" class="form-control" ng-model="copiedWork.link" placeholder="http://www.cdbaby.com/cd/mitsumoto">
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : editForm.audio.$invalid && editForm.audio.$touched }">
+              <label class="control-label">Soundcloud Link</label>
+              <button type="button" class="btn btn-danger btn-xs" ng-if="work.audio" ng-click="clearWorkTrack(work)">remove</button>
+              <input type="url" name="audio" class="form-control" ng-model="copiedWork.audio" placeholder="https://soundcloud.com/lorenjones-2/4-februarys-children-1">
+              <span class="sr-only">(success)</span>
+              <div class="help-block" ng-messages="editForm.audio.$error" ng-if="editForm.audio.$touched">
+                <p ng-message="url">Invalid URL (must begin with https:// or http://)
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Youtube Link</label>
+              <input type="text" name="video" class="form-control" ng-model="copiedWork.video" placeholder="https://www.youtube.com/watch?v=wAcCKUTiiHE">
+            </div>
+            <div>
+              <span>
+                <button class="btn btn-primary" type="submit" ng-disabled="editForm.$invalid">Save</button>
+                <button type="button" class="btn btn-default" ng-click="toggleEdit(work)">Cancel</button>
+              </span>
+            </div>
+          </form>
         </div>
         <hr>
       </div>

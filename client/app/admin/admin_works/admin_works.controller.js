@@ -3,8 +3,18 @@
 angular.module('lorenjonesApp')
   .controller('AdminWorksCtrl', function ($scope, $http, socket, Modal, works, $q, soundcloud) {
     $scope.works = works.works;
+    $scope.editing = null;
     $scope.copiedWork;
     $scope.currentYear = new Date().getFullYear();
+    $scope.toggleEdit = function(work) {
+      if ($scope.editing === work._id) {
+        $scope.editing = false;
+        $scope.copiedWork = null;
+      } else {
+        $scope.editing = work._id;
+        $scope.copiedWork = angular.copy(work);
+      }
+    }
     var initDate = false;
     $scope.groups = [
       'Solo',
@@ -54,8 +64,6 @@ angular.module('lorenjonesApp')
     $scope.clearWorkTrack = function(work) {
       works.cacheWork(work);
       work.audio = '';
-      console.log(work);
-      works.updateWork(work);
     };
     $scope.initDate = function(touched) {
       if (!touched && !initDate) {

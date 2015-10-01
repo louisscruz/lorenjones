@@ -1,6 +1,9 @@
 .admin-works {
-  label {
+  h2, label, p {
     color: $black;
+  }
+  .btn-xs.btn-danger {
+    float: right;
   }
 }
 
