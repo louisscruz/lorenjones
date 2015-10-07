@@ -12,7 +12,6 @@ module.exports = function(app) {
   app.use('/api/dbw_movements', require('./api/dbw_movement'));
   app.use('/api/playlists', require('./api/playlist'));
   app.use('/api/default_tracks', require('./api/default_track'));
-  app.use('/api/photos', require('./api/photo'));
   app.use('/api/bio_entries', require('./api/bio_entry'));
   app.use('/api/works', require('./api/work'));
   app.use('/api/events', require('./api/event'));

@@ -10,9 +10,11 @@ angular.module('lorenjonesApp')
       if ($scope.editing === work._id) {
         $scope.editing = false;
         $scope.copiedWork = null;
+        works.cacheWork(work);
       } else {
         $scope.editing = work._id;
         $scope.copiedWork = angular.copy(work);
+        works.cacheWork(work);
       }
     }
     var initDate = false;
@@ -60,10 +62,6 @@ angular.module('lorenjonesApp')
         deferred.reject('Invalid Soundcloud URL');
       });
       return deferred.promise;
-    };
-    $scope.clearWorkTrack = function(work) {
-      works.cacheWork(work);
-      copiedWork.audio = '';
     };
     $scope.initDate = function(touched) {
       if (!touched && !initDate) {

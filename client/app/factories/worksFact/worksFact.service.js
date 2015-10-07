@@ -126,7 +126,7 @@ angular.module('lorenjonesApp')
         audio: work.audio,
         video: work.video
       };
-      console.log(cachedWork)
+      console.log(cachedWork);
       if (!cachedWork) {
         // If no track previously associated with the work, add a track and update the playlist
         for (var i = 0, len = fact.works.length; i < len; i++) {
@@ -206,8 +206,11 @@ angular.module('lorenjonesApp')
     }
     // Cache old work values
     function cacheWork(data) {
-      cachedWork = data.audio;
-      //return cachedWork;
+      if (data === cachedWork) {
+        cachedWork = null;
+      } else {
+        cachedWork = data.audio;
+      }
     }
     // Unique work audio
     function uniqueUrl(value) {

@@ -122,6 +122,7 @@
           <h2>{{ work.title }}</h2>
           <button ng-if="editing !== work._id" class="btn btn-primary" ng-click="toggleEdit(work)"><i class="fa fa-pencil fa-fw"></i> Edit</button>
         </div>
+        {{}}
         <div ng-if="editing !== work._id">
           <label>Category</label>
           <p>{{ work.category }}</p>
