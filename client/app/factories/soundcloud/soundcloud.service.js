@@ -2,6 +2,7 @@
 
 angular.module('lorenjonesApp')
   .factory('soundcloud', ['soundcloudConfig', '$rootScope', '$http', '$q', function (soundcloudConfig, $rootScope, $http, $q) {
+    var errorOffset = 0;
     var fact = {
       clientId: soundcloudConfig.clientId,
       audio: document.createElement('audio'),
@@ -151,6 +152,7 @@ angular.module('lorenjonesApp')
     // Load track on an individual basis
     function loadPlayer(track, index) {
       /*jshint camelcase: false*/
+      var cache = errorOffset;
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       if (fact.player.data[track]) {
         var t = fact.player.data[track];
@@ -160,6 +162,9 @@ angular.module('lorenjonesApp')
         $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
           fact.player.data[track] = data;
           fact.player.load(data, index);
+        }).error(function(data, status) {
+          //alert(cache);
+          errorOffset += 1;
         });
       }
       return fact.player;

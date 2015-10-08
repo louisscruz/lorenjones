@@ -30,11 +30,11 @@ if (Playlist.count() === 0 ) {
   });
 }
 
-Playlist.find({}).remove(function() {
+/*Playlist.find({}).remove(function() {
   Playlist.create({
-    order: [1, 0]
+    order: [1, 0, 2]
   });
-});
+});*/
 
 
 /*User.find({}).remove(function() {
