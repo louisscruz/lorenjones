@@ -88,9 +88,11 @@
         <i class="fa fa-fw fa-circle-o-notch fa-spin"></i>
         <p>The map is loading...</p>
       </div>
-      <ui-gmap-google-map ng-if="newEvent.venue && newEvent.address && newEvent.city" center="[newEvent.lng, newEvent.lat]" zoom="newEvent.zoom" options="options">
-        <!--ui-gmap-marker idKey="newVenue" coords="newMap"></ui-gmap-marker-->
-      </ui-gmap-google-map>
+      <div ng-if="newEvent.venue && newEvent.address && newEvent.city && !loadingMap">
+        <ui-gmap-google-map center="[newEvent.lng, newEvent.lat]" zoom="newEvent.zoom" options="options">
+          <ui-gmap-marker idkey="1" coords="[newEvent.lng, newEvent.lat]"></ui-gmap-marker>
+        </ui-gmap-google-map>
+      </div>
       <div class="form-group" ng-class="{ 'has-success' : eventForm.info.$valid && eventForm.info.$touched && newEvent.info, 'has-error' : eventForm.info.$invalid && eventForm.info.$touched }">
         <label class="control-label">Event Info</label>
         <div class="input-group">

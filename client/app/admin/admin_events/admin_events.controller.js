@@ -42,12 +42,9 @@ angular.module('lorenjonesApp')
         $scope.loadingMap = true;
         $scope.newEvent.zoom = 15;
         eventsFact.getCoords($scope.newEvent.address, $scope.newEvent.city).then(function(result) {
-          console.log(result);
           $scope.newEvent.lat = result[0];
           $scope.newEvent.lng = result[1];
-          console.log($scope.newEvent.lng);
         }).then(function() {
-          //$scope.newEvent.zoom = 15;
           $scope.loadingMap = false;
         });
       }
