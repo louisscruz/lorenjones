@@ -84,8 +84,6 @@
         <rzslider name="zoom" rz-slider-model="newEvent.zoom" rz-slider-floor="1" rz-slider-ceil="20" ng-required="newEvent.venue || newEvent.address || newEvent.city"></rzslider>
         <span class="sr-only">(success)</span>
       </div>
-      {{newEvent}}
-      {{newLat}}
       <div ng-if="loadingMap">
         <i class="fa fa-fw fa-circle-o-notch fa-spin"></i>
         <p>The map is loading...</p>

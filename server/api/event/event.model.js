@@ -4,14 +4,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var EventSchema = new Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  datetime: {
-    type: Date,
-    required: true
-  },
+  title: String,
+  datetime: Date,
   venue: String,
   address: String,
   lat: String,
