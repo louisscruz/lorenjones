@@ -4,7 +4,6 @@ angular.module('lorenjonesApp')
   .controller('AdminEventsCtrl', function ($scope, $http, socket, Modal, uiGmapGoogleMapApi, $compile, eventsFact) {
     $scope.pastEvents = [];
     $scope.upcomingEvents = [];
-    $scope.newZoom;
     $scope.eventSelector = 'Upcoming';
     $scope.sort = 'datetime';
     $scope.editing = false;
@@ -41,13 +40,14 @@ angular.module('lorenjonesApp')
     $scope.loadMap = function() {
       if ($scope.newEvent.address && $scope.newEvent.city) {
         $scope.loadingMap = true;
+        $scope.newEvent.zoom = 15;
         eventsFact.getCoords($scope.newEvent.address, $scope.newEvent.city).then(function(result) {
           console.log(result);
           $scope.newEvent.lat = result[0];
           $scope.newEvent.lng = result[1];
           console.log($scope.newEvent.lng);
         }).then(function() {
-          $scope.newEvent.zoom = 15;
+          //$scope.newEvent.zoom = 15;
           $scope.loadingMap = false;
         });
       }
