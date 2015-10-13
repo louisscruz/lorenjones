@@ -26,7 +26,7 @@ angular.module('lorenjonesApp', [
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
     uiGmapGoogleMapApiProvider.configure({
-      key: 'AIzaSyDM6V6zJOevNNNty9JwqVwakF2wLiSIr60'
+      key: 'AIzaSyA20j13klTEha-jSSJ-5lZVoD-WV_C56Xo'
     });
     $httpProvider.interceptors.push('authInterceptor');
     LightboxProvider.templateUrl = 'app/about/aboutModal.html';
