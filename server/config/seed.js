@@ -15,9 +15,6 @@ DbwMovement.find({}).remove(function() {
   DbwMovement.create({
     movement: 1,
     audio: 'https://soundcloud.com/lorenjones-2/1-ohlone-song'
-  }, {
-    movement: 8,
-    audio: 'https://soundcloud.com/lorenjones-2/5-earthquake-fire'
   }, function() {
     console.log('finished populating dbw movements');
   });

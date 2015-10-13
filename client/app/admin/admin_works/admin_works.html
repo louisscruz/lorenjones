@@ -182,8 +182,9 @@
             </div>
             <div class="form-group" ng-class="{ 'has-error' : editForm.audio.$invalid && editForm.audio.$touched }">
               <label class="control-label">Soundcloud Link</label>
-              <!--input type="url" name="audio" class="form-control" ng-model="copiedWork.audio" placeholder="https://soundcloud.com/lorenjones-2/4-februarys-children-1" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url-->
-              <input type="url" name="audio" class="form-control" ng-model="copiedWork.audio" placeholder="https://soundcloud.com/lorenjones-2/4-februarys-children-1">
+              {{copiedWork}}
+              <input type="url" name="audio" class="form-control" ng-model="copiedWork.audio" placeholder="https://soundcloud.com/lorenjones-2/4-februarys-children-1" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url>
+              <!--input type="url" name="audio" class="form-control" ng-model="copiedWork.audio" placeholder="https://soundcloud.com/lorenjones-2/4-februarys-children-1"-->
               <span class="sr-only">(success)</span>
               <div class="help-block" ng-messages="editForm.audio.$error" ng-if="editForm.audio.$touched">
                 <p ng-message="url">Invalid URL (must begin with https:// or http://)</p>

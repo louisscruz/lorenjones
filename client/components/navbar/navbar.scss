@@ -152,7 +152,17 @@ $sand-serif-normal: 400 !important;
 }
 
 .navbar-collapse.collapse.in {
-  background-color: red;
+  background-color: $background-color;
+  li ul li, li ul {
+    background-color: $primary-light;
+    color: $background-color;
+  }
+  li {
+    color: $background-color;
+  }
+  a:active {
+    color: $background-color;
+  }
 }
 
 .nav-tabs {
