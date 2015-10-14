@@ -1,5 +1,6 @@
 <div class="admin container">
   <h1 class="col-md-12 text-center">Manage Works</h1>
+  {{worksOrder}}
   <div class="works-input col-md-3">
     <h2 class="text-center">Add Work</h2>
     <form name="worksForm" ng-submit="addWork(worksForm.$valid)" novalidate>
@@ -131,7 +132,7 @@
           <label>Instrumentation</label>
           <p>{{ work.instrumentation }}</p>
           <label>Info</label>
-          <p>{{ work.info || "empty"}}</p>
+          <p ng-bind-html="work.info">{{ work.info || "empty" }}</p>
           <label>Link</label>
           <p ng-if="work.link"><a href="work.link" target="_blank">{{ work.link }}</a></p>
           <p ng-if="!work.link">empty</p>
@@ -174,7 +175,7 @@
             </div>
             <div class="form-group">
               <label class="control-label">Info</label>
-              <textarea name="info" class="form-control" ng-model="copiedWorks.info" placeholder="My Sonata for bassoon and piano was written in 2015."></textarea>
+              <textarea name="info" class="form-control" ng-model="copiedWork.info" placeholder="My Sonata for bassoon and piano was written in 2015."></textarea>
             </div>
             <div class="form-group">
               <label class="control-label">Link to Score</label>

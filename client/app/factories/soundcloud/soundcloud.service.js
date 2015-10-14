@@ -24,15 +24,11 @@ angular.module('lorenjonesApp')
         },
         play: function(index, playlistIndex) {
           /*jshint camelcase: false*/
-          console.log('play attempting on track ' + index);
-          console.log('fact.player.i is currently ' + index);
           fact.player.i = index || 0;
           var track = fact.player.tracks[fact.player.i];
           var src;
-          console.log(track);
           fact.player.playing = track;
           src = track.stream_url + '?client_id=' + fact.clientId;
-          console.log(src);
           fact.player.currentTrack = fact.player.playing;
           if (src !== fact.audio.src) {
             fact.audio.src = src;
@@ -107,7 +103,6 @@ angular.module('lorenjonesApp')
           audio.currentTime = time;
         },
         trackIndex: function(query) {
-          console.log('attempting to get track index');
           var mem = null;
           //clean https
           if (query.indexOf('https') !== -1) {
@@ -118,7 +113,6 @@ angular.module('lorenjonesApp')
           for (var y = 0; y < tracks.length; y++) {
             /*jshint camelcase: false*/
             if (query === tracks[y].permalink_url) {
-              console.log(y);
               mem = y;
               return mem;
             }
@@ -153,6 +147,7 @@ angular.module('lorenjonesApp')
     function loadPlayer(track, index) {
       /*jshint camelcase: false*/
       var cache = errorOffset;
+      //console.log(track);
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       if (fact.player.data[track]) {
         var t = fact.player.data[track];
@@ -160,11 +155,13 @@ angular.module('lorenjonesApp')
         fact.player.load(t, index);
       } else {
         $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
+          console.log(params);
           fact.player.data[track] = data;
           fact.player.load(data, index);
         }).error(function(data, status) {
           //alert(cache);
-          errorOffset += 1;
+          //errorOffset += 1;
+          console.log(data);
         });
       }
       return fact.player;

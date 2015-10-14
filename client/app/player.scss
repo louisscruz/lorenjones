@@ -7,8 +7,13 @@
   $darken-2: rgba(black, 1/8);
   $darken-3: rgba(black, 1/4);
   $border-radius: 3px;
+  button {
+    font-size: inherit
+  }
 
-  button { font-size: inherit }
+  .track-info {
+    padding-right: 8px;
+  }
 
   .nav-item {
     text-decoration: none;

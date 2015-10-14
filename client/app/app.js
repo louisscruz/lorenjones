@@ -85,10 +85,6 @@ angular.module('lorenjonesApp', [
     $rootScope.player = soundcloud.player;
     var loadAll = works.loadAll();
     loadAll.then(function() {
-      console.log(works);
-      console.log($rootScope.player);
-      console.log(soundcloud.player);
-      console.log($rootScope.player === soundcloud.player);
       $rootScope.defaultTrack = works.defaultTrack;
       $rootScope.allWorks = works.works;
       $rootScope.dbwMovements = works.dbwMovements;

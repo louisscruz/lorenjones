@@ -37,6 +37,7 @@ angular.module('lorenjonesApp')
           }
           for (var i = 0; i < fact.works.length; i++) {
             if (fact.works[i].audio) {
+              console.log(fact.works[i].audio);
               worksTracks.push(fact.works[i].audio);
               if (defaultTrack) {
                 playlistIndex = order.indexOf(count) + 1;
@@ -98,7 +99,7 @@ angular.module('lorenjonesApp')
         if (work.audio) {
           var newOrder;
           if (!fact.worksOrder) {
-            newOrder = [0];
+            newOrder = [];
           } else {
             var length = fact.worksOrder.length;
             newOrder = fact.worksOrder;
@@ -228,7 +229,6 @@ angular.module('lorenjonesApp')
     // Get the playlist order
     function getWorksOrder() {
       return $http.get('/api/playlists').success(function(data) {
-        console.log(data);
         angular.copy(data.order, fact.worksOrder);
       });
     }

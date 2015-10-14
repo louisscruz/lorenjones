@@ -40,13 +40,16 @@ angular.module('lorenjonesApp')
           audio: $scope.newAudio,
           video: $scope.newVideo
         };
-        works.addWork(work);
-        $scope.newTitle = '';
-        $scope.newCategory = '';
-        $scope.newDate = '';
-        $scope.newScore = '';
-        $scope.newAudio = '';
-        $scope.worksForm.$setUntouched();
+        console.log($scope.newAudio);
+        console.log(work.audio);
+        works.addWork(work).then(function() {
+          $scope.newTitle = '';
+          $scope.newCategory = '';
+          $scope.newDate = '';
+          $scope.newScore = '';
+          $scope.newAudio = '';
+          $scope.worksForm.$setUntouched();
+        });
       }
     };
     $scope.cacheWork = works.cacheWork;
