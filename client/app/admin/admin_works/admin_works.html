@@ -130,9 +130,10 @@
           <label>Year</label>
           <p>{{ work.date }}</p>
           <label>Instrumentation</label>
-          <p>{{ work.instrumentation }}</p>
+          <p>{{ work.instrumentation || 'empty'}}</p>
           <label>Info</label>
-          <p ng-bind-html="work.info">{{ work.info || "empty" }}</p>
+          <p ng-if="work.info" ng-bind-html="work.info"></p>
+          <p ng-if="!work.info">empty</p>
           <label>Link</label>
           <p ng-if="work.link"><a href="work.link" target="_blank">{{ work.link }}</a></p>
           <p ng-if="!work.link">empty</p>
