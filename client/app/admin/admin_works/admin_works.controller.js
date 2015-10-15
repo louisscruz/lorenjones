@@ -6,16 +6,24 @@ angular.module('lorenjonesApp')
     $scope.editing = null;
     $scope.copiedWork;
     $scope.currentYear = new Date().getFullYear();
-    $scope.cachedWork = works.cachedWork;
     $scope.toggleEdit = function(work) {
       if ($scope.editing === work._id) {
         $scope.editing = false;
         $scope.copiedWork = null;
-        works.cacheWork(work);
       } else {
         $scope.editing = work._id;
         $scope.copiedWork = angular.copy(work);
-        works.cacheWork(work);
+      }
+      works.cacheWork(work);
+      $scope.cachedWork = works.cachedWork;
+    }
+    $scope.sameAsCache = function(work) {
+      console.log(work);
+      console.log($scope.cachedWork);
+      if (_.isEqual(work, $scope.cachedWork)) {
+        return true;
+      } else {
+        return false;
       }
     }
     $scope.groups = [
@@ -46,7 +54,6 @@ angular.module('lorenjonesApp')
         });
       }
     };
-    $scope.cacheWork = works.cacheWork;
     $scope.updateWork = works.updateWork;
     $scope.checkUrl = function(data) {
       if ($scope.worksTracks.indexOf(data) !== -1) {

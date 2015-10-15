@@ -5,8 +5,8 @@ angular.module('lorenjonesApp')
     return {
       restrict: 'A',
       require: 'ngModel',
-      link: function($scope, $attr, $elem, ctrl) {
-        ctrl.$asyncValidators.validUrl = function(url) {
+      link: function(scope, element, attrs, ngModel) {
+        ngModel.$asyncValidators.validUrl = function(url) {
           return soundcloud.testLoad(url);
         };
       }

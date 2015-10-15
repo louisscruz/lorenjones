@@ -197,10 +197,13 @@
               <label class="control-label">Youtube Link</label>
               <input type="text" name="video" class="form-control" ng-model="copiedWork.video" placeholder="https://www.youtube.com/watch?v=wAcCKUTiiHE">
             </div>
+            {{work}}
+            {{copiedWork}}
+            {{editForm}}
             <div>
               <span>
                 <!-- Make sure to change editForm.$pristine disabling to check to see if the work === cachedWork -->
-                <button class="btn btn-primary" type="submit" ng-disabled="editForm.$invalid || editForm.$pristine">Save</button>
+                <button class="btn btn-primary" type="submit" ng-disabled="editForm.$invalid || editForm.$pristine || sameAsCache(copiedWork)">Save</button>
                 <button type="button" class="btn btn-default" ng-click="toggleEdit(work)">Cancel</button>
               </span>
             </div>

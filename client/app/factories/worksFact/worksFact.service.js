@@ -2,8 +2,7 @@
 /*jshint shadow: true*/
 angular.module('lorenjonesApp')
   .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', 'cleanUrl', '$q', function ($http, $rootScope, socket, soundcloud, cleanUrl, $q) {
-    var fact = { defaultTrack: [], works: [], dbwMovements: [], worksTracks: [], worksOrder: [] };
-    var cachedWork;
+    var fact = { defaultTrack: [], works: [], dbwMovements: [], worksTracks: [], worksOrder: [], cachedWork: {} };
     // Get all works and tracks; send tracks to soundcloud player
     function loadAll() {
       var deferred = $q.defer();
@@ -128,8 +127,7 @@ angular.module('lorenjonesApp')
         audio: work.audio,
         video: work.video
       };
-      console.log(cachedWork.audio);
-      if (!cachedWork.audio) {
+      if (!fact.cachedWork.audio) {
         // If no track previously associated with the work, add a track and update the playlist
         for (var i = 0, len = fact.works.length; i < len; i++) {
           if (fact.works[i].audio) {
@@ -172,7 +170,7 @@ angular.module('lorenjonesApp')
                 reorder[i] -= 1;
               }
             }
-            fact.worksTracks.splice(cachedWork, 1);
+            fact.worksTracks.splice(fact.cachedWork, 1);
             updateWorksOrder(reorder);
           })
           .then(function() {
@@ -208,10 +206,10 @@ angular.module('lorenjonesApp')
     }
     // Cache old work values
     function cacheWork(data) {
-      if (data === cachedWork) {
-        cachedWork = null;
+      if (data === fact.cachedWork) {
+        fact.cachedWork = null;
       } else {
-        cachedWork = data.audio;
+        fact.cachedWork = angular.copy(data, fact.cachedWork);
       }
     }
     // Unique work audio
@@ -247,7 +245,7 @@ angular.module('lorenjonesApp')
       defaultTrack: fact.defaultTrack,
       worksTracks: fact.worksTracks,
       worksOrder: fact.worksOrder,
-      cachedWork: cachedWork,
+      cachedWork: fact.cachedWork,
       // Default track functions
       addDefaultTrack: addDefaultTrack,
       deleteDefaultTrack: deleteDefaultTrack,
