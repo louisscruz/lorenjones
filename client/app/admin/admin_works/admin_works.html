@@ -7,7 +7,7 @@
       <div class="form-group" ng-class="{ 'has-success' : worksForm.title.$valid && worksForm.title.$touched, 'has-error' : worksForm.title.$touched && worksForm.title.$invalid }">
         <label class="control-label">Title</label>
         <div class="input-group">
-          <input type="text" name="title" class="form-control" ng-model="newTitle" placeholder="Sonata for Bassoon and Piano" required ng-maxlength="80">
+          <input type="text" name="title" class="form-control" ng-model="newWork.title" placeholder="Sonata for Bassoon and Piano" required ng-maxlength="80">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.title.$valid && worksForm.title.$touched, 'fa-times' : worksForm.title.$invalid && worksForm.title.$touched, 'fa-asterisk' : worksForm.title.$untouched }" aria-hidden="true"></span>
           </span>
@@ -21,7 +21,7 @@
       <div class="form-group" ng-class="{ 'has-success' : worksForm.category.$valid && worksForm.category.$touched, 'has-error' : worksForm.category.$touched && worksForm.category.$invalid }">
         <label class="control-label">Category of the Work</label>
         <div class="input-group">
-          <select ng-model="newCategory" name="category" class="selectpicker form-control" ng-options="g as g for g in groups" required></select>
+          <select ng-model="newWork.category" name="category" class="selectpicker form-control" ng-options="g as g for g in groups" required></select>
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.category.$valid && worksForm.category.$touched, 'fa-times' : worksForm.category.$invalid && worksForm.category.$touched, 'fa-asterisk' : worksForm.category.$untouched }" aria-hidden="true"></span>
           </span>
@@ -34,7 +34,7 @@
       <div class="form-group" ng-class="{ 'has-success' : worksForm.date.$valid && worksForm.date.$touched, 'has-error' : worksForm.date.$touched && worksForm.date.$invalid }">
         <label class="control-label">Year of the Work</label>
         <div class="input-group">
-          <input type="number" name="date" class="form-control" ng-model="newDate" ng-click="initDate(worksForm.date.$touched)" required>
+          <input type="number" name="date" class="form-control" ng-model="newWork.date" placeholder="{{currentYear}}" ng-click="!newWork.date ? newWork.date = 2015 : newWork.date = newWork.date" required>
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.date.$valid && worksForm.date.$touched, 'fa-times' : worksForm.date.$invalid && worksForm.date.$touched, 'fa-asterisk' : worksForm.date.$untouched }" aria-hidden="true"></span>
           </span>
@@ -44,10 +44,11 @@
           <p ng-message="required">You must enter a date</p>
         </div>
       </div>
+      {{newWork}}
       <div class="form-group" ng-class="{ 'has-success' : worksForm.instrumentation.$valid && worksForm.instrumentation.$touched && newInstrumentation, 'has-error' : worksForm.instrumentation.$touched && worksForm.instrumentation.$invalid }">
         <label class="control-label">Instrumentation</label>
         <div class="input-group">
-          <input type="text" name="instrumentation" class="form-control" placeholder="bassoon and piano" ng-model="newInstrumentation">
+          <input type="text" name="instrumentation" class="form-control" placeholder="bassoon and piano" ng-model="newWork.instrumentation">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.instrumentation.$valid && worksForm.instrumentation.$touched && newInstrumentation, 'fa-times' : worksForm.instrumentation.$invalid && worksForm.instrumentation.$touched }" aria-hidden="true"></span>
           </span>
@@ -57,7 +58,7 @@
       <div class="form-group" ng-class="{ 'has-success' : worksForm.info.$valid && worksForm.info.$touched && newInfo, 'has-error' : worksForm.info.$touched && worksForm.info.$invalid }">
         <label class="control-label">Information</label>
         <div class="input-group">
-          <textarea name="info" class="form-control" placeholder="Work Info" ng-model="newInfo"></textarea>
+          <textarea name="info" class="form-control" placeholder="Work Info" ng-model="newWork.info"></textarea>
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.info.$valid && worksForm.info.$touched && newInfo, 'fa-times' : worksForm.info.$touched && worksForm.info.$invalid }" aria-hidden="true"></span>
           </span>
@@ -67,7 +68,7 @@
       <div class="form-group" ng-class="{ 'has-success' : worksForm.score.$valid && worksForm.score.$touched && newLink, 'has-error' : worksForm.score.$touched && worksForm.score.$invalid }">
         <label class="control-label">Purchase Link</label>
         <div class="input-group">
-          <input type="url" name="score" class="form-control" placeholder="http://www.sheetmusicplus.com/title/rite-of-spring-sheet-music/1573215" ng-model="newLink">
+          <input type="url" name="score" class="form-control" placeholder="http://www.sheetmusicplus.com/title/rite-of-spring-sheet-music/1573215" ng-model="newWork.link">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.score.$valid && worksForm.score.$touched && newLink, 'fa-times' : worksForm.score.$touched && worksForm.score.$invalid }" aria-hidden="true"></span>
           </span>
@@ -81,7 +82,7 @@
         <label class="control-label">Soundcloud Link</label>
         <a href="https://soundcloud.com/lorenjones-2" target="_blank"><i>Visit Soundcloud</i></a>
         <div class="input-group">
-          <input type="url" name="audio" class="form-control" placeholder="https://soundcloud.com/louis-cruz/sonata-for-bassoon-and-piano-i" ng-model="newAudio" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url>
+          <input type="url" name="audio" class="form-control" placeholder="https://soundcloud.com/louis-cruz/sonata-for-bassoon-and-piano-i" ng-model="newWork.audio" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url>
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.audio.$valid && worksForm.audio.$touched && newAudio, 'fa-times' : worksForm.audio.$touched && worksForm.audio.$invalid }" aria-hidden="true"></span>
           </span>
@@ -97,7 +98,7 @@
         <label class="control-group">Youtube Link</label>
         <a href="https://www.youtube.com/channel/UCGKWKYNw0NStXUYvuFairfA/videos" target="_blank"><i>Visit Youtube</i></a>
         <div class="input-group">
-          <input type="url" name="video" class="form-control" placeholder="https://www.youtube.com/watch?v=NA13W7IAjXk" ng-model="newVideo">
+          <input type="url" name="video" class="form-control" placeholder="https://www.youtube.com/watch?v=NA13W7IAjXk" ng-model="newWork.video">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.video.$valid && worksForm.video.$touched && newVideo, 'fa-times' : worksForm.video.$touched && worksForm.video.$invalid }" aria-hidden="true"></span>
           </span>
@@ -107,7 +108,7 @@
           <p ng-message="url">Invalid URL</p>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary btn-block" ng-disabled="worksForm.$invalid || worksTracks.indexOf(newAudio) !== -1">Add New</button>
+      <button type="submit" class="btn btn-primary btn-block" ng-disabled="worksForm.$invalid || worksTracks.indexOf(newWork.audio) !== -1">Add New</button>
     </form>
   </div>
   <accordion class="col-md-9">

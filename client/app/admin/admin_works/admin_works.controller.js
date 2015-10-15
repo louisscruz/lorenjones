@@ -17,7 +17,6 @@ angular.module('lorenjonesApp')
         works.cacheWork(work);
       }
     }
-    var initDate = false;
     $scope.groups = [
       'Solo',
       'Chamber',
@@ -31,23 +30,19 @@ angular.module('lorenjonesApp')
     $scope.addWork = function(isValid) {
       if (isValid) {
         var work = {
-          title: $scope.newTitle,
-          category: $scope.newCategory,
-          date: $scope.newDate,
-          instrumentation: $scope.newInstrumentation,
-          info: $scope.newInfo,
-          link: $scope.newLink,
-          audio: $scope.newAudio,
-          video: $scope.newVideo
+          title: $scope.newWork.title,
+          category: $scope.newWork.category,
+          date: $scope.newWork.date,
+          instrumentation: $scope.newWork.instrumentation,
+          info: $scope.newWork.info,
+          link: $scope.newWork.link,
+          audio: $scope.newWork.audio,
+          video: $scope.newWork.video
         };
         console.log($scope.newAudio);
         console.log(work.audio);
         works.addWork(work).then(function() {
-          $scope.newTitle = '';
-          $scope.newCategory = '';
-          $scope.newDate = '';
-          $scope.newScore = '';
-          $scope.newAudio = '';
+          $scope.newWork = {};
           $scope.worksForm.$setUntouched();
         });
       }
@@ -65,12 +60,6 @@ angular.module('lorenjonesApp')
         deferred.reject('Invalid Soundcloud URL');
       });
       return deferred.promise;
-    };
-    $scope.initDate = function(touched) {
-      if (!touched && !initDate) {
-        initDate = true;
-        return $scope.newDate = $scope.currentYear;
-      }
     };
     $scope.confirmDelete = Modal.confirm.delete(function(work) {
       works.deleteWork(work);
