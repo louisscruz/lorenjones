@@ -26,6 +26,7 @@ angular.module('lorenjonesApp')
         });
         $scope.newTab = '';
         $scope.newContent = '';
+        $scope.bioForm.$setUntouched();
       }
     };
     $scope.updateBioEntry = function(entry) {
