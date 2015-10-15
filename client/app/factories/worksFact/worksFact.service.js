@@ -96,7 +96,6 @@ angular.module('lorenjonesApp')
     function addWork(work) {
       return $http.post('/api/works', work).success(function() {
         if (work.audio) {
-          alert('there is a work audio');
           var newOrder;
           if (!fact.worksOrder) {
             newOrder = [];

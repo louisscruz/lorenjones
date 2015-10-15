@@ -16,14 +16,14 @@ angular.module('lorenjonesApp')
       }
       works.cacheWork(work);
       $scope.cachedWork = works.cachedWork;
-    }
+    };
     $scope.sameAsCache = function(work) {
       if (_.isEqual(work, $scope.cachedWork)) {
         return true;
       } else {
         return false;
       }
-    }
+    };
     $scope.groups = [
       'Solo',
       'Chamber',

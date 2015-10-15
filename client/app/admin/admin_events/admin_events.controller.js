@@ -57,7 +57,7 @@ angular.module('lorenjonesApp')
     };
     $scope.toggleEditCollapseDate = function() {
       $scope.isEditDateCollapsed = !$scope.isEditDateCollapsed;
-    }
+    };
     $scope.closeDate = function() {
       if ($scope.isDateCollapsed === false) {
         $scope.toggleCollapseDate();
@@ -67,7 +67,7 @@ angular.module('lorenjonesApp')
       if ($scope.isEditDateCollapsed !== true) {
         $scope.isEditDateCollapsed = true;
       }
-    }
+    };
     $scope.dateFormat = /^(0[1-9]|1[0-2]|[1-9])\/(0[1-9]|1[0-9]|2[0-9]|3[0-1]|[0-9])\/(\d{2,4})\s(0[0-9]|1[0-2]|[1-9]):([0-5])([0-9])(?:am|pm)$/;
     $scope.addEvent = function(isValid) {
       if (isValid) {
@@ -104,9 +104,9 @@ angular.module('lorenjonesApp')
           }
         }
       } else {
-        for (var i = 0; i < $scope.pastEvents.length; i++) {
-          if ($scope.pastEvents[i]._id === event._id) {
-            $scope.pastEvents[i] = event;
+        for (var y = 0; y < $scope.pastEvents.length; y++) {
+          if ($scope.pastEvents[y]._id === event._id) {
+            $scope.pastEvents[y] = event;
             break;
           }
         }
@@ -135,9 +135,9 @@ angular.module('lorenjonesApp')
         }
       }
       if (!caught) {
-        for (var i = 0; i < $scope.pastEvents.length; i++) {
-          if ($scope.pastEvents[i]._id === id) {
-            $scope.pastEvents.splice(i, 1);
+        for (var y = 0; y < $scope.pastEvents.length; y++) {
+          if ($scope.pastEvents[y]._id === id) {
+            $scope.pastEvents.splice(y, 1);
             break;
           }
         }

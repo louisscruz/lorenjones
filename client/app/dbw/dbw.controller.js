@@ -13,7 +13,7 @@ angular.module('lorenjonesApp')
       var percent = (-1 * pos) / height;
       var opacity = Math.pow(Math.cos(3.14 * percent / 2), 2);
       return opacity;
-    }
+    };
     $scope.fadeInOut = function(elementPosition) {
       var offset;
       var opacity;
@@ -32,7 +32,7 @@ angular.module('lorenjonesApp')
       }
       opacity = Math.pow(Math.sin(3.14 * pos), 2);
       return opacity;
-    }
+    };
     $scope.videoUrl = 'https://www.youtube.com/watch?v=CCwB4TRJUgc';
     $scope.dbwMovements = works.dbwMovements;
     $scope.movements = [

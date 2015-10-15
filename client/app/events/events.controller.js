@@ -10,8 +10,8 @@ angular.module('lorenjonesApp')
       format: 'dddd, mmmm dddd',
     };
     $scope.dateFilter = function(obj) {
-      var date = roundDate(new Date());
-      var eventDate = roundDate(new Date(obj.date));
+      var date = eventsFact.roundDate(new Date());
+      var eventDate = eventsFact.roundDate(new Date(obj.date));
       return eventDate >= date;
     };
     $scope.sort = 'datetime';

@@ -11,7 +11,7 @@ angular.module('lorenjonesApp')
       var deferred = $q.defer();
       uiGmapGoogleMapApi.then(function(maps) {
         var geocoder = new maps.Geocoder();
-        geocoder.geocode({'address': address + ',' + city}, function(results, status) {
+        geocoder.geocode({'address': address + ',' + city}, function(results) {
           if (!results[0]) { return; }
           var lat = results[0].geometry.location.lat();
           var lng = results[0].geometry.location.lng();
@@ -24,6 +24,7 @@ angular.module('lorenjonesApp')
       return deferred.promise;
     }
     return {
+      roundDate: roundDate,
       getCoords: getCoords
     };
   });

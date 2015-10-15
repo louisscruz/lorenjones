@@ -14,7 +14,7 @@ angular.module('lorenjonesApp')
         })
         .catch( function() {
           form.password.$setValidity('mongoose', false);
-          alertFact.add('danger', 'Unsuccessful attempt to change password.')
+          alertFact.add('danger', 'Unsuccessful attempt to change password.');
         });
       }
 		};

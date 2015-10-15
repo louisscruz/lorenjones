@@ -1,5 +1,5 @@
 'use strict';
-
+/* jshint expr: true */
 angular.module('lorenjonesApp')
   .controller('AdminAboutCtrl', function ($scope, $http, socket, Modal) {
     $scope.bioEntries = [];

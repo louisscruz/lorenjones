@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .directive('validAddress', ['$http', '$q', 'uiGmapGoogleMapApi', '$compile', function ($http, $q, uiGmapGoogleMapApi, $compile) {
+  .directive('validAddress', ['$http', '$q', 'uiGmapGoogleMapApi', '$compile', function ($http, $q, uiGmapGoogleMapApi) {
     return {
       restrict: 'A',
       require: 'ngModel',

@@ -11,8 +11,6 @@ angular.module('lorenjonesApp')
         }
         var validateFn = function (viewValue) {
           var result = viewValue;
-          console.log(result);
-          console.log(moment(result).isValid())
           if (viewValue) {
             var momentValue = moment(String(viewValue), 'M/D/YY h:mma');
             if (momentValue.isValid()) {
@@ -36,7 +34,7 @@ angular.module('lorenjonesApp')
         element.bind('blur', function() {
           var viewValue = controller.$modelValue;
           angular.forEach(controller.$formatters, function(formatter) {
-            viewValue = formatter(viewValue)
+            viewValue = formatter(viewValue);
           });
           controller.$viewValue = viewValue;
           controller.$render();
