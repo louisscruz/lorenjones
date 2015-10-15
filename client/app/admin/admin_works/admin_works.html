@@ -183,7 +183,6 @@
             </div>
             <div class="form-group" ng-class="{ 'has-error' : editForm.audio.$invalid && editForm.audio.$touched }">
               <label class="control-label">Soundcloud Link</label>
-              {{copiedWork}}
               <input type="url" name="audio" class="form-control" ng-model="copiedWork.audio" placeholder="https://soundcloud.com/lorenjones-2/4-februarys-children-1" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url>
               <!--input type="url" name="audio" class="form-control" ng-model="copiedWork.audio" placeholder="https://soundcloud.com/lorenjones-2/4-februarys-children-1"-->
               <span class="sr-only">(success)</span>
@@ -197,13 +196,10 @@
               <label class="control-label">Youtube Link</label>
               <input type="text" name="video" class="form-control" ng-model="copiedWork.video" placeholder="https://www.youtube.com/watch?v=wAcCKUTiiHE">
             </div>
-            {{work}}
-            {{copiedWork}}
-            {{editForm}}
             <div>
               <span>
                 <!-- Make sure to change editForm.$pristine disabling to check to see if the work === cachedWork -->
-                <button class="btn btn-primary" type="submit" ng-disabled="editForm.$invalid || editForm.$pristine || sameAsCache(copiedWork)">Save</button>
+                <button class="btn btn-primary" type="submit" ng-disabled="!editForm.$valid || sameAsCache(copiedWork)">Save</button>
                 <button type="button" class="btn btn-default" ng-click="toggleEdit(work)">Cancel</button>
               </span>
             </div>

@@ -18,8 +18,6 @@ angular.module('lorenjonesApp')
       $scope.cachedWork = works.cachedWork;
     }
     $scope.sameAsCache = function(work) {
-      console.log(work);
-      console.log($scope.cachedWork);
       if (_.isEqual(work, $scope.cachedWork)) {
         return true;
       } else {
