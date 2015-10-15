@@ -2,6 +2,7 @@
 
 angular.module('lorenjonesApp')
   .controller('AboutCtrl', function ($scope, $http, socket, $interval, flickr, Lightbox) {
+    var photosetId = '72157657015377619';
     $scope.bioEntries = [];
     $http.get('/api/bio_entries', {cache: true}).success(function(bioEntries) {
       $scope.bioEntries = bioEntries;
@@ -15,7 +16,7 @@ angular.module('lorenjonesApp')
     var src = 'flickr.photosets.getPhotos';
     $scope.loadPhotos = function(page) {
       $scope.loadingPhotos = true;
-      flickr.query(src, perPage, page)
+      flickr.query(src, perPage, page, photosetId)
       .then(function(data) {
         $scope.loadingPhotos = false;
         console.log(data);

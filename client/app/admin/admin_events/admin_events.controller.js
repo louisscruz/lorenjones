@@ -145,16 +145,9 @@ angular.module('lorenjonesApp')
       $http.delete('/api/events/' + id);
     };
     $scope.resetForm = function() {
-      $scope.newTitle = '';
-      $scope.newDate = '';
-      $scope.newVenue = '';
-      $scope.newAddress = '';
+      $scope.newEvent = null;
       newLat = '';
       newLng = '';
-      $scope.newCity = '';
-      $scope.newLink = '';
-      $scope.newInfo = '';
-      $scope.newZoom = '';
       $scope.eventForm.$setPristine();
       $scope.eventForm.$setUntouched();
     };

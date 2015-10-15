@@ -1,0 +1,48 @@
+.sweet-tommy {
+  $darken-3: rgba(black, 1/4);
+  $border-radius: 6px;
+  // Buttons
+  .button-icon {
+    font-family: inherit;
+    font-weight: 600;
+    height: 42px;
+    width: 42px;
+    text-decoration: none;
+    display: inline-block;
+    color: $orange;
+    background-color: transparent;
+    border: 0;
+    box-shadow: inset 0 0 0 3px $orange;
+    border-radius: $border-radius;
+    transition-property: color, background-color, box-shadow, transform;
+    transition-duration: .1s;
+    transition-timing-function: ease-out;
+    cursor: pointer;
+    &:hover {
+      color: $dark-gray;
+      background-color: $orange;
+      box-shadow: inset 0 0 0 3px $orange;
+      transform: scale(17/16);
+    }
+    &:focus {
+      outline: 0;
+      box-shadow: inset 0 0 0 3px $orange;
+    }
+    &:active {
+      transform: scale(31/32);
+      box-shadow: inset 0 2px 6px 0 $darken-3;
+    }
+  }
+  .plangular-icon {
+    width: 1em;
+    height: 1em;
+    position: relative;
+    top: (2/16) * 1em;
+  }
+  .plangular-icon-play {
+    left: (2/16) * 1em;
+  }
+  ul li {
+    list-style: none;
+  }
+}

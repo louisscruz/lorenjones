@@ -455,21 +455,11 @@
 
 }
 
-.works, .dbw {
+.works, .dbw, .sweet-tommy {
   $breakpoint: 40em;
-
-  //$dark-gray: #405660;
-  //$dark-gray: #304650;
-  //$dark-gray: #264049;
-  //$dark-gray: #304046;
-  //$dark-gray: #203640;
-
   $dark-gray: #203036;
-  //$red: #f50;
-
   $red: #f52;
   $green: #0f6;
-
   $darken-1: rgba(black, 1/16);
   $darken-2: rgba(black, 1/8);
   $darken-3: rgba(black, 1/4);
@@ -518,5 +508,4 @@
   .plangular-icon-play {
     left: (2/16) * 1em;
   }
-
 }

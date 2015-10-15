@@ -5,8 +5,7 @@ angular.module('lorenjonesApp')
       var o = {};
       var apiKey = 'b288d1360b00e2f8584150f7da3ff3ef';
       var userId = '134139109@N08';
-      var photosetId = '72157657015377619';
-      o.query = function(src, perPage, page) {
+      o.query = function(src, perPage, page, photosetId) {
         /*jshint camelcase: false*/
         var deferred = $q.defer();
         $http.jsonp('https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&api_key=' + apiKey + '&photoset_id=' + photosetId + '&user_id=' + userId + '&per_page=' + perPage + '&page=' + page + '&format=json&jsoncallback=JSON_CALLBACK', {

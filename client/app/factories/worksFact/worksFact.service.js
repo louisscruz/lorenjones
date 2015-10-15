@@ -2,7 +2,7 @@
 /*jshint shadow: true*/
 angular.module('lorenjonesApp')
   .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', 'cleanUrl', '$q', function ($http, $rootScope, socket, soundcloud, cleanUrl, $q) {
-    var fact = { defaultTrack: [], works: [], dbwMovements: [], worksTracks: [], worksOrder: [], cachedWork: {} };
+    var fact = { defaultTrack: [], works: [], dbwMovements: [], sweetTommyTracks: [], worksTracks: [], worksOrder: [], cachedWork: {} };
     // Get all works and tracks; send tracks to soundcloud player
     function loadAll() {
       var deferred = $q.defer();
@@ -62,7 +62,19 @@ angular.module('lorenjonesApp')
             }
           }
         });
-      }).then(function() {
+      })
+      .then(function() {
+        $http.get('/api/sweet_tommy_tracks').success(function(tracks) {
+          angular.copy(tracks, fact.sweetTommyTracks);
+          for (var i = 0; i < fact.sweetTommyTracks.length; i++) {
+            if (fact.sweetTommyTracks[i].url) {
+              soundcloud.loadPlayerWith(tracks[i].url, index);
+              index++;
+            }
+          }
+        });
+      })
+      .then(function() {
         deferred.resolve(fact);
       });
       return deferred.promise;
@@ -241,6 +253,7 @@ angular.module('lorenjonesApp')
       // Resources
       works: fact.works,
       dbwMovements: fact.dbwMovements,
+      sweetTommyTracks: fact.sweetTommyTracks,
       defaultTrack: fact.defaultTrack,
       worksTracks: fact.worksTracks,
       worksOrder: fact.worksOrder,
