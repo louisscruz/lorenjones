@@ -173,7 +173,8 @@ angular.module('lorenjonesApp')
         deferred.resolve();
       }
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
-      $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function() {
+      $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
+        console.log(data);
         deferred.resolve();
       }).error(function() {
         deferred.reject('Invalid URL');

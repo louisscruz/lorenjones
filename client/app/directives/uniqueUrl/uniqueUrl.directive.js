@@ -1,12 +1,15 @@
 'use strict';
 /*jshint camelcase: false */
 angular.module('lorenjonesApp')
-  .directive('uniqueUrl', ['cleanUrl', function (cleanUrl) {
+  .directive('uniqueUrl', ['cleanUrl', 'works', function (cleanUrl, works) {
     return {
       restrict: 'A',
       require: 'ngModel',
       link: function ($scope, $attr, $elem, ctrl) {
         ctrl.$validators.uniqueUrl = function(value) {
+          if (works.cachedWork.audio = value) {
+            return true;
+          }
           if (value) {
             var u = cleanUrl(value);
             for (var i = 0; i < $scope.player.tracks.length; i++) {

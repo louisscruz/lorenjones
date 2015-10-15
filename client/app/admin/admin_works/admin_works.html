@@ -44,7 +44,6 @@
           <p ng-message="required">You must enter a date</p>
         </div>
       </div>
-      {{newWork}}
       <div class="form-group" ng-class="{ 'has-success' : worksForm.instrumentation.$valid && worksForm.instrumentation.$touched && newInstrumentation, 'has-error' : worksForm.instrumentation.$touched && worksForm.instrumentation.$invalid }">
         <label class="control-label">Instrumentation</label>
         <div class="input-group">
@@ -90,7 +89,7 @@
         <span class="sr-only">(success)</span>
         <div class="help-block" ng-messages="worksForm.audio.$error" ng-if="worksForm.audio.$touched">
           <p ng-message="url">Invalid URL</p>
-          <p ng-message="unqiueUrl">This track is already loaded in the global audio player.</p>
+          <p ng-message="uniqueUrl">This track is already loaded in the global audio player.</p>
           <p ng-message="validUrl">This is not a valid Soundcloud URL.</p>
         </div>
       </div>
@@ -200,7 +199,8 @@
             </div>
             <div>
               <span>
-                <button class="btn btn-primary" type="submit" ng-disabled="editForm.$invalid">Save</button>
+                <!-- Make sure to change editForm.$pristine disabling to check to see if the work === cachedWork -->
+                <button class="btn btn-primary" type="submit" ng-disabled="editForm.$invalid || editForm.$pristine">Save</button>
                 <button type="button" class="btn btn-default" ng-click="toggleEdit(work)">Cancel</button>
               </span>
             </div>

@@ -97,6 +97,7 @@ angular.module('lorenjonesApp')
     function addWork(work) {
       return $http.post('/api/works', work).success(function() {
         if (work.audio) {
+          alert('there is a work audio');
           var newOrder;
           if (!fact.worksOrder) {
             newOrder = [];
@@ -127,8 +128,8 @@ angular.module('lorenjonesApp')
         audio: work.audio,
         video: work.video
       };
-      console.log(cachedWork);
-      if (!cachedWork) {
+      console.log(cachedWork.audio);
+      if (!cachedWork.audio) {
         // If no track previously associated with the work, add a track and update the playlist
         for (var i = 0, len = fact.works.length; i < len; i++) {
           if (fact.works[i].audio) {
@@ -246,6 +247,7 @@ angular.module('lorenjonesApp')
       defaultTrack: fact.defaultTrack,
       worksTracks: fact.worksTracks,
       worksOrder: fact.worksOrder,
+      cachedWork: cachedWork,
       // Default track functions
       addDefaultTrack: addDefaultTrack,
       deleteDefaultTrack: deleteDefaultTrack,

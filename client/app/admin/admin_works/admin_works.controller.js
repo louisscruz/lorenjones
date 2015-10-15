@@ -6,6 +6,7 @@ angular.module('lorenjonesApp')
     $scope.editing = null;
     $scope.copiedWork;
     $scope.currentYear = new Date().getFullYear();
+    $scope.cachedWork = works.cachedWork;
     $scope.toggleEdit = function(work) {
       if ($scope.editing === work._id) {
         $scope.editing = false;
@@ -39,8 +40,6 @@ angular.module('lorenjonesApp')
           audio: $scope.newWork.audio,
           video: $scope.newWork.video
         };
-        console.log($scope.newAudio);
-        console.log(work.audio);
         works.addWork(work).then(function() {
           $scope.newWork = {};
           $scope.worksForm.$setUntouched();

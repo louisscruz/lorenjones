@@ -29,10 +29,9 @@ if (Playlist.count() === 0 ) {
 
 /*Playlist.find({}).remove(function() {
   Playlist.create({
-    order: [1, 0, 2]
+    order: [1, 0, 2, 3]
   });
 });*/
-
 
 /*User.find({}).remove(function() {
   User.create({
