@@ -79,7 +79,7 @@ SweetTommyTrack.find({}).remove(function() {
 
 /*Playlist.find({}).remove(function() {
   Playlist.create({
-    order: [1, 0, 2, 3]
+    order: [0, 1, 2]
   });
 });*/
 
