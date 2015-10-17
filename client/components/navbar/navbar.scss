@@ -19,7 +19,7 @@ $sand-serif-normal: 400 !important;
   }
   .navbar-toggle {
     &:active {
-      background-color: red !important;
+      background-color: $primary-light !important;
     }
   }
   .navbar-toggle.collapsed {
