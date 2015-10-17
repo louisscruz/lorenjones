@@ -4,7 +4,8 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 $background-color: #2C2830;
 $primary: #4B4452;
 $primary-light: #81758C;
-$white: #FFFFF3;
+//$white: #FFFFF9;
+$white: #FFFFF9;
 $black: #313131;
 $dark-gray: #424242;
 $light-gray: #F5F5F5;
@@ -49,6 +50,9 @@ body {
   //background-size: 511px 511px;
   //background-repeat: repeat;
 }
+h1, h2, h3, h4, h5, h6 {
+  color: $white;
+}
 *:focus {
   outline: none;
 }
@@ -67,9 +71,14 @@ body {
 .new-lines {
   white-space: pre-line;
 }
-
 .vis-hidden {
   visibility: hidden;
+}
+input[type="text"], input[type="url"], input[type="number"], input[type="password"], select, textarea {
+  background-color: $white !important;
+}
+.btn {
+  color: $white;
 }
 // App Structure
 .browsehappy {
@@ -94,6 +103,38 @@ body {
     z-index: 1;
     padding-top: 51px;
     padding-bottom: 84px;
+  }
+}
+.panel-default {
+  border-color: $primary-light !important;
+}
+.panel-body,  {
+  background-color: $white !important;
+  h3, p {
+    color: $black;
+  }
+}
+.panel-heading {
+  background-color: $primary-light !important;
+  color: $white !important;
+  transition: all 0.15s ease-in-out;
+  padding: 0px;
+  //padding: 0px;
+  a {
+    div {
+      padding: 10px 15px;
+      i {
+        transition: all 0.15s ease-in-out;
+        &.rotate {
+          transform: rotate(90deg);
+        }
+      }
+    }
+    height: 100%;
+  }
+  &:hover {
+    background-color:lighten($primary-light, 17) !important;
+    color: $primary !important;
   }
 }
 #footer {

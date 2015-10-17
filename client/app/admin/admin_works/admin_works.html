@@ -1,7 +1,6 @@
 <div class="admin container">
   <h1 class="col-md-12 text-center">Manage Works</h1>
-  {{worksOrder}}
-  <div class="works-input col-md-3">
+  <div class="works-input col-md-4">
     <h2 class="text-center">Add Work</h2>
     <form name="worksForm" ng-submit="addWork(worksForm.$valid)" novalidate>
       <div class="form-group" ng-class="{ 'has-success' : worksForm.title.$valid && worksForm.title.$touched, 'has-error' : worksForm.title.$touched && worksForm.title.$invalid }">
@@ -110,11 +109,11 @@
       <button type="submit" class="btn btn-primary btn-block" ng-disabled="worksForm.$invalid || worksTracks.indexOf(newWork.audio) !== -1">Add New</button>
     </form>
   </div>
-  <accordion class="col-md-9">
-    <accordion-group ng-init="status.open = $first" is-open="status.open" ng-repeat="(category, works) in works | groupBy: 'category'">
+  <accordion class="col-md-8">
+    <accordion-group ng-init="status.open = $first" is-open="status.open" ng-repeat="(category, works) in works | groupBy: 'category' | orderBy: 'category'">
       <accordion-heading>
-        <div>
-          {{ category }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        <div angular-ripple>
+          {{ category }} <i class="pull-right fa fa-chevron-right" ng-class="{'rotate': status.open, '': !status.open}"></i>
         </div>
       </accordion-heading>
       <div class="admin-works" ng-repeat="work in works | orderBy: 'date':true">

@@ -6,7 +6,7 @@
       <div class="form-group" ng-class="{ 'has-success' : eventForm.title.$valid && eventForm.title.$touched, 'has-error' : eventForm.title.$invalid && eventForm.title.$touched }">
         <label class="control-label">Title of Event</label>
         <div class="input-group">
-          <input class="form-control" name="title" ng-model="newEvent.title" placeholder="Premiere of the Rite of Spring" required ng-maxlength="82">
+          <input type="text" class="form-control" name="title" ng-model="newEvent.title" placeholder="Premiere of the Rite of Spring" required ng-maxlength="82">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.title.$valid && eventForm.title.$touched, 'fa-times' : eventForm.title.$touched && eventForm.title.$invalid, 'fa-asterisk' : eventForm.title.$untouched}" aria-hidden="true"></span>
           </span>
@@ -42,7 +42,7 @@
       <div class="form-group" ng-class="{ 'has-success' : eventForm.venue.$valid && eventForm.venue.$touched && newEvent.venue, 'has-error' : eventForm.venue.$invalid && eventForm.venue.$touched }">
         <label class="control-label">Name of Venue</label>
         <div class="input-group">
-          <input class="form-control" name="venue" ng-model="newEvent.venue" placeholder="Théâtre des Champs-Élysées" ng-required="newEvent.address || newEvent.city">
+          <input type="text" class="form-control" name="venue" ng-model="newEvent.venue" placeholder="Théâtre des Champs-Élysées" ng-required="newEvent.address || newEvent.city">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.venue.$valid && eventForm.venue.$touched && newEvent.venue, 'fa-times' : eventForm.venue.$touched && eventForm.venue.$invalid, 'fa-asterisk' : (newEvent.venue || newEvent.address || newEvent.city) && !eventForm.venue.$touched}" aria-hidden="true"></span>
           </span>
@@ -55,7 +55,7 @@
       <div class="form-group" ng-class="{ 'has-success' : eventForm.address.$valid && eventForm.address.$touched && newEvent.address, 'has-error' : eventForm.address.$invalid && eventForm.address.$touched}">
         <label class="control-label">Address of Venue</label>
         <div class="input-group">
-          <input class="form-control" name="address" ng-model="newEvent.address" placeholder="15 avenue Montaigne" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 300, 'blur': 0} }" ng-change="loadMap()" ng-required="newEvent.venue || newEvent.city">
+          <input type="text" class="form-control" name="address" ng-model="newEvent.address" placeholder="15 avenue Montaigne" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 300, 'blur': 0} }" ng-change="loadMap()" ng-required="newEvent.venue || newEvent.city">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.address.$valid && eventForm.address.$touched && newEvent.address, 'fa-times' : eventForm.address.$invalid && eventForm.address.$touched && newEvent.address, 'fa-asterisk' : (newEvent.venue || newEvent.address || newEvent.city) && !eventForm.address.$touched }" aria-hidden="true"></span>
           </span>
@@ -68,7 +68,7 @@
       <div class="form-group" ng-class="{ 'has-success' : eventForm.city.$valid && eventForm.city.$touched && newEvent.city, 'has-error' : eventForm.city.$invalid && eventForm.city.$touched }">
         <label class="control-label">City of Venue</label>
         <div class="input-group">
-          <input class="form-control" name="city" ng-model="newEvent.city" placeholder="Paris" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 300, 'blur': 0} }" ng-change="loadMap()" ng-required="newEvent.Name || newEvent.address || newEvent.city">
+          <input type="text" class="form-control" name="city" ng-model="newEvent.city" placeholder="Paris" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 300, 'blur': 0} }" ng-change="loadMap()" ng-required="newEvent.Name || newEvent.address || newEvent.city">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.city.$valid && eventForm.city.$touched && newEvent.city, 'fa-times' : eventForm.city.$touched && eventForm.city.$invalid, 'fa-asterisk' : (newEvent.venue || newEvent.address || newEvent.city) && !eventForm.city.$touched }" aria-hidden="true"></span>
           </span>
@@ -106,7 +106,7 @@
       <div class="form-group" ng-class="{ 'has-success' : eventForm.link.$valid && eventForm.link.$touched && newEvent.link, 'has-error' : eventForm.link.$invalid && eventForm.link.$touched }">
         <label class="control-label">Event Link</label>
         <div class="input-group">
-          <input class="form-control" name="link" ng-model="newEvent.link" placeholder="https://en.wikipedia.org/wiki/The_Rite_of_Spring">
+          <input type="text" class="form-control" name="link" ng-model="newEvent.link" placeholder="https://en.wikipedia.org/wiki/The_Rite_of_Spring">
           <span class="input-group-addon">
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : eventForm.link.$valid && eventForm.link.$touched && newEvent.link, 'fa-times' : eventForm.link.$touched && eventForm.link.$invalid }" aria-hidden="true"></span>
           </span>
