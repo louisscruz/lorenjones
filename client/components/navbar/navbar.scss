@@ -17,6 +17,11 @@ $sand-serif-normal: 400 !important;
   .container {
     opacity: 1;
   }
+  .navbar-toggle {
+    &:active {
+      background-color: red !important;
+    }
+  }
   .navbar-toggle.collapsed {
     .top-bar {
       transform: rotate(0);
@@ -154,14 +159,22 @@ $sand-serif-normal: 400 !important;
 .navbar-collapse.collapse.in {
   background-color: $background-color;
   li ul li, li ul {
-    background-color: $primary-light;
-    color: $background-color;
+    background-color: lighten($primary, 15);
+    a {
+      color: $white !important;
+    }
   }
   li {
     color: $background-color;
   }
+  ul li a:focus {
+    color: $black !important;
+  }
   a:active {
     color: $background-color;
+  }
+  a:hover {
+    color: $white;
   }
 }
 
