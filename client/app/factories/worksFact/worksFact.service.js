@@ -172,13 +172,16 @@ angular.module('lorenjonesApp')
         });
       } else {
         if (!work.audio) {
-          for (var y = 0, len = fact.works.length; y < len; y++) {
+          /*for (var y = 0, len = fact.works.length; y < len; y++) {
             if (fact.works[y]._id === work._id) {
               naturalPlacement = count;
+              console.log(natrualPlacement);
               break;
             }
             count++;
-          }
+          }*/
+          var naturalPosition = fact.worksTracks.indexOf(work.audio);
+          console.log(naturalPosition);
           $http.patch('/api/works/' + work._id, trackUpdate)
           .success(function() {
             reorder.splice(reorder.indexOf(naturalPlacement), 1);
