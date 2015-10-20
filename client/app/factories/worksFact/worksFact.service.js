@@ -52,6 +52,17 @@ angular.module('lorenjonesApp')
         });
       })
       .then(function() {
+        if (fact.worksOrder.length !== fact.worksTracks.length) {
+          console.log('invalid worksOrder!');
+          var newOrder = [];
+          for (var z = 0; z < fact.worksTracks.length; z++) {
+            newOrder.push(z);
+          }
+          console.log(newOrder);
+          updateWorksOrder(newOrder);
+        }
+      })
+      .then(function() {
         $http.get('/api/dbw_movements').success(function(movements) {
           angular.copy(movements, fact.dbwMovements);
           for (var i = 0; i < fact.dbwMovements.length; i++) {
