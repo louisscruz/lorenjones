@@ -52,6 +52,8 @@ angular.module('lorenjonesApp')
         });
       })
       .then(function() {
+        console.log(fact.worksOrder.length);
+        console.log(fact.worksTracks.length);
         if (fact.worksOrder.length !== fact.worksTracks.length) {
           console.log('invalid worksOrder!');
           var newOrder = [];
