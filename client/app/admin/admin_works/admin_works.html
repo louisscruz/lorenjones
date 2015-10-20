@@ -76,13 +76,13 @@
           <p ng-message="url">Invalid URL</p>
         </div>
       </div>
-      <div class="form-group" ng-class="{ 'has-success' : worksForm.audio.$valid && worksForm.audio.$touched && newAudio, 'has-error' : worksForm.audio.$touched && worksForm.audio.$invalid }">
+      <div class="form-group" ng-class="{ 'has-success' : worksForm.audio.$valid && worksForm.audio.$touched && newWork.audio, 'has-error' : worksForm.audio.$touched && worksForm.audio.$invalid }">
         <label class="control-label">Soundcloud Link</label>
         <a href="https://soundcloud.com/lorenjones-2" target="_blank"><i>Visit Soundcloud</i></a>
         <div class="input-group">
           <input type="url" name="audio" class="form-control" placeholder="https://soundcloud.com/louis-cruz/sonata-for-bassoon-and-piano-i" ng-model="newWork.audio" ng-model-options="{debounce: {'default': 500}}" autocomplete="off" unique-url valid-url>
           <span class="input-group-addon">
-            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.audio.$valid && worksForm.audio.$touched && newAudio, 'fa-times' : worksForm.audio.$touched && worksForm.audio.$invalid }" aria-hidden="true"></span>
+            <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.audio.$valid && worksForm.audio.$touched && newWork.audio, 'fa-times' : worksForm.audio.$touched && worksForm.audio.$invalid }" aria-hidden="true"></span>
           </span>
         </div>
         <span class="sr-only">(success)</span>

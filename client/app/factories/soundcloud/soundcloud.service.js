@@ -162,15 +162,19 @@ angular.module('lorenjonesApp')
       return fact.player;
     }
     function testLoad(track) {
+      console.log(track);
       /*jshint camelcase: false*/
       var deferred = $q.defer();
       if (!track) {
         deferred.resolve();
       }
+      console.log(track);
       var params = {url: track, client_id: fact.clientId, callback: 'JSON_CALLBACK'};
       $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
         console.log(data);
-        deferred.resolve();
+        console.log(deferred);
+        deferred.resolve(track);
+        deferred.notify();
       }).error(function() {
         deferred.reject('Invalid URL');
       });

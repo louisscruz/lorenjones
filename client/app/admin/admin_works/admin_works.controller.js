@@ -46,6 +46,7 @@ angular.module('lorenjonesApp')
           audio: $scope.newWork.audio,
           video: $scope.newWork.video
         };
+        console.log(work);
         works.addWork(work).then(function() {
           $scope.newWork = {};
           $scope.worksForm.$setUntouched();

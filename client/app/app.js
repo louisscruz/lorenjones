@@ -92,7 +92,6 @@ angular.module('lorenjonesApp', [
       $rootScope.worksTracks = works.worksTracks;
       $rootScope.worksOrder = works.worksOrder;
     });
-    console.log($rootScope.sweetTommyTracks);
     $rootScope.cleanUrl = function(url) {
       return cleanUrl(url);
     };
