@@ -13,15 +13,13 @@ angular.module('lorenjonesApp')
               return true;
             }
             for (var i = 0; i < $scope.player.tracks.length; i++) {
-              var playerTrack = $scope.player.tracks[i].permalink_url;
-              if (playerTrack === u || playerTrack === value) {
+              if ($scope.player.tracks[i].permalink_url === u || $scope.player.tracks[i].permalink_url === value) {
                 return false;
               }
             }
             var dbwMovements = works.dbwMovements;
             for (var y = 0; y < dbwMovement.length; y++) {
-              var dbwAudio = dbwMovements[y].audio;
-              if (dbwAudio === u || dbwAudio === value) {
+              if (dbwMovements[y].audio === u || dbwMovements[y].audio === value) {
                 return false;
               }
             }
