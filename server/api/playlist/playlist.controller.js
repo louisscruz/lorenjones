@@ -43,7 +43,12 @@ exports.update = function(req, res) {
     } else if(_.isEqual(req.body.order, playlist.order)) {
       return res.status(304).json(playlist);
     } else {
-      playlist.order = req.body.order;
+      var sortedRange = _.range(0, req.body.order.length);
+      if (req.body.order.sort() !== sortedRange) {
+        playlist.order = sortedRange;
+      } else {
+        playlist.order = req.body.order;
+      }
       playlist.save(function(err) {
         if(err) { return handleError(res, err); }
         return res.status(200).json(playlist);

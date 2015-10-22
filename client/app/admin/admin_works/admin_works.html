@@ -86,6 +86,7 @@
             <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : worksForm.audio.$valid && worksForm.audio.$touched && newWork.audio, 'fa-times' : worksForm.audio.$touched && worksForm.audio.$invalid }" aria-hidden="true"></span>
           </span>
         </div>
+        {{worksForm.audio.$valid}}
         <span class="sr-only">(success)</span>
         <div class="help-block" ng-messages="worksForm.audio.$error" ng-if="worksForm.audio.$touched">
           <p ng-message="url">Invalid URL</p>
