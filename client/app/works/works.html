@@ -7,7 +7,7 @@
         {{ ::category }} <i class="pull-right fa fa-chevron-right" ng-class="{'rotate': status.open, '': !status.open}"></i>
         </div>
       </accordion-heading>
-      <div class="panel" ng-repeat="work in works | orderBy: 'date':true">
+      <div class="panel" ng-repeat="work in works | orderBy: ['date', 'title']">
         <h3>
           {{ work.title }} ({{ work.date }})
           <button ng-class="{'active': info === work._id }" class="btn btn-default btn-xs info" ng-if="(work.info || work.link || work.video)" ng-click="toggle(work._id)" angular-ripple>
