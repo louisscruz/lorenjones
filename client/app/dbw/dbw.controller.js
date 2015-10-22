@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('DbwCtrl', function ($scope, parallaxHelper, works, $window) {
+  .controller('DbwCtrl', function ($scope, parallaxHelper, works, $window, soundcloud) {
     var introSpeed = -0.5;
     $scope.background = parallaxHelper.createAnimator(-0.3);
     $scope.fastBackground = parallaxHelper.createAnimator(-0.8);
@@ -124,4 +124,8 @@ angular.module('lorenjonesApp')
     $scope.changeInfo = function(content) {
       $scope.currentMovement = content;
     };
+    $scope.$on('youtube.player.playing', function($event, player) {
+      console.log('playing');
+      soundcloud.player.pause();
+    });
   });
