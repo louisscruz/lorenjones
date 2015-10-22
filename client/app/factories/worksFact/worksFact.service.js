@@ -31,6 +31,17 @@ angular.module('lorenjonesApp')
             fact.worksTracks.push(fact.works[i].audio);
           }
         }
+        // If playlist order is somehow incorrect, fix it
+        if (fact.worksTracks.length !== fact.worksOrder.length) {
+          var orderFix = [];
+          for (var i = 0; i < fact.worksTracks.length; i++) {
+            orderFix.push(i);
+          }
+          console.log(orderFix);
+          updateWorksOrder(orderFix).success(function() {
+            fact.worksOrder = orderFix;
+          });
+        }
         // Load worksTracks to player
         for (var i = 0; i < fact.worksOrder.length; i++) {
           soundcloud.loadPlayerWith(fact.worksTracks[fact.worksOrder[i]], index);

@@ -30,13 +30,13 @@ DbwMovement.find({}).remove(function() {
   });
 });
 
-if (Playlist.count() === 0 ) {
+/*if (Playlist.count() === 0 ) {
   Playlist.find({}).remove(function() {
     Playlist.create({
       order: [0]
     });
   });
-}
+}*/
 
 SweetTommyTrack.find({}).remove(function() {
   SweetTommyTrack.create({
