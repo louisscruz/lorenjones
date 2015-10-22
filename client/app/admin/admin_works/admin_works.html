@@ -117,7 +117,7 @@
           {{ category }} <i class="pull-right fa fa-chevron-right" ng-class="{'rotate': status.open, '': !status.open}"></i>
         </div>
       </accordion-heading>
-      <div class="admin-works" ng-repeat="work in works | orderBy: ['date', 'title']">
+      <div class="admin-works" ng-repeat="work in works | orderBy: ['-date', 'title']">
         <div>
           <button type="button" class="btn btn-danger btn-xs" ng-click="confirmDelete(work.title, work)"><i class="fa fa-times"></i></button>
           <h2>{{ work.title }}</h2>
