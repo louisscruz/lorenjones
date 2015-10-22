@@ -32,7 +32,15 @@ angular.module('lorenjonesApp')
           }
         }
         // If playlist order is somehow incorrect, fix it
-        if (fact.worksTracks.length !== fact.worksOrder.length) {
+        // 0, null
+        // 1, 0
+        // 2, 1
+        // 3, 3
+        // 4, 6
+        // 5, 10
+        var sortedPlaylist = fact.worksOrder.sort();
+        var ideal = _.range(0, fact.worksTracks.length);
+        if (fact.worksTracks.length !== fact.worksOrder.length || !_.isEqual(sortedPlaylist, ideal) ) {
           var orderFix = [];
           for (var i = 0; i < fact.worksTracks.length; i++) {
             orderFix.push(i);
