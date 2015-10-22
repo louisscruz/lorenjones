@@ -4,7 +4,7 @@
     <accordion-group ng-init="status.open = $first" is-open="status.open" ng-repeat="(category, works) in allWorks | groupBy: 'category'">
       <accordion-heading>
         <div>
-        {{ ::category }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        {{ ::category }} <i class="pull-right fa fa-chevron-right" ng-class="{'rotate': status.open, '': !status.open}"></i>
         </div>
       </accordion-heading>
       <div class="panel" ng-repeat="work in works | orderBy: 'date':true">

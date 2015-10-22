@@ -44,6 +44,7 @@ angular.module('lorenjonesApp')
           }
         }
         // Load Sweet Tommy Tracks to player
+        console.log(fact.sweetTommyTracks);
         for (var i = 0; i < fact.sweetTommyTracks.length; i++) {
           if (fact.sweetTommyTracks[i].url) {
             soundcloud.loadPlayerWith(fact.sweetTommyTracks[i].url, index);

@@ -5,7 +5,7 @@
   </div>
   <div class="sweet-tommy col-md-12">
     <ul>
-      <li ng-repeat="track in sweetTommyTracks">
+      <li ng-repeat="track in sweetTommyTracks track by $index">
         <p>{{$index + 1}}. {{::track.title}}</p>
         <div class="table-cell">
           <button class="button-icon" ng-click="player.playPause(player.trackIndex(track.url))" angular-ripple>
@@ -19,7 +19,7 @@
 </div>
 <div class="flickr container">
   <div class="row">
-    <h1 class="center">Loren's Photos</h1>
+    <h1 class="center">Photos of Sweet Tommy</h1>
     <a href="http://www.flickr.com/photos/134139109@N08/" target="_blank" title="Follow me on Flickr!" class="link">Follow Loren on <img src="assets/images/about/Flickr_wordmark.svg" width="56" height="26" alt=""> <i class="fa fa-lg fa-external-link-square"></i></a>
   </div>
   <div class="thumbnails row">
