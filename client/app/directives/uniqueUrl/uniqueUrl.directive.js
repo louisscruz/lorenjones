@@ -18,7 +18,7 @@ angular.module('lorenjonesApp')
               }
             }
             var dbwMovements = works.dbwMovements;
-            for (var y = 0; y < dbwMovement.length; y++) {
+            for (var y = 0; y < dbwMovements.length; y++) {
               if (dbwMovements[y].audio === u || dbwMovements[y].audio === value) {
                 return false;
               }

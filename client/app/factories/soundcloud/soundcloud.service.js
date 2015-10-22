@@ -14,6 +14,7 @@ angular.module('lorenjonesApp')
         data: {},
         currentTime: 0,
         duration: 0,
+        errorOffset: 0,
         load: function(track, index) {
           fact.player.tracks[index] = track;
           if (!fact.player.playing && !fact.player.i && index === 0) {
@@ -140,6 +141,7 @@ angular.module('lorenjonesApp')
       fact.player.data = {};
       fact.player.tracks = [];
       fact.player.i = 0;
+      fact.player.errorOffset = 0;
       return fact.player;
     }
     // Load track on an individual basis
@@ -152,11 +154,11 @@ angular.module('lorenjonesApp')
         fact.player.load(t, index);
       } else {
         $http.jsonp('//api.soundcloud.com/resolve.json', {params: params}).success(function(data) {
-          console.log(params);
           fact.player.data[track] = data;
-          fact.player.load(data, index);
+          fact.player.load(data, index - fact.player.errorOffset);
         }).error(function(data) {
-          console.log(data);
+          fact.player.errorOffset++;
+          console.log(fact.player.errorOffset);
         });
       }
       return fact.player;
@@ -178,6 +180,7 @@ angular.module('lorenjonesApp')
     return {
       player: fact.player,
       loadPlayerWith: loadPlayer,
+      errorOffset: fact.player.errorOffset,
       dumpData: dumpData,
       testLoad: testLoad
     };

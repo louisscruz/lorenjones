@@ -2,93 +2,56 @@
 /*jshint shadow: true*/
 angular.module('lorenjonesApp')
   .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', 'cleanUrl', '$q', function ($http, $rootScope, socket, soundcloud, cleanUrl, $q) {
-    var fact = { defaultTrack: [], works: [], dbwMovements: [], sweetTommyTracks: [], worksTracks: [], worksOrder: [], cachedWork: {} };
+    var fact = { defaultTrack: [], works: [], dbwMovements: [], sweetTommyTracks: [], worksOrder: [], worksTracks: [], cachedWork: {} };
     // Get all works and tracks; send tracks to soundcloud player
     function loadAll() {
-      var deferred = $q.defer();
       soundcloud.dumpData();
-      var index = 0;
-      $http.get('/api/default_tracks').success(function(t) {
-        if (t[0]) {
-          angular.copy(t, fact.defaultTrack);
-          soundcloud.loadPlayerWith(t[0].link, index);
+      var deferred = $q.defer();
+      var defaultTrackUrl = $http.get('/api/default_tracks');
+      var worksUrl = $http.get('/api/works');
+      var dbwMovementsUrl = $http.get('/api/dbw_movements');
+      var sweetTommyTracksUrl = $http.get('/api/sweet_tommy_tracks');
+      var worksOrderUrl = $http.get('/api/playlists');
+      $q.all([defaultTrackUrl, worksUrl, dbwMovementsUrl, sweetTommyTracksUrl, worksOrderUrl]).then(function(assets) {
+        var index = 0;
+        // Load all assets into fact
+        angular.copy(assets[0].data, fact.defaultTrack);
+        angular.copy(assets[1].data, fact.works);
+        angular.copy(assets[2].data, fact.dbwMovements);
+        angular.copy(assets[3].data, fact.sweetTommyTracks);
+        angular.copy(assets[4].data.order, fact.worksOrder);
+        // Load default track to player
+        if (fact.defaultTrack[0]) {
+          soundcloud.loadPlayerWith(fact.defaultTrack[0].link, index);
           index++;
         }
-      })
-      .then(function() {
-        getWorksOrder();
-      })
-      .then(function() {
-        // if you visit the playlist page, change the order, and return to the works page, the worksTracks will be overpopulated
-        $http.get('/api/works').success(function(works) {
-          angular.copy(works, fact.works);
-          var worksTracks = [];
-          var playlistIndex;
-          var defaultTrack = false;
-          var count = 0;
-          var order = fact.worksOrder;
-          if (index === 1) {
-            order = order.map(function(x) {
-              return x + 1;
-            });
-            defaultTrack = true;
-            count = 1;
+        // Load works to fact.worksTracks
+        for (var i = 0; i < fact.works.length; i++) {
+          if (fact.works[i].audio) {
+            fact.worksTracks.push(fact.works[i].audio);
           }
-          for (var i = 0; i < fact.works.length; i++) {
-            if (fact.works[i].audio) {
-              worksTracks.push(fact.works[i].audio);
-              if (defaultTrack) {
-                playlistIndex = order.indexOf(count) + 1;
-              } else {
-                playlistIndex = order.indexOf(count);
-              }
-              soundcloud.loadPlayerWith(works[i].audio, playlistIndex);
-              index++;
-              count++;
-            }
-          }
-          angular.copy(worksTracks, fact.worksTracks);
-          socket.syncUpdates('work', fact.works);
-        });
-      })
-      .then(function() {
-        console.log(fact.worksOrder.length);
-        console.log(fact.worksTracks.length);
-        if (fact.worksOrder.length !== fact.worksTracks.length) {
-          console.log('invalid worksOrder!');
-          var newOrder = [];
-          for (var z = 0; z < fact.worksTracks.length; z++) {
-            newOrder.push(z);
-          }
-          console.log(newOrder);
-          updateWorksOrder(newOrder);
         }
-      })
-      .then(function() {
-        $http.get('/api/dbw_movements').success(function(movements) {
-          angular.copy(movements, fact.dbwMovements);
-          for (var i = 0; i < fact.dbwMovements.length; i++) {
-            if (fact.dbwMovements[i].audio) {
-              soundcloud.loadPlayerWith(fact.dbwMovements[i].audio, index);
-              index++;
-            }
+        // Load worksTracks to player
+        for (var i = 0; i < fact.worksOrder.length; i++) {
+          soundcloud.loadPlayerWith(fact.worksTracks[fact.worksOrder[i]], index);
+          index++;
+        }
+        // Load dbwMovements to player
+        for (var i = 0; i < fact.dbwMovements.length; i++) {
+          if (fact.dbwMovements[i].audio) {
+            soundcloud.loadPlayerWith(fact.dbwMovements[i].audio, index);
+            index++;
           }
-        });
-      })
-      .then(function() {
-        $http.get('/api/sweet_tommy_tracks').success(function(tracks) {
-          angular.copy(tracks, fact.sweetTommyTracks);
-          for (var i = 0; i < fact.sweetTommyTracks.length; i++) {
-            if (fact.sweetTommyTracks[i].url) {
-              soundcloud.loadPlayerWith(tracks[i].url, index);
-              index++;
-            }
+        }
+        // Load Sweet Tommy Tracks to player
+        for (var i = 0; i < fact.sweetTommyTracks.length; i++) {
+          if (fact.sweetTommyTracks[i].url) {
+            soundcloud.loadPlayerWith(fact.sweetTommyTracks[i].url, index);
+            index++;
           }
-        });
-      })
-      .then(function() {
-        deferred.resolve(fact);
+        }
       });
+      deferred.resolve(fact);
       return deferred.promise;
     }
     // Add default track
