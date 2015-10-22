@@ -186,6 +186,7 @@ angular.module('lorenjonesApp')
     // Delete work
     function deleteWork(work) {
       return $http.delete('/api/works/' + work._id).success(function() {
+        fact.works.splice(fact.works.indexOf(work), 1);
         if (work.audio) {
           var naturalPosition = fact.worksTracks.indexOf(work.audio);
           var playlistIndex = fact.worksOrder.indexOf(naturalPosition);
