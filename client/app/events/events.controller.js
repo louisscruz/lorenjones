@@ -17,7 +17,6 @@ angular.module('lorenjonesApp')
     $scope.sort = 'datetime';
     $http.get('/api/events', {cache: false}).success(function(events) {
       var currentDate = new Date();
-      console.log(events);
       for (var i = 0; i < events.length; i++) {
         if (new Date(events[i].datetime) < currentDate) {
           $scope.pastEvents.push(events[i]);

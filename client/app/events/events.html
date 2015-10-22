@@ -32,6 +32,7 @@
         <ui-gmap-google-map ng-if="event.lng && event.lat" center="[event.lng, event.lat]" zoom="event.zoom" options="options">
           <!--ui-gmap-marker idkey="event.venue || event.name" coords="[event.lat, event.lng ]">
           </ui-gmap-marker-->
+          <ui-gmap-marker idkey="$index" coords="[event.lng, event.lat]"></ui-gmap-marker>
         </ui-gmap-google-map>
         <hr ng-show="!$last">
       </li>
