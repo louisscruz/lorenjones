@@ -66,7 +66,7 @@ exports.update = function(req, res) {
         }
         playlist.save(function(err) {
           if (err) { return handleError(res, err); }
-          res.status(200).json(playlist)
+          //res.status(200).json(playlist)
         })
         return res.status(200).json(playlist);
       });
