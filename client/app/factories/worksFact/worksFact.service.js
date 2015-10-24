@@ -83,15 +83,17 @@ angular.module('lorenjonesApp')
     // Add work
     function addWork(work) {
       return $http.post('/api/works', work).success(function() {
-        if (work.audio) {
+        if (work.audio || work.audio === '') {
+          console.log(fact.worksOrder);
           var newOrder;
           if (!fact.worksOrder) {
-            newOrder = [];
+            newOrder = [0];
           } else {
             var length = fact.worksOrder.length;
             newOrder = fact.worksOrder;
             newOrder.push(length);
           }
+          console.log(newOrder);
           updateWorksOrder(newOrder);
         }
       })
@@ -115,8 +117,7 @@ angular.module('lorenjonesApp')
         video: work.video
       };
       if (!fact.cachedWork.audio) {
-        $http.patch('/api/works/' + work._id, trackUpdate)
-        .success(function() {
+        $http.patch('/api/works/' + work._id, trackUpdate).success(function() {
           for (var i = 0; i < fact.works.length; i++) {
             if (fact.works[i]._id === work._id) {
               fact.works[i] = work;
@@ -125,22 +126,24 @@ angular.module('lorenjonesApp')
           }
           // If the work did not originally have a track, and the update does
           if (work.audio) {
+            for (var i = 0, len = fact.works.length; i < len; i++) {
+              if (fact.works[i].audio) {
+                if (fact.works[i].audio === work.audio) {
+                  console.log(naturalPlacement);
+                  naturalPlacement = count;
+                  console.log(naturalPlacement);
+                  break;
+                }
+                count++;
+              }
+            }
             for (var i = 0, len = reorder.length; i < len; i++) {
               // Check that this loop catches the right playlist values/indexes when work is not naturally last.
               if (reorder[i] >= naturalPlacement) {
                 reorder[i] += 1;
               }
             }
-            for (var i = 0, len = fact.works.length; i < len; i++) {
-              if (fact.works[i].audio) {
-                if (fact.works[i].audio === work.audio) {
-                  naturalPlacement = count;
-                  break;
-                }
-                count++;
-              }
-            }
-            reorder.push(naturalPlacement);
+            console.log('there was not audio, but now there is');
             updateWorksOrder(reorder);
           }
         })
@@ -159,8 +162,7 @@ angular.module('lorenjonesApp')
           }*/
           var naturalPosition = fact.worksTracks.indexOf(work.audio);
           console.log(naturalPosition);
-          $http.patch('/api/works/' + work._id, trackUpdate)
-          .success(function() {
+          $http.patch('/api/works/' + work._id, trackUpdate).success(function() {
             reorder.splice(reorder.indexOf(naturalPlacement), 1);
             for (var i = 0, len = reorder.length; i < len; i++) {
               // Check that this loop catches the right playlist values/indexes when work is not naturally last.
@@ -169,6 +171,7 @@ angular.module('lorenjonesApp')
               }
             }
             fact.worksTracks.splice(fact.cachedWork, 1);
+            //fact.worksOrder.splice(reorder.indexOf(naturalPlacement), 1);
             updateWorksOrder(reorder);
           })
           .then(function() {
@@ -232,7 +235,8 @@ angular.module('lorenjonesApp')
     }
     // Update the playlist order
     function updateWorksOrder(o) {
-      return $http.patch('/api/playlists', {order: o}).success(function() {
+      return $http.patch('/api/playlists', {order: o}).success(function(data) {
+        console.log(data);
         fact.worksOrder = o;
       });
     }

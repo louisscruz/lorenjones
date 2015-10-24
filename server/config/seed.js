@@ -77,11 +77,11 @@ SweetTommyTrack.find({}).remove(function() {
   });
 });
 
-/*Playlist.find({}).remove(function() {
+Playlist.find({}).remove(function() {
   Playlist.create({
     order: [0, 1]
   });
-});*/
+});
 
 /*User.find({}).remove(function() {
   User.create({

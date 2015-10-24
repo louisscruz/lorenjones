@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Playlist = require('./playlist.model');
+var Work = require('../work/work.model');
 
 // Get list of playlists
 exports.index = function(req, res) {
@@ -19,7 +20,16 @@ exports.show = function(req, res) {
     } else if(!playlist) {
       return res.status(404).send('Not Found');
     } else {
-      return res.json(200, playlist);
+      Work.where('audio').exists().ne('audio', '').count({}, function(err, count) {
+        if (count !== playlist.order.length) {
+          var range = _.range(count);
+          playlist.order = range;
+          playlist.save(function(err) {
+            if (err) { handleError(res, err); }
+          });
+        }
+        return res.status(200).json(playlist);
+      });
     }
   });
 };
@@ -34,23 +44,30 @@ exports.create = function(req, res) {
 
 // Updates an existing playlist in the DB.
 exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
+  if (req.body._id) { delete req.body._id; }
   Playlist.findOne({}, function(err, playlist) {
-    if(err) {
+    if (err) {
       return handleError(res, err);
     } else if (!playlist) {
       return res.status(404).send('Not Found');
     } else if(_.isEqual(req.body.order, playlist.order)) {
       return res.status(304).json(playlist);
     } else {
-      var sortedRange = _.range(0, req.body.order.length);
-      if (req.body.order.sort() !== sortedRange) {
-        playlist.order = sortedRange;
-      } else {
-        playlist.order = req.body.order;
-      }
-      playlist.save(function(err) {
-        if(err) { return handleError(res, err); }
+      Work.where('audio').exists().ne('audio', '').count({}, function(err, count) {
+        if (count !== req.body.order.length) {
+          console.log('inside');
+          var range = _.range(count);
+          playlist.order = range;
+          playlist.save(function(err) {
+            if (err) { handleError(res, err); }
+          });
+        } else {
+          playlist.order = req.body.order;
+        }
+        playlist.save(function(err) {
+          if (err) { return handleError(res, err); }
+          return res.status(200).json(playlist)
+        })
         return res.status(200).json(playlist);
       });
     }
