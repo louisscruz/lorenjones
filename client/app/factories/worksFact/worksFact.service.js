@@ -94,11 +94,10 @@ angular.module('lorenjonesApp')
             newOrder.push(length);
           }
           console.log(newOrder);
-          updateWorksOrder(newOrder);
+          updateWorksOrder(newOrder).success(function() {
+            loadAll();
+          });
         }
-      })
-      .then(function() {
-        loadAll();
       });
     }
     // Update work
