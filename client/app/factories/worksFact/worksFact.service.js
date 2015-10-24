@@ -200,8 +200,10 @@ angular.module('lorenjonesApp')
               order[i]--;
             }
           }
-          updateWorksOrder(order);
-          loadAll();
+          updateWorksOrder(order).success(function() {
+            fact.worksTracks.splice(naturalPosition, 1);
+            loadAll();
+          });
         }
       });
     }
