@@ -18,6 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/wg/wg.socket').register(socket);
   require('../api/sweet_tommy_track/sweet_tommy_track.socket').register(socket);
   require('../api/dbw_movement/dbw_movement.socket').register(socket);
   require('../api/playlist/playlist.socket').register(socket);

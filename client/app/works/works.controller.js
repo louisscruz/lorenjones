@@ -9,7 +9,7 @@ angular.module('lorenjonesApp')
     }, {
       title: 'Woodward\'s Garden',
       audio: '',
-      link: ''
+      link: '/woodwards-garden'
     }, {
       title: 'Sweet Tommy',
       audio: 'https://soundcloud.com/lorenjones-2/1-swingin-chains',

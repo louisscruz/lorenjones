@@ -1,6 +1,9 @@
 .sweet-tommy {
   $darken-3: rgba(black, 1/4);
   $border-radius: 6px;
+  .info p {
+    text-indent: 25px;
+  }
   // Buttons
   .button-icon {
     font-family: inherit;
