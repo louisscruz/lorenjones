@@ -80,6 +80,12 @@ input[type="text"], input[type="url"], input[type="number"], input[type="passwor
 .btn {
   color: $white;
 }
+.btn-default {
+  &:hover {
+    background-color: lighten($black, 70%) !important;
+    color: lighten($black, 10) !important;
+  }
+}
 // App Structure
 .browsehappy {
   margin: 0.2em 0;

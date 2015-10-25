@@ -19,6 +19,17 @@
   }
 }
 
+.projects {
+  .btn.playpause {
+    background-color: $orange;
+    color: $white;
+    transition: 0.15s all ease-in-out;
+    &:focus {
+      background-color: $primary-light;
+    }
+  }
+}
+
 .instrumentation {
   margin-top: -20px;
   font-style: italic;

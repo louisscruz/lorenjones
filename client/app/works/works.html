@@ -1,41 +1,57 @@
 <div class="container">
-  <h1 class="center">Works</h1>
-  <accordion class="works col-md-8 col-md-offset-2 col-sm-12">
-    <accordion-group ng-init="status.open = $first" is-open="status.open" ng-repeat="(category, works) in allWorks | groupBy: 'category'">
-      <accordion-heading>
-        <div>
-        {{ ::category }} <i class="pull-right fa fa-chevron-right" ng-class="{'rotate': status.open, '': !status.open}"></i>
-        </div>
-      </accordion-heading>
-      <div class="panel" ng-repeat="work in works | orderBy: ['-date', 'title']">
-        <h3>
-          {{ work.title }} ({{ work.date }})
-          <button ng-class="{'active': info === work._id }" class="btn btn-default btn-xs info" ng-if="(work.info || work.link || work.video)" ng-click="toggle(work._id)" angular-ripple>
-            {{ info === work._id ? 'Less Info' : 'More Info' }}
-          </button>
-        </h3>
-        <p class="instrumentation">{{ work.instrumentation }}</p>
-        <div ng-if="work.audio" class="table">
-          <div class="table-cell">
-            <button class="button-icon" ng-click="player.playPause(player.trackIndex(work.audio))" angular-ripple>
-              <i class="fa fa-play fa-lg" ng-if="player.playing.permalink_url !== cleanUrl(work.audio)"></i>
-              <i class="fa fa-pause fa-lg" ng-if="player.playing.permalink_url === cleanUrl(work.audio)"></i>
-            </button>
-          </div>
-          <div class="">
-            <progressbar ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio) && player.duration" max="1" value="(player.currentTime / player.duration) || 0" ng-click="player.seek($event)" angular-ripple></progressbar>
-            <small ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio) && player.duration">{{ player.currentTime | prettyTime }} - {{ player.duration | prettyTime }}</small>
-          </div>
-        </div>
-  	    <div ng-if="(work.info || (work.link || work.video))" collapse="info !== work._id">
-  		    <div class="well well-lg">
-            <p ng-bind-html="work.info">{{ work.info }}</p>
-            <p>{{ work.link }}</p>
-            <a ng-if="work.link" ng-href="{{work.link}}">Link to the Score <i class="fa fa-external-link"></i></a>
-            <youtube-video video-url="work.video" player-width="'100%'"></youtube-video>
-          </div>
-  	    </div>
+  <h1 class="center">Large Projects</h1>
+  <div class="row projects">
+    <div class="col-md-8 col-md-offset-2 col-sm-12">
+      <div class="btn-group btn-block" ng-repeat="p in projects track by $index">
+        <button class="col-xs-2 btn btn-lg btn-default playpause" ng-click="player.playPause(player.trackIndex(p.audio))" angular-ripple>
+          <span ng-if="player.playing.permalink_url !== cleanUrl(p.audio)" class="fa fa-play"></span>
+          <span ng-if="player.playing.permalink_url === cleanUrl(p.audio)" class="fa fa-pause"></span>
+        </button>
+        <button class="col-xs-10 btn btn-lg btn-default" ng-click="goTo(p.link)" angular-ripple>{{p.title}}</button>
       </div>
-    </accordion-group>
-  </accordion>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 col-sm-12">
+      <h1 class="center">All Works</h1>
+      <accordion class="works">
+        <accordion-group ng-init="status.open = $first" is-open="status.open" ng-repeat="(category, works) in allWorks | groupBy: 'category'">
+          <accordion-heading>
+            <div>
+            {{ ::category }} <i class="pull-right fa fa-chevron-right" ng-class="{'rotate': status.open, '': !status.open}"></i>
+            </div>
+          </accordion-heading>
+          <div class="panel" ng-repeat="work in works | orderBy: ['-date', 'title']">
+            <h3>
+              {{ work.title }} ({{ work.date }})
+              <button ng-class="{'active': info === work._id }" class="btn btn-default btn-xs info" ng-if="(work.info || work.link || work.video)" ng-click="toggle(work._id)" angular-ripple>
+                {{ info === work._id ? 'Less Info' : 'More Info' }}
+              </button>
+            </h3>
+            <p class="instrumentation">{{ work.instrumentation }}</p>
+            <div ng-if="work.audio" class="table">
+              <div class="table-cell">
+                <button class="button-icon" ng-click="player.playPause(player.trackIndex(work.audio))" angular-ripple>
+                  <i class="fa fa-play fa-lg" ng-if="player.playing.permalink_url !== cleanUrl(work.audio)"></i>
+                  <i class="fa fa-pause fa-lg" ng-if="player.playing.permalink_url === cleanUrl(work.audio)"></i>
+                </button>
+              </div>
+              <div class="">
+                <progressbar ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio) && player.duration" max="1" value="(player.currentTime / player.duration) || 0" ng-click="player.seek($event)" angular-ripple></progressbar>
+                <small ng-if="player.currentTrack.permalink_url === cleanUrl(work.audio) && player.duration">{{ player.currentTime | prettyTime }} - {{ player.duration | prettyTime }}</small>
+              </div>
+            </div>
+      	    <div ng-if="(work.info || (work.link || work.video))" collapse="info !== work._id">
+      		    <div class="well well-lg">
+                <p ng-bind-html="work.info">{{ work.info }}</p>
+                <p>{{ work.link }}</p>
+                <a ng-if="work.link" ng-href="{{work.link}}">Link to the Score <i class="fa fa-external-link"></i></a>
+                <youtube-video video-url="work.video" player-width="'100%'"></youtube-video>
+              </div>
+      	    </div>
+          </div>
+        </accordion-group>
+      </accordion>
+    </div>
+  </div>
 </div>
