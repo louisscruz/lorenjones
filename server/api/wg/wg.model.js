@@ -4,9 +4,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var WgSchema = new Schema({
-  name: String,
-  info: String,
-  active: Boolean
+  title: String,
+  url: String
 });
 
 module.exports = mongoose.model('Wg', WgSchema);

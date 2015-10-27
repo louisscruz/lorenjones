@@ -21,8 +21,8 @@ exports.show = function(req, res) {
       return res.status(404).send('Not Found');
     } else {
       Work.where('audio').exists().ne('audio', '').count({}, function(err, count) {
-        if (count !== playlist.order.length) {
-          var range = _.range(count);
+        var range = _.range(count);
+        if (range !== playlist.order.sort()) {
           playlist.order = range;
           playlist.save(function(err) {
             if (err) { handleError(res, err); }
