@@ -5,7 +5,7 @@ angular.module('lorenjonesApp')
     $stateProvider
       .state('woodwards-garden', {
         url: '/woodwards-gardens',
-        templateUrl: 'app/woodwards-garden/woodwards-garden.html',
-        controller: 'WoodwardsGardenCtrl'
+        templateUrl: 'app/woodwards-gardens/woodwards-gardens.html',
+        controller: 'WoodwardsGardensCtrl'
       });
   });
