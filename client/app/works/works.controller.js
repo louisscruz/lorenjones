@@ -7,9 +7,9 @@ angular.module('lorenjonesApp')
       audio: 'https://soundcloud.com/lorenjones-2/14-the-city-by-the-sea',
       link: '/dbw'
     }, {
-      title: 'Woodward\'s Garden',
+      title: 'Woodward\'s Gardens',
       audio: '',
-      link: '/woodwards-garden'
+      link: '/woodwards-gardens'
     }, {
       title: 'Sweet Tommy',
       audio: 'https://soundcloud.com/lorenjones-2/1-swingin-chains',
