@@ -2,7 +2,7 @@
 /*jshint shadow: true*/
 angular.module('lorenjonesApp')
   .factory('works', ['$http', '$rootScope', 'socket', 'soundcloud', 'cleanUrl', '$q', function ($http, $rootScope, socket, soundcloud, cleanUrl, $q) {
-    var fact = { defaultTrack: [], works: [], dbwMovements: [], sweetTommyTracks: [], worksOrder: [], worksTracks: [], cachedWork: {} };
+    var fact = { defaultTrack: [], works: [], dbwMovements: [], sweetTommyTracks: [], wgTracks: [], worksOrder: [], worksTracks: [], cachedWork: {} };
     // Get all works and tracks; send tracks to soundcloud player
     function loadAll() {
       soundcloud.dumpData();
@@ -10,16 +10,18 @@ angular.module('lorenjonesApp')
       var defaultTrackUrl = $http.get('/api/default_tracks');
       var worksUrl = $http.get('/api/works');
       var dbwMovementsUrl = $http.get('/api/dbw_movements');
+      var wgTracksUrl = $http.get('/api/wgs');
       var sweetTommyTracksUrl = $http.get('/api/sweet_tommy_tracks');
       var worksOrderUrl = $http.get('/api/playlists');
-      $q.all([defaultTrackUrl, worksUrl, dbwMovementsUrl, sweetTommyTracksUrl, worksOrderUrl]).then(function(assets) {
+      $q.all([defaultTrackUrl, worksUrl, dbwMovementsUrl, wgTracksUrl, sweetTommyTracksUrl, worksOrderUrl]).then(function(assets) {
         var index = 0;
         // Load all assets into fact
         angular.copy(assets[0].data, fact.defaultTrack);
         angular.copy(assets[1].data, fact.works);
         angular.copy(assets[2].data, fact.dbwMovements);
-        angular.copy(assets[3].data, fact.sweetTommyTracks);
-        angular.copy(assets[4].data.order, fact.worksOrder);
+        angular.copy(assets[3].data, fact.wgTracks);
+        angular.copy(assets[4].data, fact.sweetTommyTracks);
+        angular.copy(assets[5].data.order, fact.worksOrder);
         // Load default track to player
         if (fact.defaultTrack[0]) {
           soundcloud.loadPlayerWith(fact.defaultTrack[0].link, index);
@@ -43,8 +45,14 @@ angular.module('lorenjonesApp')
             index++;
           }
         }
+        // Load Woodward's Gardens Tracks
+        for (var i = 0; i < fact.wgTracks.length; i++) {
+          if (fact.wgTracks[i].url) {
+            soundcloud.loadPlayerWith(fact.wgTracks[i].url, index);
+            index++;
+          }
+        }
         // Load Sweet Tommy Tracks to player
-        console.log(fact.sweetTommyTracks);
         for (var i = 0; i < fact.sweetTommyTracks.length; i++) {
           if (fact.sweetTommyTracks[i].url) {
             soundcloud.loadPlayerWith(fact.sweetTommyTracks[i].url, index);

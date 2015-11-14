@@ -80,20 +80,44 @@ SweetTommyTrack.find({}).remove(function() {
 
 Wg.find({}).remove(function() {
   Wg.create({
-    title: 'test',
-    url: 'test'
+    title: 'Cathedral',
+    url: 'https://soundcloud.com/lorenjones-2/1-cathedral'
   }, {
-    title: 'test',
-    url: 'test'
+    title: 'Emerald Green',
+    url: 'https://soundcloud.com/lorenjones-2/2-emerald-green'
   }, {
-    title: 'test',
-    url: 'test'
+    title: 'The Exotic Pond',
+    url: 'https://soundcloud.com/lorenjones-2/3-the-exotic-pond'
   }, {
-    title: 'test',
-    url: 'test'
+    title: 'Woodward\'s Gardens',
+    url: 'https://soundcloud.com/lorenjones-2/4-woodwards-gardens'
   }, {
-    title: 'test',
-    url: 'test'
+    title: 'Old Photographs',
+    url: 'https://soundcloud.com/lorenjones-2/5-old-photographs'
+  }, {
+    title: 'The New Century',
+    url: 'https://soundcloud.com/lorenjones-2/6-the-new-century'
+  }, {
+    title: 'Piece for Flute, Cello & Piano',
+    url: 'https://soundcloud.com/lorenjones-2/7-piece-for-flute-cello-piano'
+  }, {
+    title: 'Man With 4 Hands',
+    url: 'https://soundcloud.com/lorenjones-2/8-man-with-4-hands'
+  }, {
+    title: 'Dreaming'
+  }, {
+    title: 'Arden'
+  }, {
+    title: 'Touchstone'
+  }, {
+    title: 'A Victorian in Egypt',
+    url: 'https://soundcloud.com/lorenjones-2/12-a-victorian-in-egypt'
+  }, {
+    title: 'Sands of Time',
+    url: 'https://soundcloud.com/lorenjones-2/sands-of-time'
+  }, {
+    title: 'Home',
+    url: 'https://soundcloud.com/lorenjones-2/home'
   });
 });
 

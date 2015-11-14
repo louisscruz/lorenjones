@@ -8,7 +8,7 @@
         <div class="form-group" ng-class="{ 'has-success' : loginForm.email.$valid && loginForm.email.$touched, 'has-error' : loginForm.email.$invalid && loginForm.email.$touched }">
           <label class="control-label">Email</label>
           <div class="input-group">
-            <input type="email" name="email" class="form-control" ng-model="user.email" placeholder="johndoe@me.com" required>
+            <input type="email" name="email" class="form-control" ng-model="user.email" placeholder="johndoe@me.com" autocomplete="off" required>
             <span class="input-group-addon">
               <span class="fa fa-fw form-control-feedback" ng-class="{ 'fa-check' : loginForm.email.$valid && loginForm.email.$touched, 'fa-times' : loginForm.email.$invalid && loginForm.email.$touched }" aria-hidden="true"></span>
             </span>

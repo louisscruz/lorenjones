@@ -77,7 +77,6 @@ angular.module('lorenjonesApp')
       },
       stop: function(e, ui) {
         var reorderedEntries = [];
-        $scope.toggleEntry(toggleCache);
         angular.forEach($scope.bioEntries, function(value, key) {
           if (tmp[key] !== value.index) {
             $http.put('/api/bio_entries/' + value._id, {
@@ -87,6 +86,7 @@ angular.module('lorenjonesApp')
             });
           }
         });
+        $scope.toggleEntry(toggleCache);
       }
     }
   });
