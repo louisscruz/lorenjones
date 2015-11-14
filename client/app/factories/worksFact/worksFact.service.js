@@ -254,6 +254,7 @@ angular.module('lorenjonesApp')
       // Resources
       works: fact.works,
       dbwMovements: fact.dbwMovements,
+      wgTracks: fact.wgTracks,
       sweetTommyTracks: fact.sweetTommyTracks,
       defaultTrack: fact.defaultTrack,
       worksTracks: fact.worksTracks,
