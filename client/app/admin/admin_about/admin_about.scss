@@ -15,3 +15,13 @@
 .bios .form-group input {
   color: $black;
 }
+
+.bios h2 {
+  color: $black;
+}
+
+.entries {
+  li a {
+    cursor: move;
+  }
+}

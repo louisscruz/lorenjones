@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 var BioEntrySchema = new Schema({
   title: String,
   content: String,
-  active: Boolean
+  index: Number
 });
 
 module.exports = mongoose.model('BioEntry', BioEntrySchema);

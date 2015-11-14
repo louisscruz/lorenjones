@@ -11,6 +11,7 @@ var DefaultTrack = require('../api/default_track/default_track.model');
 var DbwMovement = require('../api/dbw_movement/dbw_movement.model');
 var SweetTommyTrack = require('../api/sweet_tommy_track/sweet_tommy_track.model');
 var Playlist = require('../api/playlist/playlist.model');
+var Wg = require('../api/wg/wg.model');
 
 DbwMovement.find({}).remove(function() {
   DbwMovement.create({
@@ -76,6 +77,41 @@ SweetTommyTrack.find({}).remove(function() {
     url: 'https://soundcloud.com/lorenjones-2/9-timewarp-17'
   });
 });
+
+Wg.find({}).remove(function() {
+  Wg.create({
+    title: 'test',
+    url: 'test'
+  }, {
+    title: 'test',
+    url: 'test'
+  }, {
+    title: 'test',
+    url: 'test'
+  }, {
+    title: 'test',
+    url: 'test'
+  }, {
+    title: 'test',
+    url: 'test'
+  });
+});
+
+/*BioEntry.find({}).remove(function() {
+  BioEntry.create({
+    title: 'Short',
+    content: 'This is the shortest one.',
+    index: 0
+  }, {
+    title: 'Medium',
+    content: 'This is one here is longer than the shortest.',
+    index: 1
+  }, {
+    title: 'Long',
+    content: 'This is definitely the longest entry that we have seen so far. And it will be the last, for now.',
+    index: 2
+  });
+});*/
 
 /*Playlist.find({}).remove(function() {
   Playlist.create({

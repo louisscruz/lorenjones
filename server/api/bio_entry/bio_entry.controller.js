@@ -5,9 +5,9 @@ var BioEntry = require('./bio_entry.model');
 
 // Get list of bio_entrys
 exports.index = function(req, res) {
-  BioEntry.find(function (err, bio_entrys) {
+  BioEntry.find(function (err, bio_entries) {
     if(err) { return handleError(res, err); }
-    return res.json(200, bio_entrys);
+    return res.json(200, bio_entries);
   });
 };
 
@@ -25,6 +25,25 @@ exports.create = function(req, res) {
   BioEntry.create(req.body, function(err, bio_entry) {
     if(err) { return handleError(res, err); }
     return res.json(201, bio_entry);
+  });
+};
+
+// Reorders the bio_entries
+exports.reorder = function(req, res) {
+  BioEntry.find(function(err, bio_entries) {
+    console.log(bio_entries);
+    if (err) { return handleError(res, err); }
+    var reorderedEntries = req.body.reorderedEntries;
+    for (var i = 0; i < bio_entries.length; i++) {
+      if (bio_entries[i]._id != reorderedEntries[i]._id) {
+        var update = _.merge(bio_entries[i], reorderedEntries[i]);
+        console.log(update);
+        update.save(function(err) {
+          if (err) { return handleError(res, err); }
+        });
+      }
+    }
+    return res.json(200, bio_entries);
   });
 };
 

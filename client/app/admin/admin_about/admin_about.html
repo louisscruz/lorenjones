@@ -33,20 +33,54 @@
       <button type="submit" class="btn btn-primary btn-block" ng-disabled="bioForm.$invalid">Add New</button>
     </form>
   </div>
-  <div class="col-md-8">
-    <tabset class="bios row col-md-12">
+  <div class="entries col-md-8">
+    <ul ui-sortable="sortableOptions" ng-model="bioEntries" class="nav nav-tabs" data-tabs="tabs">
+      <li ng-class="{active: entry.active}" ng-repeat="entry in bioEntries | orderBy: 'index'">
+        <a ng-click="toggleEntry(entry._id)" data-toggle="tab" ng-bind="entry.title"></a>
+      </li>
+    </ul>
+    <div class="tab-content bio section">
+      <div class="entry tab-pane" ng-class="{active: entry.active}" ng-repeat="entry in bioEntries">
+        <button type="button" ng-if="editing === entry._id" class="btn btn-danger btn-xs" ng-click="confirmDelete(entry.title, entry)"><i class="fa fa-times"></i></button>
+        <div>
+          <span>
+            <button class="btn btn-primary" ng-if="editing !== entry._id" ng-click="toggleEdit(entry)"><i class="fa fa-pencil fa-fw"></i> Edit</button>
+          </span>
+        </div>
+        <div ng-if="editing !== entry._id">
+          <p ng-bind-html="entry.content"></p>
+        </div>
+        <div ng-if="editing === entry._id">
+          <form ng-if="editing === entry._id" name="editForm" ng-submit="updateBioEntry(copiedEntry)" novalidate>
+            <div class="form-group" ng-class="{ 'has-error' : editForm.title.$invalid && editForm.title.$touched }">
+              <label class="control-label">Title</label>
+              <input type="text" name="title" class="form-control" ng-model="copiedEntry.title" required>
+              <span class="sr-only">(success)</span>
+              <div class="help-block" ng-messages="editForm.title.$error" ng-if="editForm.title.$touched">
+                <p ng-message="required">A title is required.</p>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : editForm.content.$invalid && editForm.content.$touched }">
+              <label class="control-label">Content</label>
+              <textarea class="form-control" name="content" ng-model="copiedEntry.content" required></textarea>
+              <span class="sr-only">(success)</span>
+              <div class="help-block" ng-messages="editForm.content.$error" ng-if="editForm.content.$touched">
+                <p ng-message="required">Content is required.</p>
+              </div>
+            </div>
+            <div>
+              <span>
+                <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid">Save</button>
+                <button type="button" class="btn btn-default" ng-click="toggleEdit(entry)">Cancel</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--tabset class="bios row col-md-12">
       <tab ng-repeat="entry in bioEntries" heading="{{entry.title}}" active="entry.active" disabled="entry.disabled" class="cursor">
         <div class="bio section">
-          <!--h2>
-            <a href="#" editable-text="entry.title" onaftersave="updateBioEntry(entry)">
-              {{ entry.title || "empty" }}
-            </a>
-          </h2>
-          <p class="new-lines">
-            <a href="#" editable-textarea="entry.content" ng-bind-html="entry.content || 'empty'" e-rows="12" e-cols="40" e-style="max-height: 500px; max-width: 540px" onaftersave="updateBioEntry(entry)">
-              {{ entry.content || "empty" }}
-            </a>
-          </p-->
           <div class="row">
             <button type="button" ng-if="editing === entry._id" class="btn btn-danger btn-xs" ng-click="confirmDelete(entry.title, entry)"><i class="fa fa-times"></i></button>
             <div>
@@ -87,6 +121,6 @@
           </div>
         </div>
       </tab>
-    </tabset>
+    </tabset-->
   </div>
 </div>
