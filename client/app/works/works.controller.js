@@ -26,9 +26,4 @@ angular.module('lorenjonesApp')
         $scope.info = '';
       }
     };
-    $scope.natural = function(field) {
-      return function (x) {
-        return naturalService.naturalValue(x[field]);
-      };
-    };
   });

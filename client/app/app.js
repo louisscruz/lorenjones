@@ -20,7 +20,8 @@ angular.module('lorenjonesApp', [
   'angularRipple',
   'ngPicturefill',
   'ui.bootstrap.datetimepicker',
-  'rzModule'
+  'rzModule',
+  'naturalSort'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider, uiGmapGoogleMapApiProvider) {
     $urlRouterProvider.otherwise('/');
