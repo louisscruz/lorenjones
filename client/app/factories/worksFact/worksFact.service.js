@@ -245,8 +245,7 @@ angular.module('lorenjonesApp')
     // Update the playlist order
     function updateWorksOrder(o) {
       return $http.patch('/api/playlists', {order: o}).success(function(data) {
-        console.log(data);
-        fact.worksOrder = o;
+        angular.copy(data.order, fact.worksOrder);
       });
     }
     return {

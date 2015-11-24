@@ -5,16 +5,9 @@ var Playlist = require('./playlist.model');
 var Work = require('../work/work.model');
 
 // Get list of playlists
-exports.index = function(req, res) {
-  Playlist.find(function (err, playlists) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, playlists);
-  });
-};
-
-// Get a single playlist
-exports.show = function(req, res) {
+/*exports.index = function(req, res) {
   Playlist.findOne({}, function(err, playlist) {
+    console.log(playlist);
     if(err) {
       return handleError(res, err);
     } else if(!playlist) {
@@ -22,12 +15,41 @@ exports.show = function(req, res) {
     } else {
       Work.where('audio').exists().ne('audio', '').count({}, function(err, count) {
         var range = _.range(count);
-        if (range !== playlist.order.sort()) {
+        var playlistCopy = playlist.order;
+        if (!_.isEqual(range, playlistCopy.sort())) {
+          console.log('warning, the get request is changing the order!')
           playlist.order = range;
           playlist.save(function(err) {
             if (err) { handleError(res, err); }
           });
         }
+        return res.status(200).json(playlist);
+      });
+    }
+  });
+};*/
+
+// Get a single playlist
+exports.show = function(req, res) {
+  Playlist.findOne({}, function(err, playlist) {
+    console.log(playlist);
+    if(err) {
+      return handleError(res, err);
+    } else if(!playlist) {
+      return res.status(404).send('Not Found');
+    } else {
+      Work.where('audio').exists().ne('audio', '').count({}, function(err, count) {
+        var range = _.range(count);
+        console.log(playlist.order);
+        var playlistCopy = _.clone(playlist.order);
+        if (!_.isEqual(range, playlistCopy.sort())) {
+          console.log('warning, the get request is changing the order!')
+          playlist.order = range;
+          playlist.save(function(err) {
+            if (err) { handleError(res, err); }
+          });
+        }
+        console.log('At index get: ' + playlist.order);
         return res.status(200).json(playlist);
       });
     }
@@ -46,14 +68,16 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
   if (req.body._id) { delete req.body._id; }
   Playlist.findOne({}, function(err, playlist) {
+    var playlistCopy = playlist.order;
     if (err) {
       return handleError(res, err);
     } else if (!playlist) {
       return res.status(404).send('Not Found');
-    } else if(_.isEqual(req.body.order, playlist.order)) {
+    } else if(_.isEqual(req.body.order, playlistCopy.sort())) {
       return res.status(304).json(playlist);
     } else {
       Work.where('audio').exists().ne('audio', '').count({}, function(err, count) {
+        console.log(playlist.order);
         if (count !== req.body.order.length) {
           console.log('inside');
           var range = _.range(count);
@@ -63,8 +87,10 @@ exports.update = function(req, res) {
           });
         } else {
           playlist.order = req.body.order;
+          console.log(playlist.order);
         }
         playlist.save(function(err) {
+          console.log(playlist);
           if (err) { return handleError(res, err); }
           return res.status(200).json(playlist)
         });
