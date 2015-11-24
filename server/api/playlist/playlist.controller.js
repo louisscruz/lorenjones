@@ -4,31 +4,6 @@ var _ = require('lodash');
 var Playlist = require('./playlist.model');
 var Work = require('../work/work.model');
 
-// Get list of playlists
-/*exports.index = function(req, res) {
-  Playlist.findOne({}, function(err, playlist) {
-    console.log(playlist);
-    if(err) {
-      return handleError(res, err);
-    } else if(!playlist) {
-      return res.status(404).send('Not Found');
-    } else {
-      Work.where('audio').exists().ne('audio', '').count({}, function(err, count) {
-        var range = _.range(count);
-        var playlistCopy = playlist.order;
-        if (!_.isEqual(range, playlistCopy.sort())) {
-          console.log('warning, the get request is changing the order!')
-          playlist.order = range;
-          playlist.save(function(err) {
-            if (err) { handleError(res, err); }
-          });
-        }
-        return res.status(200).json(playlist);
-      });
-    }
-  });
-};*/
-
 // Get a single playlist
 exports.show = function(req, res) {
   Playlist.findOne({}, function(err, playlist) {
@@ -42,7 +17,9 @@ exports.show = function(req, res) {
         var range = _.range(count);
         console.log(playlist.order);
         var playlistCopy = _.clone(playlist.order);
-        if (!_.isEqual(range, playlistCopy.sort())) {
+        playlistCopy.sort();
+        console.log(!_.isEqual(range, playlistCopy))
+        if (!_.isEqual(range, playlistCopy)) {
           console.log('warning, the get request is changing the order!')
           playlist.order = range;
           playlist.save(function(err) {
