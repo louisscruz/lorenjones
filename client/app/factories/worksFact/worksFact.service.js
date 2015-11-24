@@ -33,17 +33,17 @@ angular.module('lorenjonesApp')
             fact.worksTracks.push(fact.works[i].audio);
           }
         }
-        // Load worksTracks to player
-        for (var i = 0; i < fact.worksOrder.length; i++) {
-          soundcloud.loadPlayerWith(fact.worksTracks[fact.worksOrder[i]], index);
-          index++;
-        }
         // Load dbwMovements to player
         for (var i = 0; i < fact.dbwMovements.length; i++) {
           if (fact.dbwMovements[i].audio) {
             soundcloud.loadPlayerWith(fact.dbwMovements[i].audio, index);
             index++;
           }
+        }
+        // Load worksTracks to player
+        for (var i = 0; i < fact.worksOrder.length; i++) {
+          soundcloud.loadPlayerWith(fact.worksTracks[fact.worksOrder[i]], index);
+          index++;
         }
         // Load Woodward's Gardens Tracks
         for (var i = 0; i < fact.wgTracks.length; i++) {

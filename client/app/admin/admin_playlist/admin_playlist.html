@@ -40,7 +40,6 @@
   <div class="row playlist-order">
     <div class="col-md-12">
       <h3>Current Playlist Order</h3>
-      {{worksOrder}}
     </div>
     <div ng-if="defaultTrack[0].link" class="col-md-12">
       <h4>Splash Track</h4>
@@ -48,17 +47,17 @@
         <li>{{defaultTrack[0].link}}</li>
       </ul>
     </div>
+    <div class="col-md-12">
+      <h4>Dancing on the Brink of the World</h4>
+      <ul>
+        <li ng-repeat="track in dbwMovements"> {{ track.audio }}</li>
+      </ul>
+    </div>
     <div ng-if="worksOrder.length > 0" class="col-md-12 draggable">
       <h4>Works</h4>
       <h6><i>(Drag and drop to reorder the works in the playlist)</i></h6>
       <ul class="movable" ui-sortable="sortableOptions" ng-model="worksOrder">
         <li ng-repeat="track in worksOrder">{{worksTracks[track]}}</li>
-      </ul>
-    </div>
-    <div class="col-md-12">
-      <h4>Dancing on the Brink of the World</h4>
-      <ul>
-        <li ng-repeat="track in dbwMovements"> {{ track.audio }}</li>
       </ul>
     </div>
     <div class="col-md-12">
