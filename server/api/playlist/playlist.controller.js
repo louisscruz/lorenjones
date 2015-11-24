@@ -15,10 +15,8 @@ exports.show = function(req, res) {
     } else {
       Work.where('audio').exists().ne('audio', '').count({}, function(err, count) {
         var range = _.range(count);
-        console.log(playlist.order);
         var playlistCopy = _.clone(playlist.order);
-        playlistCopy.sort();
-        console.log(!_.isEqual(range, playlistCopy))
+        console.log(arraysEqual(range, playlistCopy));
         if (!_.isEqual(range, playlistCopy)) {
           console.log('warning, the get request is changing the order!')
           playlist.order = range;
@@ -90,4 +88,15 @@ exports.destroy = function(req, res) {
 
 function handleError(res, err) {
   return res.status(500).send(err);
+}
+
+function arraysEqual(a, b) {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+  b.sort();
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
 }
