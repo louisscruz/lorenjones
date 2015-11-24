@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lorenjonesApp')
-  .controller('WorksCtrl', function ($scope, works, $location) {
+  .controller('WorksCtrl', function ($scope, works, $location, naturalService) {
     $scope.projects = [{
       title: 'Dancing on the Brink of the World',
       audio: 'https://soundcloud.com/lorenjones-2/14-the-city-by-the-sea',
@@ -25,5 +25,10 @@ angular.module('lorenjonesApp')
       } else {
         $scope.info = '';
       }
+    };
+    $scope.natural = function(field) {
+      return function (x) {
+        return naturalService.naturalValue(x[field]);
+      };
     };
   });
