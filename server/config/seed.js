@@ -18,6 +18,12 @@ DbwMovement.find({}).remove(function() {
     movement: 1,
     audio: 'https://soundcloud.com/lorenjones-2/1-ohlone-song'
   }, {
+    movement: 4,
+    audio: 'https://soundcloud.com/lorenjones-2/4-dragon-gate'
+  }, {
+    movement: 9,
+    audio: 'https://soundcloud.com/lorenjones-2/9-playland'
+  }, {
     movement: 7,
     audio: 'https://soundcloud.com/lorenjones-2/7-the-outside-lands'
   }, {
