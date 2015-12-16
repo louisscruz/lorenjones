@@ -8,7 +8,7 @@ angular.module('lorenjonesApp')
       link: '/dbw'
     }, {
       title: 'Woodward\'s Gardens',
-      audio: '',
+      audio: 'https://soundcloud.com/lorenjones-2/1-cathedral',
       link: '/woodwards-gardens'
     }, {
       title: 'Sweet Tommy',
