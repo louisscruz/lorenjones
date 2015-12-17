@@ -59,7 +59,7 @@ angular.module('lorenjonesApp')
         title: '4. Dragon Gate',
         subtitle: 'Chinatown',
         year: '1850\'s',
-        content: 'The building boom throughout the West brought thousands of Chinese laborers to San Francisco, and Chinatown became the largest Chinese settlement in the United States – a city within a city, China in the middle of San Francisco. The entrance to Chinatown was named Dragon Gate. The two instruments featured here are the erhu and the pipa. Comparable slightly to the western violin, the erhu has a beautiful sound that is very Eastern and completely unique. The pipa is similar to a lute.'
+        content: 'The building boom throughout the West had brought thousands of Chinese laborers to San Francisco, and Chinatown became the largest Chinese settlement in the United States, a city within a city, China in the middle of San Francisco. The entrance to Chinatown was named Dragon Gate. Since its establishment in 1848, it has been highly important and influential in the history and culture of ethnic Chinese immigrants to the United States and North America. Chinatown is an active enclave that continues to retain its own customs, languages, places of worship, social clubs, and identity. It has developed its own government, traditions, over 300 restaurants, and as many shops. There are two hospitals, numerous parks and squares, a post office, herbal shops, temples, pagoda roofs and dragon parades. In addition to being a starting point and home for thousands of Chinese immigrants, it is also a major tourist attraction, drawing more visitors annually than the Golden Gate Bridge. The two instruments featured here are the erhu and the pipa. Comparable slightly to the western violin, the erhu has a beautiful sound that is very Eastern and completely unique. The pipa is similar to a lute.'
       },{
         movement: 5,
         title: '5. Barbary Coast March',
@@ -95,7 +95,7 @@ angular.module('lorenjonesApp')
         title: '10. Golden Gate Bridge',
         subtitle: 'The world\'s greatest bridge',
         year: '1930\'s',
-        content: 'The Golden Gate Bridge was completed after more than four years of construction at a cost of 35 million dollars, and opened on May 28, 1937, ahead of schedule and under budget, when President Franklin D. Roosevelt pressed a telegraph key in the White House announcing the event.'
+        content: 'The Golden Gate Bridge was completed after much controversy, and more than four years of construction at a cost of 35 million dollars. It opened on May 28,1937, ahead of schedule and under budget, when President Franklin D. Roosevelt pressed a telegraph key in the White House announcing the event. The bridge\'s 4,200 - foot long main suspension span was a world record that stood for 27 years. On opening day my father was the first motorcycle rider to cross the bridge, and 50 years later, in his 80\'s, he led the 1987 anniversary parade, once again on a motorcycle. The Golden Gate Bridge is a work of art, as well as one of the world\'s great modern architectural masterpieces. The music here reflects not only the grandeur of the completed bridge, but also it’s construction.'
       },{
         movement: 11,
         title: '11. North Beach',
