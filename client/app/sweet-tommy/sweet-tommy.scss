@@ -45,7 +45,34 @@
   .plangular-icon-play {
     left: (2/16) * 1em;
   }
-  ul li {
+  ul {
+    -webkit-padding-start: 0px;
+  }
+
+  li {
     list-style: none;
+  }
+  .btn-group {
+    padding: 5px 0px 5px 0px;
+    button {
+      cursor: default;
+      &.playpause {
+        cursor: pointer !important;
+      }
+      &:hover {
+        background-color: $white !important;
+      }
+      &:active {
+        box-shadow: none !important;
+      }
+    }
+  }
+  .btn.playpause {
+    background-color: $orange;
+    color: $white;
+    transition: 0.15s all ease-in-out;
+    &:focus {
+      background-color: $primary-light;
+    }
   }
 }

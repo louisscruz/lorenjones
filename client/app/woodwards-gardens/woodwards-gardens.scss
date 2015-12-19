@@ -65,6 +65,9 @@
     padding: 5px 0px 5px 0px;
     button {
       cursor: default;
+      &.playpause {
+        cursor: pointer !important;
+      }
       &:hover {
         background-color: $white !important;
       }
