@@ -15,6 +15,9 @@
     text-indent: 25px;
     padding-top: 12px;
   }
+  ul {
+    -webkit-padding-start: 0px;
+  }
   li {
     list-style: none;
   }
@@ -59,7 +62,7 @@
     left: (2/16) * 1em;
   }
   .btn-group {
-    padding: 5px;
+    padding: 5px 0px 5px 0px;
     button {
       cursor: default;
       &:hover {
