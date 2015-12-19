@@ -8,10 +8,12 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
+      padding-bottom: 24px;
     }
   }
   p {
     text-indent: 25px;
+    padding-top: 12px;
   }
   li {
     list-style: none;
@@ -55,5 +57,25 @@
   }
   .plangular-icon-play {
     left: (2/16) * 1em;
+  }
+  .btn-group {
+    padding: 5px;
+    button {
+      cursor: default;
+      &:hover {
+        background-color: $white !important;
+      }
+      &:active {
+        box-shadow: none !important;
+      }
+    }
+  }
+  .btn.playpause {
+    background-color: $orange;
+    color: $white;
+    transition: 0.15s all ease-in-out;
+    &:focus {
+      background-color: $primary-light;
+    }
   }
 }
