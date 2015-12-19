@@ -14,12 +14,22 @@
   p {
     text-indent: 25px;
     padding-top: 12px;
+    font-size: 18px;
+    font-weight: 300;
+  }
+  small {
+    font-size: 14px;
+    text-align: center;
   }
   ul {
     -webkit-padding-start: 0px;
   }
   li {
     list-style: none;
+  }
+  i {
+    font-size: 12px;
+    vertical-align: top;
   }
   .button-icon {
     font-family: inherit;
