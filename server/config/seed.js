@@ -110,11 +110,14 @@ Wg.find({}).remove(function() {
     title: 'Man With 4 Hands',
     url: 'https://soundcloud.com/lorenjones-2/8-man-with-4-hands'
   }, {
-    title: 'Dreaming'
+    title: 'Dreaming',
+    url: 'https://soundcloud.com/lorenjones-2/09-dreaming'
   }, {
-    title: 'Arden'
+    title: 'Arden',
+    url: 'https://soundcloud.com/lorenjones-2/10-arden'
   }, {
-    title: 'Touchstone'
+    title: 'Touchstone',
+    url: 'https://soundcloud.com/lorenjones-2/11-touchstone'
   }, {
     title: 'A Victorian in Egypt',
     url: 'https://soundcloud.com/lorenjones-2/12-a-victorian-in-egypt'
