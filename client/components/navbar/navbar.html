@@ -20,13 +20,13 @@
         <li ng-class="{active: isActive('/events')}">
           <a ng-href="/events" ng-click="closeCollapsed()" angular-ripple>Events</a>
         </li>
-        <li class="dropdown" ng-class="{active: isActive('/works') || isActive('/dbw')}" dropdown>
+        <li class="dropdown" ng-class="{active: isActive('/works') || (isActive('/dbw') || (isActive('/sweet-tommy') || isActive('/woodwards-gardens')))}" dropdown>
           <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle angular-ripple>Works<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu" dropdown-menu>
-            <li><a ng-href="/dbw" ng-click="closeCollapsed()" angular-ripple>Dancing on the Brink of the World</a></li>
-            <li><a ng-href="/woodwards-gardens" ng-click="closeCollapsed()" angular-ripple>Woodward's Gardens</a></li>
-            <li><a ng-href="/sweet-tommy" ng-click="closeCollapsed()" angular-ripple>Sweet Tommy</a></li>
-            <li><a ng-href="/works" ng-click="closeCollapsed()" angular-ripple>All Other Works</a></li>
+            <li ng-class="{active: isActive('/dbw')}"><a ng-href="/dbw" ng-click="closeCollapsed()" angular-ripple>Dancing on the Brink of the World</a></li>
+            <li ng-class="{active: isActive('/woodwards-gardens')}"><a ng-href="/woodwards-gardens" ng-click="closeCollapsed()" angular-ripple>Woodward's Gardens</a></li>
+            <li ng-class="{active: isActive('/sweet-tommy')}"><a ng-href="/sweet-tommy" ng-click="closeCollapsed()" angular-ripple>Sweet Tommy</a></li>
+            <li ng-class="{active: isActive('/works')}"><a ng-href="/works" ng-click="closeCollapsed()" angular-ripple>All Other Works</a></li>
           </ul>
         </li>
         <li ng-class="{active: isActive('/contact')}">

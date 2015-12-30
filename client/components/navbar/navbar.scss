@@ -163,10 +163,19 @@ $sand-serif-normal: 400 !important;
   }
 }
 .dropdown.open {
+  .dropdown-menu {
+    li.active a {
+      background-color: $primary-light !important;
+    }
+  }
   a.dropdown-toggle {
     color: $primary !important;
   }
-
+}
+.dropdown.open.active {
+  a.dropdown-toggle {
+    color: $white !important;
+  }
 }
 
 .navbar-collapse.collapse.in {
