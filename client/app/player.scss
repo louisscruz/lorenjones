@@ -226,6 +226,17 @@
 
   .play {
     width: 46px;
+    &.glow {
+      -webkit-animation: glow 2s ease-in-out infinite;
+      animation: glow 2s ease-in-out infinite;
+    }
+  }
+  @-webkit-keyframes glow {
+    50% { box-shadow: 0 0 24px $orange}
+  }
+
+  @keyframes glow {
+    50% { box-shadow: 0 0 24px $orange}
   }
 
   .button-icon {

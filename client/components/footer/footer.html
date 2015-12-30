@@ -1,6 +1,6 @@
 <footer class="footer">
   <div class="controls">
-    <button class="button-icon play" ng-click="player.playPause()" angular-ripple>
+    <button class="button-icon play" ng-click="player.playPause()" ng-class="{glow: !player.currentTrack}" angular-ripple>
       <i class="fa fa-play fa-lg" ng-if="!player.playing"></i>
       <i class="fa fa-pause fa-lg" ng-if="player.playing"></i>
     </button>
