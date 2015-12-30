@@ -18,6 +18,7 @@ $sand-serif-normal: 400 !important;
     opacity: 1;
   }
   .navbar-toggle {
+    background-color: $primary-light !important;
     &:active {
       background-color: $primary-light !important;
     }
@@ -66,11 +67,12 @@ $sand-serif-normal: 400 !important;
   //font-weight: 400;
   &:focus {
     background-color: $primary-light;
-    color: $dark-gray;
+    color: $white;
   }
 }
 .navbar-default .navbar-nav > li > a {
   //background-color: $background-color;
+  //color: $white;
 }
 .navbar-default .navbar-nav > li {
   -webkit-transition-property: background-color, color;
@@ -98,8 +100,13 @@ $sand-serif-normal: 400 !important;
        -moz-transition-timing-function: ease-in-out;
          -o-transition-timing-function: ease-in-out;
             transition-timing-function: ease-in-out;
-    color: $primary;
+    color: $white !important;
     //background-color: $white;
+    a {
+      &:hover {
+        color: $white;
+      }
+    }
   }
 }
 
@@ -157,18 +164,24 @@ $sand-serif-normal: 400 !important;
 }
 
 .navbar-collapse.collapse.in {
-  background-color: $background-color;
+  background-color: $primary-light;
   li ul li, li ul {
-    background-color: lighten($primary, 15);
+    //background-color: lighten($primary, 15);
     a {
-      color: $white !important;
+      color: $primary !important;
     }
+  }
+  ul li a {
+    color: $white;
   }
   li {
     color: $background-color;
   }
+  ul li ul {
+    background-color: $white;
+  }
   ul li a:focus {
-    color: $black !important;
+    color: $primary !important;
   }
   a:active {
     color: $background-color;
