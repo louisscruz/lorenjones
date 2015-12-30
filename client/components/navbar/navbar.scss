@@ -162,6 +162,12 @@ $sand-serif-normal: 400 !important;
     color: $white;
   }
 }
+.dropdown.open {
+  a.dropdown-toggle {
+    color: $primary !important;
+  }
+
+}
 
 .navbar-collapse.collapse.in {
   background-color: $primary-light;
