@@ -34,5 +34,5 @@ angular.module('lorenjonesApp')
     $scope.openLightboxModal = function(index) {
       Lightbox.openModal($scope.pics, index);
     };
-    $scope.videoId = '3BvsZLwIBiE';
+    $scope.videoUrl = 'https://www.youtube.com/watch?v=3BvsZLwIBiE?rel=0&wmode=opaque';
   });

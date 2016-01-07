@@ -1,6 +1,10 @@
 .sweet-tommy {
   $darken-3: rgba(black, 1/4);
   $border-radius: 6px;
+  &.top {
+    padding-bottom: 0px !important;
+    margin-bottom: -180px;
+  }
   .info p {
     text-indent: 25px;
     font-size: 18px;
