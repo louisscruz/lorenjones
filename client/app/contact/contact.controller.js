@@ -22,7 +22,7 @@ angular.module('lorenjonesApp')
         })
         .error(function() {
           $scope.sending = false;
-          alertFact.add('danger', 'We could not deliver your message. Modify your message and try again, or send your message to louisstephancruz@me.com.');
+          alertFact.add('danger', 'We could not deliver your message. Modify your message and try again, or send your message to lorenjjones@earthlink.net.');
         });
       }
     };

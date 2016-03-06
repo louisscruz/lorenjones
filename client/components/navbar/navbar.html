@@ -26,6 +26,7 @@
             <li ng-class="{active: isActive('/dbw')}"><a ng-href="/dbw" ng-click="closeCollapsed()" angular-ripple>Dancing on the Brink of the World</a></li>
             <li ng-class="{active: isActive('/woodwards-gardens')}"><a ng-href="/woodwards-gardens" ng-click="closeCollapsed()" angular-ripple>Woodward's Gardens</a></li>
             <li ng-class="{active: isActive('/sweet-tommy')}"><a ng-href="/sweet-tommy" ng-click="closeCollapsed()" angular-ripple>Sweet Tommy</a></li>
+            <li ng-class="{active: isActive('/birds-eye-view')}"><a ng-href="/birds-eye-view" ng-click="closeCollapsed()" angular-ripple>A Bird's Eye View</a></li>
             <li ng-class="{active: isActive('/works')}"><a ng-href="/works" ng-click="closeCollapsed()" angular-ripple>Other Works</a></li>
           </ul>
         </li>
@@ -36,16 +37,16 @@
       <ul class="nav navbar-nav navbar-right">
         <li ng-show="isAdmin()" class="dropdown" dropdown>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle angular-ripple>{{ getCurrentUser().name }}<span class="caret"></span></a>
-          <ul ng-show="isAdmin()" class="dropdown-menu" role="menu" dropdown-menu>
-            <li ng-show="isAdmin()" ng-class="{ 'active' : isActive('/admin/playlist')}"><a href="/admin/playlist">Playlist</a></li>
-            <li ng-show="isAdmin()" class="divider"></li>
-            <li ng-show="isAdmin()" ng-class="{ 'active' : isActive('/admin/about')}"><a href="/admin/about">About</a></li>
-            <li ng-show="isAdmin()" class="divider"></li>
-            <li ng-show="isAdmin()" ng-class="{ 'active' : isActive('/admin/events')}"><a href="/admin/events">Events</a></li>
-            <li ng-show="isAdmin()" class="divider"></li>
-            <li ng-show="isAdmin()" ng-class="{ 'active' : isActive('/admin/works')}"><a href="/admin/works">Works</a></li>
-            <li ng-show="isAdmin()" class="divider"></li>
-            <li ng-show="isAdmin()" ng-class="{ 'active' : isActive('/admin/settings')}"><a href="/settings">Change Password</a></li>
+          <ul class="dropdown-menu" role="menu" dropdown-menu>
+            <li ng-class="{ 'active' : isActive('/admin/playlist')}"><a href="/admin/playlist">Playlist</a></li>
+            <li class="divider"></li>
+            <li ng-class="{ 'active' : isActive('/admin/about')}"><a href="/admin/about">About</a></li>
+            <li class="divider"></li>
+            <li ng-class="{ 'active' : isActive('/admin/events')}"><a href="/admin/events">Events</a></li>
+            <li class="divider"></li>
+            <li ng-class="{ 'active' : isActive('/admin/works')}"><a href="/admin/works">Works</a></li>
+            <li class="divider"></li>
+            <li ng-class="{ 'active' : isActive('/admin/settings')}"><a href="/settings">Change Password</a></li>
           </ul>
         </li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()" angular-ripple>Logout</a></li>
