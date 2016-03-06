@@ -15,9 +15,9 @@
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2 col-sm-12">
-      <h1 class="center">All Works</h1>
+      <h1 class="center">Other Works</h1>
       <accordion class="works">
-        <accordion-group ng-init="status.open = $first" is-open="status.open" ng-repeat="(category, works) in allWorks | groupBy: 'category'">
+        <accordion-group is-open="status.open" ng-repeat="(category, works) in allWorks | groupBy: 'category'">
           <accordion-heading>
             <div>
             {{ ::category }} <i class="pull-right fa fa-chevron-right" ng-class="{'rotate': status.open, '': !status.open}"></i>
