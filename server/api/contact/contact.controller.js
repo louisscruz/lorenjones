@@ -14,11 +14,12 @@ var transporter = nodemailer.createTransport({
 
 exports.sendMail = function(req, res) {
   var data = req.body;
+  var content = data.message + ': Reply to ' + data.name + ' at ' + data.email;
   var mailOptions = {
     from: data.email,
     to: 'lorenjjones@earthlink.net',
     subject: 'Message from ' + data.name,
-    text: data.message
+    text: content
   };
 
   transporter.sendMail(mailOptions, function(error, info) {
