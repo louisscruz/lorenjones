@@ -70,7 +70,6 @@
     <div class="container">
       <div class="col-xs-3 vertical-center">
         <div>
-          <h1 data-fittext data-fittext-max="170">Movements</h1>
           <tabset vertical="true" type="pills">
             <tab ng-repeat="movement in movements track by $index" heading="{{::movement.title}}" ng-click="changeInfo(movement)" class="cursor">
             </tab>
@@ -79,6 +78,7 @@
       </div>
       <div class="col-xs-9 movement-content vertical-center">
         <div class="tab-content">
+          <small><i>* = recording available</i></small>
           <div ng-repeat="m in dbwMovements track by $index">
             <div ng-if="currentMovement.movement === m.movement" class="table">
               <div class="table-cell">
