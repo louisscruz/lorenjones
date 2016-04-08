@@ -24,7 +24,7 @@
     "pickadate": "3.5.5",
     "angular-xeditable": "0.1.9",
     "angular-animate": "~1.4.4",
-    "ngFitText": ">=3.3.3",
+    "ngFitText": "3.3.3",
     "jquery.stellar": "~0.6.2",
     "angular-bootstrap-lightbox": "~0.6.1",
     "ng-parallax": "~0.1.8",
