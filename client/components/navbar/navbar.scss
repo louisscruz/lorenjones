@@ -14,6 +14,7 @@ $sand-serif-normal: 400 !important;
 .navbar {
   background-color: transparent;
   border: 0px;
+  transition: all 1s ease;
   .container {
     opacity: 1;
   }
@@ -178,7 +179,7 @@ $sand-serif-normal: 400 !important;
   }
 }
 
-.navbar-collapse.collapse.in {
+.navbar-collapse.collapse.in, .navbar-collapse.collapsing {
   background-color: $primary-light;
   li ul li, li ul {
     //background-color: lighten($primary, 15);
