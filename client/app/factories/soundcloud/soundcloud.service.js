@@ -115,7 +115,7 @@ angular.module('lorenjonesApp')
             var track = tracks[y].permalink_url;
 
             if (track.indexOf('https') !== -1) {
-              query = track.replace('https', 'http');
+              track = track.replace('https', 'http');
             }
 
             if (query === track) {
