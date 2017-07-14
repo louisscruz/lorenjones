@@ -112,7 +112,13 @@ angular.module('lorenjonesApp')
           var tracks = fact.player.tracks;
           for (var y = 0; y < tracks.length; y++) {
             /*jshint camelcase: false*/
-            if (query === tracks[y].permalink_url) {
+            var track = tracks[y].permalink_url;
+
+            if (track.indexOf('https') !== -1) {
+              query = track.replace('https', 'http');
+            }
+
+            if (query === track) {
               mem = y;
               return mem;
             }
