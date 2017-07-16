@@ -95,6 +95,7 @@ angular.module('lorenjonesApp', [
       $rootScope.worksOrder = works.worksOrder;
     });
     $rootScope.cleanUrl = function(url) {
+      if (!url) return url;
       return cleanUrl(url);
     };
     // Redirect to login if route requires auth and you're not logged in
