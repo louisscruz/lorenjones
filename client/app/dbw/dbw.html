@@ -83,8 +83,8 @@
             <div ng-if="currentMovement.movement === m.movement" class="table">
               <div class="table-cell">
                 <button class="button-icon" ng-click="player.playPause(player.trackIndex(m.audio))" angular-ripple>
-                  <i class="fa fa-play fa-lg" ng-if="player.playing.permalink_url !== cleanUrl(m.audio)"></i>
-                  <i class="fa fa-pause fa-lg" ng-if="player.playing.permalink_url === cleanUrl(m.audio)"></i>
+                  <i class="fa fa-play fa-lg" ng-if="!player.playing.permalink_url || (cleanUrl(player.playing.permalink_url) !== cleanUrl(m.audio))"></i>
+                  <i class="fa fa-pause fa-lg" ng-if="cleanUrl(player.playing.permalink_url) === cleanUrl(m.audio)"></i>
                 </button>
               </div>
             </div>
