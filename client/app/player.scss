@@ -53,7 +53,6 @@
 
   h3 {
     font-size: 1rem;
-    //font-size: .875rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .2em;
@@ -84,8 +83,6 @@
   pre {
     margin-top: 0;
     margin-bottom: 1rem;
-    //white-space: pre-wrap;
-    //word-break: break-word;
     overflow: scroll;
   }
 
@@ -166,8 +163,6 @@
   }
 
   .oh { overflow: hidden }
-  //.left { float: left }
-  //.right { float: right }
 
   @media (min-width: $breakpoint) {
     .desktop-block { display: block; }
@@ -178,7 +173,6 @@
   // Buttons
   button, .button {
     font-family: inherit;
-    //font-size: inherit;
     font-weight: 600;
     letter-spacing: .1em;
     line-height: 2.5em;
@@ -189,25 +183,34 @@
     background-color: transparent;
     border: none;
     border-radius: $border-radius;
+    -webkit-transition-property: color, background-color, -webkit-box-shadow, -webkit-transform;
+    transition-property: color, background-color, -webkit-box-shadow, -webkit-transform;
+    -o-transition-property: color, background-color, box-shadow, transform;
     transition-property: color, background-color, box-shadow, transform;
-    transition-duration: .1s;
-    transition-timing-function: ease-out;
+    transition-property: color, background-color, box-shadow, transform, -webkit-box-shadow, -webkit-transform;
+    -webkit-transition-duration: .1s;
+         -o-transition-duration: .1s;
+            transition-duration: .1s;
+    -webkit-transition-timing-function: ease-out;
+         -o-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
     cursor: pointer;
     &:hover {
       color: $dark-gray;
       background-color: $orange;
-      //box-shadow: inset 0 0 0 3px $red, 0 0 0 3px white, 0 0 0 5px rgba($red,.5);
-      //box-shadow: inset 0 0 0 3px $red, 0 0 0 3px rgba(white,.75), 0 0 0 5px rgba($orange,.5);
-      transform: scale(17/16);
+      -webkit-transform: scale(17/16);
+          -ms-transform: scale(17/16);
+              transform: scale(17/16);
     }
     &:focus {
       outline: 0;
       border: none;
-      //box-shadow: inset 0 0 0 3px $orange, 0 0 0 3px white, 0 0 0 5px rgba($red,.5);
     }
     &:active {
       border: none;
-      transform: scale(31/32);
+      -webkit-transform: scale(31/32);
+          -ms-transform: scale(31/32);
+              transform: scale(31/32);
       background-color: $primary;
     }
   }
@@ -232,22 +235,25 @@
     }
   }
   @-webkit-keyframes glow {
-    50% { box-shadow: 0 0 24px $orange}
+    50% { -webkit-box-shadow: 0 0 24px $orange; box-shadow: 0 0 24px $orange}
   }
 
   @keyframes glow {
-    50% { box-shadow: 0 0 24px $orange}
+    50% { -webkit-box-shadow: 0 0 24px $orange; box-shadow: 0 0 24px $orange}
   }
 
   .button-icon {
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
     &:hover {
       color: $orange;
       background-color: $darken-1;
-      box-shadow: none;
+      -webkit-box-shadow: none;
+              box-shadow: none;
     }
     &:focus {
-      box-shadow: 0 0 0 3px rgba($red,.5);
+      -webkit-box-shadow: 0 0 0 3px rgba($red,.5);
+              box-shadow: 0 0 0 3px rgba($red,.5);
     }
   }
 
@@ -257,7 +263,6 @@
     position: relative;
     top: (3/16) * 1em;
     top: (7/32) * 1em;
-    //top: (4/16) * 1em;
   }
 
   .plangular-icon-play {
@@ -265,7 +270,8 @@
   }
 
   .input-readonly {
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     width: 100%;
     padding: 0 .5em;
     line-height: 2em;
@@ -286,19 +292,29 @@
 
   .rounded { border-radius: $border-radius; }
 
-  .border { box-shadow: inset 0 0 0 2px }
+  .border { -webkit-box-shadow: inset 0 0 0 2px; box-shadow: inset 0 0 0 2px }
+
+  ::-moz-selection { background: rgba($red,.25) }
 
   ::selection { background: rgba($red,.25) }
 
   // Animations
 
   @keyframes flicker-in {
-      0%   { opacity: 0; transform: scale(.9) }
+      0%   { opacity: 0; -webkit-transform: scale(.9); -ms-transform: scale(.9); transform: scale(.9) }
      50%   { opacity: .75 }
      62.5% { opacity: 0 }
      75%   { opacity: 1 }
      87.5% { opacity: .5 }
     100%   { opacity: 1 }
+  }
+
+  @-webkit-keyframes flicker-out {
+      0%   { opacity: 1 }
+     25%   { opacity: .75 }
+     50% { opacity: 0 }
+     75% { opacity: .5 }
+    100%   { opacity: 0 }
   }
 
   @keyframes flicker-out {
@@ -311,31 +327,53 @@
 
   .vhs-flicker-in {
     opacity: 0;
-    animation-name: flicker-in;
-    animation-duration: .4s;
-    animation-fill-mode: forwards;
+    -webkit-animation-name: flicker-in;
+            animation-name: flicker-in;
+    -webkit-animation-duration: .4s;
+            animation-duration: .4s;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
   }
 
   .vhs-flicker-in-out.v-enter {
-    animation: flicker-in .4s;
+    -webkit-animation: flicker-in .4s;
+            animation: flicker-in .4s;
   }
 
   .vhs-flicker-in-out.v-leave {
-    animation: flicker-out .4s forwards;
+    -webkit-animation: flicker-out .4s forwards;
+            animation: flicker-out .4s forwards;
+  }
+
+
+  @-webkit-keyframes zoom-in {
+      0% { -webkit-transform: scale(0); transform: scale(0) }
+    100% { -webkit-transform: scale(1); transform: scale(1) }
   }
 
 
   @keyframes zoom-in {
-      0% { transform: scale(0) }
-    100% { transform: scale(1) }
+      0% { -webkit-transform: scale(0); transform: scale(0) }
+    100% { -webkit-transform: scale(1); transform: scale(1) }
   }
 
   .vhs-zoom-in {
-    transform: scale(0);
-    animation-name: zoom-in;
-    animation-duration: .2s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
+    -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+            transform: scale(0);
+    -webkit-animation-name: zoom-in;
+            animation-name: zoom-in;
+    -webkit-animation-duration: .2s;
+            animation-duration: .2s;
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+  }
+
+  @-webkit-keyframes fade-in {
+      0% { opacity: 0 }
+    100% { opacity: 1 }
   }
 
   @keyframes fade-in {
@@ -345,10 +383,19 @@
 
   .vhs-fade-in {
     opacity: 0;
-    animation-name: fade-in;
-    animation-duration: .3s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
+    -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+    -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+  }
+
+
+  @-webkit-keyframes fade-out {
+    from { opacity: 1 } to { opacity: 0 }
   }
 
 
@@ -356,30 +403,49 @@
     from { opacity: 1 } to { opacity: 0 }
   }
   .vhs-fade-in-out.v-enter {
-    animation: fade-in .2s;
+    -webkit-animation: fade-in .2s;
+            animation: fade-in .2s;
   }
   .vhs-fade-in-out.v-leave {
-    animation: fade-out .2s;
+    -webkit-animation: fade-out .2s;
+            animation: fade-out .2s;
+  }
+
+  @-webkit-keyframes pop-in {
+      0% { -webkit-transform: scale(0); transform: scale(0) }
+     75% { -webkit-transform: scale(1.25); transform: scale(1.25) }
+    100% { -webkit-transform: scale(1); transform: scale(1) }
   }
 
   @keyframes pop-in {
-      0% { transform: scale(0) }
-     75% { transform: scale(1.25) }
-    100% { transform: scale(1) }
+      0% { -webkit-transform: scale(0); transform: scale(0) }
+     75% { -webkit-transform: scale(1.25); transform: scale(1.25) }
+    100% { -webkit-transform: scale(1); transform: scale(1) }
   }
 
   .vhs-pop-in {
-    transform: scale(0);
-    animation-name: pop-in;
-    animation-duration: .2s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
+    -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+            transform: scale(0);
+    -webkit-animation-name: pop-in;
+            animation-name: pop-in;
+    -webkit-animation-duration: .2s;
+            animation-duration: .2s;
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
   }
 
-  .vhs-delay-1 { animation-delay: .1s }
-  .vhs-delay-2 { animation-delay: .2s }
-  .vhs-delay-3 { animation-delay: .3s }
-  .vhs-delay-4 { animation-delay: .4s }
+  .vhs-delay-1 { -webkit-animation-delay: .1s; animation-delay: .1s }
+  .vhs-delay-2 { -webkit-animation-delay: .2s; animation-delay: .2s }
+  .vhs-delay-3 { -webkit-animation-delay: .3s; animation-delay: .3s }
+  .vhs-delay-4 { -webkit-animation-delay: .4s; animation-delay: .4s }
+
+  @-webkit-keyframes flicker {
+    0% { opacity: 1 }
+    100% { opacity: 0 }
+  }
 
   @keyframes flicker {
     0% { opacity: 1 }
@@ -387,14 +453,16 @@
   }
 
   .vhs-flicker {
-    animation-name: flicker;
-    animation-duration: .025s;
-    //animation-duration: .1s;
-    animation-iteration-count: infinite;
+    -webkit-animation-name: flicker;
+            animation-name: flicker;
+    -webkit-animation-duration: .025s;
+            animation-duration: .025s;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
   }
 
-  .transition-opacity { transition: opacity 1s linear }
-  .transition-bg { transition: background 1s linear }
+  .transition-opacity { -webkit-transition: opacity 1s linear; -o-transition: opacity 1s linear; transition: opacity 1s linear }
+  .transition-bg { -webkit-transition: background 1s linear; -o-transition: background 1s linear; transition: background 1s linear }
 
   code, pre {
   font-family: 'Source Code Pro', Consolas, Menlo, monospace;
@@ -487,25 +555,41 @@
     color: $orange;
     background-color: transparent;
     border: 0;
-    box-shadow: inset 0 0 0 3px $orange;
+    -webkit-box-shadow: inset 0 0 0 3px $orange;
+            box-shadow: inset 0 0 0 3px $orange;
     border-radius: $border-radius;
+    -webkit-transition-property: color, background-color, -webkit-box-shadow, -webkit-transform;
+    transition-property: color, background-color, -webkit-box-shadow, -webkit-transform;
+    -o-transition-property: color, background-color, box-shadow, transform;
     transition-property: color, background-color, box-shadow, transform;
-    transition-duration: .1s;
-    transition-timing-function: ease-out;
+    transition-property: color, background-color, box-shadow, transform, -webkit-box-shadow, -webkit-transform;
+    -webkit-transition-duration: .1s;
+         -o-transition-duration: .1s;
+            transition-duration: .1s;
+    -webkit-transition-timing-function: ease-out;
+         -o-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
     cursor: pointer;
     &:hover {
       color: $dark-gray;
       background-color: $orange;
-      box-shadow: inset 0 0 0 3px $orange;
-      transform: scale(17/16);
+      -webkit-box-shadow: inset 0 0 0 3px $orange;
+              box-shadow: inset 0 0 0 3px $orange;
+      -webkit-transform: scale(17/16);
+          -ms-transform: scale(17/16);
+              transform: scale(17/16);
     }
     &:focus {
       outline: 0;
-      box-shadow: inset 0 0 0 3px $orange;
+      -webkit-box-shadow: inset 0 0 0 3px $orange;
+              box-shadow: inset 0 0 0 3px $orange;
     }
     &:active {
-      transform: scale(31/32);
-      box-shadow: inset 0 2px 6px 0 $darken-3;
+      -webkit-transform: scale(31/32);
+          -ms-transform: scale(31/32);
+              transform: scale(31/32);
+      -webkit-box-shadow: inset 0 2px 6px 0 $darken-3;
+              box-shadow: inset 0 2px 6px 0 $darken-3;
     }
   }
 

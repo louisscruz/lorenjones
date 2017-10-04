@@ -47,8 +47,6 @@
       background-color: $orange;
       .hor-parallax-img {
         height: 100%;
-        //background-color: white;
-        //width: auto;
         z-index: 10 !important;
         img {
           z-index: 10 !important;
@@ -62,12 +60,11 @@
       /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c0362c+0,ffffff+100 */
       background: #c0362c; /* Old browsers */
       /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-      background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2MwMzYyYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-      background: -moz-linear-gradient(top,  #c0362c 0%, $white 100%); /* FF3.6+ */
+      background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2MwMzYyYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+); /* FF3.6+ */
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c0362c), color-stop(100%,$white)); /* Chrome,Safari4+ */
       background: -webkit-linear-gradient(top,  #c0362c 0%,$white 100%); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(top,  #c0362c 0%,$white 100%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(top,  #c0362c 0%,$white 100%); /* IE10+ */
+      background: -o-linear-gradient(top,  #c0362c 0%,$white 100%); /* Opera 11.10+ */ /* IE10+ */
+      background: -webkit-gradient(linear,  left top, left bottom,  from(#c0362c),to($white));
       background: linear-gradient(to bottom,  #c0362c 0%,$white 100%); /* W3C */
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c0362c', endColorstr='$white',GradientType=0 ); /* IE6-8 */
     }
@@ -78,9 +75,6 @@
     }
     .parallax-img {
       img {
-        //display: block;
-        //min-height: 100%;
-        //min-width: 100%;
         position: absolute;
         top: 0;
         left: 0;
@@ -130,9 +124,6 @@
       font-size: 50px;
     }
     .wrapper {
-      //min-height: 100vh;
-      //overflow: hidden;
-      //text-align: center;
       z-index: 0;
       position: fixed;
       top: -50%;
@@ -217,15 +208,12 @@
 
 .nav-pills a {
   -webkit-transition-property: background-color, color;
-     -moz-transition-property: background-color, color;
        -o-transition-property: background-color, color;
           transition-property: background-color, color;
   -webkit-transition-duration: 0.2s;
-     -moz-transition-duration: 0.2s;
        -o-transition-duration: 0.2s;
           transition-duration: 0.2s;
   -webkit-transition-timing-function: ease-in-out;
-     -moz-transition-timing-function: ease-in-out;
        -o-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
 }
@@ -258,7 +246,6 @@
 /* Animations */
 .tab-content.ng-enter, .tab-content.ng-move {
   -webkit-transition:0.5s linear all;
-  -moz-transition:0.5s linear all;
   -o-transition:0.5s linear all;
   transition:0.5s linear all;
   opacity:0;

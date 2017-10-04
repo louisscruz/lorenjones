@@ -23,6 +23,8 @@
   .btn.playpause {
     background-color: $orange;
     color: $white;
+    -webkit-transition: 0.15s all ease-in-out;
+    -o-transition: 0.15s all ease-in-out;
     transition: 0.15s all ease-in-out;
     &:focus {
       background-color: $primary-light;

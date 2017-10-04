@@ -4,7 +4,6 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 $background-color: #2C2830;
 $primary: #4B4452;
 $primary-light: #81758C;
-//$white: #FFFFF9;
 $white: #FFFFF9;
 $black: #313131;
 $dark-gray: #424242;
@@ -46,9 +45,6 @@ body {
   color: $white;
   overflow-x: hidden;
   background-color: $background-color;
-  //background-image: url("/assets/images/background.png");
-  //background-size: 511px 511px;
-  //background-repeat: repeat;
 }
 h1, h2, h3, h4, h5, h6 {
   color: $white;
@@ -65,8 +61,12 @@ h1, h2, h3, h4, h5, h6 {
 .vertical-center {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .new-lines {
   white-space: pre-line;
@@ -103,6 +103,8 @@ input[type="text"], input[type="url"], input[type="number"], input[type="passwor
   z-index: 10;
 }
 .alert {
+  -webkit-transition: cubic-bezier(.77,.14,.38,.71) 0.5s;
+  -o-transition: cubic-bezier(.77,.14,.38,.71) 0.5s;
   transition: cubic-bezier(.77,.14,.38,.71) 0.5s;
   display: block !important;
   opacity: 0.8;
@@ -127,6 +129,8 @@ input[type="text"], input[type="url"], input[type="number"], input[type="passwor
 .panel-heading {
   background-color: $primary-light !important;
   color: $white !important;
+  -webkit-transition: all 0.15s ease-in-out;
+  -o-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
   padding: 0px;
   //padding: 0px;
@@ -134,9 +138,13 @@ input[type="text"], input[type="url"], input[type="number"], input[type="passwor
     div {
       padding: 10px 15px;
       i {
+        -webkit-transition: all 0.15s ease-in-out;
+        -o-transition: all 0.15s ease-in-out;
         transition: all 0.15s ease-in-out;
         &.rotate {
-          transform: rotate(90deg);
+          -webkit-transform: rotate(90deg);
+              -ms-transform: rotate(90deg);
+                  transform: rotate(90deg);
         }
       }
     }
@@ -156,10 +164,7 @@ input[type="text"], input[type="url"], input[type="number"], input[type="passwor
   width: 100%;
 }
 .footer {
-  //position: absolute;
-  //bottom: 0px;
   width: 100%;
-  //height: 42px;
   z-index: 100;
   background-color: $white;
   height: 42px;
@@ -195,7 +200,8 @@ input[type="text"], input[type="url"], input[type="number"], input[type="passwor
     margin-left: 127px;
     margin-bottom: -1px;
     background-color: $white;
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
     color: $primary;
     padding: 8px;
     display: block;
@@ -204,6 +210,8 @@ input[type="text"], input[type="url"], input[type="number"], input[type="passwor
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     border-bottom: none;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
     button {
       height: 20px;
@@ -230,7 +238,8 @@ input[type="text"], input[type="url"], input[type="number"], input[type="passwor
       &:focus {
         background-color: $orange;
         color: $white;
-        box-shadow: none;
+        -webkit-box-shadow: none;
+                box-shadow: none;
       }
     }
   }
@@ -264,7 +273,8 @@ form label {
   .active {
     background-color: $primary;
     color: white;
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
     border: none;
   }
   &:hover {
@@ -282,16 +292,15 @@ form label {
   position: relative;
 }
 .flip .card.flipped {
-  animation: Flip 2s infinite;
-  animation-iteration-count: infinite;
-  //-webkit-transform: rotatex(-540deg);
-  //transform: rotatex(-540deg);
+  -webkit-animation: Flip 2s infinite;
+          animation: Flip 2s infinite;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
 }
 .flip .card {
   height: 100%;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  //transition: 2.5s;
 }
 .flip .card .face {
   -webkit-backface-visibility: hidden ;
@@ -304,18 +313,17 @@ form label {
   z-index: 1;
 }
 .flip .card .back {
-  //animation: Flip 2s infinite;
-  //animation-iteration-count: infinite;
   -webkit-transform: rotatex(-180deg);
-  transform: rotatex(-180deg);
+  -ms-transform: rotatex(-180deg);
+      transform: rotatex(-180deg);
 }
 .inner {
   margin:0px !important;
 }
 // Animations
 @-webkit-keyframes Flip {
-  0% { transform: rotatex(0deg); }
-  100% { transform: rotatex(360deg); }
+  0% { -webkit-transform: rotatex(0deg); -ms-transform: rotatex(0deg); transform: rotatex(0deg); }
+  100% { -webkit-transform: rotatex(360deg); -ms-transform: rotatex(360deg); transform: rotatex(360deg); }
 }
 .alert.ng-enter {
   opacity: 0;
@@ -330,6 +338,8 @@ form label {
   opacity: 0;
 }
 .light {
+  -webkit-transition: all ease-in-out 0.5s;
+  -o-transition: all ease-in-out 0.5s;
   transition: all ease-in-out 0.5s;
 }
 .light.ng-enter {
@@ -345,10 +355,14 @@ form label {
   opacity: 1;
 }
 .navbar-brand {
+  -webkit-transition: all ease-in-out 0.5s;
+  -o-transition: all ease-in-out 0.5s;
   transition: all ease-in-out 0.5s;
 }
 .navbar-brand-add,
 .navbar-brand-remove {
+  -webkit-transition: all ease-in-out 0.5s;
+  -o-transition: all ease-in-out 0.5s;
   transition: all ease-in-out 0.5s;
 }
 .navbar-brand,
@@ -362,6 +376,7 @@ form label {
 .repeated-item.ng-move,
 .repeated-item.ng-enter {
   -webkit-transition:all ease-in-out 0.5s;
+  -o-transition:all ease-in-out 0.5s;
   transition:all ease-in-out 0.5s;
 }
 .repeated-item.ng-move,
@@ -384,15 +399,26 @@ form label {
   position: absolute;
   background-color: rgba(0,0,0,0.1);
   border-radius: 50%;
-  transform: scale(0);
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
 }
 .angular-ripple.animate {
-  animation: ripple 0.35s linear;
+  -webkit-animation: ripple 0.35s linear;
+          animation: ripple 0.35s linear;
+}
+@-webkit-keyframes ripple {
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(2.5);
+            transform: scale(2.5);
+  }
 }
 @keyframes ripple {
   100% {
     opacity: 0;
-    transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+            transform: scale(2.5);
   }
 }
 // Component styles are injected through grunt

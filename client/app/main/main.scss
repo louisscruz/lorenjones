@@ -10,8 +10,6 @@
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
     height: 100vh;
     overflow: hidden;
-    //background: url("/assets/images/main/Loren_Jones_original.jpg") center center;
-    //background-size: cover;
     .text {
       width: 100%;
       color: $white;
@@ -21,7 +19,6 @@
         line-height: 1;
         font-family: 'Cardo', serif;
         font-weight: 700 !important;
-        //text-shadow: 5px -3px 2px rgba(0, 0, 0, 0.3);
       }
       h2 {
         text-transform: uppercase;
@@ -35,38 +32,4 @@
       max-height: 100%;
       z-index: -1;
     }
-}
-
-@media(max-width:767px) and (-webkit-min-device-pixel-ration:2),
-      (max-width:767px) and (min-resolution:192dpi){
-  .hero-unit {
-    //background-image: url("/assets/images/main/Loren_Jones_original.jpg");
-  }
-}
-@media(min-width:768px){
-  .hero-unit {
-    //background-image: url("/assets/images/main/Loren_Jones_original.jpg");
-  }
-}
-@media(min-width:768px) and (-webkit-min-device-pixel-ration:2),
-      (min-width:768px) and (min-resolution:192dpi){
-  .hero-unit {
-    //background-image: url("/assets/images/main/Loren_Jones_original.jpg");
-  }
-}
-@media(min-width:992px){
-  .hero-unit {
-    //background-image: url("/assets/images/main/Loren_Jones_original.jpg");
-  }
-}
-@media(min-width:992px) and (-webkit-min-device-pixel-ration:2),
-      (min-width:992px) and (min-resolution:192dpi){
-  .hero-unit {
-    //background-image: url("/assets/images/main/Loren_Jones_original.jpg");
-  }
-}
-@media(min-width:1200px){
-  .hero-unit {
-    //background-image: url("/assets/images/main/Loren_Jones_original.jpg");
-  }
 }
