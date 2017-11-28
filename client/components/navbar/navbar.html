@@ -18,7 +18,7 @@
           <a ng-href="/about" ng-click="closeCollapsed()" angular-ripple>About</a>
         </li>
         <li class="dropdown" ng-class="{active: isActive('/works') || (isActive('/dbw') || (isActive('/sweet-tommy') || isActive('/woodwards-gardens')))}" dropdown>
-          <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle angular-ripple>Works<span class="caret"></span></a>
+          <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" dropdown-toggle angular-ripple>Music<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu" dropdown-menu>
             <li ng-class="{active: isActive('/dbw')}"><a ng-href="/dbw" ng-click="closeCollapsed()" angular-ripple>Dancing on the Brink of the World</a></li>
             <li ng-class="{active: isActive('/woodwards-gardens')}"><a ng-href="/woodwards-gardens" ng-click="closeCollapsed()" angular-ripple>Woodward's Gardens</a></li>
@@ -27,11 +27,11 @@
             <li ng-class="{active: isActive('/works')}"><a ng-href="/works" ng-click="closeCollapsed()" angular-ripple>Other Works</a></li>
           </ul>
         </li>
-        <li ng-class="{active: isActive('/events')}">
-          <a ng-href="/events" ng-click="closeCollapsed()" angular-ripple>Events</a>
-        </li>
         <li>
           <a href="https://www.flickr.com/photos/134139109@N08/albums" target="_blank" ng-click="closeCollapsed()" angular-ripple>Photos <i class="fa fa-external-link-square"></i></a>
+        </li>
+        <li ng-class="{active: isActive('/events')}">
+          <a ng-href="/events" ng-click="closeCollapsed()" angular-ripple>Events</a>
         </li>
         <li ng-class="{active: isActive('/contact')}">
           <a ng-href="/contact" ng-click="closeCollapsed()" angular-ripple>Contact</a>
@@ -45,7 +45,7 @@
             <li class="divider"></li>
             <li ng-class="{ 'active' : isActive('/admin/about')}"><a href="/admin/about">About</a></li>
             <li class="divider"></li>
-            <li ng-class="{ 'active' : isActive('/admin/works')}"><a href="/admin/works">Works</a></li>
+            <li ng-class="{ 'active' : isActive('/admin/works')}"><a href="/admin/works">Music</a></li>
             <li class="divider"></li>
             <li ng-class="{ 'active' : isActive('/admin/events')}"><a href="/admin/events">Events</a></li>
             <li class="divider"></li>
