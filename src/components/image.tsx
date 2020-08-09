@@ -13,18 +13,20 @@ import Img from "gatsby-image"
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const Image = React.memo(() => {
-  const data = useStaticQuery(graphql`
-    query {
-      placeholderImage: file(relativePath: { eq: "gatsby-astronaut.png" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
-          }
+const query = graphql`
+  query {
+    placeholderImage: file(relativePath: { eq: "loren-jones.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 3968) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
-  `)
+  }
+`
+
+const Image = React.memo(() => {
+  const data = useStaticQuery(query)
 
   return <Img fluid={data.placeholderImage.childImageSharp.fluid} />
 })

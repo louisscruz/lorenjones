@@ -4,9 +4,9 @@ const env = require("./.env")
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Loren Jones Music`,
+    description: `The music of composer and instrumentalist Loren Jones`,
+    author: "@luckycatfactory",
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -20,6 +20,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    "gatsby-plugin-styled-components",
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -46,6 +47,14 @@ module.exports = {
         spreadsheetId: env.googleSpreadsheetId,
         worksheetTitle: "tracks",
         credentials: env.googleServiceAccountCredentials,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /node_modules/,
+        },
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
