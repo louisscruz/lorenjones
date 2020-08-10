@@ -7,7 +7,6 @@ interface HeaderProps {
 }
 
 const StyledHeader = styled.header`
-  // background-color: rgba(256, 256, 256, 0.8);
   z-index: 1;
 `
 

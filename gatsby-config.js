@@ -3,6 +3,8 @@ const path = require("path")
 const env = require("./.env")
 
 module.exports = {
+  // For GitHub Pages
+  pathPrefix: "/lorenjones",
   siteMetadata: {
     title: `Loren Jones Music`,
     description: `The music of composer and instrumentalist Loren Jones`,
