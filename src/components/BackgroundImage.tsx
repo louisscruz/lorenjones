@@ -12,6 +12,23 @@ const StyledInnerWrapper = styled.div`
   height: calc(100vh - 120px);
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+`
+
+const Name = styled.h1`
+  color: white;
+  font-size: 128px;
+  font-weight: 900;
+  line-height: 128px;
+  text-shadow: 0px 0px 14px rgba(150, 150, 150, 1);
+`
+
+const Composer = styled.h2`
+  color: white;
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 96px;
+  text-shadow: 0px 0px 14px rgba(150, 150, 150, 1);
 `
 
 const query = graphql`
@@ -54,7 +71,8 @@ const ArtDirectedBackground = React.memo<ArtDirectedBackgroundProps>(
         className={className}
       >
         <StyledInnerWrapper>
-          <h2>Play</h2>
+          <Name>Loren Jones</Name>
+          <Composer>Composer</Composer>
         </StyledInnerWrapper>
       </BackgroundImage>
     )

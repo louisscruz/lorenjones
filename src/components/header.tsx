@@ -26,7 +26,7 @@ const StyledLink = styled(Link)`
 const Header = React.memo<HeaderProps>(({ siteTitle }) => (
   <StyledHeader>
     <HeaderContainer>
-      <StyledLink to="/">{siteTitle}</StyledLink>
+      <StyledLink to="/">Home</StyledLink>
     </HeaderContainer>
   </StyledHeader>
 ))
