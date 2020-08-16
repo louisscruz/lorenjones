@@ -26,6 +26,15 @@ const Header = React.memo<HeaderProps>(({ siteTitle }) => (
   <StyledHeader>
     <HeaderContainer>
       <StyledLink to="/">Home</StyledLink>
+      <StyledLink to="/about">About</StyledLink>
+      <StyledLink to="/">Music</StyledLink>
+      <a
+        href="https://www.flickr.com/photos/134139109@N08/albums"
+        target="_blank"
+      >
+        Photos
+      </a>
+      <StyledLink to="/contact">Contact</StyledLink>
     </HeaderContainer>
   </StyledHeader>
 ))

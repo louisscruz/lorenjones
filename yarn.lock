@@ -2257,6 +2257,15 @@
     "@babel/runtime" "^7.8.4"
     "@zendeskgarden/container-utilities" "^0.5.4"
 
+"@zendeskgarden/container-tabs@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@zendeskgarden/container-tabs/-/container-tabs-0.5.6.tgz#86a54e554d4075d8b2f2c69515b7755ee94254e3"
+  integrity sha512-v7tj5Z7Cc868JeFrisCP/Vd+trS2uu4aOiis1c8CJvXxTw6yt8s2Z3Uvc6TXvVSMa0qWL19lx3yiZTIzJo+1Jw==
+  dependencies:
+    "@babel/runtime" "^7.8.4"
+    "@zendeskgarden/container-selection" "^1.3.6"
+    react-uid "^2.2.0"
+
 "@zendeskgarden/container-utilities@^0.5.1", "@zendeskgarden/container-utilities@^0.5.4":
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/@zendeskgarden/container-utilities/-/container-utilities-0.5.4.tgz#8550404cafd0aab5ed80f3da0a51d424e8e3facb"
@@ -2315,6 +2324,15 @@
     "@zendeskgarden/container-schedule" "^1.3.1"
     polished "^3.5.1"
 
+"@zendeskgarden/react-tabs@^8.19.0":
+  version "8.19.0"
+  resolved "https://registry.yarnpkg.com/@zendeskgarden/react-tabs/-/react-tabs-8.19.0.tgz#8b8eda4dc2a6611846387f47bc0040c8c186fe20"
+  integrity sha512-uHWry/soUp4+sMQUF/plFHGE8FzmZ2LX4U3mCsyPoB9Y3pZYqLN6xZDfitU3CfGYh4coGkUJmuCHLxVGDbmzog==
+  dependencies:
+    "@zendeskgarden/container-tabs" "^0.5.6"
+    "@zendeskgarden/container-utilities" "^0.5.1"
+    polished "^3.5.1"
+
 "@zendeskgarden/react-theming@^8.18.0":
   version "8.19.0"
   resolved "https://registry.yarnpkg.com/@zendeskgarden/react-theming/-/react-theming-8.19.0.tgz#aa67add2797c7a53f18a037501bfd5a63e81dfff"
@@ -2322,6 +2340,13 @@
   dependencies:
     "@zendeskgarden/container-focusvisible" "^0.4.3"
     "@zendeskgarden/container-utilities" "^0.5.1"
+    polished "^3.5.1"
+
+"@zendeskgarden/react-typography@^8.19.0":
+  version "8.19.0"
+  resolved "https://registry.yarnpkg.com/@zendeskgarden/react-typography/-/react-typography-8.19.0.tgz#f1c42c534c4b279c031a0546137844da2a67c1cf"
+  integrity sha512-yr5W5bvOwuWMijLPRdMp343fBkRu2XyCekA8iOODOfXr4XjrjNW/aFqovSRMydQtVU57wvoM23eklsP0B3QpKQ==
+  dependencies:
     polished "^3.5.1"
 
 "@zendeskgarden/svg-icons@^6.21.0":

@@ -29,7 +29,10 @@ const query = graphql`
 `
 
 const MainContainer = styled.main`
+  background-color: #2c2830;
+  display: flex;
   flex: 1;
+  justify-content: center;
 `
 const Layout = React.memo(({ children }) => {
   const {

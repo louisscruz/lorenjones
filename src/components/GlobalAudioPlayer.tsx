@@ -50,6 +50,9 @@ const SliderContainer = styled.div`
   color: green;
   border-radius: 3px;
   margin: 4px 0;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 interface SliderProgressProps {

@@ -1,6 +1,7 @@
 const path = require("path")
 
-const env = true ? require("./ci-env") : require("./.env")
+const isGitHubActionsWorkflowRun = Boolean(process.env.GITHUB_RUN_ID)
+const env = isGitHubActionsWorkflowRun ? require("./ci-env") : require("./.env")
 
 module.exports = {
   // For GitHub Pages
@@ -40,6 +41,14 @@ module.exports = {
       options: {
         spreadsheetId: env.googleSpreadsheetId,
         worksheetTitle: "albums",
+        credentials: env.googleServiceAccountCredentials,
+      },
+    },
+    {
+      resolve: "gatsby-source-google-sheets",
+      options: {
+        spreadsheetId: env.googleSpreadsheetId,
+        worksheetTitle: "bios",
         credentials: env.googleServiceAccountCredentials,
       },
     },
