@@ -30,4 +30,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
 on: [push]
-name: Loren Jones CI
+name: Standard CI
