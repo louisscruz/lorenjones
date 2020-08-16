@@ -4,8 +4,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: "Check it out"
-        run: |
-          curl http://louisscruz.github.io/lorenjones/
+        run: yarn should-deploy
   deploy:
     runs-on: ubuntu-latest
     steps:
