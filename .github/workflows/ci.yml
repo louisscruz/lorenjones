@@ -1,10 +1,4 @@
 jobs:
-  check-if-should-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: "Check it out"
-        run: yarn should-deploy
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -17,7 +11,7 @@ jobs:
         with:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
       - name: Install dependencies
-        run: yarn
+        run: yarn --offline --frozen-lockfile
       - env:
           GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
           GOOGLE_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
