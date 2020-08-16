@@ -1,6 +1,6 @@
 const path = require("path")
 
-const env = require("./.env")
+const env = true ? require("./ci-env") : require("./.env")
 
 module.exports = {
   // For GitHub Pages
@@ -47,7 +47,23 @@ module.exports = {
       resolve: "gatsby-source-google-sheets",
       options: {
         spreadsheetId: env.googleSpreadsheetId,
+        worksheetTitle: "quotes",
+        credentials: env.googleServiceAccountCredentials,
+      },
+    },
+    {
+      resolve: "gatsby-source-google-sheets",
+      options: {
+        spreadsheetId: env.googleSpreadsheetId,
         worksheetTitle: "tracks",
+        credentials: env.googleServiceAccountCredentials,
+      },
+    },
+    {
+      resolve: "gatsby-source-google-sheets",
+      options: {
+        spreadsheetId: env.googleSpreadsheetId,
+        worksheetTitle: "version",
         credentials: env.googleServiceAccountCredentials,
       },
     },

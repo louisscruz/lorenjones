@@ -31,7 +31,7 @@ const query = graphql`
   query GetTracks {
     allGoogleSheetTracksRow(sort: { fields: playlistIndex }) {
       nodes {
-        albumRowIdentifier
+        albumId
         audioLink
         description
         id
