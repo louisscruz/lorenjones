@@ -47,15 +47,15 @@ const About = React.memo(() => {
         </TabList>
         {bios.map(({ content, id, name }) => (
           <TabPanel item={name} key={id}>
-            {content.split("\n").map(paragraph => (
-              <Paragraph>{paragraph}</Paragraph>
+            {content.split("\n").map((paragraph, index) => (
+              <Paragraph key={index}>{paragraph}</Paragraph>
             ))}
           </TabPanel>
         ))}
       </Tabs>
       <XXL>Quotes</XXL>
       {quotes.map(({ content, id, name, title, url }) => (
-        <div>
+        <div key={id}>
           <Paragraph key={id}>{content}</Paragraph>
           <Paragraph>
             {name}, {title}

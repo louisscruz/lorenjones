@@ -13,6 +13,8 @@ jobs:
       - name: Install dependencies
         run: yarn --offline --frozen-lockfile
       - env:
+          GATSBY_CONTACT_FORM_POST_URL: ${{ secrets.GATSBY_CONTACT_FORM_POST_URL }}
+          GATSBY_LORENS_EMAIL_ADDRESS: ${{ secrets.GATSBY_LORENS_EMAIL_ADDRESS }}
           GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
           GOOGLE_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
           GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}

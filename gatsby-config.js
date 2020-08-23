@@ -1,7 +1,41 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 const path = require("path")
 
+const {
+  GOOGLE_SPREADSHEET_ID,
+  GOOGLE_SERVICE_ACCOUNT_CREDENTIALS,
+} = process.env
+
 const isGitHubActionsWorkflowRun = Boolean(process.env.GITHUB_RUN_ID)
-const env = isGitHubActionsWorkflowRun ? require("./ci-env") : require("./.env")
+if (isGitHubActionsWorkflowRun && !GOOGLE_SERVICE_ACCOUNT_CREDENTIALS) {
+  throw new Error("Missing environment variables")
+}
+
+const googleServiceAccountCredentials = isGitHubActionsWorkflowRun
+  ? JSON.parse(GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.trim().replace(/\n/g, "\\n"))
+  : require("./.google-service-account-credentials.json")
+
+function checkEnv(envName) {
+  if (
+    typeof process.env[envName] === "undefined" ||
+    process.env[envName] === ""
+  ) {
+    throw `Missing required environment variables: ${envName}`
+  }
+}
+
+try {
+  checkEnv("NODE_ENV")
+  checkEnv("GOOGLE_SPREADSHEET_ID")
+  checkEnv("GATSBY_CONTACT_FORM_POST_URL")
+  checkEnv("GATSBY_LORENS_EMAIL_ADDRESS")
+  checkEnv("GOOGLE_DRIVE_FOLDER_ID")
+  checkEnv("GOOGLE_SPREADSHEET_ID")
+} catch (e) {
+  throw new Error(e)
+}
 
 module.exports = {
   // For GitHub Pages
@@ -39,41 +73,41 @@ module.exports = {
     {
       resolve: "gatsby-source-google-sheets",
       options: {
-        spreadsheetId: env.googleSpreadsheetId,
+        spreadsheetId: GOOGLE_SPREADSHEET_ID,
         worksheetTitle: "albums",
-        credentials: env.googleServiceAccountCredentials,
+        credentials: googleServiceAccountCredentials,
       },
     },
     {
       resolve: "gatsby-source-google-sheets",
       options: {
-        spreadsheetId: env.googleSpreadsheetId,
+        spreadsheetId: GOOGLE_SPREADSHEET_ID,
         worksheetTitle: "bios",
-        credentials: env.googleServiceAccountCredentials,
+        credentials: googleServiceAccountCredentials,
       },
     },
     {
       resolve: "gatsby-source-google-sheets",
       options: {
-        spreadsheetId: env.googleSpreadsheetId,
+        spreadsheetId: GOOGLE_SPREADSHEET_ID,
         worksheetTitle: "quotes",
-        credentials: env.googleServiceAccountCredentials,
+        credentials: googleServiceAccountCredentials,
       },
     },
     {
       resolve: "gatsby-source-google-sheets",
       options: {
-        spreadsheetId: env.googleSpreadsheetId,
+        spreadsheetId: GOOGLE_SPREADSHEET_ID,
         worksheetTitle: "tracks",
-        credentials: env.googleServiceAccountCredentials,
+        credentials: googleServiceAccountCredentials,
       },
     },
     {
       resolve: "gatsby-source-google-sheets",
       options: {
-        spreadsheetId: env.googleSpreadsheetId,
+        spreadsheetId: GOOGLE_SPREADSHEET_ID,
         worksheetTitle: "version",
-        credentials: env.googleServiceAccountCredentials,
+        credentials: googleServiceAccountCredentials,
       },
     },
     {
