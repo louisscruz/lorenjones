@@ -4,9 +4,11 @@ import styled from "styled-components"
 import GlobalAudioPlayer from "./GlobalAudioPlayer"
 
 const StyledFooter = styled.footer`
+  background-color: white;
   display: flex;
   flex-direction: column;
   height: 60px;
+  z-index: 10;
 `
 
 const FooterContainer = styled.div`

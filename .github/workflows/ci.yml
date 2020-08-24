@@ -20,8 +20,8 @@ jobs:
           GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
         name: Build
         run: yarn build:ci
-      - if: github.ref == 'refs/heads/master'
-        name: Deploy
+      # - if: github.ref == 'refs/heads/master'
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

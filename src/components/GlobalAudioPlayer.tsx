@@ -12,9 +12,11 @@ import MenuIcon from "@zendeskgarden/svg-icons/src/12/menu-fill.svg"
 
 const PlayerContainer = styled.div`
   align-items: center;
+  background-color: white;
   display: flex;
   flex-direction: row;
   width: 100%;
+  z-index: 10;
 `
 
 const StartColumn = styled.div``
@@ -25,6 +27,10 @@ const EndColumn = styled.div`
 
 const Title = styled.p`
   width: 100%;
+`
+
+const StyledPlayIconButton = styled(IconButton)`
+  margin: 0 4px;
 `
 
 const query = graphql`
@@ -313,12 +319,13 @@ const GlobalAudioPlayer = React.memo(() => {
         >
           <ChevronLeft />
         </IconButton>
-        <IconButton
+        <StyledPlayIconButton
           aria-label={isPlaying ? "Pause" : "Play"}
           onClick={handlePlayClick}
+          isPrimary
         >
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
-        </IconButton>
+        </StyledPlayIconButton>
         <IconButton aria-label="Next" onClick={handleNextClick} size="small">
           <ChevronRight />
         </IconButton>

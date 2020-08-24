@@ -48,13 +48,13 @@
   "scripts": {
     "build": "gatsby build",
     "build:ci": "gatsby build --prefix-paths",
+    "clean": "gatsby clean",
     "deploy:local": "gatsby build --prefix-paths && gh-pages -d public",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "npm run develop",
     "serve": "gatsby serve",
     "should-deploy": "node scripts/shouldDeploy.js",
-    "clean": "gatsby clean",
+    "start": "npm run develop",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "repository": {

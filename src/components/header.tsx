@@ -7,7 +7,8 @@ interface HeaderProps {
 }
 
 const StyledHeader = styled.header`
-  z-index: 1;
+  background-color: white;
+  z-index: 10;
 `
 
 const HeaderContainer = styled.div`
@@ -19,6 +20,7 @@ const HeaderContainer = styled.div`
 `
 
 const StyledLink = styled(Link)`
+  margin: 0 12px;
   text-decoration: none;
 `
 
@@ -30,6 +32,7 @@ const Header = React.memo<HeaderProps>(({ siteTitle }) => (
       <StyledLink to="/">Music</StyledLink>
       <a
         href="https://www.flickr.com/photos/134139109@N08/albums"
+        rel="noopener noreferrer"
         target="_blank"
       >
         Photos
