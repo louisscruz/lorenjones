@@ -224,6 +224,12 @@ const Slider = React.memo<SliderProps>(({ onChange, onStartSeek, value }) => {
   )
 })
 
+const formatTime = timeInSeconds => {
+  const date = new Date(0)
+  date.setSeconds(timeInSeconds)
+  return date.toISOString().substr(14, 5)
+}
+
 // TODO:
 //
 // Styling of progress bar (border + focus styles)
@@ -318,6 +324,10 @@ const GlobalAudioPlayer = React.memo(() => {
     }
   }, [])
 
+  const timeToDisplay = `${formatTime(currentTimeRef.current)} / ${formatTime(
+    currentDurationRef.current
+  )}`
+
   return (
     <PlayerContainer>
       <StartColumn>
@@ -358,7 +368,9 @@ const GlobalAudioPlayer = React.memo(() => {
         </Dropdown>
       </StartColumn>
       <EndColumn>
-        <Title>{currentTrack.name}</Title>
+        <Title>
+          {currentTrack.name} ({timeToDisplay})
+        </Title>
         <Slider
           onChange={handleSliderChange}
           onStartSeek={handleStartSeek}
