@@ -13,9 +13,27 @@ import { Dots } from "@zendeskgarden/react-loaders"
 
 import ContentContainer from "../components/ContentContainer"
 
-const defaultErrors = []
+interface FormData {
+  readonly email: string
+  readonly name: string
+  readonly message: string
+}
 
-const getNameErrors = value => {
+interface FormDataWithMetadata extends FormData {
+  readonly _subject: string
+  readonly _replyTo: string
+}
+
+interface Alert {
+  readonly content: string
+  readonly id: number
+  readonly title: string
+  readonly type: "success" | "error" | "warning" | "info"
+}
+
+const defaultErrors: Array<string> = []
+
+const getNameErrors = (value: string) => {
   const errors = []
 
   if (!value) {
@@ -29,7 +47,7 @@ const getNameErrors = value => {
 
 const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 
-const getEmailErrors = value => {
+const getEmailErrors = (value: string) => {
   const errors = []
 
   if (!value) {
@@ -40,7 +58,7 @@ const getEmailErrors = value => {
 
   return errors
 }
-const getMessageErrors = value => {
+const getMessageErrors = (value: string) => {
   const errors = []
 
   if (!value) {
@@ -54,26 +72,27 @@ const getMessageErrors = value => {
   return errors
 }
 
-const generateDefaultFieldState = validator => ({
+const generateDefaultFieldState = (
+  validator: (_: string) => Array<string>
+) => ({
   errors: validator(""),
   hasBeenBlurred: false,
   value: "",
 })
 
-const formDataToJson = formData => {
+const formDataToJson = (formData: FormData) => {
   const subject = `New message from ${formData.name} (${formData.email})`
 
-  const dataObjectToUse = { ...formData }
-
-  // eslint-disable-next-line no-underscore-dangle
-  dataObjectToUse._subject = subject
-  // eslint-disable-next-line no-underscore-dangle
-  dataObjectToUse._replyTo = formData.email
+  const dataObjectToUse: FormDataWithMetadata = {
+    ...formData,
+    _replyTo: formData.email,
+    _subject: subject,
+  }
 
   return JSON.stringify(dataObjectToUse)
 }
 
-const sendContactForm = formData => {
+const sendContactForm = (formData: FormData) => {
   if (!formData.name || !formData.email || !formData.message) {
     return Promise.reject(
       new Error(
@@ -82,7 +101,7 @@ const sendContactForm = formData => {
     )
   }
 
-  return fetch(process.env.GATSBY_CONTACT_FORM_POST_URL, {
+  return fetch(process.env.GATSBY_CONTACT_FORM_POST_URL as string, {
     body: formDataToJson(formData),
     headers: {
       "Content-Type": "application/json",
@@ -113,16 +132,16 @@ const Contact = React.memo(() => {
   const [message, setMessage] = useState(
     generateDefaultFieldState(getMessageErrors)
   )
-  const [alerts, setAlerts] = useState([])
+  const [alerts, setAlerts] = useState<Array<Alert>>([])
   const addAlert = useCallback(({ content, title, type }) => {
-    const alert = {
+    const alert: Alert = {
       content,
       id: generateAlertId(),
       title,
       type,
     }
 
-    setAlerts(previousAlerts => [...previousAlerts, alert])
+    setAlerts((previousAlerts: Array<Alert>) => [...previousAlerts, alert])
   }, [])
 
   const isValidForm = useMemo(
@@ -268,7 +287,7 @@ const Contact = React.memo(() => {
             value={name.value}
           />
         </Field>
-        {nameErrors.map(error => (
+        {nameErrors.map((error: string) => (
           <Message key={error} validation="error">
             {error}
           </Message>
@@ -283,7 +302,7 @@ const Contact = React.memo(() => {
             value={email.value}
           />
         </Field>
-        {emailErrors.map(error => (
+        {emailErrors.map((error: string) => (
           <Message key={error} validation="error">
             {error}
           </Message>
@@ -298,7 +317,7 @@ const Contact = React.memo(() => {
             value={message.value}
           />
         </Field>
-        {messageErrors.map(error => (
+        {messageErrors.map((error: string) => (
           <Message key={error} validation="error">
             {error}
           </Message>

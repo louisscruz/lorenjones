@@ -31,6 +31,9 @@
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
+    "@types/node": "^14.6.2",
+    "@types/react": "^16.9.48",
+    "@types/react-dom": "^16.9.8",
     "@types/styled-components": "^5.1.2",
     "babel-plugin-styled-components": "^1.11.1",
     "dotenv": "^8.2.0",
@@ -55,7 +58,8 @@
     "serve": "gatsby serve",
     "should-deploy": "node scripts/shouldDeploy.js",
     "start": "npm run develop",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "type-check": "tsc --noEmit"
   },
   "repository": {
     "type": "git",

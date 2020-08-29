@@ -1,6 +1,5 @@
 import React, { useCallback, useRef, useState, useEffect } from "react"
 import { IconButton } from "@zendeskgarden/react-buttons"
-// import { Progress } from "@zendeskgarden/react-loaders"
 import styled from "styled-components"
 import { Dropdown, Item, Menu, Trigger } from "@zendeskgarden/react-dropdowns"
 import { useStaticQuery, graphql } from "gatsby"
@@ -48,7 +47,7 @@ const query = graphql`
 `
 
 const downshiftProps = {
-  itemToString: item => (item ? item.id : ""),
+  itemToString: (item: { id: string }) => (item ? item.id : ""),
 }
 
 const SliderContainer = styled.div`
@@ -82,12 +81,20 @@ interface SliderProps {
   readonly value: number
 }
 
+interface Track {
+  readonly audioLink: string
+  readonly id: string
+  readonly name: string
+}
+
 const noOp = () => {}
 
 const getNextPercentage = (
   event: MouseEvent,
-  sliderContainerRef: React.MutableRefObject<HTMLDivElement>
-) => {
+  sliderContainerRef: React.RefObject<HTMLDivElement>
+): number => {
+  if (!sliderContainerRef.current) return 0
+
   const {
     left: initialStartPosition,
     right: initialEndPosition,
@@ -98,10 +105,10 @@ const getNextPercentage = (
 }
 
 const Slider = React.memo<SliderProps>(({ onChange, onStartSeek, value }) => {
-  const [localSeekValue, setLocalSeekValue] = useState<number>(null)
+  const [localSeekValue, setLocalSeekValue] = useState<number>(0)
   const onStopSeekRef = useRef(noOp)
 
-  const sliderContainerRef = useRef<HTMLDivElement>()
+  const sliderContainerRef = useRef<HTMLDivElement>(null)
 
   const localSeekValueRef = useRef<number>(localSeekValue)
 
@@ -116,8 +123,8 @@ const Slider = React.memo<SliderProps>(({ onChange, onStartSeek, value }) => {
       let percentage = getNextPercentage(event, sliderContainerRef)
       let isAnimationFrameRequested = false
 
-      const handleSeekSlide = event => {
-        if (isAnimationFrameRequested) return
+      const handleSeekSlide = (event: MouseEvent) => {
+        if (isAnimationFrameRequested || !sliderContainerRef.current) return
         const {
           left: startPosition,
           right: endPosition,
@@ -156,7 +163,7 @@ const Slider = React.memo<SliderProps>(({ onChange, onStartSeek, value }) => {
           onStopSeekRef.current = noOp
 
           onChange(percentage)
-          setLocalSeekValue(null)
+          setLocalSeekValue(0)
         },
         { once: true }
       )
@@ -224,7 +231,7 @@ const Slider = React.memo<SliderProps>(({ onChange, onStartSeek, value }) => {
   )
 })
 
-const formatTime = timeInSeconds => {
+const formatTime = (timeInSeconds: number) => {
   const date = new Date(0)
   date.setSeconds(timeInSeconds)
   return date.toISOString().substr(14, 5)
@@ -232,15 +239,15 @@ const formatTime = timeInSeconds => {
 
 // TODO:
 //
-// Styling of progress bar (border + focus styles)
-// Add current time and duration display
 // Add callbacks for global player control from local players
 //
 const GlobalAudioPlayer = React.memo(() => {
   const {
     allGoogleSheetTracksRow: { nodes: tracks },
-  } = useStaticQuery(query)
-  const audioRef = useRef<HTMLAudioElement>()
+  } = useStaticQuery<{
+    allGoogleSheetTracksRow: { nodes: Array<Track> }
+  }>(query)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   const [currentTrack, setCurrentTrack] = useState(tracks[0])
   const [isPlaying, setIsPlaying] = useState(false)
@@ -249,7 +256,9 @@ const GlobalAudioPlayer = React.memo(() => {
     setCurrentTrack(track)
   }, [])
   const handlePreviousClick = useCallback(() => {
-    const currentTrackIndex = tracks.findIndex(track => track === currentTrack)
+    const currentTrackIndex = tracks.findIndex(
+      (track: Track) => track.id === currentTrack.id
+    )
     const nextTrackIndex =
       (currentTrackIndex + tracks.length - 1) % tracks.length
 
@@ -257,15 +266,17 @@ const GlobalAudioPlayer = React.memo(() => {
   }, [currentTrack, tracks])
   const handlePlayClick = useCallback(() => {
     if (isPlaying) {
-      audioRef.current.pause()
+      audioRef.current?.pause()
       setIsPlaying(false)
     } else {
-      audioRef.current.play()
+      audioRef.current?.play()
       setIsPlaying(true)
     }
   }, [isPlaying])
   const handleNextClick = useCallback(() => {
-    const currentTrackIndex = tracks.findIndex(track => track === currentTrack)
+    const currentTrackIndex = tracks.findIndex(
+      (track: Track) => track.id === currentTrack.id
+    )
     const nextTrackIndex =
       (currentTrackIndex + tracks.length + 1) % tracks.length
 
@@ -280,7 +291,7 @@ const GlobalAudioPlayer = React.memo(() => {
 
   useEffect(() => {
     if (isPlayingRef.current) {
-      audioRef.current.play()
+      audioRef.current?.play()
     }
   }, [currentTrack])
 
@@ -290,14 +301,14 @@ const GlobalAudioPlayer = React.memo(() => {
   const [currentProgress, setCurrentProgress] = useState(0)
 
   const handleLoadedMetadata = useCallback(e => {
-    currentDurationRef.current = audioRef.current.duration
+    currentDurationRef.current = audioRef.current?.duration || 0
     const progress = (currentTimeRef.current / currentDurationRef.current) * 100
 
     setCurrentProgress(progress)
   }, [])
 
   const handleTimeUpdate = useCallback(e => {
-    currentTimeRef.current = audioRef.current.currentTime
+    currentTimeRef.current = audioRef.current?.currentTime || 0
     const progress = (currentTimeRef.current / currentDurationRef.current) * 100
 
     setCurrentProgress(progress)
@@ -305,21 +316,23 @@ const GlobalAudioPlayer = React.memo(() => {
 
   const handleSliderChange = useCallback((value: number) => {
     setCurrentProgress(value)
-    const duration = audioRef.current.duration
+    const duration = audioRef.current?.duration || 0
     const newCurrentTime = (duration * value) / 100
-    audioRef.current.currentTime = newCurrentTime
+    if (audioRef.current) {
+      audioRef.current.currentTime = newCurrentTime || 0
+    }
   }, [])
 
   const handleStartSeek = useCallback(() => {
     const isPlaying = isPlayingRef.current
 
     if (isPlaying) {
-      audioRef.current.pause()
+      audioRef.current?.pause()
     }
 
     return () => {
       if (isPlaying) {
-        audioRef.current.play()
+        audioRef.current?.play()
       }
     }
   }, [])

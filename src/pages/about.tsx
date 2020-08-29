@@ -5,6 +5,20 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import ContentContainer from "../components/ContentContainer"
 
+interface Bio {
+  readonly content: string
+  readonly id: string
+  readonly name: string
+}
+
+interface Quote {
+  readonly content: string
+  readonly id: string
+  readonly name: string
+  readonly title: string
+  readonly url: string
+}
+
 const query = graphql`
   query BiosQuery {
     allGoogleSheetBiosRow(sort: { fields: tabIndex }) {
@@ -30,7 +44,14 @@ const About = React.memo(() => {
   const {
     allGoogleSheetBiosRow: { nodes: bios },
     allGoogleSheetQuotesRow: { nodes: quotes },
-  } = useStaticQuery(query)
+  } = useStaticQuery<{
+    allGoogleSheetBiosRow: {
+      nodes: Array<Bio>
+    }
+    allGoogleSheetQuotesRow: {
+      nodes: Array<Quote>
+    }
+  }>(query)
 
   const [currentBio, setCurrentBio] = useState(bios[0].name)
 
