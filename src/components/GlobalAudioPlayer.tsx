@@ -52,9 +52,10 @@ const downshiftProps = {
 }
 
 const SliderContainer = styled.div`
-  height: 6px;
-  color: green;
+  background-color: lightgrey;
   border-radius: 3px;
+  color: green;
+  height: 6px;
   margin: 4px 0;
   &:hover {
     cursor: pointer;
@@ -70,9 +71,9 @@ const SliderProgress = styled.div.attrs<SliderProgressProps>(({ value }) => ({
     width: `${value}%`,
   },
 }))<SliderProgressProps>`
-  height: 6px;
-  border-radius: 3px;
   background: currentColor;
+  border-radius: 3px;
+  height: 6px;
 `
 
 interface SliderProps {
@@ -110,10 +111,13 @@ const Slider = React.memo<SliderProps>(({ onChange, onStartSeek, value }) => {
 
   const handleMouseDown = useCallback(
     event => {
+      if (event.button !== 0) return
       onStopSeekRef.current = onStartSeek()
       let percentage = getNextPercentage(event, sliderContainerRef)
+      let isAnimationFrameRequested = false
 
       const handleSeekSlide = event => {
+        if (isAnimationFrameRequested) return
         const {
           left: startPosition,
           right: endPosition,
@@ -134,7 +138,12 @@ const Slider = React.memo<SliderProps>(({ onChange, onStartSeek, value }) => {
         const mousePositionWithOffset = event.pageX - startPosition
         percentage = (mousePositionWithOffset / width) * 100
 
-        setLocalSeekValue(percentage)
+        isAnimationFrameRequested = true
+
+        requestAnimationFrame(() => {
+          isAnimationFrameRequested = false
+          setLocalSeekValue(percentage)
+        })
       }
 
       document.addEventListener("mousemove", handleSeekSlide)
