@@ -7,6 +7,7 @@ import LorenJonesSvg from "../images/loren-jones.svg"
 const Container = styled.div`
   align-items: center;
   display: flex;
+  flex: 1;
   justify-content: center;
 `
 

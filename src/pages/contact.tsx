@@ -12,6 +12,7 @@ import {
 import { Dots } from "@zendeskgarden/react-loaders"
 
 import ContentContainer from "../components/ContentContainer"
+import SEO from "../components/seo"
 
 interface FormData {
   readonly email: string
@@ -264,6 +265,7 @@ const Contact = React.memo(() => {
 
   return (
     <ContentContainer>
+      <SEO title="Contact" />
       {alerts.map(({ content, id, title, type }) => (
         <Alert key={id} type={type}>
           <Title>{title}</Title>

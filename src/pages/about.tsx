@@ -4,6 +4,7 @@ import { Tabs, TabList, Tab, TabPanel } from "@zendeskgarden/react-tabs"
 import { useStaticQuery, graphql } from "gatsby"
 
 import ContentContainer from "../components/ContentContainer"
+import SEO from "../components/seo"
 
 interface Bio {
   readonly content: string
@@ -58,6 +59,7 @@ const About = React.memo(() => {
   return (
     <>
       <ContentContainer>
+        <SEO title="About" />
         <XXL>About</XXL>
         <Tabs selectedItem={currentBio} onChange={setCurrentBio}>
           <TabList>

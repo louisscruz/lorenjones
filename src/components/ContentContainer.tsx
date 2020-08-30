@@ -5,9 +5,9 @@ const OuterContentContainer = styled.div`
   background-color: white;
   border-radius: 4px;
   flex: 1;
+  flex-grow: 0;
   margin: 36px 24px;
   max-width: 720px;
-  padding: 24px 24px;
   width: 100%;
 `
 const InnerContentContainer = styled.div`
@@ -24,4 +24,4 @@ const ContentContainer = React.memo(({ children }) => (
   </OuterContentContainer>
 ))
 
-export default OuterContentContainer
+export default ContentContainer

@@ -1,13 +1,15 @@
 import React from "react"
+import { Paragraph, XXL } from "@zendeskgarden/react-typography"
 
 import SEO from "../components/seo"
+import ContentContainer from "../components/ContentContainer"
 
 const NotFoundPage = React.memo(() => (
-  <>
+  <ContentContainer>
     <SEO title="404: Not found" />
-    <h1>NOT FOUND</h1>
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
-  </>
+    <XXL>Not Found</XXL>
+    <Paragraph>There's nothing to be seen here, fellow traveler.</Paragraph>
+  </ContentContainer>
 ))
 
 export default NotFoundPage
