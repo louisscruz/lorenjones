@@ -56,34 +56,38 @@ const About = React.memo(() => {
   const [currentBio, setCurrentBio] = useState(bios[0].name)
 
   return (
-    <ContentContainer>
-      <XXL>About</XXL>
-      <Tabs selectedItem={currentBio} onChange={setCurrentBio}>
-        <TabList>
-          {bios.map(({ id, name }) => (
-            <Tab item={name} key={id}>
-              {name}
-            </Tab>
-          ))}
-        </TabList>
-        {bios.map(({ content, id, name }) => (
-          <TabPanel item={name} key={id}>
-            {content.split("\n").map((paragraph, index) => (
-              <Paragraph key={index}>{paragraph}</Paragraph>
+    <>
+      <ContentContainer>
+        <XXL>About</XXL>
+        <Tabs selectedItem={currentBio} onChange={setCurrentBio}>
+          <TabList>
+            {bios.map(({ id, name }) => (
+              <Tab item={name} key={id}>
+                {name}
+              </Tab>
             ))}
-          </TabPanel>
+          </TabList>
+          {bios.map(({ content, id, name }) => (
+            <TabPanel item={name} key={id}>
+              {content.split("\n").map((paragraph, index) => (
+                <Paragraph key={index}>{paragraph}</Paragraph>
+              ))}
+            </TabPanel>
+          ))}
+        </Tabs>
+      </ContentContainer>
+      <ContentContainer>
+        <XXL>Quotes</XXL>
+        {quotes.map(({ content, id, name, title, url }) => (
+          <div key={id}>
+            <Paragraph key={id}>{content}</Paragraph>
+            <Paragraph>
+              {name}, {title}
+            </Paragraph>
+          </div>
         ))}
-      </Tabs>
-      <XXL>Quotes</XXL>
-      {quotes.map(({ content, id, name, title, url }) => (
-        <div key={id}>
-          <Paragraph key={id}>{content}</Paragraph>
-          <Paragraph>
-            {name}, {title}
-          </Paragraph>
-        </div>
-      ))}
-    </ContentContainer>
+      </ContentContainer>
+    </>
   )
 })
 

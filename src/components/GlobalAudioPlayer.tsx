@@ -237,6 +237,16 @@ const formatTime = (timeInSeconds: number) => {
   return date.toISOString().substr(14, 5)
 }
 
+const useForceRerender = () => {
+  const [count, setCount] = useState(0)
+
+  const rerender = useRef(() => {
+    setCount(previousCount => previousCount + 1)
+  })
+
+  return rerender.current
+}
+
 // TODO:
 //
 // Add callbacks for global player control from local players
@@ -300,12 +310,22 @@ const GlobalAudioPlayer = React.memo(() => {
 
   const [currentProgress, setCurrentProgress] = useState(0)
 
-  const handleLoadedMetadata = useCallback(e => {
-    currentDurationRef.current = audioRef.current?.duration || 0
-    const progress = (currentTimeRef.current / currentDurationRef.current) * 100
+  // Force re-render is used because we handle time/duration updates
+  // imperatively for performance reasons. In specific state transitions, we
+  // need a render to occur.
+  const forceRerender = useForceRerender()
 
-    setCurrentProgress(progress)
-  }, [])
+  const handleLoadedMetadata = useCallback(
+    e => {
+      currentDurationRef.current = audioRef.current?.duration || 0
+      const progress =
+        (currentTimeRef.current / currentDurationRef.current) * 100
+
+      setCurrentProgress(progress)
+      forceRerender()
+    },
+    [forceRerender]
+  )
 
   const handleTimeUpdate = useCallback(e => {
     currentTimeRef.current = audioRef.current?.currentTime || 0

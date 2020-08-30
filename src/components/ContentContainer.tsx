@@ -8,6 +8,7 @@ const OuterContentContainer = styled.div`
   margin: 36px 24px;
   max-width: 720px;
   padding: 24px 24px;
+  width: 100%;
 `
 const InnerContentContainer = styled.div`
   background-color: white;
@@ -17,7 +18,6 @@ const InnerContentContainer = styled.div`
   max-width: 960px;
   padding: 24px 12px;
 `
-// TODO: Figure this out
 const ContentContainer = React.memo(({ children }) => (
   <OuterContentContainer>
     <InnerContentContainer>{children}</InnerContentContainer>
