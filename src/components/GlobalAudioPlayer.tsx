@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState, useEffect } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { IconButton } from "@zendeskgarden/react-buttons"
 import styled from "styled-components"
 import { Dropdown, Item, Menu, Trigger } from "@zendeskgarden/react-dropdowns"
@@ -8,6 +8,18 @@ import PauseIcon from "@zendeskgarden/svg-icons/src/16/pause-fill.svg"
 import ChevronLeft from "@zendeskgarden/svg-icons/src/12/chevron-double-left-fill.svg"
 import ChevronRight from "@zendeskgarden/svg-icons/src/12/chevron-double-right-fill.svg"
 import MenuIcon from "@zendeskgarden/svg-icons/src/12/menu-fill.svg"
+
+interface SliderProps {
+  readonly onChange: (_: number) => void
+  readonly onStartSeek: () => () => void
+  readonly value: number
+}
+
+export interface Track {
+  readonly audioLink: string
+  readonly id: string
+  readonly name: string
+}
 
 const PlayerContainer = styled.div`
   align-items: center;
@@ -46,6 +58,47 @@ const query = graphql`
   }
 `
 
+const useGlobalAudioPlayer = () => {
+  const {
+    allGoogleSheetTracksRow: { nodes: tracks },
+  } = useStaticQuery<{
+    allGoogleSheetTracksRow: { nodes: Array<Track> }
+  }>(query)
+  const [selectedTrack, setSelectedTrack] = useState(tracks[0])
+
+  const tracksById = useMemo(
+    () =>
+      tracks.reduce<{ [id: string]: Track }>((accumulator, track) => {
+        accumulator[track.id] = track
+        return accumulator
+      }, {}),
+    [tracks]
+  )
+
+  const selectedTrackRef = useRef(selectedTrack)
+
+  useEffect(() => {
+    selectedTrackRef.current = selectedTrack
+  }, [selectedTrack])
+
+  const getCurrentTrack = useRef(() => selectedTrack)
+
+  const selectTrack = useRef((id: string) => {
+    const nextTrack = tracksById[id]
+
+    if (nextTrack) {
+      setSelectedTrack(nextTrack)
+    }
+  })
+  const response = useRef({
+    allTracks: [],
+    getCurrentTrack: getCurrentTrack.current,
+    selectTrack: selectTrackRef.current,
+  })
+
+  return response.current
+}
+
 const downshiftProps = {
   itemToString: (item: { id: string }) => (item ? item.id : ""),
 }
@@ -74,18 +127,6 @@ const SliderProgress = styled.div.attrs<SliderProgressProps>(({ value }) => ({
   border-radius: 3px;
   height: 6px;
 `
-
-interface SliderProps {
-  readonly onChange: (_: number) => void
-  readonly onStartSeek: () => () => void
-  readonly value: number
-}
-
-interface Track {
-  readonly audioLink: string
-  readonly id: string
-  readonly name: string
-}
 
 const noOp = () => {}
 

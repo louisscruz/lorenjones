@@ -6,6 +6,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@zendeskgarden/css-bedrock": "^8.0.1",
+    "@zendeskgarden/react-accordions": "^8.21.0",
     "@zendeskgarden/react-buttons": "^8.19.0",
     "@zendeskgarden/react-dropdowns": "^8.18.0",
     "@zendeskgarden/react-forms": "^8.19.0",

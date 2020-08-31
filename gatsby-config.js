@@ -90,6 +90,14 @@ module.exports = {
       resolve: "gatsby-source-google-sheets",
       options: {
         spreadsheetId: GOOGLE_SPREADSHEET_ID,
+        worksheetTitle: "multi-movement-works",
+        credentials: googleServiceAccountCredentials,
+      },
+    },
+    {
+      resolve: "gatsby-source-google-sheets",
+      options: {
+        spreadsheetId: GOOGLE_SPREADSHEET_ID,
         worksheetTitle: "quotes",
         credentials: googleServiceAccountCredentials,
       },
@@ -107,6 +115,14 @@ module.exports = {
       options: {
         spreadsheetId: GOOGLE_SPREADSHEET_ID,
         worksheetTitle: "version",
+        credentials: googleServiceAccountCredentials,
+      },
+    },
+    {
+      resolve: "gatsby-source-google-sheets",
+      options: {
+        spreadsheetId: GOOGLE_SPREADSHEET_ID,
+        worksheetTitle: "works",
         credentials: googleServiceAccountCredentials,
       },
     },
