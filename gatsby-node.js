@@ -11,6 +11,18 @@ const mapTracksRowToTrackType = ({ albumId, audioLink, trackId, workId }) => ({
   workId,
 })
 
+const mapWorksRowToMovementType = ({
+  description,
+  name,
+  multiMovementWorkId,
+  workId,
+}) => ({
+  description,
+  name,
+  multiMovementWorkId,
+  workId,
+})
+
 const mapWorksRowToWorkType = ({
   category,
   description,
@@ -19,10 +31,14 @@ const mapWorksRowToWorkType = ({
   workId,
   multiMovementWorkId,
 }) => ({
-  __typeName: multiMovementWorkId ? "MultiMovementWork" : "SingleMovementWork",
   category,
   description,
   id: workId,
+  internal: {
+    type: multiMovementWorkId
+      ? "MultiMovementWorkMovement"
+      : "SingleMovementWork",
+  },
   name,
 })
 
@@ -73,21 +89,65 @@ exports.createResolvers = ({ createResolvers }) => {
       works: {
         resolve(source, args, context, info) {
           console.log("*** HELLO")
-          const things =
-            [
-              {
-                workId: "1",
-                description: "hello",
-                name: "Ohlone Song",
-                category: "Hello",
-              },
-            ] ||
-            context.nodeModel.getAllNodes({
-              type: "googleSheetWorksRow",
-            })
+          const works = context.nodeModel.getAllNodes({
+            type: "googleSheetWorksRow",
+          })
+          const multiMovementWorks = context.nodeModel.getAllNodes({
+            type: "googleSheetMultiMovementWorksRow",
+          })
 
-          console.log("*** here", things, things.map(mapWorksRowToWorkType))
-          return things.map(mapWorksRowToWorkType)
+          const multiMovementWorksById = multiMovementWorks.reduce(
+            (accumulator, work) => {
+              accumulator[work.multiMovementWorkId] = work
+              return accumulator
+            },
+            {}
+          )
+          const { accumulatedMultiMovementWorks, finalWorks } = works.reduce(
+            (accumulator, work, index) => {
+              const isMultiMovementWork = Boolean(work.multiMovementWorkId)
+              const isLast = index === works.length - 1
+
+              if (isMultiMovementWork) {
+                const previousMultiMovementWork =
+                  accumulator.accumulatedMultiMovementWorks[
+                    accumulator.accumulatedMultiMovementWorks.length - 1
+                  ]
+
+                if (previousMultiMovementWork) {
+                  const isSameId =
+                    previousMultiMovementWork.multiMovementWorkId ===
+                    work.multiMovementWorkId
+
+                  if (isSameId) {
+                    accumulator.accumulatedMultiMovementWorks.push(
+                      mapWorksRowToMovementType(work)
+                    )
+                  }
+
+                  if (!isSameId || isLast) {
+                    accumulator.finalWorks.push({})
+                    accumulator.multiMovementWorks = []
+                  }
+                }
+
+                if (isLast) {
+                  accumulator.finalWorks.push({})
+                  accumulator.multiMovementWorks = []
+                }
+              }
+
+              if (!isMultiMovementWork) {
+                accumulator.finalWorks.push(mapWorksRowToWorkType(work))
+              }
+
+              return accumulator
+            },
+            { accumulatedMultiMovementWorks: [], finalWorks: [] }
+          )
+
+          console.log("*** here", finalWorks)
+          return finalWorks
         },
         type: ["Work"],
       },
@@ -126,11 +186,66 @@ exports.createResolvers = ({ createResolvers }) => {
         },
         type: ["Work"],
       },
+      Work: {
+        type: ["Work"],
+        resolve(source, args, context, info) {
+          console.log("*** WORK RESOLVER")
+          return {
+            __typeName: "SingleMovementWork",
+            category: "hello",
+            description: "hello",
+            id: "1",
+            name: "name",
+          }
+        },
+      },
+      SingleMovementWork: {
+        type: ["SingleMovementWork"],
+        resolve(source, args, context, info) {
+          return {
+            __typeName: "SingleMovementWork",
+            category: "hello",
+            description: "hello",
+            id: "1",
+            name: "name",
+          }
+        },
+      },
+      MultiMovementWorkMovement: {
+        type: ["MultiMovementWorkMovement"],
+        resolve(source, args, context, info) {
+          return {
+            __typeName: "MultiMovementWorkMovement",
+            description: "hello",
+            id: "1",
+            name: "name",
+          }
+        },
+      },
+      MultiMovementWork: {
+        type: ["MultiMovementWork"],
+        resolve(source, args, context, info) {
+          return {
+            __typeName: "MultiMovementWork",
+            category: "hello",
+            description: "hello",
+            id: "1",
+            name: "name",
+          }
+        },
+      },
+      // MultiMovementWorkMovement: {},
       // MultiMovementWork: {
-      //   resolve(source, args, context, info) {
-      //     return mapWorksRowToWorkType(source)
+      //   category: {
+      //     type: "String",
+      //     resolve(source, args, context, info) {
+      //       return "hello"
+      //     },
       //   },
-      //   type: "MultiMovementWork",
+      //   // resolve(source, args, context, info) {
+      //   //   return mapWorksRowToWorkType(source)
+      //   // },
+      //   // type: "MultiMovementWork",
       // },
       // SingleMovementWork: {
       //   resolve(source, args, context, info) {
@@ -172,20 +287,20 @@ exports.createSchemaCustomization = ({ actions }) => {
       name: String!
     }
 
-    type SingleMovementWork implements Work {
+    type SingleMovementWork implements Node & Work {
       category: String!
       description: String
       id: ID!
       name: String!
     }
 
-    type MultiMovementWorkMovement implements Work {
+    type MultiMovementWorkMovement implements Node & Work {
       description: String
       id: ID!
       name: String!
     }
 
-    type MultiMovementWork implements Work {
+    type MultiMovementWork implements Node & Work {
       category: String!
       description: String
       id: ID!
