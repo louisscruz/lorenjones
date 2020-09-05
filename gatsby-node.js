@@ -56,6 +56,122 @@ const mapWorksRowToSingleMovementWorkType = (
   tracks: (tracksByWorkId[workId] || []).map(mapTracksRowToTrackType),
 })
 
+const getAllWorks = context => {
+  const works = context.nodeModel.getAllNodes(
+    {
+      type: "googleSheetWorksRow",
+    },
+    {
+      connectionType: "googleSheetWorksRow",
+    }
+  )
+  const multiMovementWorks = context.nodeModel.getAllNodes(
+    {
+      type: "googleSheetMultiMovementWorksRow",
+    },
+    {
+      connectionType: "googleSheetMultiMovementWorksRow",
+    }
+  )
+  const tracks = context.nodeModel.getAllNodes(
+    {
+      type: "googleSheetTracksRow",
+    },
+    {
+      connectionType: "googleSheetTracksRow",
+    }
+  )
+
+  const multiMovementWorksById = multiMovementWorks.reduce(
+    (accumulator, work) => {
+      accumulator[work.multiMovementWorkId] = work
+      return accumulator
+    },
+    {}
+  )
+  const tracksByWorkId = tracks.reduce((accumulator, track) => {
+    if (!accumulator[track.workId]) {
+      accumulator[track.workId] = []
+    }
+
+    accumulator[track.workId].push(track)
+
+    return accumulator
+  }, {})
+
+  const { accumulatedMultiMovementWork, finalWorks } = works.reduce(
+    (accumulator, work) => {
+      const { accumulatedMultiMovementWork, finalWorks } = accumulator
+      const isMultiMovementWork = Boolean(work.multiMovementWorkId)
+
+      // In this case, we are visiting a multi-movement work.
+      if (isMultiMovementWork) {
+        // In this case, we were already accumulating a multi-movement
+        // work.
+        if (accumulatedMultiMovementWork) {
+          const isSameId =
+            accumulatedMultiMovementWork.id === work.multiMovementWorkId
+          // In this case, the work we're currently looking at should be
+          // tacked onto the current multi-movement work we're
+          // accumulating.
+          if (isSameId) {
+            accumulator.accumulatedMultiMovementWork.movements.push(
+              mapWorksRowToMultiMovementWorkMovementType(work, {
+                tracksByWorkId,
+              })
+            )
+            // In this case, the work we're looking at is a movement to
+            // another multi-movement work. We need to flush the current
+            // accumulated multi-movement work and start a new multi-
+            // movement work to accumulate on.
+          } else {
+            finalWorks.push(accumulator.accumulatedMultiMovementWork)
+            accumulator.accumulatedMultiMovementWork = mapWorksRowToMultiMovementWork(
+              work
+            )
+          }
+          // In this case, this is the first multi-movement work that
+          // we've seen. Let's start accumulating.
+        } else {
+          const multiMovementWork =
+            multiMovementWorksById[work.multiMovementWorkId]
+          accumulator.accumulatedMultiMovementWork = mapWorksRowToMultiMovementWork(
+            multiMovementWork
+          )
+          accumulator.accumulatedMultiMovementWork.movements.push(
+            mapWorksRowToMultiMovementWorkMovementType(work, {
+              tracksByWorkId,
+            })
+          )
+        }
+        // In this case, we're vising a single movement work.
+      } else {
+        // In this case, we have an accumulated multi-movement work, so
+        // we need to flush it before adding the single movement work.
+        if (accumulatedMultiMovementWork) {
+          finalWorks.push(accumulator.accumulatedMultiMovementWork)
+          accumulator.accumulatedMultiMovementWork = null
+        }
+
+        accumulator.finalWorks.push(
+          mapWorksRowToSingleMovementWorkType(work, { tracksByWorkId })
+        )
+      }
+
+      return accumulator
+    },
+    { accumulatedMultiMovementWork: null, finalWorks: [] }
+  )
+
+  // In this case, we ended with a multi-movement accumulated work. So,
+  // we need to flush.
+  if (accumulatedMultiMovementWork) {
+    finalWorks.push(accumulatedMultiMovementWork)
+  }
+
+  return finalWorks
+}
+
 exports.createResolvers = ({ createResolvers }) => {
   const resolvers = {
     Album: {
@@ -101,7 +217,12 @@ exports.createResolvers = ({ createResolvers }) => {
       },
       tracks: {
         resolve(source, args, context, info) {
-          console.log("Inside Query.tracks")
+          const works = getAllWorks(context)
+          const worksById = works.reduce((accumulator, work) => {
+            accumulator[work.id] = works
+            return accumulator
+          }, {})
+
           return context.nodeModel
             .getAllNodes(
               {
@@ -111,127 +232,13 @@ exports.createResolvers = ({ createResolvers }) => {
                 connectionType: "googleSheetTracksRow",
               }
             )
-            .map(mapTracksRowToTrackType)
+            .map(trackRow => mapTracksRowToTrackType(trackRow, { worksById }))
         },
         type: ["Track"],
       },
       works: {
         resolve(source, args, context, info) {
-          const works = context.nodeModel.getAllNodes(
-            {
-              type: "googleSheetWorksRow",
-            },
-            {
-              connectionType: "googleSheetWorksRow",
-            }
-          )
-          const multiMovementWorks = context.nodeModel.getAllNodes(
-            {
-              type: "googleSheetMultiMovementWorksRow",
-            },
-            {
-              connectionType: "googleSheetMultiMovementWorksRow",
-            }
-          )
-          const tracks = context.nodeModel.getAllNodes(
-            {
-              type: "googleSheetTracksRow",
-            },
-            {
-              connectionType: "googleSheetTracksRow",
-            }
-          )
-
-          const multiMovementWorksById = multiMovementWorks.reduce(
-            (accumulator, work) => {
-              accumulator[work.multiMovementWorkId] = work
-              return accumulator
-            },
-            {}
-          )
-          const tracksByWorkId = tracks.reduce((accumulator, track) => {
-            if (!accumulator[track.workId]) {
-              accumulator[track.workId] = []
-            }
-
-            accumulator[track.workId].push(track)
-
-            return accumulator
-          }, {})
-
-          console.log("*** HEY", tracksByWorkId)
-
-          const { accumulatedMultiMovementWork, finalWorks } = works.reduce(
-            (accumulator, work) => {
-              const { accumulatedMultiMovementWork, finalWorks } = accumulator
-              const isMultiMovementWork = Boolean(work.multiMovementWorkId)
-
-              // In this case, we are visiting a multi-movement work.
-              if (isMultiMovementWork) {
-                // In this case, we were already accumulating a multi-movement
-                // work.
-                if (accumulatedMultiMovementWork) {
-                  const isSameId =
-                    accumulatedMultiMovementWork.id === work.multiMovementWorkId
-                  // In this case, the work we're currently looking at should be
-                  // tacked onto the current multi-movement work we're
-                  // accumulating.
-                  if (isSameId) {
-                    accumulator.accumulatedMultiMovementWork.movements.push(
-                      mapWorksRowToMultiMovementWorkMovementType(work, {
-                        tracksByWorkId,
-                      })
-                    )
-                    // In this case, the work we're looking at is a movement to
-                    // another multi-movement work. We need to flush the current
-                    // accumulated multi-movement work and start a new multi-
-                    // movement work to accumulate on.
-                  } else {
-                    finalWorks.push(accumulator.accumulatedMultiMovementWork)
-                    accumulator.accumulatedMultiMovementWork = mapWorksRowToMultiMovementWork(
-                      work
-                    )
-                  }
-                  // In this case, this is the first multi-movement work that
-                  // we've seen. Let's start accumulating.
-                } else {
-                  const multiMovementWork =
-                    multiMovementWorksById[work.multiMovementWorkId]
-                  accumulator.accumulatedMultiMovementWork = mapWorksRowToMultiMovementWork(
-                    multiMovementWork
-                  )
-                  accumulator.accumulatedMultiMovementWork.movements.push(
-                    mapWorksRowToMultiMovementWorkMovementType(work, {
-                      tracksByWorkId,
-                    })
-                  )
-                }
-                // In this case, we're vising a single movement work.
-              } else {
-                // In this case, we have an accumulated multi-movement work, so
-                // we need to flush it before adding the single movement work.
-                if (accumulatedMultiMovementWork) {
-                  finalWorks.push(accumulator.accumulatedMultiMovementWork)
-                  accumulator.accumulatedMultiMovementWork = null
-                }
-
-                accumulator.finalWorks.push(
-                  mapWorksRowToSingleMovementWorkType(work, { tracksByWorkId })
-                )
-              }
-
-              return accumulator
-            },
-            { accumulatedMultiMovementWork: null, finalWorks: [] }
-          )
-
-          // In this case, we ended with a multi-movement accumulated work. So,
-          // we need to flush.
-          if (accumulatedMultiMovementWork) {
-            finalWorks.push(accumulatedMultiMovementWork)
-          }
-
-          return finalWorks
+          return getAllWorks(context)
         },
         type: ["Work"],
       },
@@ -259,7 +266,6 @@ exports.createResolvers = ({ createResolvers }) => {
       },
       work: {
         resolve(source, args, context, info) {
-          console.log("INSIDE TRACK work")
           const work = context.nodeModel
             .getAllNodes(
               { type: "googleSheetWorksRow" },
@@ -273,75 +279,32 @@ exports.createResolvers = ({ createResolvers }) => {
             )
           }
 
-          console.log("Resolving work for track", work, source.workId)
+          const tracks = context.nodeModel
+            .getAllNodes(
+              { type: "googleSheetTracksRow" },
+              { connectionType: "googleSheetTracksRow" }
+            )
+            .filter(({ workId }) => workId === source.workId)
 
-          return mapWorksRowToSingleMovementWorkType(work)
+          const tracksByWorkId = tracks.reduce((accumulator, track) => {
+            if (!accumulator[track.workId]) {
+              accumulator[track.workId] = []
+            }
+
+            accumulator[track.workId].push(track)
+
+            return accumulator
+          }, {})
+
+          if (work.multiMovementWorkId) {
+            return mapWorksRowToMultiMovementWorkMovementType(work, {
+              tracksByWorkId,
+            })
+          }
+
+          return mapWorksRowToSingleMovementWorkType(work, { tracksByWorkId })
         },
-        type: ["Work"],
-      },
-      Work: {
         type: "Work",
-        resolve(source, args, context, info) {
-          console.log("*** WORK RESOLVER")
-          return {
-            __typeName: "SingleMovementWork",
-            category: "hello",
-            description: "hello",
-            id: "1",
-            name: "name",
-          }
-        },
-      },
-      SingleMovementWork: {
-        tracks: {
-          resolve(source, args, context, info) {
-            console.log("Inside Work.tracks")
-            return context.nodeModel
-              .getAllNodes(
-                {
-                  type: "googleSheetTracksRow",
-                },
-                {
-                  connectionType: "googleSheetTracksRow",
-                }
-              )
-              .map(mapTracksRowToTrackType)
-          },
-          type: ["Track"],
-        },
-        type: ["SingleMovementWork"],
-        // resolve(source, args, context, info) {
-        //   return {
-        //     __typeName: "SingleMovementWork",
-        //     category: "hello",
-        //     description: "hello",
-        //     id: "1",
-        //     name: "name",
-        //   }
-        // },
-      },
-      MultiMovementWorkMovement: {
-        type: ["MultiMovementWorkMovement"],
-        resolve(source, args, context, info) {
-          return {
-            __typeName: "MultiMovementWorkMovement",
-            description: "hello",
-            id: "1",
-            name: "name",
-          }
-        },
-      },
-      MultiMovementWork: {
-        type: ["MultiMovementWork"],
-        resolve(source, args, context, info) {
-          return {
-            __typeName: "MultiMovementWork",
-            category: "hello",
-            description: "hello",
-            id: "1",
-            name: "name",
-          }
-        },
       },
     },
   }
