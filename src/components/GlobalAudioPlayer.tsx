@@ -15,11 +15,38 @@ interface SliderProps {
   readonly value: number
 }
 
-export interface Track {
-  readonly audioLink: string
-  readonly id: string
-  readonly name: string
+interface Album {
+  id: string
+  name: string
+  tracks: Track[]
 }
+
+interface Track {
+  album?: Album
+  audioLink: string
+  id: string
+  work: TrackableWork
+  youtubeLink?: string
+}
+
+interface Work {
+  description?: string
+  id: string
+  name: string
+}
+
+interface SingleMovementWork extends Work {
+  category: string
+}
+
+interface MultiMovementWorkMovement extends Work {}
+
+interface MultiMovementWork extends Work {
+  category: string
+  movements: MultiMovementWorkMovement[]
+}
+
+type TrackableWork = SingleMovementWork | MultiMovementWorkMovement
 
 const PlayerContainer = styled.div`
   align-items: center;
@@ -46,23 +73,38 @@ const StyledPlayIconButton = styled(IconButton)`
 
 const query = graphql`
   query GetTracks {
-    allGoogleSheetTracksRow(sort: { fields: playlistIndex }) {
-      nodes {
-        albumId
-        audioLink
-        description
+    tracks {
+      album {
         id
         name
       }
+      audioLink
+      id
+      work {
+        ... on SingleMovementWork {
+          id
+          name
+        }
+        ... on MultiMovementWorkMovement {
+          id
+          name
+        }
+      }
+      youtubeLink
     }
   }
 `
 
-const useGlobalAudioPlayer = () => {
-  const {
-    allGoogleSheetTracksRow: { nodes: tracks },
-  } = useStaticQuery<{
-    allGoogleSheetTracksRow: { nodes: Array<Track> }
+interface UseGlobalAudioPlayerResponse {
+  isPlaying: Boolean
+  selectedTrack: Track
+  selectTrack: (id: string) => void
+  tracks: Track[]
+}
+
+const useGlobalAudioPlayer: () => UseGlobalAudioPlayerResponse = () => {
+  const { tracks } = useStaticQuery<{
+    tracks: Track[]
   }>(query)
   const [selectedTrack, setSelectedTrack] = useState(tracks[0])
 
@@ -81,8 +123,6 @@ const useGlobalAudioPlayer = () => {
     selectedTrackRef.current = selectedTrack
   }, [selectedTrack])
 
-  const getCurrentTrack = useRef(() => selectedTrack)
-
   const selectTrack = useRef((id: string) => {
     const nextTrack = tracksById[id]
 
@@ -90,13 +130,18 @@ const useGlobalAudioPlayer = () => {
       setSelectedTrack(nextTrack)
     }
   })
-  const response = useRef({
-    allTracks: [],
-    getCurrentTrack: getCurrentTrack.current,
-    selectTrack: selectTrackRef.current,
-  })
 
-  return response.current
+  const response = useMemo(
+    () => ({
+      isPlaying: false,
+      selectTrack: selectTrack.current,
+      selectedTrack,
+      tracks,
+    }),
+    [selectedTrack, tracks]
+  )
+
+  return response
 }
 
 const downshiftProps = {
@@ -294,27 +339,27 @@ const useForceRerender = () => {
 //
 const GlobalAudioPlayer = React.memo(() => {
   const {
-    allGoogleSheetTracksRow: { nodes: tracks },
-  } = useStaticQuery<{
-    allGoogleSheetTracksRow: { nodes: Array<Track> }
-  }>(query)
+    // isPlaying,
+    selectTrack,
+    selectedTrack,
+    tracks,
+  } = useGlobalAudioPlayer()
   const audioRef = useRef<HTMLAudioElement>(null)
 
-  const [currentTrack, setCurrentTrack] = useState(tracks[0])
   const [isPlaying, setIsPlaying] = useState(false)
 
   const handleSelect = useCallback(track => {
-    setCurrentTrack(track)
+    selectTrack(track.id)
   }, [])
   const handlePreviousClick = useCallback(() => {
     const currentTrackIndex = tracks.findIndex(
-      (track: Track) => track.id === currentTrack.id
+      (track: Track) => track.id === selectedTrack.id
     )
     const nextTrackIndex =
       (currentTrackIndex + tracks.length - 1) % tracks.length
 
-    setCurrentTrack(tracks[nextTrackIndex])
-  }, [currentTrack, tracks])
+    selectTrack(tracks[nextTrackIndex].id)
+  }, [selectedTrack, tracks])
   const handlePlayClick = useCallback(() => {
     if (isPlaying) {
       audioRef.current?.pause()
@@ -326,13 +371,14 @@ const GlobalAudioPlayer = React.memo(() => {
   }, [isPlaying])
   const handleNextClick = useCallback(() => {
     const currentTrackIndex = tracks.findIndex(
-      (track: Track) => track.id === currentTrack.id
+      (track: Track) => track.id === selectedTrack.id
     )
+    debugger
     const nextTrackIndex =
       (currentTrackIndex + tracks.length + 1) % tracks.length
 
-    setCurrentTrack(tracks[nextTrackIndex])
-  }, [currentTrack, isPlaying, tracks])
+    selectTrack(tracks[nextTrackIndex].id)
+  }, [selectedTrack, isPlaying, tracks])
 
   const isPlayingRef = useRef(isPlaying)
 
@@ -344,7 +390,7 @@ const GlobalAudioPlayer = React.memo(() => {
     if (isPlayingRef.current) {
       audioRef.current?.play()
     }
-  }, [currentTrack])
+  }, [selectedTrack])
 
   const currentDurationRef = useRef(0)
   const currentTimeRef = useRef(0)
@@ -425,7 +471,7 @@ const GlobalAudioPlayer = React.memo(() => {
         <Dropdown
           downshiftProps={downshiftProps}
           onSelect={handleSelect}
-          selectedItem={currentTrack}
+          selectedItem={selectedTrack}
         >
           <Trigger>
             <IconButton aria-label="Playlist" size="small">
@@ -435,7 +481,7 @@ const GlobalAudioPlayer = React.memo(() => {
           <Menu hasArrow>
             {tracks.map(track => (
               <Item key={track.id} value={track}>
-                {track.name}
+                {track.work.name}
               </Item>
             ))}
           </Menu>
@@ -443,7 +489,7 @@ const GlobalAudioPlayer = React.memo(() => {
       </StartColumn>
       <EndColumn>
         <Title>
-          {currentTrack.name} ({timeToDisplay})
+          {selectedTrack.work.name} ({timeToDisplay})
         </Title>
         <Slider
           onChange={handleSliderChange}
@@ -456,7 +502,7 @@ const GlobalAudioPlayer = React.memo(() => {
         onEnded={handleNextClick}
         onLoadedMetadata={handleLoadedMetadata}
         onTimeUpdate={handleTimeUpdate}
-        src={currentTrack.audioLink}
+        src={selectedTrack.audioLink}
       >
         Your browser does not support the
         <code>audio</code> element.
