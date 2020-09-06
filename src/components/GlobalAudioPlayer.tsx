@@ -1,4 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { IconButton } from "@zendeskgarden/react-buttons"
 import styled from "styled-components"
 import { Dropdown, Item, Menu, Trigger } from "@zendeskgarden/react-dropdowns"
@@ -95,18 +102,42 @@ const query = graphql`
   }
 `
 
-interface UseGlobalAudioPlayerResponse {
-  isPlaying: Boolean
-  selectedTrack: Track
-  selectTrack: (id: string) => void
+interface GlobalPlayerContextValue {
+  audioRef: React.RefObject<HTMLAudioElement>
+  currentTrack: Track | null
+  isPlaying: boolean
+  moveToNextTrack: () => void
+  moveToPreviousTrack: () => void
+  moveToTrack: (id: string) => void
+  pause: () => void
+  play: () => void
   tracks: Track[]
 }
 
-const useGlobalAudioPlayer: () => UseGlobalAudioPlayerResponse = () => {
+const GlobalPlayerContext = React.createContext<GlobalPlayerContextValue>({
+  audioRef: { current: null },
+  currentTrack: null,
+  isPlaying: false,
+  moveToNextTrack: () => {},
+  moveToPreviousTrack: () => {},
+  moveToTrack: (_: string) => {},
+  pause: () => {},
+  play: () => {},
+  tracks: [],
+})
+
+export const GlobalPlayerProvider = React.memo(({ children }) => {
   const { tracks } = useStaticQuery<{
     tracks: Track[]
   }>(query)
-  const [selectedTrack, setSelectedTrack] = useState(tracks[0])
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const [currentTrack, setCurrentTrack] = useState(() => {
+    if (tracks.length) {
+      return tracks[0]
+    }
+    return null
+  })
+  const [isPlaying, setIsPlaying] = useState(false)
 
   const tracksById = useMemo(
     () =>
@@ -117,31 +148,85 @@ const useGlobalAudioPlayer: () => UseGlobalAudioPlayerResponse = () => {
     [tracks]
   )
 
-  const selectedTrackRef = useRef(selectedTrack)
-
-  useEffect(() => {
-    selectedTrackRef.current = selectedTrack
-  }, [selectedTrack])
-
-  const selectTrack = useRef((id: string) => {
+  const moveToTrack = useRef((id: string) => {
     const nextTrack = tracksById[id]
 
     if (nextTrack) {
-      setSelectedTrack(nextTrack)
+      setCurrentTrack(nextTrack)
     }
   })
 
-  const response = useMemo(
+  const currentTrackRef = useRef(currentTrack)
+
+  useEffect(() => {
+    currentTrackRef.current = currentTrack
+  }, [currentTrack])
+
+  const moveToPreviousTrackRef = useRef(() => {
+    if (!currentTrackRef.current) return
+    const {
+      current: { id },
+    } = currentTrackRef
+    const currentTrackIndex = tracks.findIndex(
+      (track: Track) => track.id === id
+    )
+    const nextTrackIndex =
+      (currentTrackIndex + tracks.length - 1) % tracks.length
+
+    moveToTrack.current(tracks[nextTrackIndex].id)
+  })
+
+  const moveToNextTrackRef = useRef(() => {
+    if (!currentTrackRef.current) return
+    const {
+      current: { id },
+    } = currentTrackRef
+    const currentTrackIndex = tracks.findIndex(
+      (track: Track) => track.id === id
+    )
+    const nextTrackIndex =
+      (currentTrackIndex + tracks.length + 1) % tracks.length
+
+    moveToTrack.current(tracks[nextTrackIndex].id)
+  })
+
+  const pause = useRef(() => {
+    if (!audioRef.current) return
+
+    audioRef.current.pause()
+    setIsPlaying(false)
+  })
+  const play = useRef(() => {
+    if (!audioRef.current) return
+
+    audioRef.current.play()
+    setIsPlaying(true)
+  })
+
+  const providerValue = useMemo(
     () => ({
-      isPlaying: false,
-      selectTrack: selectTrack.current,
-      selectedTrack,
+      audioRef,
+      currentTrack,
+      isPlaying,
+      moveToNextTrack: moveToNextTrackRef.current,
+      moveToPreviousTrack: moveToPreviousTrackRef.current,
+      moveToTrack: moveToTrack.current,
+      pause: pause.current,
+      play: play.current,
       tracks,
     }),
-    [selectedTrack, tracks]
+    [currentTrack, isPlaying, pause, play, tracks]
   )
 
-  return response
+  return (
+    <GlobalPlayerContext.Provider value={providerValue}>
+      {children}
+    </GlobalPlayerContext.Provider>
+  )
+})
+
+export const useGlobalAudioPlayer: () => GlobalPlayerContextValue = () => {
+  return useContext(GlobalPlayerContext)
 }
 
 const downshiftProps = {
@@ -339,46 +424,28 @@ const useForceRerender = () => {
 //
 const GlobalAudioPlayer = React.memo(() => {
   const {
-    // isPlaying,
-    selectTrack,
-    selectedTrack,
+    audioRef,
+    currentTrack,
+    isPlaying,
+    moveToNextTrack,
+    moveToPreviousTrack,
+    moveToTrack,
+    pause,
+    play,
     tracks,
   } = useGlobalAudioPlayer()
-  const audioRef = useRef<HTMLAudioElement>(null)
-
-  const [isPlaying, setIsPlaying] = useState(false)
 
   const handleSelect = useCallback(track => {
-    selectTrack(track.id)
+    moveToTrack(track.id)
   }, [])
-  const handlePreviousClick = useCallback(() => {
-    const currentTrackIndex = tracks.findIndex(
-      (track: Track) => track.id === selectedTrack.id
-    )
-    const nextTrackIndex =
-      (currentTrackIndex + tracks.length - 1) % tracks.length
 
-    selectTrack(tracks[nextTrackIndex].id)
-  }, [selectedTrack, tracks])
   const handlePlayClick = useCallback(() => {
     if (isPlaying) {
-      audioRef.current?.pause()
-      setIsPlaying(false)
+      pause()
     } else {
-      audioRef.current?.play()
-      setIsPlaying(true)
+      play()
     }
   }, [isPlaying])
-  const handleNextClick = useCallback(() => {
-    const currentTrackIndex = tracks.findIndex(
-      (track: Track) => track.id === selectedTrack.id
-    )
-    debugger
-    const nextTrackIndex =
-      (currentTrackIndex + tracks.length + 1) % tracks.length
-
-    selectTrack(tracks[nextTrackIndex].id)
-  }, [selectedTrack, isPlaying, tracks])
 
   const isPlayingRef = useRef(isPlaying)
 
@@ -388,9 +455,9 @@ const GlobalAudioPlayer = React.memo(() => {
 
   useEffect(() => {
     if (isPlayingRef.current) {
-      audioRef.current?.play()
+      play()
     }
-  }, [selectedTrack])
+  }, [currentTrack])
 
   const currentDurationRef = useRef(0)
   const currentTimeRef = useRef(0)
@@ -434,12 +501,12 @@ const GlobalAudioPlayer = React.memo(() => {
     const isPlaying = isPlayingRef.current
 
     if (isPlaying) {
-      audioRef.current?.pause()
+      pause()
     }
 
     return () => {
       if (isPlaying) {
-        audioRef.current?.play()
+        play()
       }
     }
   }, [])
@@ -453,7 +520,7 @@ const GlobalAudioPlayer = React.memo(() => {
       <StartColumn>
         <IconButton
           aria-label="Previous"
-          onClick={handlePreviousClick}
+          onClick={moveToPreviousTrack}
           size="small"
         >
           <ChevronLeft />
@@ -465,48 +532,54 @@ const GlobalAudioPlayer = React.memo(() => {
         >
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
         </StyledPlayIconButton>
-        <IconButton aria-label="Next" onClick={handleNextClick} size="small">
+        <IconButton aria-label="Next" onClick={moveToNextTrack} size="small">
           <ChevronRight />
         </IconButton>
-        <Dropdown
-          downshiftProps={downshiftProps}
-          onSelect={handleSelect}
-          selectedItem={selectedTrack}
-        >
-          <Trigger>
-            <IconButton aria-label="Playlist" size="small">
-              <MenuIcon />
-            </IconButton>
-          </Trigger>
-          <Menu hasArrow>
-            {tracks.map(track => (
-              <Item key={track.id} value={track}>
-                {track.work.name}
-              </Item>
-            ))}
-          </Menu>
-        </Dropdown>
+        {tracks.length > 0 && (
+          <Dropdown
+            downshiftProps={downshiftProps}
+            onSelect={handleSelect}
+            selectedItem={currentTrack}
+          >
+            <Trigger>
+              <IconButton aria-label="Playlist" size="small">
+                <MenuIcon />
+              </IconButton>
+            </Trigger>
+            <Menu hasArrow>
+              {tracks.map(track => (
+                <Item key={track.id} value={track}>
+                  {track.work.name}
+                </Item>
+              ))}
+            </Menu>
+          </Dropdown>
+        )}
       </StartColumn>
       <EndColumn>
-        <Title>
-          {selectedTrack.work.name} ({timeToDisplay})
-        </Title>
+        {currentTrack && (
+          <Title>
+            {currentTrack.work.name} ({timeToDisplay})
+          </Title>
+        )}
         <Slider
           onChange={handleSliderChange}
           onStartSeek={handleStartSeek}
           value={currentProgress}
         />
       </EndColumn>
-      <audio
-        ref={audioRef}
-        onEnded={handleNextClick}
-        onLoadedMetadata={handleLoadedMetadata}
-        onTimeUpdate={handleTimeUpdate}
-        src={selectedTrack.audioLink}
-      >
-        Your browser does not support the
-        <code>audio</code> element.
-      </audio>
+      {currentTrack && (
+        <audio
+          ref={audioRef}
+          onEnded={moveToNextTrack}
+          onLoadedMetadata={handleLoadedMetadata}
+          onTimeUpdate={handleTimeUpdate}
+          src={currentTrack.audioLink}
+        >
+          Your browser does not support the
+          <code>audio</code> element.
+        </audio>
+      )}
     </PlayerContainer>
   )
 })

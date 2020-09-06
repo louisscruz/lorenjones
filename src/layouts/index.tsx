@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { ThemeProvider, DEFAULT_THEME } from "@zendeskgarden/react-theming"
 import "@zendeskgarden/css-bedrock"
 
+import { GlobalPlayerProvider } from "../components/GlobalAudioPlayer"
 import Header from "../components/header"
 import Footer from "../components/Footer"
 
@@ -46,14 +47,16 @@ const Layout = React.memo(({ children }) => {
   const { updatedAt } = versions[0]
 
   return (
-    <ThemeProvider theme={DEFAULT_THEME}>
-      <meta name="revised" content={updatedAt} />
-      <PageContainer>
-        <Header siteTitle={title} />
-        <MainContainer>{children}</MainContainer>
-        <Footer />
-      </PageContainer>
-    </ThemeProvider>
+    <GlobalPlayerProvider>
+      <ThemeProvider theme={DEFAULT_THEME}>
+        <meta name="revised" content={updatedAt} />
+        <PageContainer>
+          <Header siteTitle={title} />
+          <MainContainer>{children}</MainContainer>
+          <Footer />
+        </PageContainer>
+      </ThemeProvider>
+    </GlobalPlayerProvider>
   )
 })
 
