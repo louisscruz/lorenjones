@@ -12,7 +12,7 @@ const mapTracksRowToTrackType = ({ albumId, audioLink, trackId, workId }) => ({
 
 const mapWorksRowToMultiMovementWorkMovementType = (
   { description, name, multiMovementWorkId, workId },
-  { tracksByWorkId }
+  { multiMovementWorksById, tracksByWorkId }
 ) => ({
   description,
   id: workId,
@@ -20,6 +20,9 @@ const mapWorksRowToMultiMovementWorkMovementType = (
     type: "MultiMovementWorkMovement",
   },
   multiMovementWorkId,
+  multiMovementWork: mapWorksRowToMultiMovementWork(
+    multiMovementWorksById[multiMovementWorkId]
+  ),
   name,
   tracks: (tracksByWorkId[workId] || []).map(mapTracksRowToTrackType),
   workId,
@@ -117,6 +120,7 @@ const getAllWorks = context => {
           if (isSameId) {
             accumulator.accumulatedMultiMovementWork.movements.push(
               mapWorksRowToMultiMovementWorkMovementType(work, {
+                multiMovementWorksById,
                 tracksByWorkId,
               })
             )
@@ -140,6 +144,7 @@ const getAllWorks = context => {
           )
           accumulator.accumulatedMultiMovementWork.movements.push(
             mapWorksRowToMultiMovementWorkMovementType(work, {
+              multiMovementWorksById,
               tracksByWorkId,
             })
           )
@@ -279,6 +284,23 @@ exports.createResolvers = ({ createResolvers }) => {
             )
           }
 
+          const multiMovementWorks = context.nodeModel.getAllNodes(
+            {
+              type: "googleSheetMultiMovementWorksRow",
+            },
+            {
+              connectionType: "googleSheetMultiMovementWorksRow",
+            }
+          )
+
+          const multiMovementWorksById = multiMovementWorks.reduce(
+            (accumulator, work) => {
+              accumulator[work.multiMovementWorkId] = work
+              return accumulator
+            },
+            {}
+          )
+
           const tracks = context.nodeModel
             .getAllNodes(
               { type: "googleSheetTracksRow" },
@@ -298,6 +320,7 @@ exports.createResolvers = ({ createResolvers }) => {
 
           if (work.multiMovementWorkId) {
             return mapWorksRowToMultiMovementWorkMovementType(work, {
+              multiMovementWorksById,
               tracksByWorkId,
             })
           }
@@ -347,6 +370,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       id: ID!
       name: String!
       tracks: [Track!]!
+      multiMovementWork: MultiMovementWork!
     }
 
     type MultiMovementWork implements Node & Work {

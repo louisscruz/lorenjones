@@ -43,12 +43,17 @@ interface Work {
 }
 
 interface SingleMovementWork extends Work {
+  __typename: "SingleMovementWork"
   category: string
 }
 
-interface MultiMovementWorkMovement extends Work {}
+interface MultiMovementWorkMovement extends Work {
+  __typename: "MultiMovementWorkMovement"
+  multiMovementWork: MultiMovementWork
+}
 
 interface MultiMovementWork extends Work {
+  __typename: "MultiMovementWork"
   category: string
   movements: MultiMovementWorkMovement[]
 }
@@ -89,12 +94,21 @@ const query = graphql`
       id
       work {
         ... on SingleMovementWork {
+          __typename
           id
           name
         }
         ... on MultiMovementWorkMovement {
+          __typename
           id
           name
+          multiMovementWork {
+            __typename
+            category
+            description
+            id
+            name
+          }
         }
       }
       youtubeLink
@@ -418,10 +432,6 @@ const useForceRerender = () => {
   return rerender.current
 }
 
-// TODO:
-//
-// Add callbacks for global player control from local players
-//
 const GlobalAudioPlayer = React.memo(() => {
   const {
     audioRef,
@@ -515,6 +525,18 @@ const GlobalAudioPlayer = React.memo(() => {
     currentDurationRef.current
   )}`
 
+  const nameToDisplay = useMemo(() => {
+    if (!currentTrack) return ""
+
+    if (currentTrack.work.__typename === "SingleMovementWork") {
+      return currentTrack.work.name
+    }
+
+    const multiMovementWorkName = currentTrack.work.multiMovementWork.name
+
+    return `${multiMovementWorkName}: ${currentTrack.work.name}`
+  }, [currentTrack])
+
   return (
     <PlayerContainer>
       <StartColumn>
@@ -559,7 +581,7 @@ const GlobalAudioPlayer = React.memo(() => {
       <EndColumn>
         {currentTrack && (
           <Title>
-            {currentTrack.work.name} ({timeToDisplay})
+            {nameToDisplay} ({timeToDisplay})
           </Title>
         )}
         <Slider
