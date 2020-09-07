@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react"
 import { IconButton } from "@zendeskgarden/react-buttons"
-import styled from "styled-components"
+import styled, { css, keyframes } from "styled-components"
 import { Dropdown, Item, Menu, Trigger } from "@zendeskgarden/react-dropdowns"
 import { useStaticQuery, graphql } from "gatsby"
 import PlayIcon from "@zendeskgarden/svg-icons/src/16/play-fill.svg"
@@ -42,6 +42,8 @@ interface Work {
   name: string
 }
 
+declare var ResizeObserver: any
+
 interface SingleMovementWork extends Work {
   __typename: "SingleMovementWork"
   category: string
@@ -75,9 +77,51 @@ const EndColumn = styled.div`
   flex: 1;
 `
 
-const Title = styled.p`
-  width: 100%;
+const scrollTitleRight = keyframes`
+  0% {
+    transform: translateX(0%)
+  }
+  10% {
+    transform: translateX(0%)
+  }
+  35% {
+    opacity: 1;
+  }
+  54.98% {
+    opacity: 0;
+    transform: translateX(-120%)
+  }
+  54.99% {
+    transform: translateX(100%)
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0%)
+  }
 `
+
+const TitleContainer = styled.span`
+  flex: 1;
+  overflow: hidden;
+`
+
+const animation = css`
+  ${scrollTitleRight} 15s ease-in-out infinite;
+`
+
+const Title = styled.p<{ hasTitleScroll: boolean }>`
+  animation: ${({ hasTitleScroll }) => (hasTitleScroll ? animation : "none;")};
+  width: 100%;
+  white-space: nowrap;
+`
+
+const Information = styled.span`
+  display: flex;
+`
+
+const Time = styled.span``
 
 const StyledPlayIconButton = styled(IconButton)`
   margin: 0 4px;
@@ -537,6 +581,36 @@ const GlobalAudioPlayer = React.memo(() => {
     return `${multiMovementWorkName}: ${currentTrack.work.name}`
   }, [currentTrack])
 
+  const titleContainerRef = useRef<HTMLElement>(null)
+  const titleTextRef = useRef<HTMLParagraphElement>(null)
+  const resizeObserverRef = useRef<any>()
+  const [hasTitleScroll, setHasTitleScroll] = useState(false)
+
+  const hasTitleScrollRef = useRef(hasTitleScroll)
+  useEffect(() => {
+    hasTitleScrollRef.current = hasTitleScroll
+  }, [hasTitleScroll])
+
+  useEffect(() => {
+    if (resizeObserverRef.current) return
+
+    resizeObserverRef.current = new ResizeObserver(() => {
+      if (!titleTextRef.current) return
+
+      if (titleTextRef.current.offsetWidth < titleTextRef.current.scrollWidth) {
+        setHasTitleScroll(true)
+      } else if (hasTitleScrollRef.current) {
+        setHasTitleScroll(false)
+      }
+    })
+
+    resizeObserverRef.current.observe(titleContainerRef.current)
+
+    return () => {
+      resizeObserverRef.current.unobserve(titleContainerRef.current)
+    }
+  }, [])
+
   return (
     <PlayerContainer>
       <StartColumn>
@@ -579,11 +653,18 @@ const GlobalAudioPlayer = React.memo(() => {
         )}
       </StartColumn>
       <EndColumn>
-        {currentTrack && (
-          <Title>
-            {nameToDisplay} ({timeToDisplay})
-          </Title>
-        )}
+        <Information>
+          {currentTrack && (
+            <TitleContainer aria-label={nameToDisplay} ref={titleContainerRef}>
+              <Title hasTitleScroll={hasTitleScroll} ref={titleTextRef}>
+                {nameToDisplay}
+              </Title>
+            </TitleContainer>
+          )}
+          {currentTrack && (
+            <Time aria-label={timeToDisplay}>({timeToDisplay})</Time>
+          )}
+        </Information>
         <Slider
           onChange={handleSliderChange}
           onStartSeek={handleStartSeek}
