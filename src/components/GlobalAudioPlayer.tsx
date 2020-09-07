@@ -16,51 +16,16 @@ import ChevronLeft from "@zendeskgarden/svg-icons/src/12/chevron-double-left-fil
 import ChevronRight from "@zendeskgarden/svg-icons/src/12/chevron-double-right-fill.svg"
 import MenuIcon from "@zendeskgarden/svg-icons/src/12/menu-fill.svg"
 
+import { Track } from "../types"
+
 interface SliderProps {
   readonly onChange: (_: number) => void
   readonly onStartSeek: () => () => void
   readonly value: number
 }
 
-interface Album {
-  id: string
-  name: string
-  tracks: Track[]
-}
-
-interface Track {
-  album?: Album
-  audioLink: string
-  id: string
-  work: TrackableWork
-  youtubeLink?: string
-}
-
-interface Work {
-  description?: string
-  id: string
-  name: string
-}
-
+// TS doesn't support this yet and the custom types aren't working.
 declare var ResizeObserver: any
-
-interface SingleMovementWork extends Work {
-  __typename: "SingleMovementWork"
-  category: string
-}
-
-interface MultiMovementWorkMovement extends Work {
-  __typename: "MultiMovementWorkMovement"
-  multiMovementWork: MultiMovementWork
-}
-
-interface MultiMovementWork extends Work {
-  __typename: "MultiMovementWork"
-  category: string
-  movements: MultiMovementWorkMovement[]
-}
-
-type TrackableWork = SingleMovementWork | MultiMovementWorkMovement
 
 const PlayerContainer = styled.div`
   align-items: center;
