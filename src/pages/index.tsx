@@ -8,12 +8,21 @@ const Container = styled.div`
   align-items: center;
   display: flex;
   flex: 1;
+  flex-direction: column;
   justify-content: center;
 `
 
 const StyledH1 = styled.h1`
   color: white;
   font-size: 68px;
+  font-weight: 900;
+  z-index: 1;
+`
+const StyledH2 = styled.h1`
+  color: white;
+  margin-top: 56px;
+  line-height: 56px;
+  font-size: 52px;
   font-weight: 900;
   z-index: 1;
 `
@@ -30,6 +39,7 @@ const IndexPage = React.memo(() => (
     <StyledBackgroundSvg />
     <Container>
       <StyledH1>Loren Jones</StyledH1>
+      <StyledH2>Composer</StyledH2>
     </Container>
   </>
 ))
