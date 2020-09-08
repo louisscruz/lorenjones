@@ -47,10 +47,10 @@ type AlbumsProps = Immutable<{
 }>
 
 const WorkEntryContainer = styled.div`
-  background-color: white;
-  border: 1px solid grey;
+  background-color: #e8e8e8;
   border-radius: 3px;
   padding: 8px;
+  margin-bottom: 8px;
 `
 
 const Albums = React.memo<AlbumsProps>(({ albums }) => {

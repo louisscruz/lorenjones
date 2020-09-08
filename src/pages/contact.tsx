@@ -10,6 +10,7 @@ import {
   Textarea,
 } from "@zendeskgarden/react-forms"
 import { Dots } from "@zendeskgarden/react-loaders"
+import styled from "styled-components"
 
 import ContentContainer from "../components/ContentContainer"
 import SEO from "../components/seo"
@@ -31,6 +32,10 @@ interface Alert {
   readonly title: string
   readonly type: "success" | "error" | "warning" | "info"
 }
+
+const StyledButton = styled(Button)`
+  margin-top: 16px;
+`
 
 const defaultErrors: Array<string> = []
 
@@ -324,10 +329,10 @@ const Contact = React.memo(() => {
             {error}
           </Message>
         ))}
-        <Button isPrimary isStretched type="submit">
+        <StyledButton isPrimary isStretched type="submit">
           Submit
           {isLoading && <Dots />}
-        </Button>
+        </StyledButton>
       </form>
     </ContentContainer>
   )

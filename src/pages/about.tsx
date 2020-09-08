@@ -1,7 +1,8 @@
 import React, { useState } from "react"
-import { Paragraph, XXL } from "@zendeskgarden/react-typography"
+import { Paragraph, MD, XXL } from "@zendeskgarden/react-typography"
 import { Tabs, TabList, Tab, TabPanel } from "@zendeskgarden/react-tabs"
 import { useStaticQuery, graphql } from "gatsby"
+import styled from "styled-components"
 
 import ContentContainer from "../components/ContentContainer"
 import SEO from "../components/seo"
@@ -19,6 +20,17 @@ interface Quote {
   readonly title: string
   readonly url: string
 }
+
+const QuoteContainer = styled.div`
+  margin-bottom: 16px;
+`
+
+const QuoteText = styled(Paragraph)`
+  background-color: #e8e8e8;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 8px;
+`
 
 const query = graphql`
   query BiosQuery {
@@ -61,7 +73,7 @@ const About = React.memo(() => {
       <ContentContainer>
         <SEO title="About" />
         <XXL>About</XXL>
-        <Tabs selectedItem={currentBio} onChange={setCurrentBio}>
+        <Tabs>
           <TabList>
             {bios.map(({ id, name }) => (
               <Tab item={name} key={id}>
@@ -81,12 +93,12 @@ const About = React.memo(() => {
       <ContentContainer>
         <XXL>Quotes</XXL>
         {quotes.map(({ content, id, name, title, url }) => (
-          <div key={id}>
-            <Paragraph key={id}>{content}</Paragraph>
-            <Paragraph>
+          <QuoteContainer key={id}>
+            <QuoteText key={id}>{content}</QuoteText>
+            <MD isBold>
               {name}, {title}
-            </Paragraph>
-          </div>
+            </MD>
+          </QuoteContainer>
         ))}
       </ContentContainer>
     </>
