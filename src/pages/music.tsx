@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql, Link, useStaticQuery } from "gatsby"
 import { LG, XL, XXL } from "@zendeskgarden/react-typography"
 import { IconButton } from "@zendeskgarden/react-buttons"
 import PlayIcon from "@zendeskgarden/svg-icons/src/12/play-fill.svg"
@@ -110,6 +110,12 @@ const WorkEntry = React.memo<WorkEntryProps>(({ work }) => {
     <WorkEntryContainer>
       <LG isBold>{work.name}</LG>
       {work.description && <div>{work.description}</div>}
+      {isMultiMovementWork(work) &&
+        work.name === "Dancing on the Brink of the World" && (
+          <Link to="/music/dancing-on-the-brink-of-the-world">
+            View Project Page
+          </Link>
+        )}
       {isSingleMovementWork(work) &&
         work.tracks.map(track => (
           <LocalAudioPlayer key={track.id} track={track} />

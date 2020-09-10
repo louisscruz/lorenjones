@@ -6511,7 +6511,7 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-gatsby-background-image@^1.1.1:
+gatsby-background-image@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/gatsby-background-image/-/gatsby-background-image-1.1.2.tgz#2f66ca7449bf87e1f90f667bbb57bde523712205"
   integrity sha512-3QargmBQiFeGSJTIS1EzQ/V33vdi6dab9WtXHwFBmGrh+EzB6lHmRkuHxgrcyy+ssqhPjxAg9zQa5pFm7n9Qrg==
@@ -8304,6 +8304,11 @@ internal-slot@^1.0.2:
     es-abstract "^1.17.0-next.1"
     has "^1.0.3"
     side-channel "^1.0.2"
+
+intersection-observer@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.11.0.tgz#f4ea067070326f68393ee161cc0a2ca4c0040c6f"
+  integrity sha512-KZArj2QVnmdud9zTpKf279m2bbGfG+4/kn16UU0NL3pTVl52ZHiJ9IRNSsnn6jaHrL9EGLFM5eWjTx2fz/+zoQ==
 
 into-stream@^3.1.0:
   version "3.1.0"
