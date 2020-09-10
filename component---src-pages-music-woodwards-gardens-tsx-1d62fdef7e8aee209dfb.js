@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[10],{"61CZ":function(e,n,a){"use strict";a.r(n);var t=a("q1tI"),o=a.n(t),r=o.a.memo((function(){return o.a.createElement("div",null,o.a.createElement("h1",null,"Woodward's Gardens"))}));n.default=r}}]);
+//# sourceMappingURL=component---src-pages-music-woodwards-gardens-tsx-1d62fdef7e8aee209dfb.js.map
