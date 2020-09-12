@@ -1,9 +1,6 @@
 import React, { useCallback, useMemo } from "react"
 import { graphql, Link, useStaticQuery } from "gatsby"
 import { LG, XL, XXL } from "@zendeskgarden/react-typography"
-import { IconButton } from "@zendeskgarden/react-buttons"
-import PlayIcon from "@zendeskgarden/svg-icons/src/12/play-fill.svg"
-import PauseIcon from "@zendeskgarden/svg-icons/src/12/pause-fill.svg"
 import { Accordion } from "@zendeskgarden/react-accordions"
 import styled from "styled-components"
 
@@ -15,10 +12,9 @@ import {
   Immutable,
   ListableWork,
   MultiMovementWorkMovement,
-  Track,
   isSingleMovementWork,
 } from "../types"
-import { useGlobalAudioPlayer } from "../components/GlobalAudioPlayer"
+import LocalAudioPlayer from "../components/LocalAudioPlayer"
 
 type WorksByGenreProps = Immutable<{
   works: Immutable<ListableWork[]>
@@ -28,10 +24,6 @@ interface WorksByGenreAccumulator {
   partitionedWorks: Record<string, Array<Immutable<ListableWork>>>
   partitionOrder: string[]
 }
-
-type LocalAudioPlayerProps = Immutable<{
-  track: Track
-}>
 
 type MovemmentEntryProps = Immutable<{
   index: number
@@ -61,36 +53,6 @@ const Albums = React.memo<AlbumsProps>(({ albums }) => {
         <div key={album.id}>{album.name}</div>
       ))}
     </>
-  )
-})
-
-const LocalAudioPlayer = React.memo<LocalAudioPlayerProps>(({ track }) => {
-  const {
-    currentTrack,
-    isPlaying,
-    moveToTrack,
-    pause,
-    play,
-  } = useGlobalAudioPlayer()
-
-  const isCurrentTrack = currentTrack?.id === track.id
-  const isCurrentTrackAndPlaying = isCurrentTrack && isPlaying
-
-  const handlePlayerClick = useCallback(() => {
-    if (isCurrentTrackAndPlaying) {
-      pause()
-    } else if (isCurrentTrack) {
-      play()
-    } else {
-      moveToTrack(track.id)
-      play()
-    }
-  }, [isCurrentTrack, isCurrentTrackAndPlaying, pause, play, track.id])
-
-  return (
-    <IconButton onClick={handlePlayerClick} size="small">
-      {isCurrentTrackAndPlaying ? <PauseIcon /> : <PlayIcon />}
-    </IconButton>
   )
 })
 

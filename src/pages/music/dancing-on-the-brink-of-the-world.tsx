@@ -7,6 +7,7 @@ import { Tabs, TabList, Tab, TabPanel } from "@zendeskgarden/react-tabs"
 
 import { Immutable, Work, MultiMovementWork } from "../../types"
 import ContentContainer from "../../components/ContentContainer"
+import LocalAudioPlayer from "../../components/LocalAudioPlayer"
 
 type BackgroundSectionProps = Immutable<{
   className: string
@@ -70,6 +71,10 @@ const worksQuery = graphql`
           description
           id
           name
+          tracks {
+            audioLink
+            id
+          }
         }
       }
     }
@@ -150,6 +155,9 @@ const DancingOnTheBrinkOfTheWorld = React.memo(() => {
           </TabList>
           {dancingOnTheBrinkOfTheWorld.movements.map(movement => (
             <TabPanel item={movement.id}>
+              {movement.tracks.map(track => (
+                <LocalAudioPlayer track={track} />
+              ))}
               <Paragraph>{movement.description}</Paragraph>
             </TabPanel>
           ))}
