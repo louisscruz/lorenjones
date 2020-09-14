@@ -7,8 +7,11 @@ const StyledFooter = styled.footer`
   background-color: white;
   display: flex;
   flex-direction: column;
-  height: 60px;
+  height: 98px;
   z-index: 10;
+  @media (min-width: 512px) {
+    height: 60px;
+  }
 `
 
 const FooterContainer = styled.div`

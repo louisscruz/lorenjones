@@ -9,10 +9,13 @@ interface ArtDirectedBackgroundProps {
 
 const StyledInnerWrapper = styled.div`
   display: flex;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 158px);
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  @media (min-width: 512px) {
+    height: calc(100vh - 120px);
+  }
 `
 
 const Name = styled.h1`

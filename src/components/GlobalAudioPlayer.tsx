@@ -16,7 +16,7 @@ import ChevronLeft from "@zendeskgarden/svg-icons/src/12/chevron-double-left-fil
 import ChevronRight from "@zendeskgarden/svg-icons/src/12/chevron-double-right-fill.svg"
 import MenuIcon from "@zendeskgarden/svg-icons/src/12/menu-fill.svg"
 
-import { Track } from "../types"
+import { isMultiMovementWorkMovement, Track } from "../types"
 
 interface SliderProps {
   readonly onChange: (_: number) => void
@@ -31,15 +31,31 @@ const PlayerContainer = styled.div`
   align-items: center;
   background-color: white;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  padding: 12px 0;
   width: 100%;
   z-index: 10;
+  @media (min-width: 512px) {
+    flex-direction: row;
+    padding: 0;
+  }
 `
 
-const StartColumn = styled.div``
+const StartColumn = styled.div`
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  min-width: 144px;
+  @media (min-width: 512px) {
+    flex-basis: auto;
+    flex-grow: initial;
+  }
+`
 
 const EndColumn = styled.div`
   flex: 1;
+  max-width: 100%;
 `
 
 const scrollTitleRight = keyframes`
@@ -607,10 +623,12 @@ const GlobalAudioPlayer = React.memo(() => {
                 <MenuIcon />
               </IconButton>
             </Trigger>
-            <Menu hasArrow>
+            <Menu hasArrow isCompact>
               {tracks.map(track => (
                 <Item key={track.id} value={track}>
-                  {track.work.name}
+                  {isMultiMovementWorkMovement(track.work)
+                    ? `${track.work.multiMovementWork.name}: ${track.work.name}`
+                    : track.work.name}
                 </Item>
               ))}
             </Menu>
