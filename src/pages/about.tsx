@@ -66,8 +66,6 @@ const About = React.memo(() => {
     }
   }>(query)
 
-  const [currentBio, setCurrentBio] = useState(bios[0].name)
-
   return (
     <>
       <ContentContainer>

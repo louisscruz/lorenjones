@@ -1,6 +1,48 @@
+export interface ImageSharpFixed {
+  aspectRatio: number
+  base64: string
+  height: number
+  originalName: string
+  src: string
+  srcSet: string
+  srcWebp: string
+  srcSetWebp: string
+  tracedSVG: string
+  width: number
+}
+
+export interface ImageSharpFluid {
+  aspectRatio: number
+  base64: string
+  originalImg: string
+  originalName: string
+  presentationHeight: number
+  presentationWidth: number
+  sizes: string
+  src: string
+  srcSet: string
+  srcWebp: string
+  srcSetWebp: string
+  tracedSVG: string
+}
+
+export interface ChildImageSharp {
+  fixed: ImageSharpFixed
+  fluid: ImageSharpFluid
+}
+
+export interface File {
+  extension: string
+  id: string
+  relativePath: string
+  childImageSharp: ChildImageSharp
+}
+
 export interface Album {
   __typename: "Album"
+  description: string
   id: string
+  imageFile: File
   name: string
   tracks: Track[]
 }
@@ -21,7 +63,9 @@ export interface Work {
     | "MultiMovementWork"
   description?: string
   id: string
+  instrumentation?: string
   name: string
+  otherComposerCredit?: string
 }
 
 export interface SingleMovementWork extends Work {

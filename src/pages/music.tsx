@@ -1,8 +1,9 @@
-import React, { useCallback, useMemo } from "react"
+import React, { useMemo } from "react"
 import { graphql, Link, useStaticQuery } from "gatsby"
-import { LG, XL, XXL } from "@zendeskgarden/react-typography"
+import { Paragraph, LG, XL, XXL } from "@zendeskgarden/react-typography"
 import { Accordion } from "@zendeskgarden/react-accordions"
 import styled from "styled-components"
+import kebabCase from "lodash/kebabCase"
 
 import ContentContainer from "../components/ContentContainer"
 import SEO from "../components/seo"
@@ -45,13 +46,45 @@ const WorkEntryContainer = styled.div`
   margin-bottom: 8px;
 `
 
+const AlbumsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+`
+
+const AlbumContainer = styled.div`
+  align-items: center;
+  background-color: #e8e8e8;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  margin: 12px 0;
+  max-width: 300px;
+  min-height: 300px;
+  padding: 12px;
+`
+
+const AlbumImg = styled.img`
+  max-width: 80%;
+  height: auto;
+`
+
 const Albums = React.memo<AlbumsProps>(({ albums }) => {
   return (
     <>
       <XL>Albums</XL>
-      {albums.map(album => (
-        <div key={album.id}>{album.name}</div>
-      ))}
+      <AlbumsContainer>
+        {albums.map(album => (
+          <AlbumContainer key={album.id}>
+            <AlbumImg
+              alt="Woodward's Gardens Album Cover"
+              {...album.imageFile.childImageSharp.fixed}
+            />
+            <LG isBold>{album.name}</LG>
+            <Link to={`/music/album/${kebabCase(album.name)}`}>More Info</Link>
+          </AlbumContainer>
+        ))}
+      </AlbumsContainer>
     </>
   )
 })
@@ -71,6 +104,11 @@ const WorkEntry = React.memo<WorkEntryProps>(({ work }) => {
   return (
     <WorkEntryContainer>
       <LG isBold>{work.name}</LG>
+      {work.instrumentation && <Paragraph>{work.instrumentation}</Paragraph>}
+      {isSingleMovementWork(work) &&
+        work.tracks.map(track => (
+          <LocalAudioPlayer key={track.id} track={track} />
+        ))}
       {work.description && <div>{work.description}</div>}
       {isMultiMovementWork(work) &&
         work.name === "Dancing on the Brink of the World" && (
@@ -78,10 +116,6 @@ const WorkEntry = React.memo<WorkEntryProps>(({ work }) => {
             View Project Page
           </Link>
         )}
-      {isSingleMovementWork(work) &&
-        work.tracks.map(track => (
-          <LocalAudioPlayer key={track.id} track={track} />
-        ))}
       {isMultiMovementWork(work) && (
         <ol>
           {work.movements.map((movement, index) => (
@@ -132,9 +166,12 @@ const WorksByGenre = React.memo<WorksByGenreProps>(({ works }) => {
               <Accordion.Label>{category}</Accordion.Label>
             </Accordion.Header>
             <Accordion.Panel>
-              {worksByGenre.partitionedWorks[category].map(work => (
-                <WorkEntry key={work.id} work={work} />
-              ))}
+              {worksByGenre.partitionedWorks[category].map(
+                work =>
+                  !work.otherComposerCredit && (
+                    <WorkEntry key={work.id} work={work} />
+                  )
+              )}
             </Accordion.Panel>
           </Accordion.Section>
         ))}
@@ -147,7 +184,22 @@ const query = graphql`
   query AlbumsAndWorks {
     albums {
       id
+      imageFile {
+        childImageSharp {
+          fixed {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
       name
+      tracks {
+        audioLink
+        id
+        work {
+          id
+          name
+        }
+      }
     }
     works {
       ... on SingleMovementWork {
@@ -155,7 +207,9 @@ const query = graphql`
         category
         description
         id
+        instrumentation
         name
+        otherComposerCredit
         tracks {
           audioLink
           id

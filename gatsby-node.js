@@ -1,4 +1,8 @@
-const mapAlbumsRowToAlbumType = ({ albumId, name }) => ({
+const path = require("path")
+const kebabCase = require("lodash/kebabCase")
+
+const mapAlbumsRowToAlbumType = ({ albumId, description, name }) => ({
+  description,
   id: albumId,
   name,
 })
@@ -11,11 +15,19 @@ const mapTracksRowToTrackType = ({ albumId, audioLink, trackId, workId }) => ({
 })
 
 const mapWorksRowToMultiMovementWorkMovementType = (
-  { description, name, multiMovementWorkId, workId },
+  {
+    description,
+    instrumentation,
+    name,
+    multiMovementWorkId,
+    otherComposerCredit,
+    workId,
+  },
   { multiMovementWorksById, tracksByWorkId }
 ) => ({
   description,
   id: workId,
+  instrumentation,
   internal: {
     type: "MultiMovementWorkMovement",
   },
@@ -24,6 +36,7 @@ const mapWorksRowToMultiMovementWorkMovementType = (
     multiMovementWorksById[multiMovementWorkId]
   ),
   name,
+  otherComposerCredit,
   tracks: (tracksByWorkId[workId] || []).map(mapTracksRowToTrackType),
   workId,
 })
@@ -31,31 +44,37 @@ const mapWorksRowToMultiMovementWorkMovementType = (
 const mapWorksRowToMultiMovementWork = ({
   category,
   description,
-  name,
+  instrumentation,
   multiMovementWorkId,
+  name,
+  otherComposerCredit,
 }) => ({
   category,
   description,
   id: multiMovementWorkId,
+  instrumentation,
   internal: {
     type: "MultiMovementWork",
   },
   movements: [],
   multiMovementWorkId,
   name,
+  otherComposerCredit,
 })
 
 const mapWorksRowToSingleMovementWorkType = (
-  { category, description, name, workId },
+  { category, description, instrumentation, name, otherComposerCredit, workId },
   { tracksByWorkId }
 ) => ({
   category,
   description,
   id: workId,
+  instrumentation,
   internal: {
     type: "SingleMovementWork",
   },
   name,
+  otherComposerCredit,
   tracks: (tracksByWorkId[workId] || []).map(mapTracksRowToTrackType),
 })
 
@@ -177,7 +196,7 @@ const getAllWorks = context => {
   return finalWorks
 }
 
-exports.createResolvers = ({ createResolvers }) => {
+exports.createResolvers = ({ createResolvers, reporter }) => {
   const resolvers = {
     Album: {
       tracks: {
@@ -202,6 +221,32 @@ exports.createResolvers = ({ createResolvers }) => {
           return tracks.map(mapTracksRowToTrackType)
         },
         type: ["Track"],
+      },
+      imageFile: {
+        resolve(source, args, context, info) {
+          const kebabCaseName = kebabCase(source.name)
+
+          return context.nodeModel
+            .runQuery({
+              query: {
+                filter: {
+                  relativePath: { regex: `images/albums/${kebabCaseName}/` },
+                },
+              },
+              type: "File",
+              firstOnly: true,
+            })
+            .then(file => {
+              if (!file) {
+                throw new Error(
+                  `Expected album of ${source.name} to have an associated image. See the developer documentation in README.md.`
+                )
+              }
+
+              return file
+            })
+        },
+        type: "File",
       },
     },
     Query: {
@@ -335,6 +380,67 @@ exports.createResolvers = ({ createResolvers }) => {
   createResolvers(resolvers)
 }
 
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  const { createPage } = actions
+
+  const result = await graphql(
+    `
+      {
+        albums {
+          description
+          id
+          imageFile {
+            childImageSharp {
+              fixed {
+                base64
+                width
+                height
+                src
+                srcSet
+              }
+            }
+          }
+          name
+          tracks {
+            audioLink
+            id
+            work {
+              __typename
+              description
+              id
+              instrumentation
+              name
+              otherComposerCredit
+              ... on SingleMovementWork {
+                category
+              }
+            }
+            youtubeLink
+          }
+        }
+      }
+    `
+  )
+
+  if (result.errors) {
+    reporter.panicOnBuild("Error getting albums")
+    return
+  }
+
+  const albumTemplate = path.resolve("src/templates/Album.tsx")
+
+  result.data.albums.forEach(album => {
+    const safePath = kebabCase(album.name)
+    createPage({
+      path: `/music/album/${safePath}`,
+      component: albumTemplate,
+      context: {
+        album,
+      },
+    })
+  })
+}
+
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
   const typeDefs = `
@@ -347,29 +453,37 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type Album {
+      description: String!
       id: ID!
+      imageFile: File!
       name: String!
     }
 
     interface Work {
       description: String
       id: ID!
+      instrumentation: String
       name: String!
+      otherComposerCredit: String
     }
 
     type SingleMovementWork implements Node & Work {
       category: String!
       description: String
       id: ID!
+      instrumentation: String
       name: String!
+      otherComposerCredit: String
       tracks: [Track!]!
     }
 
     type MultiMovementWorkMovement implements Node & Work {
       description: String
       id: ID!
+      instrumentation: String
       name: String!
       tracks: [Track!]!
+      otherComposerCredit: String
       multiMovementWork: MultiMovementWork!
     }
 
@@ -377,8 +491,10 @@ exports.createSchemaCustomization = ({ actions }) => {
       category: String!
       description: String
       id: ID!
+      instrumentation: String
       movements: [MultiMovementWorkMovement!]!
       name: String!
+      otherComposerCredit: String
     }
   `
   createTypes(typeDefs)
