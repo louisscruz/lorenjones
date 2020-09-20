@@ -517,6 +517,7 @@ const GlobalAudioPlayer = React.memo(() => {
   )
 
   const handleTimeUpdate = useCallback(e => {
+    currentDurationRef.current = audioRef.current?.duration || 0
     currentTimeRef.current = audioRef.current?.currentTime || 0
     const progress = (currentTimeRef.current / currentDurationRef.current) * 100
 
@@ -623,7 +624,7 @@ const GlobalAudioPlayer = React.memo(() => {
                 <MenuIcon />
               </IconButton>
             </Trigger>
-            <Menu hasArrow isAnimated={false} isCompact>
+            <Menu hasArrow isCompact>
               {tracks.map(track => (
                 <Item key={track.id} value={track}>
                   {isMultiMovementWorkMovement(track.work)
