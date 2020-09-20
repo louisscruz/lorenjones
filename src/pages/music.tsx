@@ -69,6 +69,13 @@ const AlbumImg = styled.img`
   height: auto;
 `
 
+const StyledMovementListItem = styled.li`
+  align-items: center;
+  display: flex;
+  height: 32px;
+  margin: 4px;
+`
+
 const Albums = React.memo<AlbumsProps>(({ albums }) => {
   return (
     <>
@@ -90,14 +97,12 @@ const Albums = React.memo<AlbumsProps>(({ albums }) => {
 })
 
 const MovementEntry = React.memo<MovemmentEntryProps>(({ index, movement }) => (
-  <li key={movement.id}>
-    <span>
-      {index + 1}. {movement.name}
-    </span>
+  <StyledMovementListItem key={movement.id}>
+    {index + 1}. {movement.name}
     {movement.tracks.map(track => (
       <LocalAudioPlayer key={track.id} track={track} />
     ))}
-  </li>
+  </StyledMovementListItem>
 ))
 
 const WorkEntry = React.memo<WorkEntryProps>(({ work }) => {

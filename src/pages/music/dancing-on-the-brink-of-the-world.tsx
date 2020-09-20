@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react"
-import { Paragraph, XXL } from "@zendeskgarden/react-typography"
+import { Paragraph, XL, XXL } from "@zendeskgarden/react-typography"
 import { graphql, useStaticQuery } from "gatsby"
 import styled from "styled-components"
 import BackgroundImage, { IFluidObject } from "gatsby-background-image"
@@ -150,13 +150,16 @@ const DancingOnTheBrinkOfTheWorld = React.memo(() => {
         <Tabs isVertical>
           <TabList>
             {dancingOnTheBrinkOfTheWorld.movements.map(movement => (
-              <Tab item={movement.id}>{movement.name}</Tab>
+              <Tab key={movement.id} item={movement.id}>
+                {movement.name}
+              </Tab>
             ))}
           </TabList>
           {dancingOnTheBrinkOfTheWorld.movements.map(movement => (
-            <TabPanel item={movement.id}>
+            <TabPanel key={movement.id} item={movement.id}>
+              <XL>{movement.name}</XL>
               {movement.tracks.map(track => (
-                <LocalAudioPlayer track={track} />
+                <LocalAudioPlayer key={track.id} track={track} />
               ))}
               <Paragraph>{movement.description}</Paragraph>
             </TabPanel>

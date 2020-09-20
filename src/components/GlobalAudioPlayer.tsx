@@ -623,7 +623,7 @@ const GlobalAudioPlayer = React.memo(() => {
                 <MenuIcon />
               </IconButton>
             </Trigger>
-            <Menu hasArrow isCompact>
+            <Menu hasArrow isAnimated={false} isCompact>
               {tracks.map(track => (
                 <Item key={track.id} value={track}>
                   {isMultiMovementWorkMovement(track.work)

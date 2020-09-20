@@ -1,5 +1,6 @@
 import React, { useMemo } from "react"
 import { Paragraph, LG, XXL } from "@zendeskgarden/react-typography"
+import styled from "styled-components"
 
 import { Album, Immutable, Track } from "../types"
 import ContentContainer from "../components/ContentContainer"
@@ -16,13 +17,18 @@ type AlbumProps = Immutable<{
   }
 }>
 
+const StyledMovementListItem = styled.li`
+  align-items: center;
+  display: flex;
+  height: 32px;
+  margin: 4px;
+`
+
 const AlbumTrack = React.memo<AlbumTrackProps>(({ index, track }) => (
-  <div>
-    <div>
-      {index}. {track.work.name}
-    </div>
+  <StyledMovementListItem>
+    {index}. {track.work.name}
     <LocalAudioPlayer track={track} />
-  </div>
+  </StyledMovementListItem>
 ))
 
 const Albums = React.memo<AlbumProps>(({ pageContext: { album } }) => {
@@ -40,9 +46,11 @@ const Albums = React.memo<AlbumProps>(({ pageContext: { album } }) => {
         <Paragraph key={index}>{paragraph}</Paragraph>
       ))}
       <LG>Excerpts</LG>
-      {album.tracks.map((track, index) => (
-        <AlbumTrack key={track.id} index={index + 1} track={track} />
-      ))}
+      <ul>
+        {album.tracks.map((track, index) => (
+          <AlbumTrack key={track.id} index={index + 1} track={track} />
+        ))}
+      </ul>
     </ContentContainer>
   )
 })
