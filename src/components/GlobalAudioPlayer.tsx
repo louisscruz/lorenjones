@@ -593,6 +593,14 @@ const GlobalAudioPlayer = React.memo(() => {
     }
   }, [])
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const handleMenuStateChange = useCallback(changes => {
+    if (Object.prototype.hasOwnProperty.call(changes, "isOpen")) {
+      setIsMenuOpen(changes.isOpen)
+    }
+  }, [])
+
   return (
     <PlayerContainer>
       <StartColumn>
@@ -613,28 +621,28 @@ const GlobalAudioPlayer = React.memo(() => {
         <IconButton aria-label="Next" onClick={moveToNextTrack} size="small">
           <ChevronRight />
         </IconButton>
-        {tracks.length > 0 && (
-          <Dropdown
-            downshiftProps={downshiftProps}
-            onSelect={handleSelect}
-            selectedItem={currentTrack}
-          >
-            <Trigger>
-              <IconButton aria-label="Playlist" size="small">
-                <MenuIcon />
-              </IconButton>
-            </Trigger>
-            <Menu hasArrow isCompact>
-              {tracks.map(track => (
-                <Item key={track.id} value={track}>
-                  {isMultiMovementWorkMovement(track.work)
-                    ? `${track.work.multiMovementWork.name}: ${track.work.name}`
-                    : track.work.name}
-                </Item>
-              ))}
-            </Menu>
-          </Dropdown>
-        )}
+        <Dropdown
+          downshiftProps={downshiftProps}
+          isOpen={isMenuOpen}
+          onSelect={handleSelect}
+          onStateChange={handleMenuStateChange}
+          selectedItem={currentTrack}
+        >
+          <Trigger>
+            <IconButton aria-label="Playlist" size="small">
+              <MenuIcon />
+            </IconButton>
+          </Trigger>
+          <Menu hasArrow isCompact>
+            {tracks.map(track => (
+              <Item key={track.id} value={track}>
+                {isMultiMovementWorkMovement(track.work)
+                  ? `${track.work.multiMovementWork.name}: ${track.work.name}`
+                  : track.work.name}
+              </Item>
+            ))}
+          </Menu>
+        </Dropdown>
       </StartColumn>
       <EndColumn>
         <Information>
