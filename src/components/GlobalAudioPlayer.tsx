@@ -56,6 +56,10 @@ const StartColumn = styled.div`
 const EndColumn = styled.div`
   flex: 1;
   max-width: 100%;
+  width: calc(100% - 12px);
+  @media (min-width: 512px) {
+    width: 100%;
+  }
 `
 
 const scrollTitleRight = keyframes`
@@ -315,12 +319,12 @@ const getNextPercentage = (
 }
 
 const Slider = React.memo<SliderProps>(({ onChange, onStartSeek, value }) => {
-  const [localSeekValue, setLocalSeekValue] = useState<number>(0)
+  const [localSeekValue, setLocalSeekValue] = useState<number | null>(null)
   const onStopSeekRef = useRef(noOp)
 
   const sliderContainerRef = useRef<HTMLDivElement>(null)
 
-  const localSeekValueRef = useRef<number>(localSeekValue)
+  const localSeekValueRef = useRef<number | null>(localSeekValue)
 
   useEffect(() => {
     localSeekValueRef.current = localSeekValue
@@ -373,7 +377,7 @@ const Slider = React.memo<SliderProps>(({ onChange, onStartSeek, value }) => {
           onStopSeekRef.current = noOp
 
           onChange(percentage)
-          setLocalSeekValue(0)
+          setLocalSeekValue(null)
         },
         { once: true }
       )
@@ -423,7 +427,7 @@ const Slider = React.memo<SliderProps>(({ onChange, onStartSeek, value }) => {
     [onChange, value]
   )
 
-  const valueToUse = localSeekValue || value
+  const valueToUse = localSeekValue === null ? value : localSeekValue
 
   return (
     <SliderContainer
@@ -633,15 +637,17 @@ const GlobalAudioPlayer = React.memo(() => {
               <MenuIcon />
             </IconButton>
           </Trigger>
-          <Menu hasArrow isCompact>
-            {tracks.map(track => (
-              <Item key={track.id} value={track}>
-                {isMultiMovementWorkMovement(track.work)
-                  ? `${track.work.multiMovementWork.name}: ${track.work.name}`
-                  : track.work.name}
-              </Item>
-            ))}
-          </Menu>
+          {isMenuOpen && (
+            <Menu hasArrow isCompact>
+              {tracks.map(track => (
+                <Item key={track.id} value={track}>
+                  {isMultiMovementWorkMovement(track.work)
+                    ? `${track.work.multiMovementWork.name}: ${track.work.name}`
+                    : track.work.name}
+                </Item>
+              ))}
+            </Menu>
+          )}
         </Dropdown>
       </StartColumn>
       <EndColumn>

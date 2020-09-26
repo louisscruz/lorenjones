@@ -17,6 +17,10 @@ type AlbumProps = Immutable<{
   }
 }>
 
+const StyledAlbumImage = styled.img`
+  height: auto;
+`
+
 const StyledMovementListItem = styled.li`
   align-items: center;
   display: flex;
@@ -40,7 +44,10 @@ const Albums = React.memo<AlbumProps>(({ pageContext: { album } }) => {
 
   return (
     <ContentContainer>
-      <img alt={albumImageAltText} {...album.imageFile.childImageSharp.fixed} />
+      <StyledAlbumImage
+        alt={albumImageAltText}
+        {...album.imageFile.childImageSharp.fixed}
+      />
       <XXL>{album.name}</XXL>
       {descriptionParagraphs.map((paragraph, index) => (
         <Paragraph key={index}>{paragraph}</Paragraph>
