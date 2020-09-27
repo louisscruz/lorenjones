@@ -89,6 +89,21 @@ const CREDENTIALS_PATH = path.join(
 
 const getGoogleCredentials = () =>
   new Promise((resolve, reject) => {
+    if (process.env.GITHUB_WORKFLOW) {
+      if (!process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS) {
+        reject(new Error("Unable to get credentials"))
+      }
+
+      resolve(
+        JSON.parse(
+          process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.trim().replace(
+            /\n/g,
+            "\\n"
+          )
+        )
+      )
+    }
+
     fs.readFile(CREDENTIALS_PATH, (error, content) => {
       if (error) {
         reject(new Error("Unable to get credentials"))

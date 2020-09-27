@@ -5,7 +5,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Check Dependencies
         run: yarn add google-spreadsheets
-      - id: check-deploy
+      - env:
+          GOOGLE_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
+          GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
+          GOOGLE_SPREADSHEET_WORKSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_WORKSHEET_ID }}
+        id: check-deploy
         name: Check Deploy
         run: |
           echo "::set-output name=should-deploy-value::$(yarn should-deploy)"
