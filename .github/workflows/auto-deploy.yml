@@ -13,8 +13,9 @@ jobs:
         name: Dispatch CI
         run: echo "THIS IS WHERE IT WOULD HAPPEN"
     timeout-minutes: 2
-on:
-  schedule:
-    # Run this once at the end of every day
-    - cron: "0 0 * * *"
+on: [push]
+# on:
+#   schedule:
+#     # Run this once at the end of every day
+#     - cron: "0 0 * * *"
 name: Auto Deploy CI
