@@ -72,7 +72,7 @@ const getCurrentPublishedRevisionDate = () => {
             const contentIndex = lastRevisionMetaIndex + selector.length
             const lastRevision = responseString.slice(
               contentIndex,
-              contentIndex + 19
+              contentIndex + 22
             )
             resolve(lastRevision)
           }
@@ -163,12 +163,8 @@ getEnvironment()
       )
       .then(([sheetsDate, publishedDate]) => {
         // This check is completely dependent on the date and time format being
-        // comparable.
-        if (sheetsDate <= publishedDate) {
-          throw new Error("Determined that a publish should not occur")
-        }
-
-        return true
+        // string comparable.
+        console.log(sheetsDate > publishedDate)
       })
       .then(() => {
         console.log(

@@ -3,28 +3,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Check Deploy
-        run: yarn should-deploy
-      # - id: nvm
-      #   name: Read .nvmrc
-      #   run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-      # - name: Use Node.js (.nvmrc)
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: "${{ steps.nvm.outputs.NVMRC }}"
-      # - name: Install dependencies
-      #   run: yarn --offline --frozen-lockfile
-      # - env:
-      #     GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
-      #     GOOGLE_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
-      #     GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
-      #   name: Build
-      #   run: yarn build:ci
-      # - name: Deploy
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: ./public
+      - name: Install Check Dependencies
+        run: yarn add google-spreadsheets
+      - id: check-deploy
+        name: Check Deploy
+        run: |
+          echo "::set-output name=should-deploy-value::$(yarn should-deploy)"
+      - if: steps.check-deploy.outputs.should-deploy-value == 'true'
+        name: Dispatch CI
+        run: echo "THIS IS WHERE IT WOULD HAPPEN"
+    timeout-minutes: 2
 on:
   schedule:
     # Run this once at the end of every day
