@@ -26,6 +26,7 @@
     "gatsby-plugin-sharp": "^2.6.36",
     "gatsby-source-filesystem": "^2.3.30",
     "gatsby-transformer-sharp": "^2.5.15",
+    "google-spreadsheet": "^3.0.13",
     "intersection-observer": "^0.11.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
