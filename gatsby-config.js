@@ -1,5 +1,9 @@
 const path = require("path")
 
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 const {
   GOOGLE_SPREADSHEET_ID,
   GOOGLE_SERVICE_ACCOUNT_CREDENTIALS,

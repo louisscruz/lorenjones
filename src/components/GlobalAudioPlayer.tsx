@@ -15,6 +15,7 @@ import PauseIcon from "@zendeskgarden/svg-icons/src/16/pause-fill.svg"
 import ChevronLeft from "@zendeskgarden/svg-icons/src/12/chevron-double-left-fill.svg"
 import ChevronRight from "@zendeskgarden/svg-icons/src/12/chevron-double-right-fill.svg"
 import MenuIcon from "@zendeskgarden/svg-icons/src/12/menu-fill.svg"
+import Downshift from "downshift"
 
 import { isMultiMovementWorkMovement, Track } from "../types"
 
@@ -599,11 +600,14 @@ const GlobalAudioPlayer = React.memo(() => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const handleMenuStateChange = useCallback(changes => {
-    if (Object.prototype.hasOwnProperty.call(changes, "isOpen")) {
-      setIsMenuOpen(changes.isOpen)
-    }
-  }, [])
+  const handleMenuStateChange = useCallback(
+    changes => {
+      if (Object.prototype.hasOwnProperty.call(changes, "isOpen")) {
+        setIsMenuOpen(changes.isOpen)
+      }
+    },
+    [isMenuOpen]
+  )
 
   return (
     <PlayerContainer>
