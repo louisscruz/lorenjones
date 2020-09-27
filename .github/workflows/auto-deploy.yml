@@ -12,6 +12,7 @@ jobs:
         id: check-deploy
         name: Check Deploy
         run: |
+          export NODE_PATH=$(yarn global dir)/node_modules
           echo "::set-output name=should-deploy-value::$(node ./scripts/shouldDeploy.js | tail -1)"
       - if: steps.check-deploy.outputs.should-deploy-value != 'true' && steps.check-deploy.outputs.should-deploy-value != 'false'
         run: echo "The check deploy script failed. Check the output." && exit 1
