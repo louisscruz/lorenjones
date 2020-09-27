@@ -4,7 +4,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install Check Dependencies
-        run: yarn add google-spreadsheets
+        run: yarn global add google-spreadsheet
       - env:
           GOOGLE_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
           GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
@@ -12,7 +12,9 @@ jobs:
         id: check-deploy
         name: Check Deploy
         run: |
-          echo "::set-output name=should-deploy-value::$(yarn should-deploy)"
+          echo "::set-output name=should-deploy-value::$(node ./scripts/shouldDeploy.js | tail -1)"
+      - if: steps.check-deploy.outputs.should-deploy-value != 'true' && steps.check-deploy.outputs.should-deploy-value != 'false'
+        run: echo "The check deploy script failed. Check the output." && exit 1
       - if: steps.check-deploy.outputs.should-deploy-value == 'true'
         name: Dispatch CI
         run: echo "THIS IS WHERE IT WOULD HAPPEN"

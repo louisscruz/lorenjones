@@ -179,12 +179,19 @@ getEnvironment()
       .then(([sheetsDate, publishedDate]) => {
         // This check is completely dependent on the date and time format being
         // string comparable.
+        const shouldDeploy = sheetsDate > publishedDate
+
+        if (shouldDeploy) {
+          console.log(
+            "The Google sheet looks to have been updated. A publish should occur!"
+          )
+        } else {
+          console.log(
+            "The Google sheet does not look to have been updated. Bailing."
+          )
+        }
+
         console.log(sheetsDate > publishedDate)
-      })
-      .then(() => {
-        console.log(
-          "The Google sheet looks to have been updated. A publish should occur!"
-        )
       })
   )
   .catch(error => {
