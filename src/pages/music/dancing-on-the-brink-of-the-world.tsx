@@ -18,6 +18,17 @@ const StyledXXL = styled(XXL)`
   color: white;
   font-size: 100px;
   line-height: 100px;
+  max-width: 900px;
+  text-shadow: 0px 0px 4px rgba(111, 111, 111, 1);
+`
+
+const TitleContainer = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction:
+  height: 100%;
+  justify-content: center;
+  min-height: 100vh;
 `
 
 const query = graphql`
@@ -43,7 +54,9 @@ const BackgroundSection = React.memo<BackgroundSectionProps>(
         fluid={splashImageData}
         backgroundColor={`#040e18`}
       >
-        <StyledXXL isBold>Dancing on the Brink of the World</StyledXXL>
+        <TitleContainer>
+          <StyledXXL isBold>Dancing on the Brink of the World</StyledXXL>
+        </TitleContainer>
       </BackgroundImage>
     )
   }

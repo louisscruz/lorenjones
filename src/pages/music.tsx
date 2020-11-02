@@ -69,11 +69,18 @@ const AlbumImg = styled.img`
   height: auto;
 `
 
+const StyledTitle = styled(XXL)`
+  margin-bottom: 24px;
+`
+
 const StyledMovementListItem = styled.li`
   align-items: center;
   display: flex;
   height: 32px;
   margin: 4px;
+  > button {
+    margin-left: 8px;
+  }
 `
 
 const Albums = React.memo<AlbumsProps>(({ albums }) => {
@@ -248,7 +255,7 @@ const Music = React.memo(() => {
   return (
     <ContentContainer>
       <SEO title="Music" />
-      <XXL>Music</XXL>
+      <StyledTitle>Music</StyledTitle>
       <Albums albums={albums} />
       <WorksByGenre works={works} />
     </ContentContainer>

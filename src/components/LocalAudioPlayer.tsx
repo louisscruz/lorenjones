@@ -34,7 +34,7 @@ const LocalAudioPlayer = React.memo<LocalAudioPlayerProps>(({ track }) => {
   }, [isCurrentTrack, isCurrentTrackAndPlaying, pause, play, track.id])
 
   return (
-    <IconButton onClick={handlePlayerClick} size="small">
+    <IconButton isPrimary onClick={handlePlayerClick} size="small">
       {isCurrentTrackAndPlaying ? <PauseIcon /> : <PlayIcon />}
     </IconButton>
   )

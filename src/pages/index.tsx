@@ -15,7 +15,7 @@ const Container = styled.div`
 const StyledH1 = styled.h1`
   color: white;
   font-size: 68px;
-  font-weight: 900;
+  font-weight: 600;
   z-index: 1;
 `
 const StyledH2 = styled.h1`
@@ -23,7 +23,7 @@ const StyledH2 = styled.h1`
   margin-top: 56px;
   line-height: 56px;
   font-size: 52px;
-  font-weight: 900;
+  font-weight: 600;
   z-index: 1;
 `
 

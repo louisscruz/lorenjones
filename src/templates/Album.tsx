@@ -26,6 +26,9 @@ const StyledMovementListItem = styled.li`
   display: flex;
   height: 32px;
   margin: 4px;
+  > button {
+    margin-left: 8px;
+  }
 `
 
 const AlbumTrack = React.memo<AlbumTrackProps>(({ index, track }) => (

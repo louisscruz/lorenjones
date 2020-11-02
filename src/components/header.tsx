@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
+import { Anchor } from "@zendeskgarden/react-buttons"
 
 interface HeaderProps {
   readonly siteTitle: string
@@ -30,13 +31,12 @@ const Header = React.memo<HeaderProps>(({ siteTitle }) => (
       <StyledLink to="/">Home</StyledLink>
       <StyledLink to="/about">About</StyledLink>
       <StyledLink to="/music">Music</StyledLink>
-      <a
+      <Anchor
         href="https://www.flickr.com/photos/134139109@N08/albums"
-        rel="noopener noreferrer"
-        target="_blank"
+        isExternal
       >
         Photos
-      </a>
+      </Anchor>
       <StyledLink to="/contact">Contact</StyledLink>
     </HeaderContainer>
   </StyledHeader>

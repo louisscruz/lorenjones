@@ -22,7 +22,7 @@ interface Quote {
 }
 
 const QuoteContainer = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 `
 
 const QuoteText = styled(Paragraph)`
@@ -30,6 +30,10 @@ const QuoteText = styled(Paragraph)`
   border-radius: 4px;
   padding: 8px;
   margin-bottom: 8px;
+`
+
+const Title = styled(XXL)`
+  margin-bottom: 24px;
 `
 
 const query = graphql`
@@ -70,7 +74,7 @@ const About = React.memo(() => {
     <>
       <ContentContainer>
         <SEO title="About" />
-        <XXL>About</XXL>
+        <Title>About</Title>
         <Tabs>
           <TabList>
             {bios.map(({ id, name }) => (
@@ -89,7 +93,7 @@ const About = React.memo(() => {
         </Tabs>
       </ContentContainer>
       <ContentContainer>
-        <XXL>Quotes</XXL>
+        <Title>Quotes</Title>
         {quotes.map(({ content, id, name, title, url }) => (
           <QuoteContainer key={id}>
             <QuoteText key={id}>{content}</QuoteText>

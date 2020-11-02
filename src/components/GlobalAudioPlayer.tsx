@@ -63,6 +63,10 @@ const EndColumn = styled.div`
   }
 `
 
+const StyledMenu = styled(Menu)`
+  max-width: 300px;
+`
+
 const scrollTitleRight = keyframes`
   0% {
     transform: translateX(0%)
@@ -642,7 +646,7 @@ const GlobalAudioPlayer = React.memo(() => {
             </IconButton>
           </Trigger>
           {isMenuOpen && (
-            <Menu hasArrow isCompact>
+            <StyledMenu hasArrow isCompact>
               {tracks.map(track => (
                 <Item key={track.id} value={track}>
                   {isMultiMovementWorkMovement(track.work)
@@ -650,7 +654,7 @@ const GlobalAudioPlayer = React.memo(() => {
                     : track.work.name}
                 </Item>
               ))}
-            </Menu>
+            </StyledMenu>
           )}
         </Dropdown>
       </StartColumn>

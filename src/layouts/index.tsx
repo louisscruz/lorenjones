@@ -36,6 +36,8 @@ const MainContainer = styled.main`
   flex: 1;
   flex-direction: column;
   justify-content: flex-start;
+  font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI,
+    Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, sans-serif;
 `
 const Layout = React.memo(({ children }) => {
   const {
