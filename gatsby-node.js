@@ -7,9 +7,30 @@ const mapAlbumsRowToAlbumType = ({ albumId, description, name }) => ({
   name,
 })
 
+// Google drive gives urls that don't allow for download.
+//
+// Take a URL like this:
+//
+// https://drive.google.com/file/d/1BYIYVFRo0ifs5Tz_sJ-2lZLueNska5Oi/view?usp=sharing
+//
+// Parse the audioLink for the id, then form a URL like:
+//
+// https://drive.google.com/uc?id=1BYIYVFRo0ifs5Tz_sJ-2lZLueNska5Oi&export=download
+
+const mapAudioLinkToDownloadableAudioLink = audioLink => {
+  const isDriveLink = audioLink.indexOf("/file/d/") !== -1
+
+  if (!isDriveLink) return audioLink
+
+  const suffix = audioLink.split("/file/d/")[1]
+  const id = suffix.split("/")[0]
+
+  return `https://drive.google.com/uc?id=${id}&export=download`
+}
+
 const mapTracksRowToTrackType = ({ albumId, audioLink, trackId, workId }) => ({
   albumId,
-  audioLink,
+  audioLink: mapAudioLinkToDownloadableAudioLink(audioLink),
   id: trackId,
   workId,
 })
