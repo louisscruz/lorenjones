@@ -604,10 +604,26 @@ const GlobalAudioPlayer = React.memo(() => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  const lastMenuOpenRef = useRef<number | null>(null)
+
   const handleMenuStateChange = useCallback(
     changes => {
-      if (Object.prototype.hasOwnProperty.call(changes, "isOpen")) {
+      // This is a complete hack. For some reason, opening the menu in Chrome
+      // in production will fire off an opening and closing of the menu in very
+      // quick succession. And it will somehow not (most of the time?) happen
+      // when the browser console is open. This is such a headache. For now,
+      // the approach is:
+      //
+      // * on every state set, capture the time
+      // * before every state set, check to see that there wasn't recently another state set
+      //
+      if (
+        Object.prototype.hasOwnProperty.call(changes, "isOpen") &&
+        (!lastMenuOpenRef.current ||
+          Date.now() - lastMenuOpenRef.current >= 500)
+      ) {
         setIsMenuOpen(changes.isOpen)
+        lastMenuOpenRef.current = Date.now()
       }
     },
     [isMenuOpen]
