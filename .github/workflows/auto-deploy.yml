@@ -1,0 +1,32 @@
+jobs:
+  auto-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Check Dependencies
+        run: yarn global add google-spreadsheet
+      - env:
+          GOOGLE_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
+          GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
+          GOOGLE_SPREADSHEET_WORKSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_WORKSHEET_ID }}
+        id: check-deploy
+        name: Check Deploy
+        run: |
+          export NODE_PATH=$(yarn global dir)/node_modules
+          OUTPUT="$(node ./scripts/shouldDeploy.js)"
+          echo $OUTPUT
+          echo "::set-output name=should-deploy-value::$(echo $OUTPUT | grep -Eo '(true|false)')"
+      - if: steps.check-deploy.outputs.should-deploy-value != 'true' && steps.check-deploy.outputs.should-deploy-value != 'false'
+        run: echo "The check deploy script failed. Check the output." && exit 1
+      - if: steps.check-deploy.outputs.should-deploy-value == 'true'
+        name: Dispatch CI
+        run: |
+          echo "Attempting to dispatch workflow"
+          curl -X POST -H "authorization: Bearer ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repositories/36986130/actions/workflows/2212737/dispatches -d "{\"ref\":\"$GITHUB_REF\"}" --fail
+    timeout-minutes: 1
+on: [push]
+# on:
+#   schedule:
+#     # Run this once at the end of every day
+#     - cron: "0 0 * * *"
+name: Auto Deploy CI

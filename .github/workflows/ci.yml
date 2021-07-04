@@ -1,0 +1,63 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: nvm
+        name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v1
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      - name: Install dependencies
+        run: yarn --offline --frozen-lockfile
+      - env:
+          GATSBY_CONTACT_FORM_POST_URL: ${{ secrets.GATSBY_CONTACT_FORM_POST_URL }}
+          GATSBY_LORENS_EMAIL_ADDRESS: ${{ secrets.GATSBY_LORENS_EMAIL_ADDRESS }}
+          GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
+          GOOGLE_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
+          GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
+        name: Build
+        run: yarn build:ci
+      - name: Upload public
+        uses: actions/upload-artifact@v2
+        with:
+          name: public
+          path: public
+    timeout-minutes: 10
+  deploy:
+    needs: ["build", "type-check"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download public
+        uses: actions/download-artifact@v2
+        with:
+          name: public
+          path: public
+      # - if: github.ref == 'refs/heads/master'
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+    timeout-minutes: 5
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: nvm
+        name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v1
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      - name: Install dependencies
+        run: yarn --offline --frozen-lockfile
+      - name: Type check
+        run: yarn type-check
+    timeout-minutes: 5
+on: [push, workflow_dispatch]
+name: Standard CI
